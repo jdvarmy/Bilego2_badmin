@@ -1,17 +1,19 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import DataTable from '../../../components/DataTable/DataTable';
 import { useSelector } from 'react-redux';
 import { selectTaxonomyStore } from '../../../store/selectors';
+import { ColDef } from 'ag-grid-community';
+import { Taxonomy } from '../../../typings/types';
 
-const columnDefs = [
-  { field: 'Название' },
-  { field: 'Описание' },
-  { field: 'Ярлык' },
-  { field: 'Иконка' },
-  { field: 'Картинка' },
-  { field: 'Записи' },
-  { field: 'Действия' },
+const columnDefs: ColDef<Taxonomy>[] = [
+  { field: 'name' },
+  { field: 'description' },
+  { field: 'slug' },
+  { field: 'icon' },
+  { field: 'image' },
+  { field: 'count' },
+  { field: 'action' },
 ];
 
 const defaultColDef = {
@@ -19,12 +21,16 @@ const defaultColDef = {
   filter: 'agTextColumnFilter',
 };
 
-const TaxonomyTable = () => {
+const TableBody = () => {
   const { taxonomy } = useSelector(selectTaxonomyStore);
   const gridRef = useRef<AgGridReact | null>(null);
-  const [rowData, setRowData] = useState([]);
+  const [rowData, setRowData] = useState<Taxonomy[]>([]);
 
-  console.log(taxonomy);
+  useEffect(() => {
+    if (Array.isArray(taxonomy) && taxonomy.length > 0) {
+      setRowData(taxonomy.map((item) => item));
+    }
+  }, [taxonomy]);
 
   return (
     <DataTable
@@ -38,4 +44,4 @@ const TaxonomyTable = () => {
   );
 };
 
-export default TaxonomyTable;
+export default TableBody;

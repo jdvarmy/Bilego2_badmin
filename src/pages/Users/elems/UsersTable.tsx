@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useTheme } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { User } from '../../../typings/types';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';

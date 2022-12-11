@@ -15,7 +15,7 @@ type Props = {
   link: TermLink;
 };
 
-const TaxonomyEditor = ({ type, link }: Props) => {
+const TableHeader = ({ type, link }: Props) => {
   const dispatch: AppDispatch = useDispatch();
   const initialState: Taxonomy = { name: '', type, link, slug: '' };
   const [taxonomy, setTaxonomy] = useState<Taxonomy>(initialState);
@@ -109,4 +109,4 @@ const TaxonomyEditor = ({ type, link }: Props) => {
   );
 };
 
-export default TaxonomyEditor;
+export default TableHeader;

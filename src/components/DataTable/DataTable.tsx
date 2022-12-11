@@ -1,4 +1,4 @@
-import React, { ForwardedRef, forwardRef } from 'react';
+import React, { ForwardedRef, forwardRef, memo } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
@@ -27,4 +27,4 @@ const DataTable = forwardRef(
 
 DataTable.displayName = 'DataTable';
 
-export default DataTable;
+export default memo(DataTable);

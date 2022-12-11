@@ -77,7 +77,7 @@ const TicketOnSellContent = ({
         <Grid container alignItems='center' spacing={2}>
           <Grid item xs>
             <DateTimePicker
-              renderInput={(props) => <TextField size='small' focused={!!dateFrom} fullWidth {...props} />}
+              renderInput={(props: object) => <TextField size='small' focused={!!dateFrom} fullWidth {...props} />}
               label='Начало продаж'
               value={dateFrom || null}
               onChange={handleChangeField('dateFrom')}
@@ -86,7 +86,7 @@ const TicketOnSellContent = ({
           </Grid>
           <Grid item xs>
             <DateTimePicker
-              renderInput={(props) => <TextField size='small' focused={!!dateTo} fullWidth {...props} />}
+              renderInput={(props: object) => <TextField size='small' focused={!!dateTo} fullWidth {...props} />}
               label='Окончание продаж'
               value={dateTo || null}
               onChange={handleChangeField('dateTo')}

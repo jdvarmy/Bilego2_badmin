@@ -57,7 +57,7 @@ const EventDatesTabContent = ({ selectDate, dates }: Props) => {
       </Grid>
       <Grid item xs={6} sx={{ display: 'flex' }}>
         <DateTimePicker
-          renderInput={(props) => <TextField focused={!!selectDate.dateFrom} fullWidth {...props} />}
+          renderInput={(props: object) => <TextField focused={!!selectDate.dateFrom} fullWidth {...props} />}
           label='Начало'
           value={selectDate.dateFrom}
           onChange={handleChangeDateTime('dateFrom')}
@@ -69,7 +69,7 @@ const EventDatesTabContent = ({ selectDate, dates }: Props) => {
           </IconButton>
         </Tooltip>
         <DateTimePicker
-          renderInput={(props) => <TextField focused={!!selectDate.dateTo} fullWidth {...props} />}
+          renderInput={(props: object) => <TextField focused={!!selectDate.dateTo} fullWidth {...props} />}
           label='Конец'
           value={selectDate.dateTo}
           onChange={handleChangeDateTime('dateTo')}
@@ -78,7 +78,7 @@ const EventDatesTabContent = ({ selectDate, dates }: Props) => {
       </Grid>
       <Grid item xs={3}>
         <DateTimePicker
-          renderInput={(props) => <TextField focused={!!selectDate.closeDateTime} fullWidth {...props} />}
+          renderInput={(props: object) => <TextField focused={!!selectDate.closeDateTime} fullWidth {...props} />}
           label='Закрытие продаж'
           value={selectDate.closeDateTime}
           onChange={handleChangeDateTime('closeDateTime')}

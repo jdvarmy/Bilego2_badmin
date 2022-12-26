@@ -50,7 +50,7 @@ export enum TermType {
   itemType = 'type',
 }
 
-export enum TermLink {
+export enum TermTypeLink {
   event = 'event',
   item = 'item',
 }

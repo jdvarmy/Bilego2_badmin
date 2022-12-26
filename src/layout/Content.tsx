@@ -15,6 +15,9 @@ const MainWrapper = styled(Box)(
 
 const MainContent = styled(Box)(
   ({ theme }) => `
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
     margin-top: ${theme.header.height};
     flex: 1 1 auto;
     overflow: auto;

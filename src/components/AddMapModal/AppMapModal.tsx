@@ -16,19 +16,15 @@ import { editEventDateAsync } from '../../store/eventsSlice/eventsSlice';
 import { TicketType } from '../../typings/enum';
 
 export type MapContent = FileList | null;
+type Props = { open: boolean; onClose: () => void; selectedDate?: EventDate };
+type FileListType = { map: MapContent | null; minimap: MapContent | null };
 
-type Props = {
-  open: boolean;
-  onClose: () => void;
-  selectedDate?: EventDate;
-};
-
-const initialFileList = { map: null, minimap: null };
+const initialFileList: FileListType = { map: null, minimap: null };
 
 const AppMapModal = ({ open, onClose, selectedDate }: Props) => {
   const dispatch: AppDispatch = useDispatch();
   const { loading, maps } = useSelector(selectMedialibrary);
-  const [fileList, setFileList] = useState<{ map: MapContent; minimap: MapContent }>(initialFileList);
+  const [fileList, setFileList] = useState<FileListType>(initialFileList);
   const [selected, setSelected] = useState<string | null>(null);
 
   const handleUpload = useCallback(() => {
@@ -46,11 +42,11 @@ const AppMapModal = ({ open, onClose, selectedDate }: Props) => {
       !!uid && dispatch(editEventDateAsync(uid, { ...data, type: TicketType.map, map: { uid: selected } }));
     }
     onClose();
-  }, [selected, selectedDate, dispatch]);
+  }, [selected, selectedDate, onClose, dispatch]);
 
   useEffect(() => {
     dispatch(getMapListAsync());
-  }, []);
+  }, [dispatch]);
 
   return (
     <ModalDialog

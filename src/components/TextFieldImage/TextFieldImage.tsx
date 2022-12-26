@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, IconButton, TextField } from '@mui/material';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
-import CloudUploadTwoToneIcon from '@mui/icons-material/CloudUploadTwoTone';
+import AddPhotoAlternateTwoToneIcon from '@mui/icons-material/AddPhotoAlternateTwoTone';
 import MediaLibrary from '../MediaLibrary/MediaLibrary';
 import { MediaSelectData } from '../../typings/types';
 import { OverridableStringUnion } from '@mui/types';
@@ -12,10 +12,11 @@ type Props = {
   onSelect?: (image: MediaSelectData) => unknown;
   onDelete?: () => unknown;
   size?: OverridableStringUnion<'small' | 'medium'>;
+  onlyIcon?: boolean;
 };
 
 // todo: добавить это в редактирование и создание юзера
-const TextFieldImage = ({ label, value, onSelect, onDelete, size }: Props) => {
+const TextFieldImage = ({ label, value, onSelect, onDelete, size, onlyIcon }: Props) => {
   const [openMedia, setOpenMedia] = useState<boolean>(false);
 
   const handleOpenMedia = () => {
@@ -37,22 +38,24 @@ const TextFieldImage = ({ label, value, onSelect, onDelete, size }: Props) => {
 
   return (
     <Box display='flex'>
-      <TextField
-        label={label}
-        type='text'
-        fullWidth
-        InputProps={{ readOnly: true }}
-        value={typeof value === 'object' ? value?.name : ''}
-        focused={!!value}
-        size={size}
-      />
+      {!onlyIcon && (
+        <TextField
+          label={label}
+          type='text'
+          fullWidth
+          InputProps={{ readOnly: true }}
+          value={typeof value === 'object' ? value?.name : ''}
+          focused={!!value}
+          size={size}
+        />
+      )}
       {!!value && (
         <IconButton size={size} color='error' onClick={handleDeleteMedia}>
           <DeleteForeverTwoToneIcon />
         </IconButton>
       )}
       <IconButton size={size} color='primary' onClick={handleOpenMedia}>
-        <CloudUploadTwoToneIcon />
+        <AddPhotoAlternateTwoToneIcon />
       </IconButton>
       <MediaLibrary open={openMedia} closeHandler={handleCloseMedia} selectHandle={handleSelectMedia} />
     </Box>

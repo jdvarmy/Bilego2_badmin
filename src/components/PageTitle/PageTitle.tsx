@@ -8,7 +8,7 @@ type Props = {
 const PageTitle = ({ title }: Props) => {
   return (
     <Container maxWidth='lg'>
-      <Grid container sx={{ my: 3 }} justifyContent='space-between' alignItems='center'>
+      <Grid container sx={{ mb: 3 }} justifyContent='space-between' alignItems='center'>
         <Grid item xs>
           <Typography variant='h1' sx={{ mt: 4, mb: 0 }}>
             {title}

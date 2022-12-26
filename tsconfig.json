@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "esnext",
+    "target": "es2019",
+    "module": "commonjs",
     "sourceMap": true,
     "allowJs": true,
     "downlevelIteration": true,
@@ -16,17 +16,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ]
+    "strictNullChecks": false
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "node_modules",
-    "build"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules", "build"]
 }

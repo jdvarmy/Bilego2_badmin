@@ -1,23 +1,22 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Box, Card, CardContent, CardHeader, Divider, Grid, IconButton, TextField, Tooltip } from '@mui/material';
-import { TermLink, TermType } from '../../../typings/enum';
+import { TermTypeLink, TermType } from '../../../typings/enum';
 import { MediaSelectData, Taxonomy } from '../../../typings/types';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectTaxonomyStore } from '../../../store/selectors';
+import { useDispatch } from 'react-redux';
 import TextFieldImage from '../../../components/TextFieldImage/TextFieldImage';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import SaveAsTwoToneIcon from '@mui/icons-material/SaveAsTwoTone';
 import { AppDispatch } from '../../../store/store';
-import { saveTaxonomyAsync } from '../../../store/taxonomySlice/taxonomySlice';
+import { saveTaxonomyAsync } from '../../../store/taxonomySlice/taxonomyThunk';
 
 type Props = {
   type: TermType;
-  link: TermLink;
+  link: TermTypeLink;
 };
 
 const TableHeader = ({ type, link }: Props) => {
   const dispatch: AppDispatch = useDispatch();
-  const initialState: Taxonomy = { name: '', type, link, slug: '' };
+  const initialState: Taxonomy = useMemo(() => ({ name: '', type, link, slug: '' }), [type, link]);
   const [taxonomy, setTaxonomy] = useState<Taxonomy>(initialState);
 
   const disabled = !(taxonomy.name && taxonomy.slug && taxonomy.icon);
@@ -34,7 +33,7 @@ const TableHeader = ({ type, link }: Props) => {
   const handleSave = useCallback(() => {
     dispatch(saveTaxonomyAsync(taxonomy));
     setTaxonomy(initialState);
-  }, [taxonomy]);
+  }, [dispatch, initialState, taxonomy]);
 
   useEffect(() => {
     const cyrillicToTranslit = CyrillicToTranslit();

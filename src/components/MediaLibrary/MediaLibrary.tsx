@@ -20,7 +20,7 @@ import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import Image from './Image';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../store/store';
-import { getFileListAsync, uploadFileAsync } from '../../store/medialibrarySlice/medialibrarySlice';
+import { uploadFileAsync } from '../../store/medialibrarySlice/medialibrarySlice';
 import { selectMedialibrary } from '../../store/selectors';
 import { MediaFile, MediaSelectData } from '../../typings/types';
 import UploadFiles from '../UploadFiles/UploadFiles';
@@ -39,7 +39,6 @@ const MediaLibrary = ({ open, closeHandler, selectHandle }: Props) => {
   const handleSetFile = (e: ChangeEvent<HTMLInputElement>) => {
     setFileList(e.target.files || null);
   };
-
   const handleUpload = useCallback(() => {
     if (fileList) {
       dispatch(uploadFileAsync(fileList));
@@ -52,10 +51,6 @@ const MediaLibrary = ({ open, closeHandler, selectHandle }: Props) => {
     },
     [selectHandle, closeHandler],
   );
-
-  useEffect(() => {
-    dispatch(getFileListAsync());
-  }, [dispatch]);
 
   useEffect(() => {
     setFileList(null);

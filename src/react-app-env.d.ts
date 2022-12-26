@@ -15,6 +15,6 @@ declare module '*.svg' {
 }
 
 declare module '*.module.scss' {
-  const classes: any;
+  const classes: string;
   export default classes;
 }

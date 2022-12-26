@@ -1,5 +1,6 @@
+import { Key } from 'react';
 import { HTTP_URL, HTTP_VERSION } from './env';
-import { City, EventHeaderType, PostStatus, TermLink, TermType, TicketType, UserRole } from './enum';
+import { City, EventHeaderType, PostStatus, TermTypeLink, TermType, TicketType, UserRole } from './enum';
 
 export const loginPage = '/login';
 export const storageTokenName = '_btoken' as const;
@@ -23,13 +24,14 @@ export type User = {
 };
 
 export interface Taxonomy {
+  id?: Key;
   name: string;
   type: TermType;
-  link: TermLink;
-  slug: string;
+  link?: TermTypeLink;
+  slug?: string;
   description?: string;
-  icon?: MediaSelectData | number;
-  image?: MediaSelectData | number;
+  icon?: (Partial<MediaSelectData> & { patch?: string }) | number;
+  image?: (Partial<MediaSelectData> & { patch?: string }) | number;
   sortNumber?: number;
   showInMenu?: boolean;
   showInMainPage?: boolean;

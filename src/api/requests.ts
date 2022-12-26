@@ -12,6 +12,7 @@ import {
   Taxonomy,
 } from '../typings/types';
 import { TermType } from '../typings/enum';
+import { Key } from 'react';
 
 export const registerRequest = (data: RequestAuth) => requests.post<ResponseAuth>(`auth/register`, data);
 export const loginRequest = (data: RequestAuth) => requests.post<ResponseAuth>(`auth/login`, data);
@@ -29,7 +30,8 @@ export const deleteUserRequest = (uid: string) => requests.delete<boolean>(`user
 
 export const fetchMedialibraryRequest = () => requests.get<MediaFile[]>(`media`);
 export const getFileMedialibraryRequest = (id: number) => requests.get<MediaFile>(`media/${id}`);
-export const uploadFileMedialibraryRequest = (data: FormData) => requests.post<boolean>(`media/upload`, data);
+export const uploadFileMedialibraryRequest = (data: FormData) =>
+  requests.post<boolean>(`media/upload`, data, { headers: { 'Content-Type': 'multipart/form-data' } });
 export const removeFileMedialibraryRequest = (id: number) => requests.delete<boolean>(`media/${id}`);
 
 export const fetchMapItemsRequest = () => requests.get<any[]>(`map`);
@@ -62,5 +64,12 @@ export const saveTicketsRequest = (
 export const deleteTicketsRequest = (dateUid: string, ticketsUid: string[]) =>
   requests.delete<boolean>(`tickets/${dateUid}`, { data: ticketsUid });
 
+// TAXONOMY
 export const fetchTaxonomyRequest = (type: TermType) => requests.get<Taxonomy[]>(`taxonomy/${type}`);
 export const saveTaxonomyRequest = (data: Taxonomy) => requests.post<Taxonomy[]>(`taxonomy`, data);
+export const deleteTaxonomyRequest = (id: Key) => requests.delete<Taxonomy[]>(`taxonomy/${id}`);
+export const patchTaxonomyRequest = ({
+  id,
+  ...data
+}: Omit<Taxonomy, 'image' | 'icon'> | Pick<Taxonomy, 'id' | 'image' | 'icon'>) =>
+  requests.patch<Taxonomy>(`taxonomy/${id}`, data);

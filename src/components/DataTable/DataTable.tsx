@@ -1,24 +1,34 @@
-import React, { ForwardedRef, forwardRef, memo } from 'react';
+import React, { ForwardedRef, forwardRef } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 
-import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
-import 'ag-grid-community/styles/ag-theme-alpine.css';
-import { GridOptions } from 'ag-grid-community/dist/lib/entities/gridOptions'; // Optional theme CSS
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-alpine-dark.css';
+import './ag-theme-admin-bilego.css';
+import { GridOptions } from 'ag-grid-community/dist/lib/entities/gridOptions';
+import { ColDef } from 'ag-grid-community';
 
 type Props = GridOptions;
 
+const containerStyle = { width: '100%', height: '100%' };
+const defaultColDef: ColDef = {
+  filter: 'agTextColumnFilter',
+  sortable: true,
+  resizable: true,
+  editable: true,
+};
+
 const DataTable = forwardRef(
-  ({ rowData, columnDefs, defaultColDef, onCellClicked }: Props, ref: ForwardedRef<AgGridReact>) => {
+  ({ rowData, columnDefs, onCellClicked, ...props }: Props, ref: ForwardedRef<AgGridReact>) => {
     return (
-      <div className='ag-theme-alpine-dark' style={{ height: '100%', width: '100%' }}>
+      <div className='ag-theme-alpine-dark ag-theme-admin-bilego' style={containerStyle}>
         <AgGridReact
-          ref={ref} // Ref for accessing Grid's API
+          ref={ref}
           rowData={rowData}
           columnDefs={columnDefs}
-          defaultColDef={defaultColDef} // Default Column Properties
-          animateRows={true} // Optional - set to 'true' to have rows animate when sorted
-          rowSelection='multiple' // Options - allows click selection of rows
-          onCellClicked={onCellClicked} // Optional - registering for Grid Event
+          defaultColDef={defaultColDef}
+          animateRows
+          onCellClicked={onCellClicked}
+          {...props}
         />
       </div>
     );
@@ -27,4 +37,4 @@ const DataTable = forwardRef(
 
 DataTable.displayName = 'DataTable';
 
-export default memo(DataTable);
+export default DataTable;

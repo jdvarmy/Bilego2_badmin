@@ -5,10 +5,7 @@ import { axiosBaseUrl, ResponseAuth, storageTokenName } from '../typings/types';
 const baseConfig = {
   baseURL: axiosBaseUrl,
   withCredentials: true,
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
+  headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
 };
 
 export const instance = axios.create(baseConfig);
@@ -58,29 +55,30 @@ instance.interceptors.response.use(
 const baseRequest = <R>({ method, url, ...config }: AxiosRequestConfig): Promise<AxiosResponse<R>> =>
   instance({ method, url, ...config });
 
-const requests = {
-  get: <R>(url: string, data?: object, cfg?: AxiosRequestConfig) => {
+const requests: Record<
+  RequestMethod,
+  <R>(url: string, data?: object, cfg?: AxiosRequestConfig) => Promise<AxiosResponse<R>>
+> = {
+  get: (url, data, cfg) => {
     if (data) {
       // @ts-ignore
       Object.keys(data).forEach((key) => !data[key] && delete data[key]);
     }
 
-    return baseRequest<R>({
+    return baseRequest({
       method: RequestMethod.Get,
       url: data ? `${url}${qs.stringify(data, { addQueryPrefix: true })}` : url,
       ...cfg,
     });
   },
 
-  post: <R>(url: string, data?: any, cfg?: AxiosRequestConfig) =>
-    baseRequest<R>({ method: RequestMethod.Post, url, data, ...cfg }),
+  post: (url, data, cfg) => baseRequest({ method: RequestMethod.Post, url, data, ...cfg }),
 
-  put: <R>(url: string, data?: any, cfg?: AxiosRequestConfig) =>
-    baseRequest<R>({ method: RequestMethod.Put, url, data, ...cfg }),
+  put: (url, data, cfg) => baseRequest({ method: RequestMethod.Put, url, data, ...cfg }),
 
-  patch: <R>(url: string, cfg?: AxiosRequestConfig) => baseRequest<R>({ method: RequestMethod.Patch, url, ...cfg }),
+  patch: (url, data, cfg) => baseRequest({ method: RequestMethod.Patch, url, data, ...cfg }),
 
-  delete: <R>(url: string, cfg?: AxiosRequestConfig) => baseRequest<R>({ method: RequestMethod.Delete, url, ...cfg }),
+  delete: (url, cfg) => baseRequest({ method: RequestMethod.Delete, url, ...cfg }),
 };
 
 export default requests;

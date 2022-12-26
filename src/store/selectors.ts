@@ -52,3 +52,4 @@ export const selectTicketsCircleSelector = (state: RootState) => {
 export const selectCircleStore = (state: RootState) => select(state)?.circle;
 
 export const selectTaxonomyStore = (state: RootState) => select(state)?.taxonomy;
+export const selectTaxonomy = (state: RootState) => selectTaxonomyStore(state)?.taxonomy;

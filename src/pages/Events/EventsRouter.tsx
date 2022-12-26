@@ -9,14 +9,12 @@ const TaxonomyRouter = lazy(() => import('../Taxonomy/TaxonomyRouter'));
 
 const EventsRouter = () => {
   return (
-    <div>
-      <Routes>
-        <Route path='/' element={routerSuspense(Events)} />
-        <Route path='create' element={routerSuspense(CreateEvent)} />
-        <Route path='edit' element={routerSuspense(EditEvent)} />
-        <Route path='terms/*' element={routerSuspense(TaxonomyRouter)} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path='/' element={routerSuspense(Events)} />
+      <Route path='create' element={routerSuspense(CreateEvent)} />
+      <Route path='edit' element={routerSuspense(EditEvent)} />
+      <Route path='terms/*' element={routerSuspense(TaxonomyRouter)} />
+    </Routes>
   );
 };
 

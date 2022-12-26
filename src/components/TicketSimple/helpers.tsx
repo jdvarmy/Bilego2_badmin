@@ -23,7 +23,7 @@ export function factoryCols() {
       key: 'stock',
       name: <Box>Кол-во</Box>,
       width: 85,
-      formatter: () => null,
+      formatter: (): any => null,
       groupFormatter: ({ childRows }: any) => <Typography variant='h5'>{childRows[0]?.stock}</Typography>,
     },
     {
@@ -61,7 +61,7 @@ export function factoryCols() {
       key: 'actions',
       name: <Box sx={{ textAlign: 'right' }} />,
       width: 100,
-      formatter: () => null,
+      formatter: (): any => null,
       groupFormatter: ({ childRows }: any) => LocalActions(childRows[0]?.actions),
     },
   ];

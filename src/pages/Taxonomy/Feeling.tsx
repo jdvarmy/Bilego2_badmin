@@ -3,6 +3,9 @@ import Taxonomy from './Taxonomy';
 import { TermType } from '../../typings/enum';
 import { useDispatch } from 'react-redux';
 import { setTaxonomy } from '../../store/taxonomySlice/taxonomySlice';
+import { Taxonomy as ITaxonomy } from '../../typings/types';
+
+const columns: (keyof ITaxonomy)[] = ['name', 'slug', 'description', 'icon', 'id', 'link'];
 
 const Feeling = () => {
   const dispatch = useDispatch();
@@ -13,7 +16,7 @@ const Feeling = () => {
     };
   }, [dispatch]);
 
-  return <Taxonomy type={TermType.eventFeeling} />;
+  return <Taxonomy type={TermType.eventFeeling} columns={columns} />;
 };
 
 export default Feeling;

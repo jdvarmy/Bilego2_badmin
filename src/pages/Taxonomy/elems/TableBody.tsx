@@ -10,6 +10,7 @@ import cloneDeep from '../../../utils/functions/cloneDeep';
 import { editTaxonomyAsync } from '../../../store/taxonomySlice/taxonomyThunk';
 import { isEqual } from '../../../utils/functions/isEqual';
 import { createColumnDefs } from '../helpers/createColumnDefs';
+import { RowDragEvent } from 'ag-grid-community/dist/lib/events';
 
 type Props = {
   columns?: (keyof Taxonomy)[];
@@ -22,22 +23,32 @@ const TableBody = ({ columns }: Props) => {
 
   const [data, setData] = useState<{ columnDefs: ColDef[]; rowData: object[] }>({ columnDefs: [], rowData: [] });
 
-  const onCellValueChanged = useCallback(
-    (event: CellValueChangedEvent) => {
+  const reqEditTaxonomy = useCallback(
+    (data: Taxonomy) => {
       // удаляем картинки и иконки, тк по ним данные сохраняются в другой функции
-      const data = Object.fromEntries(
-        Object.entries(event.data as Taxonomy).filter(([key]) => !['image', 'icon'].includes(key)),
-      );
-      dispatch(editTaxonomyAsync(data as Taxonomy));
+      const clearData = Object.fromEntries(Object.entries(data).filter(([key]) => !['image', 'icon'].includes(key)));
+      dispatch(editTaxonomyAsync(clearData));
     },
     [dispatch],
+  );
+  const onCellValueChanged = useCallback(
+    (event: CellValueChangedEvent) => reqEditTaxonomy(event.data),
+    [reqEditTaxonomy],
+  );
+  const onRowDragEnd = useCallback(
+    (event: RowDragEvent) => {
+      if (event.overIndex !== -1 && event.node?.data?.id) {
+        reqEditTaxonomy({ ...event.node.data, overIndex: event.overIndex });
+      }
+    },
+    [reqEditTaxonomy],
   );
 
   useEffect(() => {
     if (Array.isArray(taxonomy) && taxonomy.length > 0) {
       const columnDefs = createColumnDefs(columns || (Object.keys(taxonomy[0]) as (keyof Taxonomy)[]));
 
-      setData({ columnDefs, rowData: cloneDeep(taxonomy) as Taxonomy[] });
+      setData({ columnDefs, rowData: cloneDeep<Taxonomy[]>(taxonomy) as Taxonomy[] });
     }
 
     return () => {
@@ -50,9 +61,10 @@ const TableBody = ({ columns }: Props) => {
       ref={gridRef}
       rowData={data.rowData}
       columnDefs={data.columnDefs}
-      animateRows={true}
+      rowDragManaged={true}
       rowSelection='multiple'
       onCellValueChanged={onCellValueChanged}
+      onRowDragEnd={onRowDragEnd}
     />
   );
 };

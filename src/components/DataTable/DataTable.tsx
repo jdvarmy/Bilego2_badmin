@@ -12,28 +12,25 @@ type Props = GridOptions;
 const containerStyle = { width: '100%', height: '100%' };
 const defaultColDef: ColDef = {
   filter: 'agTextColumnFilter',
-  sortable: true,
+  sortable: false,
   resizable: true,
   editable: true,
 };
 
-const DataTable = forwardRef(
-  ({ rowData, columnDefs, onCellClicked, ...props }: Props, ref: ForwardedRef<AgGridReact>) => {
-    return (
-      <div className='ag-theme-alpine-dark ag-theme-admin-bilego' style={containerStyle}>
-        <AgGridReact
-          ref={ref}
-          rowData={rowData}
-          columnDefs={columnDefs}
-          defaultColDef={defaultColDef}
-          animateRows
-          onCellClicked={onCellClicked}
-          {...props}
-        />
-      </div>
-    );
-  },
-);
+const DataTable = forwardRef(({ rowData, columnDefs, ...props }: Props, ref: ForwardedRef<AgGridReact>) => {
+  return (
+    <div className='ag-theme-alpine-dark ag-theme-admin-bilego' style={containerStyle}>
+      <AgGridReact
+        ref={ref}
+        rowData={rowData}
+        columnDefs={columnDefs}
+        defaultColDef={defaultColDef}
+        animateRows
+        {...props}
+      />
+    </div>
+  );
+});
 
 DataTable.displayName = 'DataTable';
 

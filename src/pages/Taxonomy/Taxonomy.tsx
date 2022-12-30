@@ -13,7 +13,7 @@ import { Taxonomy as ITaxonomy } from '../../typings/types';
 
 type Props = {
   type: TermType;
-  columns?: (keyof ITaxonomy)[];
+  columns: (keyof ITaxonomy)[];
 };
 
 const nameMap = {
@@ -41,7 +41,7 @@ const Taxonomy = ({ type, columns }: Props) => {
       <ContentContainer>
         <Grid container spacing={3} sx={{ mb: 3 }} flexDirection='column' flexWrap='nowrap'>
           <Grid item>
-            <TableHeader type={type} link={TermTypeLink.event} />
+            <TableHeader type={type} link={TermTypeLink.event} fields={columns} />
           </Grid>
           <Grid item xs={12} flex={1}>
             <TableBody columns={columns} />

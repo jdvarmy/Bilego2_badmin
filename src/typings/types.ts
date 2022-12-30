@@ -32,7 +32,7 @@ export interface Taxonomy {
   description?: string;
   icon?: (Partial<MediaSelectData> & { patch?: string }) | number;
   image?: (Partial<MediaSelectData> & { patch?: string }) | number;
-  sortNumber?: number;
+  overIndex?: number;
   showInMenu?: boolean;
   showInMainPage?: boolean;
 }

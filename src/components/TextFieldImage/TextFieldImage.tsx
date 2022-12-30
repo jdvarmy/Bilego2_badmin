@@ -6,17 +6,17 @@ import MediaLibrary from '../MediaLibrary/MediaLibrary';
 import { MediaSelectData } from '../../typings/types';
 import { OverridableStringUnion } from '@mui/types';
 
-type Props = {
+export type MediaTextFieldProps = {
   label?: React.ReactNode;
   value?: MediaSelectData;
-  onSelect?: (image: MediaSelectData) => unknown;
-  onDelete?: () => unknown;
+  onSelect?: (image: MediaSelectData) => void;
+  onDelete?: () => void;
   size?: OverridableStringUnion<'small' | 'medium'>;
   onlyIcon?: boolean;
 };
 
 // todo: добавить это в редактирование и создание юзера
-const TextFieldImage = ({ label, value, onSelect, onDelete, size, onlyIcon }: Props) => {
+const TextFieldImage = ({ label, value, onSelect, onDelete, size, onlyIcon }: MediaTextFieldProps) => {
   const [openMedia, setOpenMedia] = useState<boolean>(false);
 
   const handleOpenMedia = () => {

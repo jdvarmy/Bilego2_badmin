@@ -3,6 +3,19 @@ import Taxonomy from './Taxonomy';
 import { TermType } from '../../typings/enum';
 import { setTaxonomy } from '../../store/taxonomySlice/taxonomySlice';
 import { useDispatch } from 'react-redux';
+import { Taxonomy as ITaxonomy } from '../../typings/types';
+
+const columns: (keyof ITaxonomy)[] = [
+  'name',
+  'slug',
+  'description',
+  'icon',
+  'image',
+  'showInMenu',
+  'showInMainPage',
+  'id',
+  'link',
+];
 
 const Selection = () => {
   const dispatch = useDispatch();
@@ -13,7 +26,7 @@ const Selection = () => {
     };
   }, [dispatch]);
 
-  return <Taxonomy type={TermType.eventSelection} />;
+  return <Taxonomy type={TermType.eventSelection} columns={columns} />;
 };
 
 export default Selection;

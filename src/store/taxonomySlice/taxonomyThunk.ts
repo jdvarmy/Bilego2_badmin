@@ -40,7 +40,7 @@ export const saveTaxonomyAsync =
   };
 
 export const editTaxonomyAsync =
-  (tax: Taxonomy): AppThunk =>
+  (tax: Partial<Taxonomy>): AppThunk =>
   async () => {
     try {
       patchTaxonomyRequest(tax);

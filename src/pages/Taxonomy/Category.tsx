@@ -3,6 +3,9 @@ import Taxonomy from './Taxonomy';
 import { TermType } from '../../typings/enum';
 import { useDispatch } from 'react-redux';
 import { setTaxonomy } from '../../store/taxonomySlice/taxonomySlice';
+import { Taxonomy as ITaxonomy } from '../../typings/types';
+
+const columns: (keyof ITaxonomy)[] = ['name', 'slug', 'description', 'icon', 'id', 'link'];
 
 const Category = () => {
   const dispatch = useDispatch();
@@ -13,7 +16,7 @@ const Category = () => {
     };
   }, [dispatch]);
 
-  return <Taxonomy type={TermType.eventCategory} />;
+  return <Taxonomy type={TermType.eventCategory} columns={columns} />;
 };
 
 export default Category;

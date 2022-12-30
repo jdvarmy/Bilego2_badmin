@@ -6,6 +6,6 @@ export const nameMap = {
   description: 'Описание',
   icon: 'Иконка',
   image: 'Картинка',
-  showInMenu: 'Показать в меню',
-  showInMainPage: 'Показать на главной странице',
+  showInMenu: 'Меню',
+  showInMainPage: 'Главная',
 };

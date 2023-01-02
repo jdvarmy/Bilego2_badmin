@@ -16,7 +16,7 @@ type Props = {
   columns: (keyof ITaxonomy)[];
 };
 
-const nameMap = {
+export const nameMapTaxonomy = {
   [TermType.eventCategory]: 'Категории',
   [TermType.eventGenre]: 'Жанры',
   [TermType.eventFeeling]: 'Настроения',
@@ -26,7 +26,7 @@ const nameMap = {
 
 const Taxonomy = ({ type, columns }: Props) => {
   const dispatch: AppDispatch = useDispatch();
-  const name = useMemo(() => nameMap[type], [type]);
+  const name = useMemo(() => nameMapTaxonomy[type], [type]);
 
   useEffect(() => {
     dispatch(getTaxonomyAsync(type));

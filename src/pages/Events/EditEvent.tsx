@@ -13,12 +13,12 @@ import EventDates from './elems/EventDates';
 import Tickets from '../../components/Tickets/Tickets';
 import EventGallery from './elems/EventGallery';
 import EventProps from './elems/EventProps';
-import EventPlace from './elems/EventPlace';
+import EventPlace from './elems/EventPlace/EventPlace';
 import EventHeader from './elems/EventHeader';
 import EventStatus from './elems/EventStatus';
 import SuspenseLoader from '../../components/SuspenseLoader/SuspenseLoader';
 import EventSEO from './elems/EventSEO';
-import EventTaxonomy from './elems/EventTaxonomy';
+import EventTaxonomy from './elems/EventTaxonomy/EventTaxonomy';
 
 const EditEvent = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -30,7 +30,7 @@ const EditEvent = () => {
     if (!event && uid) {
       dispatch(getEventAsync(uid));
     }
-  }, [event]);
+  }, [dispatch, event]);
 
   useEffect(() => {
     return () => {
@@ -66,7 +66,7 @@ const EditEvent = () => {
               <EventPlace city={event.city} item={event.item} artist={event.artist} />
             </Grid>
             <Grid item xs={12}>
-              <EventTaxonomy />
+              <EventTaxonomy selected={event.taxonomy || []} />
             </Grid>
             <Grid item xs={12}>
               <EventDates uid={event.uid} dates={event.eventDates} />

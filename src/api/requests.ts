@@ -63,13 +63,3 @@ export const saveTicketsRequest = (
     : requests.post<Ticket[]>(`tickets/${dateUid}`, data);
 export const deleteTicketsRequest = (dateUid: string, ticketsUid: string[]) =>
   requests.delete<boolean>(`tickets/${dateUid}`, { data: ticketsUid });
-
-// TAXONOMY
-export const fetchTaxonomyRequest = (type: TermType) => requests.get<Taxonomy[]>(`taxonomy/${type}`);
-export const saveTaxonomyRequest = (data: Taxonomy) => requests.post<Taxonomy[]>(`taxonomy`, data);
-export const deleteTaxonomyRequest = (id: Key) => requests.delete<Taxonomy[]>(`taxonomy/${id}`);
-export const patchTaxonomyRequest = ({
-  id,
-  ...data
-}: Omit<Taxonomy, 'image' | 'icon'> | Pick<Taxonomy, 'id' | 'image' | 'icon'>) =>
-  requests.patch<Taxonomy>(`taxonomy/${id}`, data);

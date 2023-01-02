@@ -63,7 +63,7 @@ export interface Event extends Post {
   artist?: Pick<Artist, 'uid' | 'title'>[];
   city?: City;
   eventManager?: any;
-  taxonomy?: Taxonomy[];
+  taxonomy?: Pick<Taxonomy, 'id' | 'name' | 'type'>[];
   eventDates?: EventDate[];
   image?: any;
   fragment?: string;

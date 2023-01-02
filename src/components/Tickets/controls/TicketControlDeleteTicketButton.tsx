@@ -14,7 +14,7 @@ type Props = {
 
 const TicketControlDeleteTicketButton = ({ show, ticketsUid, disabled }: Props) => {
   const dispatch: AppDispatch = useDispatch();
-  const ref = useRef<any>(null);
+  const ref = useRef<HTMLSpanElement>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const handleOpen = useCallback(() => setOpen(true), []);
@@ -23,7 +23,7 @@ const TicketControlDeleteTicketButton = ({ show, ticketsUid, disabled }: Props) 
     dispatch(deleteTicketsAsync(ticketsUid));
     dispatch(clearSelectedCircle());
     handleClose();
-  }, [ticketsUid, dispatch]);
+  }, [dispatch, ticketsUid, handleClose]);
 
   if (!show) {
     return null;

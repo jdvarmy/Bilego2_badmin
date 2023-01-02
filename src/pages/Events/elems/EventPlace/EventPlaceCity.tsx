@@ -1,9 +1,9 @@
 import React from 'react';
 import { IconButton, MenuItem, TextField } from '@mui/material';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
-import { City } from '../../../typings/enum';
-import { ChangeEventType, useChangeFnEventField } from '../../../hooks/useChangeFnEventField';
-import { Event } from '../../../typings/types';
+import { City } from '../../../../typings/enum';
+import { ChangeEventType, useChangeFnEventField } from '../../../../hooks/useChangeFnEventField';
+import { Event } from '../../../../typings/types';
 
 const cityMap: Record<City, string> = {
   [City.moscow]: 'Москва',

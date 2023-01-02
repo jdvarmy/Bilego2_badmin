@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Event } from '../../../typings/types';
+import { Event } from '../../../../typings/types';
 import { MenuItem } from '@mui/material';
-import SelectWithSearch from '../../../components/SelectWithSearch/SelectWithSearch';
-import { ChangeEventType, useChangeFnEventField } from '../../../hooks/useChangeFnEventField';
-import { EventStateFieldType, setEventStateField } from '../../../store/eventsSlice/eventsSlice';
-import { getItemListForEventAsync } from '../../../store/itemsSlice/itemsSlice';
-import { City } from '../../../typings/enum';
-import { AppDispatch } from '../../../store/store';
+import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
+import { ChangeEventType, useChangeFnEventField } from '../../../../hooks/useChangeFnEventField';
+import { EventStateFieldType, setEventStateField } from '../../../../store/eventsSlice/eventsSlice';
+import { getItemListForEventAsync } from '../../../../store/itemsSlice/itemsSlice';
+import { City } from '../../../../typings/enum';
+import { AppDispatch } from '../../../../store/store';
 import { useDispatch } from 'react-redux';
 
 type Props = {

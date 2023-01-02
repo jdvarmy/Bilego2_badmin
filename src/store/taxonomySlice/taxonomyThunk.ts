@@ -1,25 +1,31 @@
 import { Key } from 'react';
-import { TermType } from '../../typings/enum';
+import { TermType, TermTypeLink } from '../../typings/enum';
 import { AppThunk } from '../store';
 import {
   deleteTaxonomyRequest,
   fetchTaxonomyRequest,
   patchTaxonomyRequest,
   saveTaxonomyRequest,
-} from '../../api/requests';
+} from './taxonomyRequest';
 import { Taxonomy } from '../../typings/types';
 import { setTaxonomy } from './taxonomySlice';
 import { selectTaxonomy } from '../selectors';
 
+export const getTaxonomyAsyncReq = async (link = TermTypeLink.event, type?: TermType) => {
+  try {
+    const { data } = await fetchTaxonomyRequest(link, type);
+
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const getTaxonomyAsync =
   (type: TermType): AppThunk =>
   async (dispatch) => {
-    try {
-      const { data } = await fetchTaxonomyRequest(type);
-      dispatch(setTaxonomy(data.length ? data : null));
-    } catch (e) {
-      console.error(e);
-    }
+    const data = await getTaxonomyAsyncReq(TermTypeLink.event, type);
+    dispatch(setTaxonomy(data.length ? data : null));
   };
 
 export const saveTaxonomyAsync =

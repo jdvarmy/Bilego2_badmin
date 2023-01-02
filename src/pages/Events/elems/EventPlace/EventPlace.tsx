@@ -1,10 +1,10 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import { Box, Card, CardContent, CardHeader, Divider, Grid } from '@mui/material';
-import { City } from '../../../typings/enum';
-import { Event } from '../../../typings/types';
-import { AppDispatch } from '../../../store/store';
+import { City } from '../../../../typings/enum';
+import { Event } from '../../../../typings/types';
+import { AppDispatch } from '../../../../store/store';
 import { useDispatch } from 'react-redux';
-import { EventStateFieldType, setEventStateField } from '../../../store/eventsSlice/eventsSlice';
+import { EventStateFieldType, setEventStateField } from '../../../../store/eventsSlice/eventsSlice';
 import EventPlaceCity from './EventPlaceCity';
 import EventPlaceItem from './EventPlaceItem';
 import EventPlaceArtist from './EventPlaceArtist';
@@ -20,9 +20,12 @@ const EventPlace = ({ city, item, artist }: Props) => {
 
   console.log('render EventPlace');
 
-  const handleDelete = (field: keyof Event) => () => {
-    dispatch(setEventStateField({ [field]: undefined } as EventStateFieldType));
-  };
+  const handleDelete = useCallback(
+    (field: keyof Event) => () => {
+      dispatch(setEventStateField({ [field]: undefined } as EventStateFieldType));
+    },
+    [dispatch],
+  );
 
   return (
     <Card>

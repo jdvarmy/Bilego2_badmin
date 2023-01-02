@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState, Dispatch, SetStateAction, ReactNode } from 'react';
+import React, { Component, useEffect, useState, Dispatch, SetStateAction, ReactNode, MouseEventHandler } from 'react';
 import {
   ClickAwayListener,
   ListItem,
@@ -6,7 +6,6 @@ import {
   TextField,
   Select,
   OutlinedInput,
-  SelectChangeEvent,
   FormControl,
   InputLabel,
   IconButton,
@@ -18,7 +17,7 @@ import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 interface BaseProps {
   maxVisibleOptions?: number;
   fetchFn?: (query: string) => void;
-  onDelete?: () => void;
+  onDelete?: MouseEventHandler<HTMLButtonElement>;
 }
 
 type SearchableSelectProps = BaseProps & SelectProps;
@@ -35,10 +34,10 @@ const SelectWithSearch = (props: SearchableSelectProps) => {
       : undefined;
 
   useEffect(() => {
-    if (debouncedQuery && fetchFn) {
+    if (fetchFn) {
       fetchFn(debouncedQuery);
     }
-  }, [debouncedQuery]);
+  }, [debouncedQuery, fetchFn]);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -53,7 +52,9 @@ const SelectWithSearch = (props: SearchableSelectProps) => {
           input={<OutlinedInput label={label} fullWidth={fullWidth} />}
           multiple={multiple}
           renderValue={(selected: any) =>
-            (multiple ? (selected.map((s: any) => s.title) as string[]).join(', ') : selected?.title) as ReactNode
+            (multiple
+              ? (selected.map((s: any) => s.title || s.name) as string[]).join(', ')
+              : selected?.title || selected.name) as ReactNode
           }
           className={focusedClass}
         >
@@ -61,7 +62,7 @@ const SelectWithSearch = (props: SearchableSelectProps) => {
           {children}
         </Select>
       </FormControl>
-      {!!focusedClass && onDelete && (
+      {!!focusedClass && !!onDelete && (
         <IconButton color='error' onClick={onDelete}>
           <DeleteForeverTwoToneIcon />
         </IconButton>
@@ -83,12 +84,8 @@ class SearchFieldWrapper extends Component<{ setQuery: Dispatch<SetStateAction<s
             fullWidth
             autoFocus
             placeholder='Поиск...'
-            onChange={(e) => {
-              setQuery(e.target.value);
-            }}
-            onKeyDown={(e) => {
-              e.stopPropagation();
-            }}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => e.stopPropagation()}
           />
         </ListItem>
       </ClickAwayListener>

@@ -5,12 +5,12 @@ import { useChangeFnEventField } from '../../../hooks/useChangeFnEventField';
 
 const postStatusMap: Record<PostStatus, string> = {
   [PostStatus.temp]: 'временный шаблон',
-  [PostStatus.publish]: 'опубликованный пост',
-  [PostStatus.pending]: 'пост на модерации',
+  [PostStatus.publish]: 'опубликованный',
+  [PostStatus.pending]: 'на модерации',
   [PostStatus.draft]: 'черновик',
-  [PostStatus.future]: 'запланированный пост',
-  [PostStatus.private]: 'личный (приватный) пост',
-  [PostStatus.trash]: 'удаленный пост (в корзине)',
+  [PostStatus.future]: 'запланированный',
+  [PostStatus.private]: 'личный (приватный)',
+  [PostStatus.trash]: 'удаленный (в корзине)',
 };
 
 type Props = { status?: PostStatus };

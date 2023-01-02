@@ -10,13 +10,13 @@ export enum BaseRecordStatus {
 }
 
 export enum PostStatus {
-  temp = 'temp', // - временный шаблон пост.
-  publish = 'publish', // - опубликованный пост.
-  pending = 'pending', // - пост на модерации.
+  temp = 'temp', // - временный шаблон.
+  publish = 'publish', // - опубликованный.
+  pending = 'pending', // - на модерации.
   draft = 'draft', // - черновик.
-  future = 'future', // - запланированный пост.
-  private = 'private', // - личный пост.
-  trash = 'trash', // - удаленный пост (в корзине)
+  future = 'future', // - запланированный.
+  private = 'private', // - личный.
+  trash = 'trash', // - удаленный (в корзине)
 }
 
 export enum EventHeaderType {

@@ -5,8 +5,8 @@ import clsx from 'clsx';
 import { Button, Badge, Collapse, ListItem } from '@mui/material';
 import ExpandLessTwoToneIcon from '@mui/icons-material/ExpandLessTwoTone';
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
-import { toggleSidebar } from '../../../store/sidebarSlice/sidebarSlice';
-import { AppDispatch } from '../../../store/store';
+import { toggleSidebar } from '../../../domen/sidebarSlice/sidebarSlice';
+import { AppDispatch } from '../../../domen/store';
 
 interface SidebarMenuItemProps {
   name: string;

@@ -5,9 +5,9 @@ import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import Label from '../../../components/Label/Label';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUsers } from '../../../store/selectors';
-import { getUsersAsync } from '../../../store/usersSlice/usersSlice';
-import { AppDispatch } from '../../../store/store';
+import { selectUsers } from '../../../domen/selectors';
+import { getUsersAsync } from '../../../domen/usersSlice/usersSlice';
+import { AppDispatch } from '../../../domen/store';
 import DeleteUserButton from './DeleteUserButton';
 import EditUserButton from './EditUserButton';
 

@@ -1,18 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Event, EventDate } from '../../typings/types';
 import { AppThunk } from '../store';
-import {
-  getEventRequest,
-  deleteEventDateRequest,
-  editEventDateRequest,
-  saveEventDateRequest,
-  saveEventRequest,
-  saveTemplateEventRequest,
-} from '../../api/requests';
+import { deleteEventDateRequest, editEventDateRequest, saveEventDateRequest } from '../../api/requests';
 
 export type EventStateFieldType = Record<keyof Event, any>;
 type State = {
   loading: boolean;
+  // используется для хранения данных события, синхронизовано с данными в БД
+  event: Event | null;
+  // используется для хранения стейта события, синхронизовано с "клиентом"
   eventState: Event | null;
   events: Event[] | null;
   selectedDateUid?: string;
@@ -20,6 +16,7 @@ type State = {
 
 const initialState: State = {
   loading: false,
+  event: null,
   eventState: null,
   events: null,
   selectedDateUid: undefined,
@@ -31,6 +28,9 @@ const events = createSlice({
   reducers: {
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
+    },
+    setEvent: (state, action: PayloadAction<Event | null>) => {
+      state.event = action.payload;
     },
     setEventState: (state, action: PayloadAction<Event | null>) => {
       state.eventState = action.payload;
@@ -47,52 +47,10 @@ const events = createSlice({
   },
 });
 
-export const { setLoading, setEventState, setEvents, setEventStateField, setSelectedDateUid } = events.actions;
+export const { setLoading, setEvent, setEventState, setEvents, setEventStateField, setSelectedDateUid } =
+  events.actions;
 
 export default events.reducer;
-
-export const getEventAsync =
-  (slug: string): AppThunk =>
-  async (dispatch) => {
-    dispatch(setLoading(true));
-
-    try {
-      const { data } = await getEventRequest(slug);
-      dispatch(setEventState(data));
-    } catch (e) {
-      console.log(e);
-    } finally {
-      dispatch(setLoading(false));
-    }
-  };
-
-export const saveTemplateEventAsync = (): AppThunk => async (dispatch) => {
-  dispatch(setLoading(true));
-
-  try {
-    const { data } = await saveTemplateEventRequest();
-    dispatch(setEventState(data));
-  } catch (e) {
-    console.log(e);
-  } finally {
-    dispatch(setLoading(false));
-  }
-};
-
-export const saveEventAsync =
-  (event: Event): AppThunk =>
-  async (dispatch) => {
-    dispatch(setLoading(true));
-
-    try {
-      const { data } = await saveEventRequest(event);
-      dispatch(setEventState(data));
-    } catch (e) {
-      console.log(e);
-    } finally {
-      dispatch(setLoading(false));
-    }
-  };
 
 export const saveTemplateEventDateAsync =
   (eventUid: string): AppThunk =>

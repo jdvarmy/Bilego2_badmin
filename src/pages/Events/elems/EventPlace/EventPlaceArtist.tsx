@@ -3,8 +3,8 @@ import { MenuItem } from '@mui/material';
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
 import { Event } from '../../../../typings/types';
 import { useChangeFnEventField } from '../../../../hooks/useChangeFnEventField';
-import { getArtistListForEventAsync } from '../../../../store/artistsSlice/artistsSlice';
-import { AppDispatch } from '../../../../store/store';
+import { getArtistListForEventAsync } from '../../../../domen/artistsSlice/artistsSlice';
+import { AppDispatch } from '../../../../domen/store';
 import { useDispatch } from 'react-redux';
 
 type Props = {

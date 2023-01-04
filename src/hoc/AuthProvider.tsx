@@ -1,9 +1,9 @@
 import React, { ReactNode, useEffect } from 'react';
 import { loginPage } from '../typings/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { checkIsUserLogin } from '../store/authSlice/authSlice';
-import { AppDispatch } from '../store/store';
-import { selectAuth } from '../store/selectors';
+import { checkIsUserLogin } from '../domen/authSlice/authSlice';
+import { AppDispatch } from '../domen/store';
+import { selectAuth } from '../domen/selectors';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { UserRole } from '../typings/enum';
 import SuspenseLoader from '../components/SuspenseLoader/SuspenseLoader';

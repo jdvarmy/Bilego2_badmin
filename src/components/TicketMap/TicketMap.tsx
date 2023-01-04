@@ -1,14 +1,15 @@
 import React, { createContext, CSSProperties, memo, useCallback, useContext, useMemo, useRef } from 'react';
 import { Provider, ReactReduxContext, useSelector } from 'react-redux';
-import { selectSelectedDateMap } from '../../store/selectors';
-import StaticCanvas from './StaticCanvas';
 import { Box } from '@mui/material';
+import Konva from 'konva';
+import { Stage } from 'react-konva';
+import { selectSelectedDateMap } from '../../domen/selectors';
+import { isEqual } from '../../utils/functions/isEqual';
+import StaticCanvas from './StaticCanvas';
 import ActiveCanvas from './ActiveCanvas';
 import Paths from './Paths';
 import { useResizeObserver } from '../../hooks/useResizeObserver';
-import { Stage } from 'react-konva';
 import { moveToCenter, getScale, handleZoom, handleDrag } from './helpers';
-import Konva from 'konva';
 import KonvaEventObject = Konva.KonvaEventObject;
 import Vector2d = Konva.Vector2d;
 import StageType = Konva.Stage;
@@ -24,11 +25,12 @@ export const useMapStage = () => useContext(StageContext);
 
 const TicketMap = () => {
   console.log('RERENDER MAP');
-  const map = useSelector(selectSelectedDateMap);
   const ref = useRef<HTMLDivElement>(null);
   const refStage = useRef<StageType>(null);
+  const map = useSelector(selectSelectedDateMap, isEqual);
 
   const rect = useResizeObserver(ref);
+
   const containerSizes = useMemo(() => ({ width: rect?.width || 0, height: (rect?.width || 0) * 0.67 }), [rect]);
   const contentSizes = useMemo(() => ({ width: map?.width || defaultW, height: map?.height || defaultH }), [map]);
 

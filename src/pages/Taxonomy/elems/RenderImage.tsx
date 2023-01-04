@@ -5,8 +5,8 @@ import { styled } from '@mui/material/styles';
 import { MediaSelectData, Taxonomy } from '../../../typings/types';
 import TextFieldImage from '../../../components/TextFieldImage/TextFieldImage';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../../store/store';
-import { saveTaxonomyMediaAsync } from '../../../store/taxonomySlice/taxonomyThunk';
+import { AppDispatch } from '../../../domen/store';
+import { saveTaxonomyMediaAsync } from '../../../domen/taxonomy/taxonomyThunk';
 import { HTTP_URL } from '../../../typings/env';
 
 const Img = styled('img')(

@@ -1,10 +1,10 @@
 import React, { memo, useMemo } from 'react';
 import { Button, Tooltip } from '@mui/material';
-import { saveTicketsAsync, setSelectedTicket } from '../../../store/ticketsSlice/ticketsSlice';
-import { AppDispatch } from '../../../store/store';
+import { saveTicketsAsync, setSelectedTicket } from '../../../domen/ticketsSlice/ticketsSlice';
+import { AppDispatch } from '../../../domen/store';
 import { useDispatch } from 'react-redux';
 import { Ticket, TicketOnSell } from '../../../typings/types';
-import { clearSelectedCircle } from '../../../store/circleSlice/circleSlice';
+import { clearSelectedCircle } from '../../../domen/circleSlice/circleSlice';
 import { ButtonType } from '../../../typings/enum';
 
 type Props = {

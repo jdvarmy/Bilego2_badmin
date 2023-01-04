@@ -4,8 +4,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { MediaFile, MediaSelectData } from '../../typings/types';
 import { HTTP_URL } from '../../typings/env';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store/store';
-import { removeFileAsync } from '../../store/medialibrarySlice/medialibrarySlice';
+import { AppDispatch } from '../../domen/store';
+import { removeFileAsync } from '../../domen/medialibrarySlice/medialibrarySlice';
 
 type Props = {
   file: MediaFile;

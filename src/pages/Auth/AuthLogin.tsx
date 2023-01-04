@@ -3,8 +3,8 @@ import { Box, Button, Card, Divider, Container, Grid, Typography, TextField, Car
 import { Helmet } from 'react-helmet-async';
 import { styled } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
-import { login } from '../../store/authSlice/authSlice';
-import { AppDispatch } from '../../store/store';
+import { login } from '../../domen/authSlice/authSlice';
+import { AppDispatch } from '../../domen/store';
 
 const Wrapper = styled(Container)(
   () => `

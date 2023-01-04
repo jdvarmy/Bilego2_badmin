@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Html } from 'react-konva-utils';
 import { DrawCircleType } from '../../../typings/types';
 import { useSelector } from 'react-redux';
-import { selectSelectedDateMapSectors } from '../../../store/selectors';
+import { selectSelectedDateMapSectors } from '../../../domen/selectors';
 import CircleTooltipContent from './CircleTooltipContent';
 import { useMapStage } from '../TicketMap';
 

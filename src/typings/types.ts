@@ -59,6 +59,7 @@ export type EventDate = {
 };
 
 export interface Event extends Post {
+  uid: string;
   item?: Pick<Item, 'uid' | 'title' | 'city'>;
   artist?: Pick<Artist, 'uid' | 'title'>[];
   city?: City;

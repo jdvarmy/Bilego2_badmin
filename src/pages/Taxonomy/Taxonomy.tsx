@@ -6,9 +6,9 @@ import TableHeader from './elems/TableHeader';
 import TableBody from './elems/TableBody';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store/store';
+import { AppDispatch } from '../../domen/store';
 import ContentContainer from '../../components/ContentContainer/ContentContainer';
-import { getTaxonomyAsync } from '../../store/taxonomySlice/taxonomyThunk';
+import { getTaxonomyAsync } from '../../domen/taxonomy/taxonomyThunk';
 import { Taxonomy as ITaxonomy } from '../../typings/types';
 
 type Props = {

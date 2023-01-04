@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../../store/store';
+import { ICellRendererParams } from 'ag-grid-community';
 import { Box, IconButton } from '@mui/material';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
-import { ICellRendererParams } from 'ag-grid-community';
-import { deleteTaxonomyAsync } from '../../../store/taxonomySlice/taxonomyThunk';
+import { AppDispatch } from '../../../domen/store';
+import { deleteTaxonomyAsync } from '../../../domen/taxonomy/taxonomyThunk';
 
 export const RenderDeleteItem = (props: ICellRendererParams) => {
   const dispatch: AppDispatch = useDispatch();

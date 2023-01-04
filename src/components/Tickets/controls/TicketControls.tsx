@@ -4,7 +4,7 @@ import { TicketType } from '../../../typings/enum';
 import { Ticket, TicketOnSell } from '../../../typings/types';
 import { v4 as uidv4 } from 'uuid';
 import { useSelector } from 'react-redux';
-import { selectCircleStore, selectTicketsStore } from '../../../store/selectors';
+import { selectCircleStore, selectTicketsStore } from '../../../domen/selectors';
 import TicketControlsSaveTicketButton from './TicketControlsSaveTicketButton';
 import TicketControlsTicketName from './TicketControlsTicketName';
 import TicketControlTicketOnSell from './TicketControlTicketOnSell';

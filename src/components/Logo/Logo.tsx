@@ -6,7 +6,7 @@ import { APP_VERSION } from '../../typings/env';
 import LogoIcon from '../../icons/LogoIcon';
 import useYodaSays from '../../hooks/useYodaSays';
 import { useSelector } from 'react-redux';
-import { selectAuth } from '../../store/selectors';
+import { selectAuth } from '../../domen/selectors';
 import { loginPage } from '../../typings/types';
 
 const LogoWrapper = styled(Link)(

@@ -5,14 +5,14 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import ModalDialog from '../ModalDialog/ModalDialog';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectMedialibrary } from '../../store/selectors';
-import { getMapListAsync, uploadFileMapAsync } from '../../store/medialibrarySlice/medialibrarySlice';
-import { AppDispatch } from '../../store/store';
+import { selectMedialibrary } from '../../domen/selectors';
+import { getMapListAsync, uploadFileMapAsync } from '../../domen/medialibrarySlice/medialibrarySlice';
+import { AppDispatch } from '../../domen/store';
 import UploadFiles from '../UploadFiles/UploadFiles';
 import HourglassDisabledTwoToneIcon from '@mui/icons-material/HourglassDisabledTwoTone';
 import MapImage from './MapImage';
 import { EventDate } from '../../typings/types';
-import { editEventDateAsync } from '../../store/eventsSlice/eventsSlice';
+import { editEventDateAsync } from '../../domen/events/eventsSlice';
 import { TicketType } from '../../typings/enum';
 
 export type MapContent = FileList | null;

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Box, Checkbox } from '@mui/material';
-import { Taxonomy } from '../../../typings/types';
-import { ICellRendererParams } from 'ag-grid-community';
-import { editTaxonomyAsync } from '../../../store/taxonomySlice/taxonomyThunk';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../../store/store';
+import { Box, Checkbox } from '@mui/material';
+import { ICellRendererParams } from 'ag-grid-community';
+import { Taxonomy } from '../../../typings/types';
+import { editTaxonomyAsync } from '../../../domen/taxonomy/taxonomyThunk';
+import { AppDispatch } from '../../../domen/store';
 
 export const RenderCheckbox = (name: keyof Pick<Taxonomy, 'showInMainPage' | 'showInMenu'>) => {
   return function RenderCheckbox(props: ICellRendererParams) {

@@ -1,12 +1,12 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import { Button } from '@mui/material';
-import { setAlertAsync } from '../../../store/alertSlice/alertSlice';
+import { setAlertAsync } from '../../../domen/alertSlice/alertSlice';
 import { RequestUser } from '../../../typings/types';
-import { saveUserAsync } from '../../../store/usersSlice/usersSlice';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../../store/store';
-import { useNavigate } from 'react-router-dom';
+import { saveUserAsync } from '../../../domen/usersSlice/usersSlice';
+import { AppDispatch } from '../../../domen/store';
 import { UserState } from '../UserDataContainer';
 
 type Props = {

@@ -3,9 +3,9 @@ import { TicketType } from '../../typings/enum';
 import { Button, Grid } from '@mui/material';
 import MapIcon from '@mui/icons-material/Map';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
-import { AppDispatch } from '../../store/store';
+import { AppDispatch } from '../../domen/store';
 import { useDispatch } from 'react-redux';
-import { editEventDateAsync } from '../../store/eventsSlice/eventsSlice';
+import { editEventDateAsync } from '../../domen/events/eventsSlice';
 import { EventDate } from '../../typings/types';
 import AppMapModal from '../AddMapModal/AppMapModal';
 

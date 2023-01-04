@@ -48,7 +48,7 @@ export const getUserAsync =
         ...prev,
         ...user,
         status: Boolean(status),
-        avatar: avatar ? { id: +avatar.id, name: avatar.name } : '',
+        avatar: avatar ? { id: +avatar.id, name: avatar.name } : undefined,
       }));
     } catch (e) {
       console.log(e);

@@ -19,11 +19,11 @@ import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
-import { AppDispatch } from '../../../store/store';
+import { AppDispatch } from '../../../domen/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../../store/authSlice/authSlice';
+import { logout } from '../../../domen/authSlice/authSlice';
 import { loginPage } from '../../../typings/types';
-import { selectAuth } from '../../../store/selectors';
+import { selectAuth } from '../../../domen/selectors';
 import { UserRole } from '../../../typings/enum';
 
 const UserBoxButton = styled(Button)(

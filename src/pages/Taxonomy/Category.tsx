@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Taxonomy from './Taxonomy';
 import { TermType } from '../../typings/enum';
 import { useDispatch } from 'react-redux';
-import { setTaxonomy } from '../../store/taxonomySlice/taxonomySlice';
+import { setTaxonomy } from '../../domen/taxonomy/taxonomySlice';
 import { Taxonomy as ITaxonomy } from '../../typings/types';
 
 const columns: (keyof ITaxonomy)[] = ['name', 'slug', 'description', 'icon', 'id', 'link'];

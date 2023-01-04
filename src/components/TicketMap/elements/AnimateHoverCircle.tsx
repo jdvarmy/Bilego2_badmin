@@ -1,16 +1,17 @@
 import React, { useCallback, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCircleStore } from '../../../store/selectors';
-import { animated, config, useTransition } from '@react-spring/konva';
 import Konva from 'konva';
-import KonvaEventObject = Konva.KonvaEventObject;
-import TextConfig = Konva.TextConfig;
-import { deleteHoveredCircle, setSelectedCircles } from '../../../store/circleSlice/circleSlice';
-import { CircleColors } from '../../../typings/enum';
 import { Group, Circle, Text } from 'react-konva';
+import { animated, config, useTransition } from '@react-spring/konva';
+import { AppDispatch } from '../../../domen/store';
+import { deleteHoveredCircle, setSelectedCircles } from '../../../domen/circleSlice/circleSlice';
+import { selectCircleStore } from '../../../domen/selectors';
+import { CircleColors } from '../../../typings/enum';
 import { DrawCircleType } from '../../../typings/types';
-import { AppDispatch } from '../../../store/store';
 import CircleTooltip from './CircleTooltip';
+
+import TextConfig = Konva.TextConfig;
+import KonvaEventObject = Konva.KonvaEventObject;
 
 const defaultRadius = 10;
 const multiplier = 1.19;

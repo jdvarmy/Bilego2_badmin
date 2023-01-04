@@ -6,10 +6,10 @@ import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import HighlightOffTwoToneIcon from '@mui/icons-material/HighlightOffTwoTone';
-import { AppDispatch } from '../../store/store';
+import { AppDispatch } from '../../domen/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectTicketsStore } from '../../store/selectors';
-import { deleteTicketsAsync, setSelectedTicket } from '../../store/ticketsSlice/ticketsSlice';
+import { selectTicketsStore } from '../../domen/selectors';
+import { deleteTicketsAsync, setSelectedTicket } from '../../domen/ticketsSlice/ticketsSlice';
 import TicketControlDeleteTicketButton from '../Tickets/controls/TicketControlDeleteTicketButton';
 
 export function LocalTitle(row: any) {

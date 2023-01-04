@@ -1,7 +1,7 @@
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import store from './store/store';
+import store from './domen/store';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';

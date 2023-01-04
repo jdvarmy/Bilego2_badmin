@@ -1,10 +1,10 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Grid, IconButton, TextField, Tooltip, Typography } from '@mui/material';
 import { DateTimePicker } from '@mui/lab';
 import { Event, EventDate } from '../../../typings/types';
-import { AppDispatch } from '../../../store/store';
-import { useDispatch } from 'react-redux';
-import { EventStateFieldType, setEventStateField } from '../../../store/eventsSlice/eventsSlice';
+import { AppDispatch } from '../../../domen/store';
+import { EventStateFieldType, setEventStateField } from '../../../domen/events/eventsSlice';
 import ArrowCircleRightTwoToneIcon from '@mui/icons-material/ArrowCircleRightTwoTone';
 
 type Props = {

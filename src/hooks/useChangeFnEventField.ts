@@ -1,9 +1,9 @@
 import { ChangeEvent } from 'react';
-import { AppDispatch } from '../store/store';
+import { AppDispatch } from '../domen/store';
 import { useDispatch } from 'react-redux';
 import { Event } from '../typings/types';
 import { SelectChangeEvent } from '@mui/material';
-import { EventStateFieldType, setEventStateField } from '../store/eventsSlice/eventsSlice';
+import { EventStateFieldType, setEventStateField } from '../domen/events/eventsSlice';
 
 export type ChangeEventType = SelectChangeEvent<unknown> | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
 

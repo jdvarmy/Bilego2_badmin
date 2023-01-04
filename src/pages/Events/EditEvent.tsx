@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Box, Container, Grid } from '@mui/material';
-import { AppDispatch } from '../../store/store';
+import { AppDispatch } from '../../domen/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { getEventAsync, setEventState } from '../../store/eventsSlice/eventsSlice';
 import TextRedactor from './elems/TextRedactor';
-import { selectEvent } from '../../store/selectors';
+import { selectEventState } from '../../domen/selectors';
 import { useSearchParams } from 'react-router-dom';
 import EventSlugCreator from './elems/EventSlugCreator';
 import SaveEventButtons from './elems/SaveEventButtons';
@@ -19,10 +18,12 @@ import EventStatus from './elems/EventStatus';
 import SuspenseLoader from '../../components/SuspenseLoader/SuspenseLoader';
 import EventSEO from './elems/EventSEO';
 import EventTaxonomy from './elems/EventTaxonomy/EventTaxonomy';
+import { getEventAsync } from '../../domen/events/eventsThunk';
+import { setEvent, setEventState } from '../../domen/events/eventsSlice';
 
 const EditEvent = () => {
   const dispatch: AppDispatch = useDispatch();
-  const event = useSelector(selectEvent);
+  const event = useSelector(selectEventState);
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
@@ -30,10 +31,11 @@ const EditEvent = () => {
     if (!event && uid) {
       dispatch(getEventAsync(uid));
     }
-  }, [dispatch, event]);
+  }, [dispatch, event, searchParams]);
 
   useEffect(() => {
     return () => {
+      dispatch(setEvent(null));
       dispatch(setEventState(null));
       // todo: удалить пост если тип поста временный, перед этим показать пользователю предупреждение
     };
@@ -66,7 +68,7 @@ const EditEvent = () => {
               <EventPlace city={event.city} item={event.item} artist={event.artist} />
             </Grid>
             <Grid item xs={12}>
-              <EventTaxonomy selected={event.taxonomy || []} />
+              <EventTaxonomy uid={event.uid} selected={event.taxonomy} />
             </Grid>
             <Grid item xs={12}>
               <EventDates uid={event.uid} dates={event.eventDates} />

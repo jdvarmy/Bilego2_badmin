@@ -9,10 +9,7 @@ import {
   EventDate,
   Ticket,
   TicketOnSell,
-  Taxonomy,
 } from '../typings/types';
-import { TermType } from '../typings/enum';
-import { Key } from 'react';
 
 export const registerRequest = (data: RequestAuth) => requests.post<ResponseAuth>(`auth/register`, data);
 export const loginRequest = (data: RequestAuth) => requests.post<ResponseAuth>(`auth/login`, data);
@@ -36,11 +33,6 @@ export const removeFileMedialibraryRequest = (id: number) => requests.delete<boo
 
 export const fetchMapItemsRequest = () => requests.get<any[]>(`map`);
 export const uploadFileMapItemsRequest = (data: FormData) => requests.post<boolean>(`map/upload`, data);
-
-export const fetchEventsRequest = () => requests.get<Event[]>(`events`);
-export const getEventRequest = (uid: string) => requests.get<Event>(`events/${uid}`);
-export const saveTemplateEventRequest = () => requests.post<Event>(`events`);
-export const saveEventRequest = (data: Event) => requests.put<Event>(`events`, data);
 
 export const saveEventDateRequest = (eventUid: string) => requests.post<EventDate>(`events/${eventUid}/dates`);
 export const deleteEventDateRequest = (uid: string, eventUid: string) =>

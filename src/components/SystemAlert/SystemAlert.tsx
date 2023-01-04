@@ -2,7 +2,7 @@ import React from 'react';
 import { Alert, AlertTitle, Stack } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useSelector } from 'react-redux';
-import { selectAlert } from '../../store/selectors';
+import { selectAlert } from '../../domen/selectors';
 
 const AlertWrapper = styled(Stack)(
   ({ theme }) => `

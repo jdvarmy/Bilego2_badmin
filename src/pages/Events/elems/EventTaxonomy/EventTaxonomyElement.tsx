@@ -4,31 +4,45 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Event } from '../../../../typings/types';
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
 import { TermType } from '../../../../typings/enum';
-import { AppDispatch } from '../../../../store/store';
+import { AppDispatch } from '../../../../domen/store';
 import { ChangeEventType } from '../../../../hooks/useChangeFnEventField';
 import { nameMapTaxonomy } from '../../../Taxonomy/Taxonomy';
-import { EventStateFieldType, setEventStateField } from '../../../../store/eventsSlice/eventsSlice';
-import { selectEvent } from '../../../../store/selectors';
+import { EventStateFieldType, setEventStateField } from '../../../../domen/events/eventsSlice';
+import { editEventAsync } from '../../../../domen/events/eventsThunk';
+import { selectEvent, selectEventState } from '../../../../domen/selectors';
+import { isEqual } from '../../../../utils/functions/isEqual';
 
 type Props = {
   type: TermType;
+  eventUid: Event['uid'];
   selected: Event['taxonomy'];
   taxonomies: Event['taxonomy'];
 };
 
-const EventTaxonomyElement = ({ type, taxonomies, selected }: Props) => {
+const EventTaxonomyElement = ({ type, eventUid, taxonomies, selected }: Props) => {
   const dispatch: AppDispatch = useDispatch();
-  const { taxonomy } = useSelector(selectEvent);
+  const { taxonomy } = useSelector(selectEvent, isEqual);
+  const { taxonomy: stateTaxonomy } = useSelector(selectEventState, isEqual);
   const [localTax, setLocalTax] = useState<Event['taxonomy']>(() => taxonomies);
 
   const handleChangeTaxonomy = useCallback(
     (event: ChangeEventType) => {
-      const filterTax = (taxonomy || []).filter((tax) => tax.type !== type);
+      const filterTax = (stateTaxonomy || []).filter((tax) => tax.type !== type);
 
-      dispatch(setEventStateField({ taxonomy: [...filterTax, ...(event.target.value as [])] } as EventStateFieldType));
+      dispatch(
+        setEventStateField({
+          taxonomy: [...filterTax, ...(event.target.value as []).map((value) => JSON.parse(value))],
+        } as EventStateFieldType),
+      );
     },
-    [dispatch, taxonomy, type],
+    [dispatch, stateTaxonomy, type],
   );
+
+  const handleSaveEventTaxonomy = useCallback(() => {
+    if (Array.isArray(stateTaxonomy) && stateTaxonomy.length && !isEqual(stateTaxonomy, taxonomy)) {
+      dispatch(editEventAsync({ uid: eventUid, taxonomy: stateTaxonomy }));
+    }
+  }, [stateTaxonomy, taxonomy, dispatch, eventUid]);
 
   const fetchFnItems = useCallback(
     (search: string) => {
@@ -43,18 +57,20 @@ const EventTaxonomyElement = ({ type, taxonomies, selected }: Props) => {
 
   return (
     <SelectWithSearch
-      value={selected || []}
+      value={selected.map((v) => JSON.stringify(v)) || []}
       label={nameMapTaxonomy[type]}
       fullWidth
       multiple
-      onChange={handleChangeTaxonomy}
+      renderValue={(value) => (Array.isArray(value) ? value.map((s) => JSON.parse(s).name).join(', ') : '')}
       fetchFn={fetchFnItems}
+      onChange={handleChangeTaxonomy}
+      onClose={handleSaveEventTaxonomy}
     >
       {localTax
         .filter((i) => i?.id)
         .map((i) => (
-          <MenuItem key={i?.id} value={i as any}>
-            {i?.name}
+          <MenuItem key={i.id} value={JSON.stringify(i)}>
+            {i.name}
           </MenuItem>
         ))}
     </SelectWithSearch>

@@ -1,12 +1,12 @@
 import React, { memo, useCallback } from 'react';
 import { Circle, Group } from 'react-konva';
+import Konva from 'konva';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectTicketsCircleSelector } from '../../../store/selectors';
 import { getActualSell } from '../../../helpers/getActualSell';
 import { DrawCircleType } from '../../../typings/types';
-import { deleteHoveredCircle, setHoveredCircle } from '../../../store/circleSlice/circleSlice';
+import { selectTicketsCircleSelector } from '../../../domen/selectors';
+import { deleteHoveredCircle, setHoveredCircle } from '../../../domen/circleSlice/circleSlice';
 import { TicketType } from '../../../typings/enum';
-import Konva from 'konva';
 import KonvaEventObject = Konva.KonvaEventObject;
 
 const multiplier = 1.19 as const;

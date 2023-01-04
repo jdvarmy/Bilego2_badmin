@@ -18,6 +18,7 @@ interface BaseProps {
   maxVisibleOptions?: number;
   fetchFn?: (query: string) => void;
   onDelete?: MouseEventHandler<HTMLButtonElement>;
+  onClose?: MouseEventHandler<HTMLButtonElement>;
 }
 
 type SearchableSelectProps = BaseProps & SelectProps;
@@ -26,7 +27,7 @@ const SelectWithSearch = (props: SearchableSelectProps) => {
   const [query, setQuery] = useState<string>('');
   const debouncedQuery = useDebounce<string>(query);
 
-  const { children, fetchFn, value, label, multiple, fullWidth, onChange, onDelete, ...other } = props;
+  const { children, fetchFn, value, label, multiple, fullWidth, onChange, onDelete, onClose, ...other } = props;
   const focusedClass =
     // @ts-ignore
     (value && !Array.isArray(value) && value.uid) || (value && Array.isArray(value) && value.length)
@@ -37,26 +38,28 @@ const SelectWithSearch = (props: SearchableSelectProps) => {
     if (fetchFn) {
       fetchFn(debouncedQuery);
     }
-  }, [debouncedQuery, fetchFn]);
+    // fetchFn не добавлять в зависимости
+  }, [debouncedQuery]);
 
   return (
     <Box sx={{ display: 'flex' }}>
       <FormControl fullWidth={fullWidth}>
         <InputLabel className={focusedClass}>{label}</InputLabel>
         <Select
-          {...other}
-          onChange={onChange}
-          value={value}
-          label={label}
-          fullWidth={fullWidth}
+          className={focusedClass}
           input={<OutlinedInput label={label} fullWidth={fullWidth} />}
+          label={label}
           multiple={multiple}
+          fullWidth={fullWidth}
+          value={value}
           renderValue={(selected: any) =>
             (multiple
               ? (selected.map((s: any) => s.title || s.name) as string[]).join(', ')
               : selected?.title || selected.name) as ReactNode
           }
-          className={focusedClass}
+          onChange={onChange}
+          onClose={onClose}
+          {...other}
         >
           <SearchFieldWrapper setQuery={setQuery} />
           {children}

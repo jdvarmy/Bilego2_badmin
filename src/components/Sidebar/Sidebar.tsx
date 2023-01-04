@@ -3,11 +3,11 @@ import { Scrollbars } from 'react-custom-scrollbars-2';
 import { Box, Drawer, Hidden } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSidebar } from '../../store/selectors';
-import { toggleSidebar } from '../../store/sidebarSlice/sidebarSlice';
+import { selectSidebar } from '../../domen/selectors';
+import { toggleSidebar } from '../../domen/sidebarSlice/sidebarSlice';
 import SidebarMenu from './SidebarMenu/SidebarMenu';
 import Logo from '../Logo/Logo';
-import { AppDispatch } from '../../store/store';
+import { AppDispatch } from '../../domen/store';
 
 const SidebarWrapper = styled(Box)(
   ({ theme }) => `

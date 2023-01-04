@@ -13,7 +13,8 @@ export const selectMedialibrary = (state: RootState) => select(state)?.medialibr
 export const selectAlert = (state: RootState) => select(state)?.alert;
 
 export const selectEventsStore = (state: RootState) => select(state)?.events;
-export const selectEvent = (state: RootState) => selectEventsStore(state).eventState;
+export const selectEvent = (state: RootState) => selectEventsStore(state).event;
+export const selectEventState = (state: RootState) => selectEventsStore(state).eventState;
 export const selectEvents = (state: RootState) => selectEventsStore(state).events;
 export const selectEventSelectedDate = (state: RootState) => {
   const selected = selectEventsStore(state).selectedDateUid;

@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { AppDispatch } from '../../store/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { saveTemplateEventAsync } from '../../store/eventsSlice/eventsSlice';
-import SuspenseLoader from '../../components/SuspenseLoader/SuspenseLoader';
 import { useNavigate } from 'react-router-dom';
-import { selectEvent } from '../../store/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '../../domen/store';
+import { selectEventState } from '../../domen/selectors';
+import { saveTemplateEventAsync } from '../../domen/events/eventsThunk';
+import SuspenseLoader from '../../components/SuspenseLoader/SuspenseLoader';
 
 const EventDataContainer = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
-  const event = useSelector(selectEvent);
+  const event = useSelector(selectEventState);
 
   useEffect(() => {
     dispatch(saveTemplateEventAsync());

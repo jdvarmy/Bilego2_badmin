@@ -5,8 +5,8 @@ import { Taxonomy } from '../../../typings/types';
 import { useDispatch } from 'react-redux';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import SaveAsTwoToneIcon from '@mui/icons-material/SaveAsTwoTone';
-import { AppDispatch } from '../../../store/store';
-import { saveTaxonomyAsync } from '../../../store/taxonomySlice/taxonomyThunk';
+import { AppDispatch } from '../../../domen/store';
+import { saveTaxonomyAsync } from '../../../domen/taxonomy/taxonomyThunk';
 import { useTaxonomyHeaderFields } from '../helpers/useTaxonomyHeaderFields';
 
 type Props = {

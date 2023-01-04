@@ -4,8 +4,8 @@ import { Layer, Group } from 'react-konva';
 import DrawPath from './elements/DrawPath';
 import DrawCircle from './elements/DrawCircle';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../store/store';
-import { deleteHoveredCircle } from '../../store/circleSlice/circleSlice';
+import { AppDispatch } from '../../domen/store';
+import { deleteHoveredCircle } from '../../domen/circleSlice/circleSlice';
 
 type Props = {
   data?: MapFile;

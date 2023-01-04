@@ -1,14 +1,14 @@
 import React from 'react';
 import { Box, Card, CardContent, CardHeader, Divider, Grid, TextField } from '@mui/material';
-import { AppDispatch } from '../../../store/store';
+import { AppDispatch } from '../../../domen/store';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectEvent } from '../../../store/selectors';
+import { selectEventState } from '../../../domen/selectors';
 import { Event } from '../../../typings/types';
-import { EventStateFieldType, setEventStateField } from '../../../store/eventsSlice/eventsSlice';
+import { EventStateFieldType, setEventStateField } from '../../../domen/events/eventsSlice';
 
 const EventProps = () => {
   const dispatch: AppDispatch = useDispatch();
-  const event = useSelector(selectEvent);
+  const event = useSelector(selectEventState);
 
   const handleChange = (field: keyof Event) => (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setEventStateField({ [field]: event.target.value } as EventStateFieldType));

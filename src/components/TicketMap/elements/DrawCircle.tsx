@@ -2,7 +2,7 @@ import React, { useCallback, Key } from 'react';
 import { Circle } from 'react-konva';
 import { CircleElement, DrawCircleType } from '../../../typings/types';
 import { useDispatch } from 'react-redux';
-import { setHoveredCircle } from '../../../store/circleSlice/circleSlice';
+import { setHoveredCircle } from '../../../domen/circleSlice/circleSlice';
 
 type Props = {
   active?: boolean;

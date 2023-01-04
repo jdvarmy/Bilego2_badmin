@@ -1,7 +1,7 @@
 import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 import sidebarSlice from './sidebarSlice/sidebarSlice';
-import eventsSlice from './eventsSlice/eventsSlice';
+import eventsSlice from './events/eventsSlice';
 import itemsSlice from './itemsSlice/itemsSlice';
 import artistsSlice from './artistsSlice/artistsSlice';
 import ticketsSlice from './ticketsSlice/ticketsSlice';
@@ -10,7 +10,7 @@ import usersSlice from './usersSlice/usersSlice';
 import medialibrarySlice from './medialibrarySlice/medialibrarySlice';
 import alertSlice from './alertSlice/alertSlice';
 import circleSlice from './circleSlice/circleSlice';
-import taxonomySlice from './taxonomySlice/taxonomySlice';
+import taxonomySlice from './taxonomy/taxonomySlice';
 
 const reducer = combineReducers({
   sidebar: sidebarSlice,

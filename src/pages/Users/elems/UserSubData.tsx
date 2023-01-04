@@ -66,7 +66,7 @@ const UserSubData = ({ userData, setUserData }: Props) => {
     setUserData({ ...userData, avatar: image });
   };
   const handleDeleteAvatar = () => {
-    setUserData({ ...userData, avatar: '' });
+    setUserData({ ...userData, avatar: undefined });
   };
 
   return (

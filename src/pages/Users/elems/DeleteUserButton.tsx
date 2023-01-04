@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { IconButton, Tooltip, useTheme } from '@mui/material';
-import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
-import { deleteUserAsync } from '../../../store/usersSlice/usersSlice';
-import { AppDispatch } from '../../../store/store';
 import { useDispatch } from 'react-redux';
-import ModalDialog from '../../../components/ModalDialog/ModalDialog';
+import { IconButton, Tooltip, useTheme } from '@mui/material';
 import DeleteSweepTwoToneIcon from '@mui/icons-material/DeleteSweepTwoTone';
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import { deleteUserAsync } from '../../../domen/usersSlice/usersSlice';
+import { AppDispatch } from '../../../domen/store';
+import ModalDialog from '../../../components/ModalDialog/ModalDialog';
 
 type Props = {
   email: string;

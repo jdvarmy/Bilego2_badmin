@@ -19,9 +19,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import Image from './Image';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '../../store/store';
-import { uploadFileAsync } from '../../store/medialibrarySlice/medialibrarySlice';
-import { selectMedialibrary } from '../../store/selectors';
+import { AppDispatch } from '../../domen/store';
+import { uploadFileAsync } from '../../domen/medialibrarySlice/medialibrarySlice';
+import { selectMedialibrary } from '../../domen/selectors';
 import { MediaFile, MediaSelectData } from '../../typings/types';
 import UploadFiles from '../UploadFiles/UploadFiles';
 

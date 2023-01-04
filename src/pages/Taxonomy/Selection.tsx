@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Taxonomy from './Taxonomy';
 import { TermType } from '../../typings/enum';
-import { setTaxonomy } from '../../store/taxonomySlice/taxonomySlice';
+import { setTaxonomy } from '../../domen/taxonomy/taxonomySlice';
 import { useDispatch } from 'react-redux';
 import { Taxonomy as ITaxonomy } from '../../typings/types';
 

@@ -8,15 +8,15 @@ import UserMainData from './elems/UserMainData';
 import UserSubData from './elems/UserSubData';
 import UserOrganizerData from './elems/UserOrganizerData';
 import { usePostStatus } from '../../hooks/usePostStatus';
-import { AppDispatch } from '../../store/store';
+import { AppDispatch } from '../../domen/store';
 import { useDispatch } from 'react-redux';
-import { getUserAsync } from '../../store/usersSlice/usersSlice';
+import { getUserAsync } from '../../domen/usersSlice/usersSlice';
 
 export type UserState = Omit<User, 'uid' | 'status' | 'avatar'> & {
   status: boolean;
   password: string;
   sendMail: boolean;
-  avatar: string | MediaSelectData;
+  avatar?: MediaSelectData;
   uid?: string;
 };
 
@@ -26,10 +26,10 @@ const initialState: UserState = {
   status: true,
   role: UserRole.subscriber,
   sendMail: false,
-  avatar: '',
+  avatar: undefined,
   name: '',
   surname: '',
-  birthdate: null,
+  birthdate: undefined,
   phone: '',
   concertManagerInfo: '',
   concertManagerPercentage: 0,
@@ -46,7 +46,7 @@ const UserDataContainer = () => {
     if (isEdit) {
       dispatch(getUserAsync(uid as string, setValues));
     }
-  }, [status, isEdit]);
+  }, [dispatch, uid, isEdit]);
 
   return (
     <>

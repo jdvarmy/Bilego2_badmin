@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import TableGrid from '../TableGrid/TableGrid';
 import { useSelector } from 'react-redux';
-import { selectTicketsStore } from '../../store/selectors';
+import { selectTicketsStore } from '../../domen/selectors';
 import { factoryCols, factoryRows } from './helpers';
 import groupBy from 'lodash.groupby';
 

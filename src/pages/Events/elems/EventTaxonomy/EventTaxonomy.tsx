@@ -3,16 +3,17 @@ import { Box, Card, CardContent, CardHeader, Divider, Grid } from '@mui/material
 import EventTaxonomyElement from './EventTaxonomyElement';
 import { Event, Taxonomy } from '../../../../typings/types';
 import { TermType } from '../../../../typings/enum';
-import { getTaxonomyAsyncReq } from '../../../../store/taxonomySlice/taxonomyThunk';
+import { getTaxonomyAsyncReq } from '../../../../domen/taxonomy/taxonomyThunk';
+import { isEqual } from '../../../../utils/functions/isEqual';
 
-const EventTaxonomy = ({ selected }: { selected: Event['taxonomy'] }) => {
+const EventTaxonomy = ({ uid, selected }: { uid: Event['uid']; selected: Event['taxonomy'] }) => {
   const [taxonomies, setTaxonomies] = useState<Event['taxonomy']>([]);
 
   console.log('render EventTaxonomy');
 
   const getTax = useCallback(
     (type: TermType, taxes: Event['taxonomy'] | Taxonomy[]): Event['taxonomy'] =>
-      taxes.filter((tax) => tax.type === type),
+      taxes ? taxes.filter((tax) => tax.type === type) : [],
     [],
   );
   const eventCategorySelected = useMemo(() => getTax(TermType.eventCategory, selected), [getTax, selected]);
@@ -43,6 +44,7 @@ const EventTaxonomy = ({ selected }: { selected: Event['taxonomy'] }) => {
           <Grid container spacing={3} alignItems='center'>
             <Grid item xs={3}>
               <EventTaxonomyElement
+                eventUid={uid}
                 selected={eventCategorySelected}
                 taxonomies={eventCategoryTaxonomies}
                 type={TermType.eventCategory}
@@ -50,6 +52,7 @@ const EventTaxonomy = ({ selected }: { selected: Event['taxonomy'] }) => {
             </Grid>
             <Grid item xs={3}>
               <EventTaxonomyElement
+                eventUid={uid}
                 selected={eventGenreSelected}
                 taxonomies={eventGenreTaxonomies}
                 type={TermType.eventGenre}
@@ -57,6 +60,7 @@ const EventTaxonomy = ({ selected }: { selected: Event['taxonomy'] }) => {
             </Grid>
             <Grid item xs={3}>
               <EventTaxonomyElement
+                eventUid={uid}
                 selected={eventSelectionSelected}
                 taxonomies={eventSelectionTaxonomies}
                 type={TermType.eventSelection}
@@ -64,6 +68,7 @@ const EventTaxonomy = ({ selected }: { selected: Event['taxonomy'] }) => {
             </Grid>
             <Grid item xs={3}>
               <EventTaxonomyElement
+                eventUid={uid}
                 selected={eventFeelingSelected}
                 taxonomies={eventFeelingTaxonomies}
                 type={TermType.eventFeeling}
@@ -76,4 +81,4 @@ const EventTaxonomy = ({ selected }: { selected: Event['taxonomy'] }) => {
   );
 };
 
-export default memo(EventTaxonomy);
+export default memo(EventTaxonomy, isEqual);

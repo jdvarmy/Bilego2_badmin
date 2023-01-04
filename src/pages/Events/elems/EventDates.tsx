@@ -1,24 +1,25 @@
 import React, { memo, SyntheticEvent, useEffect } from 'react';
 import { Card, CardContent, CardHeader, Divider, Grid, IconButton, Tab, Tabs, Tooltip } from '@mui/material';
 import { Event } from '../../../typings/types';
-import EventDatesTabContent from './EventDatesTabContent';
+import { useDispatch, useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
-import { AppDispatch } from '../../../store/store';
-import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '../../../domen/store';
+import EventDatesTabContent from './EventDatesTabContent';
 import {
   deleteEventDateAsync,
   EventStateFieldType,
   saveTemplateEventDateAsync,
   setEventStateField,
   setSelectedDateUid,
-} from '../../../store/eventsSlice/eventsSlice';
-import { selectEventSelectedDateUid } from '../../../store/selectors';
+} from '../../../domen/events/eventsSlice';
+import { selectEventSelectedDateUid } from '../../../domen/selectors';
 import { TicketType } from '../../../typings/enum';
 import MapIcon from '@mui/icons-material/Map';
 import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import { isEqual } from '../../../utils/functions/isEqual';
 
 type Props = {
   uid?: string;
@@ -108,7 +109,7 @@ const EventDates = ({ uid, dates }: Props) => {
   );
 };
 
-export default memo(EventDates);
+export default memo(EventDates, isEqual);
 
 function getTabLabel(dateFrom?: Date, dateTo?: Date): string {
   const dateFromLocal = dateFrom ? new Date(dateFrom).setHours(0, 0, 0, 0) : null;

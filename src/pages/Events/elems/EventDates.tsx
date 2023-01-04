@@ -1,25 +1,26 @@
-import React, { memo, SyntheticEvent, useEffect } from 'react';
+import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
+import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import MapIcon from '@mui/icons-material/Map';
 import { Card, CardContent, CardHeader, Divider, Grid, IconButton, Tab, Tabs, Tooltip } from '@mui/material';
-import { Event } from '../../../typings/types';
-import { useDispatch, useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
-import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
-import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
-import { AppDispatch } from '../../../domen/store';
-import EventDatesTabContent from './EventDatesTabContent';
+import React, { SyntheticEvent, memo, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { selectEventSelectedDateUid } from '../../../domen/events/eventsSelectors';
 import {
-  deleteEventDateAsync,
   EventStateFieldType,
+  deleteEventDateAsync,
   saveTemplateEventDateAsync,
   setEventStateField,
   setSelectedDateUid,
 } from '../../../domen/events/eventsSlice';
-import { selectEventSelectedDateUid } from '../../../domen/selectors';
+import { AppDispatch } from '../../../domen/store';
 import { TicketType } from '../../../typings/enum';
-import MapIcon from '@mui/icons-material/Map';
-import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import { Event } from '../../../typings/types';
 import { isEqual } from '../../../utils/functions/isEqual';
+import EventDatesTabContent from './EventDatesTabContent';
 
 type Props = {
   uid?: string;

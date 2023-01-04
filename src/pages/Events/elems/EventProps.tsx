@@ -1,10 +1,11 @@
-import React from 'react';
 import { Box, Card, CardContent, CardHeader, Divider, Grid, TextField } from '@mui/material';
-import { AppDispatch } from '../../../domen/store';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectEventState } from '../../../domen/selectors';
-import { Event } from '../../../typings/types';
+
+import { selectEventState } from '../../../domen/events/eventsSelectors';
 import { EventStateFieldType, setEventStateField } from '../../../domen/events/eventsSlice';
+import { AppDispatch } from '../../../domen/store';
+import { Event } from '../../../typings/types';
 
 const EventProps = () => {
   const dispatch: AppDispatch = useDispatch();

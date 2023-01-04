@@ -1,11 +1,12 @@
-import React, { memo } from 'react';
 import { Card, CardContent, CardHeader, Divider, Grid } from '@mui/material';
+import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
-import { selectEventSelectedDate } from '../../domen/selectors';
-import TicketsInitialContent from './TicketsInitialContent';
-import TicketControls from './controls/TicketControls';
-import TicketsContent from './content/TicketsContent';
+
+import { selectEventSelectedDate } from '../../domen/events/eventsSelectors';
 import { isEqual } from '../../utils/functions/isEqual';
+import TicketsInitialContent from './TicketsInitialContent';
+import TicketsContent from './content/TicketsContent';
+import TicketControls from './controls/TicketControls';
 
 const Tickets = () => {
   const selectedDate = useSelector(selectEventSelectedDate, isEqual);

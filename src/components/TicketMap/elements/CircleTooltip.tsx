@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Html } from 'react-konva-utils';
-import { DrawCircleType } from '../../../typings/types';
 import { useSelector } from 'react-redux';
-import { selectSelectedDateMapSectors } from '../../../domen/selectors';
-import CircleTooltipContent from './CircleTooltipContent';
+
+import { selectSelectedDateMapSectors } from '../../../domen/events/eventsSelectors';
+import { DrawCircleType } from '../../../typings/types';
 import { useMapStage } from '../TicketMap';
+import CircleTooltipContent from './CircleTooltipContent';
 
 type TransformAttrs = {
   x: number;

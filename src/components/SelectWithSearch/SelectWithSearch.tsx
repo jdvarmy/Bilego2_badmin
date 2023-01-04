@@ -1,18 +1,19 @@
-import React, { Component, useEffect, useState, Dispatch, SetStateAction, ReactNode, MouseEventHandler } from 'react';
+import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import {
+  Box,
   ClickAwayListener,
+  FormControl,
+  IconButton,
+  InputLabel,
   ListItem,
+  OutlinedInput,
+  Select,
   SelectProps,
   TextField,
-  Select,
-  OutlinedInput,
-  FormControl,
-  InputLabel,
-  IconButton,
-  Box,
 } from '@mui/material';
+import React, { Component, Dispatch, MouseEventHandler, ReactNode, SetStateAction, useEffect, useState } from 'react';
+
 import { useDebounce } from '../../hooks/useDebounce';
-import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 
 interface BaseProps {
   maxVisibleOptions?: number;

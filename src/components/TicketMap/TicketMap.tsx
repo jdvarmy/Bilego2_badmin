@@ -1,15 +1,17 @@
-import React, { createContext, CSSProperties, memo, useCallback, useContext, useMemo, useRef } from 'react';
-import { Provider, ReactReduxContext, useSelector } from 'react-redux';
 import { Box } from '@mui/material';
 import Konva from 'konva';
+import React, { CSSProperties, createContext, memo, useCallback, useContext, useMemo, useRef } from 'react';
 import { Stage } from 'react-konva';
-import { selectSelectedDateMap } from '../../domen/selectors';
+import { Provider, ReactReduxContext, useSelector } from 'react-redux';
+
+import { selectSelectedDateMap } from '../../domen/events/eventsSelectors';
+import { useResizeObserver } from '../../hooks/useResizeObserver';
 import { isEqual } from '../../utils/functions/isEqual';
-import StaticCanvas from './StaticCanvas';
 import ActiveCanvas from './ActiveCanvas';
 import Paths from './Paths';
-import { useResizeObserver } from '../../hooks/useResizeObserver';
-import { moveToCenter, getScale, handleZoom, handleDrag } from './helpers';
+import StaticCanvas from './StaticCanvas';
+import { getScale, handleDrag, handleZoom, moveToCenter } from './helpers';
+
 import KonvaEventObject = Konva.KonvaEventObject;
 import Vector2d = Konva.Vector2d;
 import StageType = Konva.Stage;

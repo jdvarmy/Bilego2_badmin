@@ -1,25 +1,26 @@
+import { Box, Container, Grid } from '@mui/material';
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Box, Container, Grid } from '@mui/material';
-import { AppDispatch } from '../../domen/store';
 import { useDispatch, useSelector } from 'react-redux';
-import TextRedactor from './elems/TextRedactor';
-import { selectEventState } from '../../domen/selectors';
 import { useSearchParams } from 'react-router-dom';
-import EventSlugCreator from './elems/EventSlugCreator';
-import SaveEventButtons from './elems/SaveEventButtons';
-import EventDates from './elems/EventDates';
-import Tickets from '../../components/Tickets/Tickets';
-import EventGallery from './elems/EventGallery';
-import EventProps from './elems/EventProps';
-import EventPlace from './elems/EventPlace/EventPlace';
-import EventHeader from './elems/EventHeader';
-import EventStatus from './elems/EventStatus';
+
 import SuspenseLoader from '../../components/SuspenseLoader/SuspenseLoader';
-import EventSEO from './elems/EventSEO';
-import EventTaxonomy from './elems/EventTaxonomy/EventTaxonomy';
-import { getEventAsync } from '../../domen/events/eventsThunk';
+import Tickets from '../../components/Tickets/Tickets';
+import { selectEventState } from '../../domen/events/eventsSelectors';
 import { setEvent, setEventState } from '../../domen/events/eventsSlice';
+import { getEventAsync } from '../../domen/events/eventsThunk';
+import { AppDispatch } from '../../domen/store';
+import EventDates from './elems/EventDates';
+import EventGallery from './elems/EventGallery';
+import EventHeader from './elems/EventHeader';
+import EventPlace from './elems/EventPlace/EventPlace';
+import EventProps from './elems/EventProps';
+import EventSEO from './elems/EventSEO';
+import EventSlugCreator from './elems/EventSlugCreator';
+import EventStatus from './elems/EventStatus';
+import EventTaxonomy from './elems/EventTaxonomy/EventTaxonomy';
+import SaveEventButtons from './elems/SaveEventButtons';
+import TextRedactor from './elems/TextRedactor';
 
 const EditEvent = () => {
   const dispatch: AppDispatch = useDispatch();

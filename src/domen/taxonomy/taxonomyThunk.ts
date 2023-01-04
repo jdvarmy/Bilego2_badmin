@@ -1,5 +1,7 @@
 import { Key } from 'react';
+
 import { TermType, TermTypeLink } from '../../typings/enum';
+import { Taxonomy } from '../../typings/types';
 import { AppThunk } from '../store';
 import {
   deleteTaxonomyRequest,
@@ -7,9 +9,8 @@ import {
   patchTaxonomyRequest,
   saveTaxonomyRequest,
 } from './taxonomyRequest';
-import { Taxonomy } from '../../typings/types';
+import { selectTaxonomy } from './taxonomySelectors';
 import { setTaxonomy } from './taxonomySlice';
-import { selectTaxonomy } from '../selectors';
 
 export const getTaxonomyAsyncReq = async (link = TermTypeLink.event, type?: TermType) => {
   try {

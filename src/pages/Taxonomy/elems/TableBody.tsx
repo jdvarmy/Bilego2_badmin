@@ -1,16 +1,17 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { AgGridReact } from 'ag-grid-react';
-import { useDispatch, useSelector } from 'react-redux';
 import { CellValueChangedEvent, ColDef } from 'ag-grid-community';
+import { RowDragEvent } from 'ag-grid-community/dist/lib/events';
+import { AgGridReact } from 'ag-grid-react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import DataTable from '../../../components/DataTable/DataTable';
-import { selectTaxonomy } from '../../../domen/selectors';
 import { AppDispatch } from '../../../domen/store';
+import { selectTaxonomy } from '../../../domen/taxonomy/taxonomySelectors';
+import { editTaxonomyAsync } from '../../../domen/taxonomy/taxonomyThunk';
 import { Taxonomy } from '../../../typings/types';
 import cloneDeep from '../../../utils/functions/cloneDeep';
-import { editTaxonomyAsync } from '../../../domen/taxonomy/taxonomyThunk';
 import { isEqual } from '../../../utils/functions/isEqual';
 import { createColumnDefs } from '../helpers/createColumnDefs';
-import { RowDragEvent } from 'ag-grid-community/dist/lib/events';
 
 type Props = {
   columns?: (keyof Taxonomy)[];

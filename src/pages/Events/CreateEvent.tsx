@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '../../domen/store';
-import { selectEventState } from '../../domen/selectors';
-import { saveTemplateEventAsync } from '../../domen/events/eventsThunk';
+import { useNavigate } from 'react-router-dom';
+
 import SuspenseLoader from '../../components/SuspenseLoader/SuspenseLoader';
+import { selectEventState } from '../../domen/events/eventsSelectors';
+import { saveTemplateEventAsync } from '../../domen/events/eventsThunk';
+import { AppDispatch } from '../../domen/store';
 
 const EventDataContainer = () => {
   const dispatch: AppDispatch = useDispatch();

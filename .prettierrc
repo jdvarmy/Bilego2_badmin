@@ -6,5 +6,8 @@
   "tabWidth": 2,
   "jsxSingleQuote": true,
   "endOfLine": "auto",
-  "htmlWhitespaceSensitivity": "ignore"
+  "htmlWhitespaceSensitivity": "ignore",
+  "importOrder": ["^@domen/(.*)$", "^@pages/(.*)$", "^@components/(.*)$", "^[./]"],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }

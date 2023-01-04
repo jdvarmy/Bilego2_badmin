@@ -1,16 +1,17 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
 import { MenuItem } from '@mui/material';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Event } from '../../../../typings/types';
+
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
-import { TermType } from '../../../../typings/enum';
-import { AppDispatch } from '../../../../domen/store';
-import { ChangeEventType } from '../../../../hooks/useChangeFnEventField';
-import { nameMapTaxonomy } from '../../../Taxonomy/Taxonomy';
+import { selectEvent, selectEventState } from '../../../../domen/events/eventsSelectors';
 import { EventStateFieldType, setEventStateField } from '../../../../domen/events/eventsSlice';
 import { editEventAsync } from '../../../../domen/events/eventsThunk';
-import { selectEvent, selectEventState } from '../../../../domen/selectors';
+import { AppDispatch } from '../../../../domen/store';
+import { ChangeEventType } from '../../../../hooks/useChangeFnEventField';
+import { TermType } from '../../../../typings/enum';
+import { Event } from '../../../../typings/types';
 import { isEqual } from '../../../../utils/functions/isEqual';
+import { nameMapTaxonomy } from '../../../Taxonomy/Taxonomy';
 
 type Props = {
   type: TermType;

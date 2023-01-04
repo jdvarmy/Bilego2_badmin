@@ -42,7 +42,8 @@ const EventTaxonomyElement = ({ type, eventUid, taxonomies, selected }: Props) =
     if (Array.isArray(stateTaxonomy) && stateTaxonomy.length && !isEqual(stateTaxonomy, taxonomy)) {
       dispatch(editEventAsync({ uid: eventUid, taxonomy: stateTaxonomy }));
     }
-  }, [stateTaxonomy, taxonomy, dispatch, eventUid]);
+    setLocalTax(taxonomies);
+  }, [stateTaxonomy, taxonomy, taxonomies, dispatch, eventUid]);
 
   const fetchFnItems = useCallback(
     (search: string) => {

@@ -12,7 +12,7 @@ import { getEventAsync } from '../../domen/events/eventsThunk';
 import { AppDispatch } from '../../domen/store';
 import EventDates from './elems/EventDates';
 import EventGallery from './elems/EventGallery';
-import EventHeader from './elems/EventHeader';
+import EventHeader from './elems/EventHeader/EventHeader';
 import EventPlace from './elems/EventPlace/EventPlace';
 import EventProps from './elems/EventProps';
 import EventSEO from './elems/EventSEO';
@@ -78,7 +78,7 @@ const EditEvent = () => {
               <Tickets />
             </Grid>
             <Grid item xs={12}>
-              <EventHeader />
+              <EventHeader type={event.headerType} />
             </Grid>
             <Grid item xs={12}>
               {/*<TextRedactor title={event.title} text={event.text} />*/}

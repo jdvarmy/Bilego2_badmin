@@ -1,6 +1,7 @@
 import { Key } from 'react';
+
+import { City, EventHeaderType, PostStatus, TermType, TermTypeLink, TicketType, UserRole } from './enum';
 import { HTTP_URL, HTTP_VERSION } from './env';
-import { City, EventHeaderType, PostStatus, TermTypeLink, TermType, TicketType, UserRole } from './enum';
 
 export const loginPage = '/login';
 export const storageTokenName = '_btoken' as const;
@@ -30,8 +31,8 @@ export interface Taxonomy {
   link?: TermTypeLink;
   slug?: string;
   description?: string;
-  icon?: (Partial<MediaSelectData> & { patch?: string }) | number;
-  image?: (Partial<MediaSelectData> & { patch?: string }) | number;
+  icon?: Partial<MediaSelectData> | number;
+  image?: Partial<MediaSelectData> | number;
   overIndex?: number;
   showInMenu?: boolean;
   showInMainPage?: boolean;
@@ -66,7 +67,7 @@ export interface Event extends Post {
   eventManager?: any;
   taxonomy?: Pick<Taxonomy, 'id' | 'name' | 'type'>[];
   eventDates?: EventDate[];
-  image?: any;
+  image?: Partial<MediaSelectData> | number;
   fragment?: string;
   searchWords?: string;
   ageRestriction?: number;
@@ -74,22 +75,20 @@ export interface Event extends Post {
   musicLink?: string;
   videoLink?: string;
   headerType?: EventHeaderType;
-  headerImage?: any;
-  headerVideo?: any;
-  headerTitle?: string;
-  headerSubtitle?: string;
-  headerMeta?: string;
+  headerImage?: Partial<MediaSelectData> | number;
+  headerMedia?: string;
+  headerText?: string;
   headerTextColor?: string;
   concertManagerInfo?: string;
   concertManagerPercentage?: number;
 }
 
 export interface Item extends Post {
-  image?: any;
+  image?: Partial<MediaSelectData> | number;
   city?: City;
 }
 export interface Artist extends Post {
-  avatar?: any;
+  avatar?: Partial<MediaSelectData> | number;
 }
 
 export interface TicketOnSell {
@@ -144,7 +143,7 @@ export type MediaFile = {
   path: string;
   size: number;
 };
-export type MediaSelectData = { id: number; name: string };
+export type MediaSelectData = { id: number; name: string; patch?: string };
 export type TextElement = { fill?: string; 'font-family'?: string; 'font-size'?: number; transform?: string };
 export type PathElement = {
   d?: string;

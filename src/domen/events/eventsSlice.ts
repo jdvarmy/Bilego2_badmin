@@ -1,9 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
+import { deleteEventDateRequest, editEventDateRequest, saveEventDateRequest } from '../../api/requests';
 import { Event, EventDate } from '../../typings/types';
 import { AppThunk } from '../store';
-import { deleteEventDateRequest, editEventDateRequest, saveEventDateRequest } from '../../api/requests';
 
 export type EventStateFieldType = Record<keyof Event, any>;
+
 type State = {
   loading: boolean;
   // используется для хранения данных события, синхронизовано с данными в БД

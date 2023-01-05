@@ -22,7 +22,7 @@ export enum PostStatus {
 export enum EventHeaderType {
   image = 'image',
   video = 'video',
-  effect = 'effect',
+  filter = 'filter',
 }
 
 export enum City {

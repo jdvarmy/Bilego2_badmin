@@ -1,11 +1,12 @@
-import React from 'react';
-import { IconButton, MenuItem, TextField } from '@mui/material';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
-import { City } from '../../../../typings/enum';
+import { IconButton, MenuItem, TextField } from '@mui/material';
+import React from 'react';
+
 import { ChangeEventType, useChangeFnEventField } from '../../../../hooks/useChangeFnEventField';
+import { City } from '../../../../typings/enum';
 import { Event } from '../../../../typings/types';
 
-const cityMap: Record<City, string> = {
+const cityMapNames: Record<City, string> = {
   [City.moscow]: 'Москва',
   [City.petersburg]: 'Санкт-Петербург',
 };
@@ -36,7 +37,7 @@ const EventPlaceCity = ({ city, item, handleDelete }: Props) => {
         focused={!!city}
         onChange={handleChangeCityLocal}
       >
-        {Object.entries(cityMap).map(([key, value]) => (
+        {Object.entries(cityMapNames).map(([key, value]) => (
           <MenuItem key={key} value={key}>
             {value}
           </MenuItem>

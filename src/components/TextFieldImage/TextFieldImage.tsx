@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Box, IconButton, TextField } from '@mui/material';
-import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import AddPhotoAlternateTwoToneIcon from '@mui/icons-material/AddPhotoAlternateTwoTone';
-import MediaLibrary from '../MediaLibrary/MediaLibrary';
-import { MediaSelectData } from '../../typings/types';
+import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
+import { Box, IconButton, TextField } from '@mui/material';
 import { OverridableStringUnion } from '@mui/types';
+import React, { useState } from 'react';
+
+import { MediaSelectData } from '../../typings/types';
+import MediaLibrary from '../MediaLibrary/MediaLibrary';
 
 export type MediaTextFieldProps = {
   label?: React.ReactNode;
@@ -15,7 +16,6 @@ export type MediaTextFieldProps = {
   onlyIcon?: boolean;
 };
 
-// todo: добавить это в редактирование и создание юзера
 const TextFieldImage = ({ label, value, onSelect, onDelete, size, onlyIcon }: MediaTextFieldProps) => {
   const [openMedia, setOpenMedia] = useState<boolean>(false);
 

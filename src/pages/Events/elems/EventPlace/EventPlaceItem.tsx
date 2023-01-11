@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import { Event } from '../../../../typings/types';
-import { useDispatch } from 'react-redux';
 import { MenuItem } from '@mui/material';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
-import { ChangeEventType, useChangeFnEventField } from '../../../../hooks/useChangeFnEventField';
-import { EventStateFieldType, setEventStateField } from '../../../../domen/events/eventsSlice';
+import { setEventStateField } from '../../../../domen/events/eventsSlice';
 import { getItemListForEventAsync } from '../../../../domen/itemsSlice/itemsSlice';
-import { City } from '../../../../typings/enum';
 import { AppDispatch } from '../../../../domen/store';
+import { ChangeEventType, useChangeFnEventField } from '../../../../hooks/useChangeFnEventField';
+import { City } from '../../../../typings/enum';
+import { Event } from '../../../../typings/types';
 
 type Props = {
   item?: Event['item'];
@@ -23,7 +24,7 @@ const EventPlaceItem = ({ item, city, handleDelete }: Props) => {
   const handleChangeItemLocal = (event: ChangeEventType) => {
     const eventCity = event.target.value as Event['item'];
     if (eventCity?.city && eventCity.city !== city) {
-      dispatch(setEventStateField({ city: eventCity.city } as EventStateFieldType));
+      dispatch(setEventStateField({ city: eventCity.city }));
     }
     handleChangeItem(event);
   };

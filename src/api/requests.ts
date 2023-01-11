@@ -1,15 +1,15 @@
-import requests from './api';
 import {
+  Event,
+  EventDate,
   MediaFile,
   RequestAuth,
   RequestUser,
   ResponseAuth,
-  User,
-  Event,
-  EventDate,
   Ticket,
   TicketOnSell,
+  User,
 } from '../typings/types';
+import requests from './api';
 
 export const registerRequest = (data: RequestAuth) => requests.post<ResponseAuth>(`auth/register`, data);
 export const loginRequest = (data: RequestAuth) => requests.post<ResponseAuth>(`auth/login`, data);
@@ -41,8 +41,7 @@ export const editEventDateRequest = (eventUid: string, data: Partial<EventDate>)
   requests.put<EventDate>(`events/${eventUid}/dates`, data);
 
 export const fetchItemsRequest = (data: any) => requests.get<Event['item'][]>(`items`, data);
-export const fetchArtistsRequest = (data: { search: string }, cfg: { signal: AbortSignal }) =>
-  requests.get<Event['artist']>(`artists`, data, cfg);
+export const fetchArtistsRequest = (data: { search: string }) => requests.get<Event['artist']>(`artists`, data);
 
 export const fetchTicketsRequest = (dateUid: string) => requests.get<Ticket[]>(`tickets/${dateUid}`);
 export const saveTicketsRequest = (

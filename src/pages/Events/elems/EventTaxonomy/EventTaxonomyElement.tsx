@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
 import { selectEvent, selectEventState } from '../../../../domen/events/eventsSelectors';
-import { EventStateFieldType, setEventStateField } from '../../../../domen/events/eventsSlice';
+import { setEventStateField } from '../../../../domen/events/eventsSlice';
 import { editEventAsync } from '../../../../domen/events/eventsThunk';
 import { AppDispatch } from '../../../../domen/store';
 import { ChangeEventType } from '../../../../hooks/useChangeFnEventField';
@@ -33,7 +33,7 @@ const EventTaxonomyElement = ({ type, eventUid, taxonomies, selected }: Props) =
       dispatch(
         setEventStateField({
           taxonomy: [...filterTax, ...(event.target.value as []).map((value) => JSON.parse(value))],
-        } as EventStateFieldType),
+        }),
       );
     },
     [dispatch, stateTaxonomy, type],

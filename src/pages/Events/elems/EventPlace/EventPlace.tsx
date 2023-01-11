@@ -1,13 +1,14 @@
-import React, { memo, useCallback } from 'react';
 import { Box, Card, CardContent, CardHeader, Divider, Grid } from '@mui/material';
+import React, { memo, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { setEventStateField } from '../../../../domen/events/eventsSlice';
+import { AppDispatch } from '../../../../domen/store';
 import { City } from '../../../../typings/enum';
 import { Event } from '../../../../typings/types';
-import { AppDispatch } from '../../../../domen/store';
-import { useDispatch } from 'react-redux';
-import { EventStateFieldType, setEventStateField } from '../../../../domen/events/eventsSlice';
+import EventPlaceArtist from './EventPlaceArtist';
 import EventPlaceCity from './EventPlaceCity';
 import EventPlaceItem from './EventPlaceItem';
-import EventPlaceArtist from './EventPlaceArtist';
 
 type Props = {
   city?: City;
@@ -22,7 +23,7 @@ const EventPlace = ({ city, item, artist }: Props) => {
 
   const handleDelete = useCallback(
     (field: keyof Event) => () => {
-      dispatch(setEventStateField({ [field]: undefined } as EventStateFieldType));
+      dispatch(setEventStateField({ [field]: undefined }));
     },
     [dispatch],
   );

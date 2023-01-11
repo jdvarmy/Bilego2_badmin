@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, Divider, Grid, Tab, Tabs } from '@mui/ma
 import React, { ReactElement, SyntheticEvent, memo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { EventStateFieldType, setEventStateField } from '../../../../domen/events/eventsSlice';
+import { setEventStateField } from '../../../../domen/events/eventsSlice';
 import { EventHeaderType } from '../../../../typings/enum';
 import TabContent from './TabContent';
 
@@ -25,7 +25,7 @@ const EventHeader = ({ type }: Props) => {
   console.log('render EventHeader');
 
   const handleChangeTab = (_: SyntheticEvent, newValue: EventHeaderType) => {
-    dispatch(setEventStateField({ headerType: newValue } as EventStateFieldType));
+    dispatch(setEventStateField({ headerType: newValue }));
   };
 
   return (

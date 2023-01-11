@@ -1,9 +1,10 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Event, Item } from '../../typings/types';
-import { AppThunk } from '../store';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Dispatch, SetStateAction } from 'react';
+
 import { fetchItemsRequest } from '../../api/requests';
 import { City } from '../../typings/enum';
+import { Event, Item } from '../../typings/types';
+import { AppThunk } from '../store';
 
 type State = {
   loading: boolean;

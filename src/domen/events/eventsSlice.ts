@@ -4,8 +4,6 @@ import { deleteEventDateRequest, editEventDateRequest, saveEventDateRequest } fr
 import { Event, EventDate } from '../../typings/types';
 import { AppThunk } from '../store';
 
-export type EventStateFieldType = Record<keyof Event, any>;
-
 type State = {
   loading: boolean;
   // используется для хранения данных события, синхронизовано с данными в БД
@@ -37,7 +35,7 @@ const events = createSlice({
     setEventState: (state, action: PayloadAction<Event | null>) => {
       state.eventState = action.payload;
     },
-    setEventStateField: (state, action: PayloadAction<EventStateFieldType>) => {
+    setEventStateField: (state, action: PayloadAction<Partial<Event>>) => {
       state.eventState = { ...state.eventState, ...action.payload };
     },
     setEvents: (state, action: PayloadAction<Event[]>) => {
@@ -62,7 +60,7 @@ export const saveTemplateEventDateAsync =
 
     try {
       const { data } = await saveEventDateRequest(eventUid);
-      dispatch(setEventStateField({ eventDates: [...eventDates, data] } as EventStateFieldType));
+      dispatch(setEventStateField({ eventDates: [...eventDates, data] }));
       dispatch(setSelectedDateUid(data.uid));
     } catch (e) {
       console.log(e);
@@ -103,7 +101,7 @@ export const editEventDateAsync =
         }
         return d;
       });
-      dispatch(setEventStateField({ eventDates: localEventDates } as EventStateFieldType));
+      dispatch(setEventStateField({ eventDates: localEventDates }));
     } catch (e) {
       console.log(e);
     } finally {

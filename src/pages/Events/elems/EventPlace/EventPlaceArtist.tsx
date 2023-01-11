@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
 import { MenuItem } from '@mui/material';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
-import { Event } from '../../../../typings/types';
-import { useChangeFnEventField } from '../../../../hooks/useChangeFnEventField';
 import { getArtistListForEventAsync } from '../../../../domen/artistsSlice/artistsSlice';
 import { AppDispatch } from '../../../../domen/store';
-import { useDispatch } from 'react-redux';
+import { useChangeFnEventField } from '../../../../hooks/useChangeFnEventField';
+import { Event } from '../../../../typings/types';
 
 type Props = {
   artist?: Event['artist'];

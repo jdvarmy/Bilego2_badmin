@@ -67,7 +67,7 @@ export interface Event extends Post {
   eventManager?: any;
   taxonomy?: Pick<Taxonomy, 'id' | 'name' | 'type'>[];
   eventDates?: EventDate[];
-  image?: Partial<MediaSelectData> | number;
+  image?: MediaSelectData;
   fragment?: string;
   searchWords?: string;
   ageRestriction?: number;
@@ -75,7 +75,7 @@ export interface Event extends Post {
   musicLink?: string;
   videoLink?: string;
   headerType?: EventHeaderType;
-  headerImage?: Partial<MediaSelectData> | number;
+  headerImage?: MediaSelectData;
   headerMedia?: string;
   headerText?: string;
   headerTextColor?: string;
@@ -84,11 +84,11 @@ export interface Event extends Post {
 }
 
 export interface Item extends Post {
-  image?: Partial<MediaSelectData> | number;
+  image?: MediaSelectData | number;
   city?: City;
 }
 export interface Artist extends Post {
-  avatar?: Partial<MediaSelectData> | number;
+  avatar?: MediaSelectData | number;
 }
 
 export interface TicketOnSell {
@@ -143,7 +143,7 @@ export type MediaFile = {
   path: string;
   size: number;
 };
-export type MediaSelectData = { id: number; name: string; patch?: string };
+export type MediaSelectData = { id: number; name: string; path?: string };
 export type TextElement = { fill?: string; 'font-family'?: string; 'font-size'?: number; transform?: string };
 export type PathElement = {
   d?: string;

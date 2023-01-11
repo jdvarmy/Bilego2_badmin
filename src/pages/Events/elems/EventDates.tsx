@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { selectEventSelectedDateUid } from '../../../domen/events/eventsSelectors';
 import {
-  EventStateFieldType,
   deleteEventDateAsync,
   saveTemplateEventDateAsync,
   setEventStateField,
@@ -45,7 +44,7 @@ const EventDates = ({ uid, dates }: Props) => {
     if (selectedDateUid && uid && dates) {
       const localDates = dates.filter((d) => d.uid !== selectedDateUid);
       dispatch(deleteEventDateAsync(selectedDateUid, uid));
-      dispatch(setEventStateField({ eventDates: localDates } as EventStateFieldType));
+      dispatch(setEventStateField({ eventDates: localDates }));
       dispatch(setSelectedDateUid(localDates.at(-1)?.uid ?? undefined));
     }
   };

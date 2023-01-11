@@ -1,19 +1,10 @@
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
-import {
-  Box,
-  ClickAwayListener,
-  FormControl,
-  IconButton,
-  InputLabel,
-  ListItem,
-  OutlinedInput,
-  Select,
-  SelectProps,
-  TextField,
-} from '@mui/material';
-import React, { Component, Dispatch, MouseEventHandler, ReactNode, SetStateAction, useEffect, useState } from 'react';
+import { Box, FormControl, IconButton, InputLabel, OutlinedInput, Select, SelectProps } from '@mui/material';
+import React, { MouseEventHandler, ReactNode, useState } from 'react';
 
 import { useDebounce } from '../../hooks/useDebounce';
+import { isArray } from '../../utils/functions/isArray';
+import { SearchFieldWrapper } from './SearchFieldWrapper';
 
 interface BaseProps {
   maxVisibleOptions?: number;
@@ -26,21 +17,17 @@ type SearchableSelectProps = BaseProps & SelectProps;
 
 const SelectWithSearch = (props: SearchableSelectProps) => {
   const [query, setQuery] = useState<string>('');
-  const debouncedQuery = useDebounce<string>(query);
-
   const { children, fetchFn, value, label, multiple, fullWidth, onChange, onDelete, onClose, ...other } = props;
   const focusedClass =
-    // @ts-ignore
-    (value && !Array.isArray(value) && value.uid) || (value && Array.isArray(value) && value.length)
+    (typeof value === 'object' && 'uid' in value) || (value && isArray(value) && value.length)
       ? 'Mui-focused'
       : undefined;
 
-  useEffect(() => {
-    if (fetchFn) {
-      fetchFn(debouncedQuery);
-    }
-    // fetchFn не добавлять в зависимости
-  }, [debouncedQuery]);
+  const debounceFetchFn = useDebounce(() => fetchFn(query));
+  const handleChange = (value: string) => {
+    setQuery(value);
+    debounceFetchFn();
+  };
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -62,7 +49,7 @@ const SelectWithSearch = (props: SearchableSelectProps) => {
           onClose={onClose}
           {...other}
         >
-          <SearchFieldWrapper setQuery={setQuery} />
+          <SearchFieldWrapper onChange={handleChange} />
           {children}
         </Select>
       </FormControl>
@@ -76,23 +63,3 @@ const SelectWithSearch = (props: SearchableSelectProps) => {
 };
 
 export default SelectWithSearch;
-
-class SearchFieldWrapper extends Component<{ setQuery: Dispatch<SetStateAction<string>> }> {
-  render() {
-    const { setQuery } = this.props;
-
-    return (
-      <ClickAwayListener onClickAway={() => null}>
-        <ListItem>
-          <TextField
-            fullWidth
-            autoFocus
-            placeholder='Поиск...'
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => e.stopPropagation()}
-          />
-        </ListItem>
-      </ClickAwayListener>
-    );
-  }
-}

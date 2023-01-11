@@ -1,11 +1,12 @@
+import ArrowCircleRightTwoToneIcon from '@mui/icons-material/ArrowCircleRightTwoTone';
+import { DateTimePicker } from '@mui/lab';
+import { Grid, IconButton, TextField, Tooltip, Typography } from '@mui/material';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Grid, IconButton, TextField, Tooltip, Typography } from '@mui/material';
-import { DateTimePicker } from '@mui/lab';
-import { Event, EventDate } from '../../../typings/types';
+
+import { setEventStateField } from '../../../domen/events/eventsSlice';
 import { AppDispatch } from '../../../domen/store';
-import { EventStateFieldType, setEventStateField } from '../../../domen/events/eventsSlice';
-import ArrowCircleRightTwoToneIcon from '@mui/icons-material/ArrowCircleRightTwoTone';
+import { Event, EventDate } from '../../../typings/types';
 
 type Props = {
   selectDate?: EventDate;
@@ -36,7 +37,7 @@ const EventDatesTabContent = ({ selectDate, dates }: Props) => {
         return d;
       });
 
-      dispatch(setEventStateField({ eventDates } as EventStateFieldType));
+      dispatch(setEventStateField({ eventDates }));
     };
   const handleCopyStartDate = () => {
     const eventDates = dates?.map((d) => {
@@ -47,7 +48,7 @@ const EventDatesTabContent = ({ selectDate, dates }: Props) => {
       return d;
     });
 
-    dispatch(setEventStateField({ eventDates } as EventStateFieldType));
+    dispatch(setEventStateField({ eventDates }));
   };
 
   return (

@@ -1,8 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Event, Artist } from '../../typings/types';
-import { AppThunk } from '../store';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Dispatch, SetStateAction } from 'react';
+
 import { fetchArtistsRequest } from '../../api/requests';
+import { Artist, Event } from '../../typings/types';
+import { AppThunk } from '../store';
 
 type State = {
   loading: boolean;
@@ -39,25 +40,13 @@ export const { setLoading, setArtistState, setArtistStateField, setArtists } = a
 
 export default artists.reducer;
 
-const delayRandomly = () => {
-  const timeout = Math.random() * (3000 - 100) + 100;
-  return new Promise((resolve) => setTimeout(resolve, timeout));
-};
-
 export const getArtistListForEventAsync =
   (search: string, reactDispatch: Dispatch<SetStateAction<Event['artist']>>): AppThunk =>
   async (dispatch) => {
-    //todo: разобраться с race condition
-    const abortController = new AbortController();
     dispatch(setLoading(true));
 
     try {
-      await delayRandomly();
-      const { data } = await fetchArtistsRequest({ search }, { signal: abortController.signal });
-      if (abortController.signal.aborted) {
-        console.log('race');
-        return;
-      }
+      const { data } = await fetchArtistsRequest({ search });
       reactDispatch(data);
     } catch (e) {
       console.log(e);

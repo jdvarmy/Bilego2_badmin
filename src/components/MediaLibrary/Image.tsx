@@ -1,11 +1,12 @@
-import React from 'react';
-import { Card, CardHeader, IconButton, CardMedia, CardActions, Button } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { MediaFile, MediaSelectData } from '../../typings/types';
-import { HTTP_URL } from '../../typings/env';
+import { Button, Card, CardActions, CardHeader, CardMedia, IconButton } from '@mui/material';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../domen/store';
+
 import { removeFileAsync } from '../../domen/medialibrarySlice/medialibrarySlice';
+import { AppDispatch } from '../../domen/store';
+import { HTTP_URL } from '../../typings/env';
+import { MediaFile, MediaSelectData } from '../../typings/types';
 
 type Props = {
   file: MediaFile;
@@ -22,7 +23,7 @@ const Image = ({ file, loading, selectHandle }: Props) => {
   };
   const handleSelect = () => {
     if (selectHandle && file.id) {
-      selectHandle({ id: file.id, name: file.name || file.originalName || file.path });
+      selectHandle({ id: file.id, name: file.name || file.originalName || file.path, path: file.path });
     }
   };
 

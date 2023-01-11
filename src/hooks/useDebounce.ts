@@ -1,22 +1,36 @@
-import { useEffect, useState } from 'react';
+import { debounce } from '@mui/material';
+import { useEffect, useMemo, useState } from 'react';
 
-export function useDebounce<T>(value: T, delay = 250): T {
-  // State and setters for debounced value
-  const [debouncedValue, setDebouncedValue] = useState<T>(value);
-  useEffect(
-    () => {
-      // Update debounced value after delay
-      const handler = setTimeout(() => {
-        setDebouncedValue(value);
-      }, delay);
-      // Cancel the timeout if value changes (also on delay change or unmount)
-      // This is how we prevent debounced value from updating if value is changed ...
-      // .. within the delay period. Timeout gets cleared and restarted.
-      return () => {
-        clearTimeout(handler);
-      };
-    },
-    [value, delay], // Only re-call effect if value or delay changes
+import { useLatest } from './useLatest';
+
+const defMs = 290;
+
+export function useDebounce<T extends (...args: any[]) => any>(func: T, ms = defMs) {
+  const latestFunc = useLatest(func);
+
+  const debounceFunc = useMemo(
+    () =>
+      debounce((...args) => {
+        latestFunc.current(...args);
+      }, ms),
+    [latestFunc, ms],
   );
+
+  useEffect(() => () => debounceFunc.clear(), [debounceFunc]);
+
+  return debounceFunc;
+}
+
+export function useDebounceOld<T>(value: T, ms = defMs): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, ms);
+
+    return () => clearTimeout(handler);
+  }, [value, ms]);
+
   return debouncedValue;
 }

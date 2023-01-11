@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectEventState } from '../../../domen/events/eventsSelectors';
-import { EventStateFieldType, setEventStateField } from '../../../domen/events/eventsSlice';
+import { setEventStateField } from '../../../domen/events/eventsSlice';
 import { AppDispatch } from '../../../domen/store';
 import { Event } from '../../../typings/types';
 
@@ -12,7 +12,7 @@ const EventProps = () => {
   const event = useSelector(selectEventState);
 
   const handleChange = (field: keyof Event) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setEventStateField({ [field]: event.target.value } as EventStateFieldType));
+    dispatch(setEventStateField({ [field]: event.target.value }));
   };
   return (
     <Card>

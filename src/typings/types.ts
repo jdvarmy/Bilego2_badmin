@@ -82,6 +82,13 @@ export interface Event extends Post {
   concertManagerInfo?: string;
   concertManagerPercentage?: number;
 }
+export interface EventRequest
+  extends Omit<Event, 'create' | 'update' | 'eventDates' | 'taxonomy' | 'image' | 'headerImage'> {
+  taxonomy?: number[];
+  eventDates?: Omit<EventDate, 'eventUid' | 'map'>[];
+  image?: number;
+  headerImage?: number;
+}
 
 export interface Item extends Post {
   image?: MediaSelectData | number;

@@ -37,7 +37,6 @@ export const EventHeaderImage = () => {
   const handleChangeText = (name: string, field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
     handleChange(name, field, event);
   };
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   const handleChangeColor = (name: string, field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
     throttleHandleChange(name, field, event);
   };

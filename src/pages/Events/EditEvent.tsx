@@ -49,7 +49,7 @@ const EditEvent = () => {
   return (
     <>
       <Helmet>
-        <title>Событие{` ${event.title || event.slug}` || 'не определено во вселенной'}</title>
+        <title>Событие {`${event.title || event.slug}` || 'не определено во вселенной'}</title>
       </Helmet>
       <Container maxWidth='lg'>
         <Grid container sx={{ my: 3 }} justifyContent='space-between' alignItems='center'>

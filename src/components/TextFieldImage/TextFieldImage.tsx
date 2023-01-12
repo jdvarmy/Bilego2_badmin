@@ -44,7 +44,7 @@ const TextFieldImage = ({ label, value, onSelect, onDelete, size, onlyIcon }: Me
           type='text'
           fullWidth
           InputProps={{ readOnly: true }}
-          value={typeof value === 'object' ? value?.name : ''}
+          value={typeof value === 'object' ? value.name : ''}
           focused={!!value}
           size={size}
         />

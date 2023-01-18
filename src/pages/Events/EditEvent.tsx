@@ -13,6 +13,7 @@ import { AppDispatch } from '../../domen/store';
 import EventDates from './elems/EventDates';
 import EventGallery from './elems/EventGallery';
 import EventHeader from './elems/EventHeader/EventHeader';
+import { EventInfo } from './elems/EventInfo/EventInfo';
 import EventPlace from './elems/EventPlace/EventPlace';
 import EventProps from './elems/EventProps';
 import EventSEO from './elems/EventSEO';
@@ -66,6 +67,9 @@ const EditEvent = () => {
         <Box component='form' noValidate autoComplete='off'>
           <Grid container spacing={3}>
             <Grid item xs={12}>
+              <EventInfo uid={event.uid} title={event?.title} />
+            </Grid>
+            <Grid item xs={12}>
               <EventPlace city={event.city} item={event.item} artist={event.artist} />
             </Grid>
             <Grid item xs={12}>
@@ -81,7 +85,7 @@ const EditEvent = () => {
               <EventHeader type={event.headerType} />
             </Grid>
             <Grid item xs={12}>
-              {/*<TextRedactor title={event.title} text={event.text} />*/}
+              <TextRedactor text={event.text} />
             </Grid>
             <Grid item xs={12}>
               <EventProps />

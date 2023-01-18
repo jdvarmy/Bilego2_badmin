@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as qs from 'qs';
-import { axiosBaseUrl, ResponseAuth, storageTokenName } from '../typings/types';
+
+import { ResponseAuth, axiosBaseUrl, storageTokenName } from '../typings/types';
 
 const baseConfig = {
   baseURL: axiosBaseUrl,
@@ -49,6 +50,8 @@ instance.interceptors.response.use(
         console.log(e);
       }
     }
+
+    return Promise.reject(error.response.data);
   },
 );
 

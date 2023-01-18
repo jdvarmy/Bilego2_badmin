@@ -1,10 +1,7 @@
-import React, { useRef, memo } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
-import { TextField } from '@mui/material';
-import { useChangeFnEventField } from '../../../hooks/useChangeFnEventField';
+import React, { memo, useRef } from 'react';
 
 type Props = {
-  title?: string;
   text?: string;
 };
 
@@ -40,11 +37,10 @@ const plugins = [
   'wordcount',
 ];
 
-const TextRedactor = ({ title }: Props) => {
+const TextRedactor = ({ text }: Props) => {
   const editorRef = useRef(null);
 
-  const handleChange = useChangeFnEventField('title');
-
+  // todo: сделать
   const log = () => {
     if (editorRef.current) {
       // @ts-ignore
@@ -56,15 +52,6 @@ const TextRedactor = ({ title }: Props) => {
 
   return (
     <div>
-      <TextField
-        label='Заголовок'
-        type='text'
-        fullWidth
-        sx={{ mb: 2 }}
-        value={title || ''}
-        focused={!!title}
-        onChange={handleChange}
-      />
       <Editor
         apiKey='mkbhjdmg9784ilfvaggoe0alboviospc5ch4sdz6e8yqqwic'
         // @ts-ignore

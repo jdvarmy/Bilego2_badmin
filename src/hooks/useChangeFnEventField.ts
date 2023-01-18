@@ -10,8 +10,10 @@ export type ChangeEventType = SelectChangeEvent<unknown> | ChangeEvent<HTMLInput
 
 export function useChangeFnEventField(field: keyof Event): (event: ChangeEventType) => void {
   const dispatch: AppDispatch = useDispatch();
+  const numberValues: (keyof Event)[] = ['ageRestriction', 'concertManagerPercentage'];
 
   return (event) => {
-    dispatch(setEventStateField({ [field]: event.target.value }));
+    const value = numberValues.includes(field) ? +event.target.value : event.target.value;
+    dispatch(setEventStateField({ [field]: value }));
   };
 }

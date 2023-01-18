@@ -1,4 +1,5 @@
-import { Event, EventRequest } from '../../typings/types';
+import { Event, EventRequest, ServerError } from '../../typings/types';
+import { addAlertWorker, addErrorAlertWorker } from '../alert/workers';
 import { AppThunk } from '../store';
 import { getEventRequest, patchEventRequest, postTemplateEventRequest, putTemplateEventRequest } from './eventsRequest';
 import { setEvent, setEventState, setLoading } from './eventsSlice';
@@ -13,7 +14,7 @@ export const getEventAsync =
       dispatch(setEvent(data));
       dispatch(setEventState(data));
     } catch (e) {
-      console.log(e);
+      dispatch(addErrorAlertWorker(e as ServerError));
     } finally {
       dispatch(setLoading(false));
     }
@@ -26,10 +27,11 @@ export const saveEventAsync =
 
     try {
       const { data } = await putTemplateEventRequest(prepareData(event));
+      dispatch(addAlertWorker({ severity: 'success', title: 'Сохранено', text: 'Событие успешно сохранено!' }));
       dispatch(setEvent(data));
       dispatch(setEventState(data));
     } catch (e) {
-      console.log(e);
+      dispatch(addErrorAlertWorker(e as ServerError));
     } finally {
       dispatch(setLoading(false));
     }
@@ -43,7 +45,7 @@ export const saveTemplateEventAsync = (): AppThunk => async (dispatch) => {
     dispatch(setEvent(data));
     dispatch(setEventState(data));
   } catch (e) {
-    console.log(e);
+    dispatch(addErrorAlertWorker(e as ServerError));
   } finally {
     dispatch(setLoading(false));
   }
@@ -56,10 +58,11 @@ export const editEventAsync =
 
     try {
       const { data } = await patchEventRequest(prepareData(event));
+      dispatch(addAlertWorker({ severity: 'success', title: 'Сохранено', text: 'Данные события успешно сохранены!' }));
       dispatch(setEvent(data));
       dispatch(setEventState(data));
     } catch (e) {
-      console.log(e);
+      dispatch(addErrorAlertWorker(e as ServerError));
     } finally {
       dispatch(setLoading(false));
     }

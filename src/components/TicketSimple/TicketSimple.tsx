@@ -1,9 +1,10 @@
-import React, { useMemo, useState } from 'react';
-import TableGrid from '../TableGrid/TableGrid';
-import { useSelector } from 'react-redux';
-import { selectTicketsStore } from '../../domen/selectors';
-import { factoryCols, factoryRows } from './helpers';
 import groupBy from 'lodash.groupby';
+import React, { useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import { selectTicketsStore } from '../../domen/tickets/ticketsSelectors';
+import TableGrid from '../TableGrid/TableGrid';
+import { factoryCols, factoryRows } from './helpers';
 
 const TicketSimple = () => {
   const { tickets } = useSelector(selectTicketsStore);

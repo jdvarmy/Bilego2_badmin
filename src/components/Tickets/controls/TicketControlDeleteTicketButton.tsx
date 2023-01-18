@@ -1,10 +1,11 @@
-import React, { memo, useCallback, useRef, useState } from 'react';
-import { Box, Button, IconButton, Popover, Tooltip, Grid, Typography } from '@mui/material';
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
-import { clearSelectedCircle } from '../../../domen/circleSlice/circleSlice';
+import { Box, Button, Grid, IconButton, Popover, Tooltip, Typography } from '@mui/material';
+import React, { memo, useCallback, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteTicketsAsync } from '../../../domen/ticketsSlice/ticketsSlice';
+
+import { clearSelectedCircle } from '../../../domen/circleSlice/circleSlice';
 import { AppDispatch } from '../../../domen/store';
+import { deleteTicketsAsync } from '../../../domen/tickets/ticketsThunk';
 
 type Props = {
   show: boolean;

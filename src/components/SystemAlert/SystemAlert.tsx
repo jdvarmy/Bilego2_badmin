@@ -1,10 +1,12 @@
-import React from 'react';
-import { Alert, AlertTitle, Stack } from '@mui/material';
+import { Alert, AlertTitle, Box, Snackbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useSelector } from 'react-redux';
-import { selectAlert } from '../../domen/selectors';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-const AlertWrapper = styled(Stack)(
+import { selectAlertStore } from '../../domen/alert/alertSelectors';
+import { clearAlert } from '../../domen/alert/alertSlice';
+
+const AlertWrapper = styled(Box)(
   ({ theme }) => `
     padding: ${theme.spacing(0.5, 1)};
     font-size: ${theme.typography.pxToRem(13)};
@@ -12,9 +14,6 @@ const AlertWrapper = styled(Stack)(
     display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
-    right: 2rem;
-    bottom: 3rem;
     
     & .MuiPaper-root.MuiAlert-standardError {
       background-color: ${theme.colors.error.lighter};
@@ -48,16 +47,28 @@ const AlertWrapper = styled(Stack)(
 );
 
 const SystemAlert = () => {
-  const { severity, title, text } = useSelector(selectAlert);
+  const dispatch = useDispatch();
+  const { show, message } = useSelector(selectAlertStore);
 
-  return title && severity ? (
-    <AlertWrapper>
-      <Alert severity={severity}>
-        <AlertTitle>{title}</AlertTitle>
-        {text}
-      </Alert>
-    </AlertWrapper>
-  ) : null;
+  const handleClose = () => {
+    dispatch(clearAlert(message));
+  };
+
+  return (
+    <Snackbar
+      open={show}
+      autoHideDuration={message?.delay || 0}
+      onClose={handleClose}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+    >
+      <AlertWrapper>
+        <Alert severity={message?.severity || 'info'}>
+          <AlertTitle>{message?.title || ''}</AlertTitle>
+          {message?.text || ''}
+        </Alert>
+      </AlertWrapper>
+    </Snackbar>
+  );
 };
 
 export default SystemAlert;

@@ -1,7 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { deleteEventDateRequest, editEventDateRequest, saveEventDateRequest } from '../../api/requests';
-import { Event, EventDate } from '../../typings/types';
+import { Event, EventDate, ServerError } from '../../typings/types';
+import { addErrorAlertWorker } from '../alert/workers';
 import { AppThunk } from '../store';
 
 type State = {
@@ -63,7 +64,7 @@ export const saveTemplateEventDateAsync =
       dispatch(setEventStateField({ eventDates: [...eventDates, data] }));
       dispatch(setSelectedDateUid(data.uid));
     } catch (e) {
-      console.log(e);
+      dispatch(addErrorAlertWorker(e as ServerError));
     } finally {
       dispatch(setLoading(false));
     }
@@ -77,7 +78,7 @@ export const deleteEventDateAsync =
     try {
       await deleteEventDateRequest(uid, eventUid);
     } catch (e) {
-      console.log(e);
+      dispatch(addErrorAlertWorker(e as ServerError));
     } finally {
       dispatch(setLoading(false));
     }
@@ -103,7 +104,7 @@ export const editEventDateAsync =
       });
       dispatch(setEventStateField({ eventDates: localEventDates }));
     } catch (e) {
-      console.log(e);
+      dispatch(addErrorAlertWorker(e as ServerError));
     } finally {
       dispatch(setLoading(false));
     }

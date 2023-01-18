@@ -3,7 +3,8 @@ import { Dispatch, SetStateAction } from 'react';
 
 import { fetchItemsRequest } from '../../api/requests';
 import { City } from '../../typings/enum';
-import { Event, Item } from '../../typings/types';
+import { Event, Item, ServerError } from '../../typings/types';
+import { addErrorAlertWorker } from '../alert/workers';
 import { AppThunk } from '../store';
 
 type State = {
@@ -50,7 +51,7 @@ export const getItemListForEventAsync =
       const { data } = await fetchItemsRequest({ search, ...params });
       reactDispatch(data);
     } catch (e) {
-      console.log(e);
+      dispatch(addErrorAlertWorker(e as ServerError));
     } finally {
       dispatch(setLoading(false));
     }

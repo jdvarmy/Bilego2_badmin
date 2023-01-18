@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { User } from '../../../typings/types';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
-import Label from '../../../components/Label/Label';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import Label from '../../../components/Label/Label';
 import { selectUsers } from '../../../domen/selectors';
-import { getUsersAsync } from '../../../domen/usersSlice/usersSlice';
 import { AppDispatch } from '../../../domen/store';
+import { getUsersAsync } from '../../../domen/users/usersThuk';
+import { User } from '../../../typings/types';
 import DeleteUserButton from './DeleteUserButton';
 import EditUserButton from './EditUserButton';
 

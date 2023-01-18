@@ -1,12 +1,13 @@
+import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
+import { Button } from '@mui/material';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
-import { Button } from '@mui/material';
-import { setAlertAsync } from '../../../domen/alertSlice/alertSlice';
-import { RequestUser } from '../../../typings/types';
-import { saveUserAsync } from '../../../domen/usersSlice/usersSlice';
+
+import { addAlertWorker } from '../../../domen/alert/workers';
 import { AppDispatch } from '../../../domen/store';
+import { saveUserAsync } from '../../../domen/users/usersThuk';
+import { RequestUser } from '../../../typings/types';
 import { UserState } from '../UserDataContainer';
 
 type Props = {
@@ -22,7 +23,7 @@ const SaveUserButton = ({ userData, uid }: Props) => {
 
   const handleSaveUser = () => {
     if (!email || (!uid && !password)) {
-      dispatch(setAlertAsync({ severity: 'error', title: 'Ошибка', text: 'Не заполнены поля email или пароль' }));
+      dispatch(addAlertWorker({ severity: 'error', title: 'Ошибка', text: 'Не заполнены поля email или пароль' }));
       return;
     }
 

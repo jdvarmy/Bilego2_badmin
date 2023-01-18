@@ -9,6 +9,8 @@ export const axiosBaseUrl = `${HTTP_URL}${HTTP_VERSION}/`;
 
 export type ColorsFormat = 'plain' | 'hex' | 'rgb' | 'number' | 'unknown' | undefined;
 
+export type ServerError = { statusCode: number; message: number; error: string };
+
 export type User = {
   email: string;
   role: UserRole;

@@ -1,4 +1,6 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { DateTimePicker } from '@mui/lab';
 import {
   Accordion,
   AccordionDetails,
@@ -9,13 +11,12 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
-import { DateTimePicker } from '@mui/lab';
-import { pickerProps } from '../../../pages/Events/elems/EventDatesTabContent';
-import ColorPicker from '../../ColorPicker/ColorPicker';
-import { TicketOnSell } from '../../../typings/types';
+import React, { Dispatch, SetStateAction } from 'react';
+
 import dateTimeFormatDefault from '../../../helpers/dateTimeFormatDefault';
+import { pickerProps } from '../../../pages/Events/elems/EventDatesTabContent';
+import { TicketOnSell } from '../../../typings/types';
+import ColorPicker from '../../ColorPicker/ColorPicker';
 
 const TicketOnSellContent = ({
   uid,
@@ -133,7 +134,6 @@ export default TicketOnSellContent;
 const formatter = new Intl.DateTimeFormat('ru', dateTimeFormatDefault);
 
 function getTitle({ price, service, dateFrom, dateTo }: Omit<TicketOnSell, 'uid' | 'color'>): string {
-  const f = 'dd MMMM HH:mm';
   let title = 'Продажа ';
   try {
     if (dateFrom) {

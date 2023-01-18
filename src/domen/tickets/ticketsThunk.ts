@@ -1,39 +1,9 @@
-import { Ticket, TicketOnSell } from '../../typings/types';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppThunk } from '../store';
-import { fetchTicketsRequest, deleteTicketsRequest, saveTicketsRequest } from '../../api/requests';
+import { deleteTicketsRequest, fetchTicketsRequest, saveTicketsRequest } from '../../api/requests';
 import { TicketType } from '../../typings/enum';
-
-type State = {
-  loading: boolean;
-  tickets: Ticket[] | null;
-  selectedTicket?: Ticket | null;
-};
-const initialState: State = {
-  loading: false,
-  tickets: null,
-  selectedTicket: null,
-};
-
-const tickets = createSlice({
-  initialState,
-  name: 'tickets',
-  reducers: {
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.loading = action.payload;
-    },
-    setTickets: (state, action: PayloadAction<Ticket[] | null>) => {
-      state.tickets = action.payload;
-    },
-    setSelectedTicket: (state, action: PayloadAction<Ticket | null>) => {
-      state.selectedTicket = action.payload;
-    },
-  },
-});
-
-export const { setLoading, setTickets, setSelectedTicket } = tickets.actions;
-
-export default tickets.reducer;
+import { ServerError, Ticket, TicketOnSell } from '../../typings/types';
+import { addAlertWorker, addErrorAlertWorker } from '../alert/workers';
+import { AppThunk } from '../store';
+import { setLoading, setTickets } from './ticketsSlice';
 
 export const getTicketsAsync =
   (dateUid: string): AppThunk =>
@@ -44,7 +14,7 @@ export const getTicketsAsync =
       const { data } = await fetchTicketsRequest(dateUid);
       dispatch(setTickets(data));
     } catch (e) {
-      console.log(e);
+      dispatch(addErrorAlertWorker(e as ServerError));
     } finally {
       dispatch(setLoading(false));
     }
@@ -76,9 +46,10 @@ export const saveTicketsAsync =
 
     try {
       const { data } = await saveTicketsRequest(reqType, dateUid, { tickets, sell });
+      dispatch(addAlertWorker({ severity: 'success', title: 'Сохранено', text: 'Билеты успешно сохранены!' }));
       dispatch(setTickets(data));
     } catch (e) {
-      console.log(e);
+      dispatch(addErrorAlertWorker(e as ServerError));
     } finally {
       dispatch(setLoading(false));
     }
@@ -96,9 +67,10 @@ export const deleteTicketsAsync =
 
     try {
       await deleteTicketsRequest(dateUid, ticketsUid);
+      dispatch(addAlertWorker({ severity: 'success', title: 'Удалено', text: 'Билеты успешно удалены!' }));
       dispatch(getTicketsAsync(dateUid));
     } catch (e) {
-      console.log(e);
+      dispatch(addErrorAlertWorker(e as ServerError));
     } finally {
       dispatch(setLoading(false));
     }

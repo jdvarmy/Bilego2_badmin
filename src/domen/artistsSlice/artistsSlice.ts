@@ -2,7 +2,8 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Dispatch, SetStateAction } from 'react';
 
 import { fetchArtistsRequest } from '../../api/requests';
-import { Artist, Event } from '../../typings/types';
+import { Artist, Event, ServerError } from '../../typings/types';
+import { addErrorAlertWorker } from '../alert/workers';
 import { AppThunk } from '../store';
 
 type State = {
@@ -49,7 +50,7 @@ export const getArtistListForEventAsync =
       const { data } = await fetchArtistsRequest({ search });
       reactDispatch(data);
     } catch (e) {
-      console.log(e);
+      dispatch(addErrorAlertWorker(e as ServerError));
     } finally {
       dispatch(setLoading(false));
     }

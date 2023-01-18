@@ -1,15 +1,16 @@
-import React, { useCallback, useMemo } from 'react';
-import { Box, IconButton, Tooltip, Typography } from '@mui/material';
-import { NotificationsBadge } from '../Header/HeaderNotifications/HeaderNotifications';
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
-import { format } from 'date-fns';
-import { ru } from 'date-fns/locale';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import HighlightOffTwoToneIcon from '@mui/icons-material/HighlightOffTwoTone';
-import { AppDispatch } from '../../domen/store';
+import { Box, IconButton, Tooltip, Typography } from '@mui/material';
+import { format } from 'date-fns';
+import { ru } from 'date-fns/locale';
+import React, { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectTicketsStore } from '../../domen/selectors';
-import { deleteTicketsAsync, setSelectedTicket } from '../../domen/ticketsSlice/ticketsSlice';
+
+import { AppDispatch } from '../../domen/store';
+import { selectTicketsStore } from '../../domen/tickets/ticketsSelectors';
+import { setSelectedTicket } from '../../domen/tickets/ticketsSlice';
+import { NotificationsBadge } from '../Header/HeaderNotifications/HeaderNotifications';
 import TicketControlDeleteTicketButton from '../Tickets/controls/TicketControlDeleteTicketButton';
 
 export function LocalTitle(row: any) {
@@ -78,15 +79,12 @@ export function LocalActions(uid: string) {
   const dispatch: AppDispatch = useDispatch();
   const { tickets, selectedTicket } = useSelector(selectTicketsStore);
 
-  const editingTicket = useMemo(() => tickets?.find((t) => t.uid === uid) ?? null, [tickets]);
-  const isCurrentEditingTicket = useMemo(() => selectedTicket?.uid === uid, [selectedTicket]);
+  const editingTicket = useMemo(() => tickets?.find((t) => t.uid === uid) ?? null, [tickets, uid]);
+  const isCurrentEditingTicket = useMemo(() => selectedTicket?.uid === uid, [selectedTicket?.uid, uid]);
 
   const handleEdit = useCallback(() => {
     dispatch(setSelectedTicket(editingTicket));
   }, [editingTicket, dispatch]);
-  const handleDelete = useCallback(() => {
-    dispatch(deleteTicketsAsync([uid]));
-  }, [uid, dispatch]);
   const handleCancel = useCallback(() => {
     dispatch(setSelectedTicket(null));
   }, [dispatch]);

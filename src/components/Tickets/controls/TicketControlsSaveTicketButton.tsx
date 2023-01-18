@@ -1,11 +1,13 @@
-import React, { memo, useMemo } from 'react';
 import { Button, Tooltip } from '@mui/material';
-import { saveTicketsAsync, setSelectedTicket } from '../../../domen/ticketsSlice/ticketsSlice';
-import { AppDispatch } from '../../../domen/store';
+import React, { memo, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import { Ticket, TicketOnSell } from '../../../typings/types';
+
 import { clearSelectedCircle } from '../../../domen/circleSlice/circleSlice';
+import { AppDispatch } from '../../../domen/store';
+import { setSelectedTicket } from '../../../domen/tickets/ticketsSlice';
+import { saveTicketsAsync } from '../../../domen/tickets/ticketsThunk';
 import { ButtonType } from '../../../typings/enum';
+import { Ticket, TicketOnSell } from '../../../typings/types';
 
 type Props = {
   dateUid: string;

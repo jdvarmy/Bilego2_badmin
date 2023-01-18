@@ -3,7 +3,7 @@ const dateTimeFormatDefault: Intl.DateTimeFormatOptions = {
   day: 'numeric',
   hour: '2-digit',
   minute: '2-digit',
-  timeZone: 'UTC',
+  // timeZone: 'UTC',
   timeZoneName: 'short',
 };
 

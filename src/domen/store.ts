@@ -1,16 +1,17 @@
-import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { Action, ThunkAction, combineReducers, configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
-import sidebarSlice from './sidebarSlice/sidebarSlice';
+
+import alertSlice from './alert/alertSlice';
+import artistsSlice from './artistsSlice/artistsSlice';
+import authSlice from './authSlice/authSlice';
+import circleSlice from './circleSlice/circleSlice';
 import eventsSlice from './events/eventsSlice';
 import itemsSlice from './itemsSlice/itemsSlice';
-import artistsSlice from './artistsSlice/artistsSlice';
-import ticketsSlice from './ticketsSlice/ticketsSlice';
-import authSlice from './authSlice/authSlice';
-import usersSlice from './usersSlice/usersSlice';
 import medialibrarySlice from './medialibrarySlice/medialibrarySlice';
-import alertSlice from './alertSlice/alertSlice';
-import circleSlice from './circleSlice/circleSlice';
+import sidebarSlice from './sidebarSlice/sidebarSlice';
 import taxonomySlice from './taxonomy/taxonomySlice';
+import ticketsSlice from './tickets/ticketsSlice';
+import usersSlice from './users/usersSlice';
 
 const reducer = combineReducers({
   sidebar: sidebarSlice,

@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
-import { TicketType } from '../../../typings/enum';
 import { Box } from '@mui/material';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getTicketsAsync, setTickets } from '../../../domen/ticketsSlice/ticketsSlice';
+
 import { AppDispatch } from '../../../domen/store';
+import { setTickets } from '../../../domen/tickets/ticketsSlice';
+import { getTicketsAsync } from '../../../domen/tickets/ticketsThunk';
+import { TicketType } from '../../../typings/enum';
 import TicketMap from '../../TicketMap/TicketMap';
 import TicketSimple from '../../TicketSimple/TicketSimple';
 

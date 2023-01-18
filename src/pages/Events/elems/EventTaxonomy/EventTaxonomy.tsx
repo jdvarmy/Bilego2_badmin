@@ -1,12 +1,19 @@
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Box, Card, CardContent, CardHeader, Divider, Grid } from '@mui/material';
-import EventTaxonomyElement from './EventTaxonomyElement';
-import { Event, Taxonomy } from '../../../../typings/types';
-import { TermType } from '../../../../typings/enum';
-import { getTaxonomyAsyncReq } from '../../../../domen/taxonomy/taxonomyThunk';
-import { isEqual } from '../../../../utils/functions/isEqual';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-const EventTaxonomy = ({ uid, selected }: { uid: Event['uid']; selected: Event['taxonomy'] }) => {
+import { addErrorAlertWorker } from '../../../../domen/alert/workers';
+import { AppDispatch } from '../../../../domen/store';
+import { getTaxonomyAsyncReq } from '../../../../domen/taxonomy/taxonomyThunk';
+import { TermType } from '../../../../typings/enum';
+import { Event, ServerError, Taxonomy } from '../../../../typings/types';
+import { isEqual } from '../../../../utils/functions/isEqual';
+import EventTaxonomyElement from './EventTaxonomyElement';
+
+type Props = { uid: Event['uid']; selected: Event['taxonomy'] };
+
+const EventTaxonomy = ({ uid, selected }: Props) => {
+  const dispatch: AppDispatch = useDispatch();
   const [taxonomies, setTaxonomies] = useState<Event['taxonomy']>([]);
 
   console.log('render EventTaxonomy');
@@ -29,11 +36,15 @@ const EventTaxonomy = ({ uid, selected }: { uid: Event['uid']; selected: Event['
   const eventFeelingTaxonomies = useMemo(() => getTax(TermType.eventFeeling, taxonomies), [getTax, taxonomies]);
 
   useEffect(() => {
-    getTaxonomyAsyncReq().then((res) => {
-      const localRes = res.map((tax) => ({ id: tax.id, name: tax.name, type: tax.type }));
-      setTaxonomies(localRes);
-    });
-  }, []);
+    getTaxonomyAsyncReq()
+      .then((res) => {
+        const localRes = res.map((tax) => ({ id: tax.id, name: tax.name, type: tax.type }));
+        setTaxonomies(localRes);
+      })
+      .catch((reject) => {
+        dispatch(addErrorAlertWorker(reject as ServerError));
+      });
+  }, [dispatch]);
 
   return (
     <Card>

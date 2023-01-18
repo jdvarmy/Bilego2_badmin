@@ -1,14 +1,16 @@
-import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { Grid, TextField } from '@mui/material';
+import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { v4 as uidv4 } from 'uuid';
+
+import { selectCircleStore } from '../../../domen/selectors';
+import { selectTicketsStore } from '../../../domen/tickets/ticketsSelectors';
 import { TicketType } from '../../../typings/enum';
 import { Ticket, TicketOnSell } from '../../../typings/types';
-import { v4 as uidv4 } from 'uuid';
-import { useSelector } from 'react-redux';
-import { selectCircleStore, selectTicketsStore } from '../../../domen/selectors';
+import TicketControlDeleteTicketMapButton from './TicketControlDeleteTicketButton';
+import TicketControlTicketOnSell from './TicketControlTicketOnSell';
 import TicketControlsSaveTicketButton from './TicketControlsSaveTicketButton';
 import TicketControlsTicketName from './TicketControlsTicketName';
-import TicketControlTicketOnSell from './TicketControlTicketOnSell';
-import TicketControlDeleteTicketMapButton from './TicketControlDeleteTicketButton';
 
 type Props = {
   dateUid: string;

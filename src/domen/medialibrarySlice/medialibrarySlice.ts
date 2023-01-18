@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppThunk } from '../store';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
 import {
   fetchMapItemsRequest,
   fetchMedialibraryRequest,
@@ -7,9 +7,10 @@ import {
   uploadFileMapItemsRequest,
   uploadFileMedialibraryRequest,
 } from '../../api/requests';
-import { MapFile, MediaFile } from '../../typings/types';
 import { MapContent } from '../../components/AddMapModal/AppMapModal';
-import { deleteUserAsync } from '../usersSlice/usersSlice';
+import { MapFile, MediaFile, ServerError } from '../../typings/types';
+import { addErrorAlertWorker } from '../alert/workers';
+import { AppThunk } from '../store';
 
 type State = {
   loading: boolean;
@@ -50,7 +51,7 @@ export const getFileListAsync = (): AppThunk => async (dispatch) => {
 
     dispatch(setFileList(data));
   } catch (e) {
-    console.log(e);
+    dispatch(addErrorAlertWorker(e as ServerError));
   } finally {
     dispatch(setLoading(false));
   }
@@ -63,7 +64,7 @@ export const getMapListAsync = (): AppThunk => async (dispatch) => {
 
     dispatch(setMapList(data));
   } catch (e) {
-    console.log(e);
+    dispatch(addErrorAlertWorker(e as ServerError));
   } finally {
     dispatch(setLoading(false));
   }
@@ -84,7 +85,7 @@ export const uploadFileAsync =
         dispatch(getFileListAsync());
       }
     } catch (e) {
-      console.log(e);
+      dispatch(addErrorAlertWorker(e as ServerError));
     } finally {
       dispatch(setLoading(false));
     }
@@ -109,7 +110,7 @@ export const uploadFileMapAsync =
         dispatch(getMapListAsync());
       }
     } catch (e) {
-      console.log(e);
+      dispatch(addErrorAlertWorker(e as ServerError));
     } finally {
       dispatch(setLoading(false));
     }
@@ -126,7 +127,7 @@ export const removeFileAsync =
         dispatch(getFileListAsync());
       }
     } catch (e) {
-      console.log(e);
+      dispatch(addErrorAlertWorker(e as ServerError));
     } finally {
       dispatch(setLoading(false));
     }

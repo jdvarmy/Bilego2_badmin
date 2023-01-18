@@ -1,16 +1,17 @@
+import { Container, Grid } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Grid, Container } from '@mui/material';
+import { useDispatch } from 'react-redux';
+
+import { AppDispatch } from '../../domen/store';
+import { getUserAsync } from '../../domen/users/usersThuk';
+import { usePostStatus } from '../../hooks/usePostStatus';
 import { BaseRecordStatus, UserRole } from '../../typings/enum';
 import { MediaSelectData, User } from '../../typings/types';
 import SaveUserButton from './elems/SaveUserButton';
 import UserMainData from './elems/UserMainData';
-import UserSubData from './elems/UserSubData';
 import UserOrganizerData from './elems/UserOrganizerData';
-import { usePostStatus } from '../../hooks/usePostStatus';
-import { AppDispatch } from '../../domen/store';
-import { useDispatch } from 'react-redux';
-import { getUserAsync } from '../../domen/usersSlice/usersSlice';
+import UserSubData from './elems/UserSubData';
 
 export type UserState = Omit<User, 'uid' | 'status' | 'avatar'> & {
   status: boolean;

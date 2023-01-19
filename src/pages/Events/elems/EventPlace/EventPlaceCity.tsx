@@ -1,28 +1,34 @@
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import { IconButton, MenuItem, TextField } from '@mui/material';
-import React from 'react';
+import React, { memo } from 'react';
 
-import { ChangeEventType, useChangeFnEventField } from '../../../../hooks/useChangeFnEventField';
+import {
+  ChangeEventFieldType,
+  useChangeFnFieldEventField,
+} from '../../../../domen/events/hooks/useChangeFnFieldEventField';
+import { useDeleteFnEventField } from '../../../../domen/events/hooks/useDeleteFnEventField';
 import { City } from '../../../../typings/enum';
-import { Event } from '../../../../typings/types';
+import { IEvent } from '../../../../typings/types';
+
+type Props = {
+  city?: City;
+  item?: IEvent['item'];
+};
 
 const cityMapNames: Record<City, string> = {
   [City.moscow]: 'Москва',
   [City.petersburg]: 'Санкт-Петербург',
 };
 
-type Props = {
-  city?: City;
-  item?: Event['item'];
-  handleDelete: (field: keyof Event) => () => void;
-};
+export const EventPlaceCity = memo(function EventPlaceCity({ city, item }: Props) {
+  const handleChangeCity = useChangeFnFieldEventField('city');
 
-const EventPlaceCity = ({ city, item, handleDelete }: Props) => {
-  const handleChangeCity = useChangeFnEventField('city');
+  const handleDeleteCity = useDeleteFnEventField('city');
+  const handleDeleteItem = useDeleteFnEventField('item');
 
-  const handleChangeCityLocal = (event: ChangeEventType) => {
+  const handleChangeCityLocal = (event: ChangeEventFieldType) => {
     if (item && item.city !== event.target.value) {
-      handleDelete('item')();
+      handleDeleteItem();
     }
     handleChangeCity(event);
   };
@@ -44,12 +50,10 @@ const EventPlaceCity = ({ city, item, handleDelete }: Props) => {
         ))}
       </TextField>
       {city && (
-        <IconButton color='error' onClick={handleDelete('city')}>
+        <IconButton color='error' onClick={handleDeleteCity}>
           <DeleteForeverTwoToneIcon />
         </IconButton>
       )}
     </>
   );
-};
-
-export default EventPlaceCity;
+});

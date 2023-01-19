@@ -2,10 +2,10 @@ import { Box, Card, CardMedia, Typography } from '@mui/material';
 import React from 'react';
 
 import { HTTP_URL } from '../../../../typings/env';
-import { Event } from '../../../../typings/types';
+import { IEvent } from '../../../../typings/types';
 
 type Props = {
-  image?: Event['headerImage'];
+  image?: IEvent['headerImage'];
   text?: string;
   color?: string;
 };

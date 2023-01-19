@@ -1,23 +1,26 @@
 import { MenuItem } from '@mui/material';
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
 import { getArtistListForEventAsync } from '../../../../domen/artistsSlice/artistsSlice';
+import { useChangeFnFieldEventField } from '../../../../domen/events/hooks/useChangeFnFieldEventField';
+import { useDeleteFnEventField } from '../../../../domen/events/hooks/useDeleteFnEventField';
 import { AppDispatch } from '../../../../domen/store';
-import { useChangeFnEventField } from '../../../../hooks/useChangeFnEventField';
-import { Event } from '../../../../typings/types';
+import { IEvent } from '../../../../typings/types';
 
 type Props = {
-  artist?: Event['artist'];
-  handleDelete: () => void;
+  artist?: IEvent['artist'];
 };
 
-const EventPlaceArtist = ({ artist, handleDelete }: Props) => {
+export const EventPlaceArtist = memo(function EventPlaceArtist({ artist }: Props) {
   const dispatch: AppDispatch = useDispatch();
-  const [artists, setArtists] = useState<Event['artist']>([]);
+  const [artists, setArtists] = useState<IEvent['artist']>([]);
 
-  const handleChangeArtist = useChangeFnEventField('artist');
+  const handleChangeArtist = useChangeFnFieldEventField('artist');
+
+  const handleDeleteArtist = useDeleteFnEventField('artist');
+
   const fetchFnArtists = (search: string) => {
     // todo: добавить прерывание запроса
     dispatch(getArtistListForEventAsync(search, setArtists));
@@ -31,7 +34,7 @@ const EventPlaceArtist = ({ artist, handleDelete }: Props) => {
       multiple
       onChange={handleChangeArtist}
       fetchFn={fetchFnArtists}
-      onDelete={handleDelete}
+      onDelete={handleDeleteArtist}
     >
       {Array.isArray(artists) &&
         artists
@@ -45,6 +48,4 @@ const EventPlaceArtist = ({ artist, handleDelete }: Props) => {
           ))}
     </SelectWithSearch>
   );
-};
-
-export default EventPlaceArtist;
+});

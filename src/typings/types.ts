@@ -61,7 +61,7 @@ export type EventDate = {
   closeDateTime?: Date;
 };
 
-export interface Event extends Post {
+export interface IEvent extends Post {
   uid: string;
   item?: Pick<Item, 'uid' | 'title' | 'city'>;
   artist?: Pick<Artist, 'uid' | 'title'>[];
@@ -85,7 +85,7 @@ export interface Event extends Post {
   concertManagerPercentage?: number;
 }
 export interface EventRequest
-  extends Omit<Event, 'create' | 'update' | 'eventDates' | 'taxonomy' | 'image' | 'headerImage'> {
+  extends Omit<IEvent, 'create' | 'update' | 'eventDates' | 'taxonomy' | 'image' | 'headerImage'> {
   taxonomy?: number[];
   eventDates?: Omit<EventDate, 'eventUid' | 'map'>[];
   image?: number;

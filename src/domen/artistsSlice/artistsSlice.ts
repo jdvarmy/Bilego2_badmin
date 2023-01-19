@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Dispatch, SetStateAction } from 'react';
 
 import { fetchArtistsRequest } from '../../api/requests';
-import { Artist, Event, ServerError } from '../../typings/types';
+import { Artist, IEvent, ServerError } from '../../typings/types';
 import { addErrorAlertWorker } from '../alert/workers';
 import { AppThunk } from '../store';
 
@@ -42,7 +42,7 @@ export const { setLoading, setArtistState, setArtistStateField, setArtists } = a
 export default artists.reducer;
 
 export const getArtistListForEventAsync =
-  (search: string, reactDispatch: Dispatch<SetStateAction<Event['artist']>>): AppThunk =>
+  (search: string, reactDispatch: Dispatch<SetStateAction<IEvent['artist']>>): AppThunk =>
   async (dispatch) => {
     dispatch(setLoading(true));
 

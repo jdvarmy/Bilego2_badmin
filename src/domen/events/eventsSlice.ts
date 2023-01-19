@@ -1,17 +1,17 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { deleteEventDateRequest, editEventDateRequest, saveEventDateRequest } from '../../api/requests';
-import { Event, EventDate, ServerError } from '../../typings/types';
+import { EventDate, IEvent, ServerError } from '../../typings/types';
 import { addErrorAlertWorker } from '../alert/workers';
 import { AppThunk } from '../store';
 
 type State = {
   loading: boolean;
   // используется для хранения данных события, синхронизовано с данными в БД
-  event: Event | null;
+  event: IEvent | null;
   // используется для хранения стейта события, синхронизовано с "клиентом"
-  eventState: Event | null;
-  events: Event[] | null;
+  eventState: IEvent | null;
+  events: IEvent[] | null;
   selectedDateUid?: string;
 };
 
@@ -30,16 +30,16 @@ const events = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
-    setEvent: (state, action: PayloadAction<Event | null>) => {
+    setEvent: (state, action: PayloadAction<IEvent | null>) => {
       state.event = action.payload;
     },
-    setEventState: (state, action: PayloadAction<Event | null>) => {
+    setEventState: (state, action: PayloadAction<IEvent | null>) => {
       state.eventState = action.payload;
     },
-    setEventStateField: (state, action: PayloadAction<Partial<Event>>) => {
+    setEventStateField: (state, action: PayloadAction<Partial<IEvent>>) => {
       state.eventState = { ...state.eventState, ...action.payload };
     },
-    setEvents: (state, action: PayloadAction<Event[]>) => {
+    setEvents: (state, action: PayloadAction<IEvent[]>) => {
       state.events = action.payload;
     },
     setSelectedDateUid: (state, action: PayloadAction<string | undefined>) => {

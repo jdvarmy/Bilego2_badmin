@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from 'react';
 
 import { fetchItemsRequest } from '../../api/requests';
 import { City } from '../../typings/enum';
-import { Event, Item, ServerError } from '../../typings/types';
+import { IEvent, Item, ServerError } from '../../typings/types';
 import { addErrorAlertWorker } from '../alert/workers';
 import { AppThunk } from '../store';
 
@@ -43,7 +43,7 @@ export const { setLoading, setItemState, setItemStateField, setItems } = items.a
 export default items.reducer;
 
 export const getItemListForEventAsync =
-  (search: string, reactDispatch: Dispatch<SetStateAction<Event['item'][]>>, params: { city?: City }): AppThunk =>
+  (search: string, reactDispatch: Dispatch<SetStateAction<IEvent['item'][]>>, params: { city?: City }): AppThunk =>
   async (dispatch) => {
     dispatch(setLoading(true));
 

@@ -17,13 +17,13 @@ import {
 } from '../../../domen/events/eventsSlice';
 import { AppDispatch } from '../../../domen/store';
 import { TicketType } from '../../../typings/enum';
-import { Event } from '../../../typings/types';
+import { IEvent } from '../../../typings/types';
 import { isEqual } from '../../../utils/functions/isEqual';
 import EventDatesTabContent from './EventDatesTabContent';
 
 type Props = {
   uid?: string;
-  dates?: Event['eventDates'];
+  dates?: IEvent['eventDates'];
 };
 
 const EventDates = ({ uid, dates }: Props) => {

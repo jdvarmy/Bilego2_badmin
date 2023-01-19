@@ -3,31 +3,33 @@ import React, { memo, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
-import { selectEvent, selectEventState } from '../../../../domen/events/eventsSelectors';
+import { selectEvent } from '../../../../domen/events/eventsSelectors';
 import { setEventStateField } from '../../../../domen/events/eventsSlice';
 import { editEventAsync } from '../../../../domen/events/eventsThunk';
+import { ChangeEventFieldType } from '../../../../domen/events/hooks/useChangeFnFieldEventField';
 import { AppDispatch } from '../../../../domen/store';
-import { ChangeEventType } from '../../../../hooks/useChangeFnEventField';
 import { TermType } from '../../../../typings/enum';
-import { Event } from '../../../../typings/types';
+import { IEvent } from '../../../../typings/types';
 import { isEqual } from '../../../../utils/functions/isEqual';
 import { nameMapTaxonomy } from '../../../Taxonomy/Taxonomy';
 
-type Props = {
-  type: TermType;
-  eventUid: Event['uid'];
-  selected: Event['taxonomy'];
-  taxonomies: Event['taxonomy'];
-};
+type Props<T> = { type: TermType; eventUid: IEvent['uid']; selected: T; taxonomies: T; stateTaxonomy: T };
 
-const EventTaxonomyElement = ({ type, eventUid, taxonomies, selected }: Props) => {
+export const EventTaxonomyElement = memo(function EventTaxonomyElement<T extends IEvent['taxonomy']>({
+  type,
+  eventUid,
+  taxonomies,
+  selected,
+  stateTaxonomy,
+}: Props<T>) {
   const dispatch: AppDispatch = useDispatch();
   const { taxonomy } = useSelector(selectEvent, isEqual);
-  const { taxonomy: stateTaxonomy } = useSelector(selectEventState, isEqual);
-  const [localTax, setLocalTax] = useState<Event['taxonomy']>(() => taxonomies);
+  const [localTax, setLocalTax] = useState<IEvent['taxonomy']>(() => taxonomies);
+
+  console.info('render EventTaxonomyElement');
 
   const handleChangeTaxonomy = useCallback(
-    (event: ChangeEventType) => {
+    (event: ChangeEventFieldType) => {
       const filterTax = (stateTaxonomy || []).filter((tax) => tax.type !== type);
 
       dispatch(
@@ -77,6 +79,5 @@ const EventTaxonomyElement = ({ type, eventUid, taxonomies, selected }: Props) =
         ))}
     </SelectWithSearch>
   );
-};
-
-export default memo(EventTaxonomyElement);
+},
+isEqual);

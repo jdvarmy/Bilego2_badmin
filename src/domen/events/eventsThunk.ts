@@ -1,7 +1,8 @@
-import { Event, EventRequest, ServerError } from '../../typings/types';
+import { EventRequest, IEvent, ServerError } from '../../typings/types';
 import { addAlertWorker, addErrorAlertWorker } from '../alert/workers';
 import { AppThunk } from '../store';
 import { getEventRequest, patchEventRequest, postTemplateEventRequest, putTemplateEventRequest } from './eventsRequest';
+import { selectEventState } from './eventsSelectors';
 import { setEvent, setEventState, setLoading } from './eventsSlice';
 
 export const getEventAsync =
@@ -21,12 +22,14 @@ export const getEventAsync =
   };
 
 export const saveEventAsync =
-  (event: Event): AppThunk =>
-  async (dispatch) => {
+  (type?: IEvent['status']): AppThunk =>
+  async (dispatch, getState) => {
     dispatch(setLoading(true));
 
     try {
-      const { data } = await putTemplateEventRequest(prepareData(event));
+      const eventState = selectEventState(getState());
+
+      const { data } = await putTemplateEventRequest(prepareData(type ? { ...eventState, status: type } : eventState));
       dispatch(addAlertWorker({ severity: 'success', title: 'Сохранено', text: 'Событие успешно сохранено!' }));
       dispatch(setEvent(data));
       dispatch(setEventState(data));
@@ -52,7 +55,7 @@ export const saveTemplateEventAsync = (): AppThunk => async (dispatch) => {
 };
 
 export const editEventAsync =
-  (event: Event): AppThunk =>
+  (event: IEvent): AppThunk =>
   async (dispatch) => {
     dispatch(setLoading(true));
 
@@ -68,7 +71,7 @@ export const editEventAsync =
     }
   };
 
-function prepareData(event: Event): EventRequest {
+function prepareData(event: IEvent): EventRequest {
   const { eventDates, create, update, taxonomy, image, headerImage, ...other } = event;
 
   const filteredEventDates = eventDates?.map((eventDate) => {

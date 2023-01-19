@@ -1,4 +1,3 @@
-import HelpOutlineTwoToneIcon from '@mui/icons-material/HelpOutlineTwoTone';
 import {
   Card,
   CardContent,
@@ -11,24 +10,29 @@ import {
   TextField,
   Tooltip,
 } from '@mui/material';
-import React, { SyntheticEvent, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { memo } from 'react';
 
 import TextFieldImage from '../../../../components/TextFieldImage/TextFieldImage';
-import { selectEventState } from '../../../../domen/events/eventsSelectors';
-import { setEventStateField } from '../../../../domen/events/eventsSlice';
-import { AppDispatch } from '../../../../domen/store';
-import dateTimeFormatDefault from '../../../../helpers/dateTimeFormatDefault';
-import { useChangeFnEventField } from '../../../../hooks/useChangeFnEventField';
-import { Event as IEvent, MediaSelectData } from '../../../../typings/types';
+import { useChangeFnCheckboxEventField } from '../../../../domen/events/hooks/useChangeFnCheckboxEventField';
+import { useChangeFnFieldEventField } from '../../../../domen/events/hooks/useChangeFnFieldEventField';
+import { useChangeFnMediaEventField } from '../../../../domen/events/hooks/useChangeFnMediaEventField';
+import { useDeleteFnEventField } from '../../../../domen/events/hooks/useDeleteFnEventField';
+import { IEvent } from '../../../../typings/types';
+import { isEqual } from '../../../../utils/functions/isEqual';
+import { CardHeaderAvatar } from './CardHeaderAvatar';
 import { EventInfoManager } from './EventInfoManager';
 
 type Props = {
-  uid: string;
-  title?: string;
+  title: IEvent['title'];
+  image: IEvent['image'];
+  ageRestriction: IEvent['ageRestriction'];
+  isShowOnSlider: IEvent['isShowOnSlider'];
+  eventManager: IEvent['eventManager'];
+  concertManagerInfo: IEvent['concertManagerInfo'];
+  concertManagerPercentage: IEvent['concertManagerPercentage'];
 };
+
 // 4_188_069
-const formatter = new Intl.DateTimeFormat('ru', dateTimeFormatDefault);
 const formControlLabelStyle = {
   display: 'flex',
   flexDirection: 'column-reverse',
@@ -37,57 +41,30 @@ const formControlLabelStyle = {
   justifyContent: 'center',
 };
 
-export const EventInfo = ({ title }: Props) => {
-  const dispatch: AppDispatch = useDispatch();
-  const {
-    image,
-    create,
-    update,
-    ageRestriction,
-    isShowOnSlider,
-    eventManager,
-    concertManagerInfo,
-    concertManagerPercentage,
-  } = useSelector(selectEventState);
-
+export const EventInfo = memo(function EventInfo({
+  title,
+  image,
+  ageRestriction,
+  isShowOnSlider,
+  eventManager,
+  concertManagerInfo,
+  concertManagerPercentage,
+}: Props) {
   console.log('render EventInfo');
 
-  const handleChangeCheckbox = (field: keyof IEvent) => (event: SyntheticEvent<Element, Event>, checked: boolean) => {
-    dispatch(setEventStateField({ [field]: checked }));
-  };
-  const handleDelete = useCallback(
-    (field: keyof IEvent) => () => {
-      dispatch(setEventStateField({ [field]: undefined }));
-    },
-    [dispatch],
-  );
+  const handleChangeTitle = useChangeFnFieldEventField('title');
+  const handleChangeAgeRestriction = useChangeFnFieldEventField('ageRestriction');
+  const handleChangeConcertManagerPercentage = useChangeFnFieldEventField('concertManagerPercentage');
+  const handleChangeConcertManagerInfo = useChangeFnFieldEventField('concertManagerInfo');
+  const handleChangeImage = useChangeFnMediaEventField('image');
 
-  const handleChangeMedia = useCallback(
-    (image: MediaSelectData) => {
-      dispatch(setEventStateField({ image: image }));
-    },
-    [dispatch],
-  );
-  const handleDeleteMedia = useCallback(() => {
-    dispatch(setEventStateField({ image: undefined }));
-  }, [dispatch]);
+  const handleChangeIsShowOnSlider = useChangeFnCheckboxEventField('isShowOnSlider');
+
+  const handleDeleteImage = useDeleteFnEventField('image');
 
   return (
     <Card>
-      <CardHeader
-        title='Информация'
-        avatar={
-          <Tooltip
-            arrow
-            placement='top'
-            title={`Событие создано: ${formatter.format(
-              new Date(create),
-            )}. Последний раз редактировалось: ${formatter.format(new Date(update))}`}
-          >
-            <HelpOutlineTwoToneIcon />
-          </Tooltip>
-        }
-      />
+      <CardHeader title='Информация' avatar={<CardHeaderAvatar />} />
       <Divider />
       <CardContent>
         <TextField
@@ -97,13 +74,13 @@ export const EventInfo = ({ title }: Props) => {
           sx={{ mb: 2 }}
           value={title || ''}
           focused={!!title}
-          onChange={useChangeFnEventField('title')}
+          onChange={handleChangeTitle}
         />
         <Grid spacing={3} container alignItems='center'>
           <Grid item xs={6}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <TextFieldImage size='small' value={image} onSelect={handleChangeMedia} onDelete={handleDeleteMedia} />
+                <TextFieldImage size='small' value={image} onSelect={handleChangeImage} onDelete={handleDeleteImage} />
               </Grid>
               <Grid item xs={4}>
                 <TextField
@@ -112,7 +89,7 @@ export const EventInfo = ({ title }: Props) => {
                   type='number'
                   value={ageRestriction ?? 0}
                   focused={!!ageRestriction}
-                  onChange={useChangeFnEventField('ageRestriction')}
+                  onChange={handleChangeAgeRestriction}
                 />
               </Grid>
               <Grid item xs={4}>
@@ -122,7 +99,7 @@ export const EventInfo = ({ title }: Props) => {
                   type='number'
                   value={concertManagerPercentage ?? 0}
                   focused={!!concertManagerPercentage}
-                  onChange={useChangeFnEventField('concertManagerPercentage')}
+                  onChange={handleChangeConcertManagerPercentage}
                 />
               </Grid>
               <Grid item xs={4}>
@@ -132,13 +109,13 @@ export const EventInfo = ({ title }: Props) => {
                       sx={formControlLabelStyle}
                       control={<Switch checked={isShowOnSlider} />}
                       label='Включить в слайдер'
-                      onChange={handleChangeCheckbox('isShowOnSlider')}
+                      onChange={handleChangeIsShowOnSlider}
                     />
                   </FormGroup>
                 </Tooltip>
               </Grid>
               <Grid item xs={12}>
-                <EventInfoManager handleDelete={handleDelete} manager={eventManager} />
+                <EventInfoManager manager={eventManager} />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -149,7 +126,7 @@ export const EventInfo = ({ title }: Props) => {
                   label='Информация (ИНН, адрес, ...)'
                   value={concertManagerInfo ?? ''}
                   focused={!!concertManagerInfo}
-                  onChange={useChangeFnEventField('concertManagerInfo')}
+                  onChange={handleChangeConcertManagerInfo}
                 />
               </Grid>
             </Grid>
@@ -161,4 +138,5 @@ export const EventInfo = ({ title }: Props) => {
       </CardContent>
     </Card>
   );
-};
+},
+isEqual);

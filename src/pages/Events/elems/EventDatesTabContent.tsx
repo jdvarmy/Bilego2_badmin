@@ -6,11 +6,11 @@ import { useDispatch } from 'react-redux';
 
 import { setEventStateField } from '../../../domen/events/eventsSlice';
 import { AppDispatch } from '../../../domen/store';
-import { Event, EventDate } from '../../../typings/types';
+import { EventDate, IEvent } from '../../../typings/types';
 
 type Props = {
   selectDate?: EventDate;
-  dates?: Event['eventDates'];
+  dates?: IEvent['eventDates'];
 };
 
 export const pickerProps = {

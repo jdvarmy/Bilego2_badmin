@@ -29,6 +29,7 @@ const TicketMap = () => {
   console.log('RERENDER MAP');
   const ref = useRef<HTMLDivElement>(null);
   const refStage = useRef<StageType>(null);
+  // todo: поменять на shallowEqual
   const map = useSelector(selectSelectedDateMap, isEqual);
 
   const rect = useResizeObserver(ref);

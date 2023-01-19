@@ -1,4 +1,4 @@
-import { Event, EventDate, MediaFile, RequestAuth, ResponseAuth, Ticket, TicketOnSell } from '../typings/types';
+import { EventDate, IEvent, MediaFile, RequestAuth, ResponseAuth, Ticket, TicketOnSell } from '../typings/types';
 import requests from './api';
 
 export const registerRequest = (data: RequestAuth) => requests.post<ResponseAuth>(`auth/register`, data);
@@ -20,8 +20,8 @@ export const deleteEventDateRequest = (uid: string, eventUid: string) =>
 export const editEventDateRequest = (eventUid: string, data: Partial<EventDate>) =>
   requests.put<EventDate>(`events/${eventUid}/dates`, data);
 
-export const fetchItemsRequest = (data?: any) => requests.get<Event['item'][]>(`items`, data);
-export const fetchArtistsRequest = (data?: { search: string }) => requests.get<Event['artist']>(`artists`, data);
+export const fetchItemsRequest = (data?: any) => requests.get<IEvent['item'][]>(`items`, data);
+export const fetchArtistsRequest = (data?: { search: string }) => requests.get<IEvent['artist']>(`artists`, data);
 
 export const fetchTicketsRequest = (dateUid: string) => requests.get<Ticket[]>(`tickets/${dateUid}`);
 export const saveTicketsRequest = (

@@ -1,7 +1,9 @@
-import React, { memo } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import React, { memo } from 'react';
+
+import { useChangeFnFieldEventField } from '../../../domen/events/hooks/useChangeFnFieldEventField';
 import { PostStatus } from '../../../typings/enum';
-import { useChangeFnEventField } from '../../../hooks/useChangeFnEventField';
+import { IEvent } from '../../../typings/types';
 
 const postStatusMap: Record<PostStatus, string> = {
   [PostStatus.temp]: 'временный шаблон',
@@ -13,9 +15,11 @@ const postStatusMap: Record<PostStatus, string> = {
   [PostStatus.trash]: 'удаленный (в корзине)',
 };
 
-type Props = { status?: PostStatus };
+type Props = {
+  status: IEvent['status'];
+};
 
-const EventStatus = ({ status }: Props) => {
+export const EventStatus = memo(function EventStatus({ status }: Props) {
   console.log('render EventStatus');
 
   let color: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
@@ -37,7 +41,7 @@ const EventStatus = ({ status }: Props) => {
       color = 'primary';
   }
 
-  const handleChange = useChangeFnEventField('status');
+  const handleChange = useChangeFnFieldEventField('status');
 
   return (
     <FormControl focused={!!status} color={color} sx={{ width: 256 }} size='small' variant='outlined'>
@@ -51,6 +55,4 @@ const EventStatus = ({ status }: Props) => {
       </Select>
     </FormControl>
   );
-};
-
-export default memo(EventStatus);
+});

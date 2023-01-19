@@ -1,28 +1,34 @@
 import { MenuItem } from '@mui/material';
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
 import { setEventStateField } from '../../../../domen/events/eventsSlice';
+import {
+  ChangeEventFieldType,
+  useChangeFnFieldEventField,
+} from '../../../../domen/events/hooks/useChangeFnFieldEventField';
+import { useDeleteFnEventField } from '../../../../domen/events/hooks/useDeleteFnEventField';
 import { getItemListForEventAsync } from '../../../../domen/itemsSlice/itemsSlice';
 import { AppDispatch } from '../../../../domen/store';
-import { ChangeEventType, useChangeFnEventField } from '../../../../hooks/useChangeFnEventField';
 import { City } from '../../../../typings/enum';
-import { Event } from '../../../../typings/types';
+import { IEvent } from '../../../../typings/types';
 
 type Props = {
-  item?: Event['item'];
+  item?: IEvent['item'];
   city?: City;
-  handleDelete: (field: keyof Event) => () => void;
 };
 
-const EventPlaceItem = ({ item, city, handleDelete }: Props) => {
+export const EventPlaceItem = memo(function EventPlaceItem({ item, city }: Props) {
   const dispatch: AppDispatch = useDispatch();
-  const [items, setItems] = useState<Event['item'][]>([]);
+  const [items, setItems] = useState<IEvent['item'][]>([]);
 
-  const handleChangeItem = useChangeFnEventField('item');
-  const handleChangeItemLocal = (event: ChangeEventType) => {
-    const eventCity = event.target.value as Event['item'];
+  const handleChangeItem = useChangeFnFieldEventField('item');
+
+  const handleDeleteItem = useDeleteFnEventField('item');
+
+  const handleChangeItemLocal = (event: ChangeEventFieldType) => {
+    const eventCity = event.target.value as IEvent['item'];
     if (eventCity?.city && eventCity.city !== city) {
       dispatch(setEventStateField({ city: eventCity.city }));
     }
@@ -41,18 +47,16 @@ const EventPlaceItem = ({ item, city, handleDelete }: Props) => {
       fullWidth
       onChange={handleChangeItemLocal}
       fetchFn={fetchFnItems}
-      onDelete={handleDelete('item')}
+      onDelete={handleDeleteItem}
     >
       {Array.isArray(items) &&
         items
           .filter((i) => i?.uid)
-          .map((i: Event['item']) => (
+          .map((i: IEvent['item']) => (
             <MenuItem key={i?.uid} value={i as any}>
               {i?.title}
             </MenuItem>
           ))}
     </SelectWithSearch>
   );
-};
-
-export default EventPlaceItem;
+});

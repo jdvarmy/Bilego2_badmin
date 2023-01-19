@@ -3,21 +3,23 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
+import { useChangeFnFieldEventField } from '../../../../domen/events/hooks/useChangeFnFieldEventField';
+import { useDeleteFnEventField } from '../../../../domen/events/hooks/useDeleteFnEventField';
 import { AppDispatch } from '../../../../domen/store';
 import { getManagerListForEventAsync } from '../../../../domen/users/usersThuk';
-import { useChangeFnEventField } from '../../../../hooks/useChangeFnEventField';
-import { Event } from '../../../../typings/types';
+import { IEvent } from '../../../../typings/types';
 
 type Props = {
-  manager?: Event['eventManager'];
-  handleDelete: (field: keyof Event) => () => void;
+  manager?: IEvent['eventManager'];
 };
 
-export const EventInfoManager = ({ manager, handleDelete }: Props) => {
+export const EventInfoManager = ({ manager }: Props) => {
   const dispatch: AppDispatch = useDispatch();
-  const [managers, setManagers] = useState<Event['eventManager'][]>([]);
+  const [managers, setManagers] = useState<IEvent['eventManager'][]>([]);
 
-  const handleChangeManager = useChangeFnEventField('eventManager');
+  const handleChange = useChangeFnFieldEventField('eventManager');
+  const handleDelete = useDeleteFnEventField('eventManager');
+
   const fetchFnManagers = (search: string) => {
     // todo: добавить прерывание запроса
     dispatch(getManagerListForEventAsync(search, setManagers));
@@ -28,14 +30,14 @@ export const EventInfoManager = ({ manager, handleDelete }: Props) => {
       value={manager || ''}
       label='Менеджер события'
       fullWidth
-      onChange={handleChangeManager}
+      onChange={handleChange}
+      onDelete={handleDelete}
       fetchFn={fetchFnManagers}
-      onDelete={handleDelete('eventManager')}
     >
       {Array.isArray(managers) &&
         managers
           .filter((i) => i?.uid)
-          .map((i: Event['eventManager']) => (
+          .map((i: IEvent['eventManager']) => (
             <MenuItem key={i?.uid} value={i as any}>
               {i?.title}
             </MenuItem>

@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 
 import { UserState } from '../../pages/Users/UserDataContainer';
-import { Event, RequestUser, ServerError } from '../../typings/types';
+import { IEvent, RequestUser, ServerError } from '../../typings/types';
 import { addErrorAlertWorker } from '../alert/workers';
 import { setLoading } from '../artistsSlice/artistsSlice';
 import { AppThunk } from '../store';
@@ -64,7 +64,7 @@ export const deleteUserAsync =
   };
 
 export const getManagerListForEventAsync =
-  (search: string, reactDispatch: Dispatch<SetStateAction<Event['eventManager']>>): AppThunk =>
+  (search: string, reactDispatch: Dispatch<SetStateAction<IEvent['eventManager']>>): AppThunk =>
   async (dispatch) => {
     dispatch(setLoading(true));
 

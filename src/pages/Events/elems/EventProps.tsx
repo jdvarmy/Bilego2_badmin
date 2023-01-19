@@ -1,53 +1,47 @@
-import { Box, Card, CardContent, CardHeader, Divider, Grid, TextField } from '@mui/material';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Card, CardContent, CardHeader, Divider, Grid, TextField } from '@mui/material';
+import React, { memo } from 'react';
 
-import { selectEventState } from '../../../domen/events/eventsSelectors';
-import { setEventStateField } from '../../../domen/events/eventsSlice';
-import { AppDispatch } from '../../../domen/store';
-import { Event } from '../../../typings/types';
+import { useChangeFnFieldEventField } from '../../../domen/events/hooks/useChangeFnFieldEventField';
+import { IEvent } from '../../../typings/types';
 
-const EventProps = () => {
-  const dispatch: AppDispatch = useDispatch();
-  const event = useSelector(selectEventState);
+type Props = { fragment: IEvent['fragment']; words: IEvent['searchWords'] };
 
-  const handleChange = (field: keyof Event) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setEventStateField({ [field]: event.target.value }));
-  };
+export const EventProps = memo(function EventProps({ fragment, words }: Props) {
+  const handleChangeFragment = useChangeFnFieldEventField('fragment');
+  const handleChangeSearchWords = useChangeFnFieldEventField('searchWords');
+
   return (
     <Card>
       <CardHeader title='Данные события' />
       <Divider />
       <CardContent>
-        <Box>
-          <Grid container spacing={3} alignItems='center'>
-            <Grid item xs={12}>
-              <TextField
-                sx={{ mb: 2 }}
-                label='Отрывок'
-                multiline
-                rows={2}
-                fullWidth
-                value={event?.fragment || ''}
-                focused={!!event?.fragment}
-                onChange={handleChange('fragment')}
-              />
-              <TextField
-                label='Поисковые запросы события'
-                multiline
-                rows={1}
-                fullWidth
-                value={event?.searchWords || ''}
-                focused={!!event?.searchWords}
-                onChange={handleChange('searchWords')}
-                helperText='Поисковые запросы разделяются символом "запятая" (,)'
-              />
-            </Grid>
+        <Grid container spacing={3} alignItems='center'>
+          <Grid item xs={12}>
+            <TextField
+              label='Отрывок'
+              size='small'
+              rows={2}
+              multiline
+              fullWidth
+              focused={!!fragment}
+              value={fragment || ''}
+              onChange={handleChangeFragment}
+            />
           </Grid>
-        </Box>
+          <Grid item xs={12}>
+            <TextField
+              label='Поисковые запросы события'
+              rows={1}
+              multiline
+              fullWidth
+              focused={!!words}
+              value={words || ''}
+              onChange={handleChangeSearchWords}
+              helperText='Поисковые запросы разделяются символом "запятая" (,)'
+            />
+          </Grid>
+        </Grid>
       </CardContent>
     </Card>
   );
-};
-
-export default EventProps;
+});

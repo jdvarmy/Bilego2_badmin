@@ -12,9 +12,9 @@ export type ColorsFormat = 'plain' | 'hex' | 'rgb' | 'number' | 'unknown' | unde
 export type ServerError = { statusCode: number; message: number; error: string };
 
 export type User = {
+  uid?: string;
   email: string;
   role: UserRole;
-  uid?: string;
   name?: string;
   surname?: string;
   birthdate?: Date | null;
@@ -66,7 +66,7 @@ export interface IEvent extends Post {
   item?: Pick<Item, 'uid' | 'title' | 'city'>;
   artist?: Pick<Artist, 'uid' | 'title'>[];
   city?: City;
-  eventManager?: any;
+  eventManager?: User;
   taxonomy?: Pick<Taxonomy, 'id' | 'name' | 'type'>[];
   eventDates?: EventDate[];
   image?: MediaSelectData;
@@ -85,11 +85,17 @@ export interface IEvent extends Post {
   concertManagerPercentage?: number;
 }
 export interface EventRequest
-  extends Omit<IEvent, 'create' | 'update' | 'eventDates' | 'taxonomy' | 'image' | 'headerImage'> {
+  extends Omit<
+    IEvent,
+    'create' | 'update' | 'eventDates' | 'taxonomy' | 'image' | 'headerImage' | 'item' | 'artist' | 'eventManager'
+  > {
   taxonomy?: number[];
   eventDates?: Omit<EventDate, 'eventUid' | 'map'>[];
   image?: number;
   headerImage?: number;
+  item?: string;
+  artist?: string[];
+  eventManager?: string;
 }
 
 export interface Item extends Post {

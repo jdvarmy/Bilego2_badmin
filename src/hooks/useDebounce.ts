@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { useLatest } from './useLatest';
 
-const defMs = 290;
+const defMs = 390;
 
 export function useDebounce<T extends (...args: any[]) => any>(func: T, ms = defMs) {
   const latestFunc = useLatest(func);

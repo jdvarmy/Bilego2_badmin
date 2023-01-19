@@ -1,4 +1,4 @@
-import { MenuItem } from '@mui/material';
+import { MenuItem, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -39,7 +39,9 @@ export const EventInfoManager = ({ manager }: Props) => {
           .filter((i) => i?.uid)
           .map((i: IEvent['eventManager']) => (
             <MenuItem key={i?.uid} value={i as any}>
-              {i?.title}
+              <Typography variant='subtitle1' color='text.primary'>
+                {i?.surname} {i?.name}
+              </Typography>
             </MenuItem>
           ))}
     </SelectWithSearch>

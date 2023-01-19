@@ -21,6 +21,7 @@ import { IEvent } from '../../../../typings/types';
 import { isEqual } from '../../../../utils/functions/isEqual';
 import { CardHeaderAvatar } from './CardHeaderAvatar';
 import { EventInfoManager } from './EventInfoManager';
+import { EventInfoMediaDisplay } from './EventInfoMediaDisplay';
 
 type Props = {
   title: IEvent['title'];
@@ -132,7 +133,7 @@ export const EventInfo = memo(function EventInfo({
             </Grid>
           </Grid>
           <Grid item xs={6}>
-            {/*<MediaDisplay image={headerImage} text={headerText} color={headerTextColor} />*/}
+            <EventInfoMediaDisplay />
           </Grid>
         </Grid>
       </CardContent>

@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 
 import { UserState } from '../../pages/Users/UserDataContainer';
+import { UserRole } from '../../typings/enum';
 import { IEvent, RequestUser, ServerError } from '../../typings/types';
 import { addErrorAlertWorker } from '../alert/workers';
 import { setLoading } from '../artistsSlice/artistsSlice';
@@ -64,12 +65,12 @@ export const deleteUserAsync =
   };
 
 export const getManagerListForEventAsync =
-  (search: string, reactDispatch: Dispatch<SetStateAction<IEvent['eventManager']>>): AppThunk =>
+  (search: string, reactDispatch: Dispatch<SetStateAction<IEvent['eventManager'][]>>): AppThunk =>
   async (dispatch) => {
     dispatch(setLoading(true));
 
     try {
-      const { data } = await fetchUsersRequest({ search, manager: true });
+      const { data } = await fetchUsersRequest({ search, role: UserRole.organizer });
       reactDispatch(data);
     } catch (e) {
       dispatch(addErrorAlertWorker(e as ServerError));

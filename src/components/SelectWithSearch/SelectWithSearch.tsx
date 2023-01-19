@@ -1,6 +1,6 @@
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import { Box, FormControl, IconButton, InputLabel, OutlinedInput, Select, SelectProps } from '@mui/material';
-import React, { MouseEventHandler, ReactNode, useState } from 'react';
+import React, { MouseEventHandler, ReactNode, useEffect, useState } from 'react';
 
 import { useDebounce } from '../../hooks/useDebounce';
 import { isArray } from '../../utils/functions/isArray';
@@ -29,6 +29,12 @@ const SelectWithSearch = (props: SearchableSelectProps) => {
     debounceFetchFn();
   };
 
+  useEffect(() => {
+    if (fetchFn) {
+      fetchFn('');
+    }
+  }, []);
+
   return (
     <Box sx={{ display: 'flex' }}>
       <FormControl fullWidth={fullWidth}>
@@ -43,7 +49,9 @@ const SelectWithSearch = (props: SearchableSelectProps) => {
           renderValue={(selected: any) =>
             (multiple
               ? (selected.map((s: any) => s.title || s.name) as string[]).join(', ')
-              : selected?.title || selected.name) as ReactNode
+              : selected?.title || selected.surname
+              ? `${selected.surname} ${selected.name}`
+              : selected.name) as ReactNode
           }
           onChange={onChange}
           onClose={onClose}

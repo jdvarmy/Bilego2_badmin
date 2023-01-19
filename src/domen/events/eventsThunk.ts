@@ -72,7 +72,7 @@ export const editEventAsync =
   };
 
 function prepareData(event: IEvent): EventRequest {
-  const { eventDates, create, update, taxonomy, image, headerImage, ...other } = event;
+  const { eventDates, create, update, taxonomy, image, headerImage, item, artist, eventManager, ...other } = event;
 
   const filteredEventDates = eventDates?.map((eventDate) => {
     const { uid, type, dateFrom, dateTo, closeDateTime } = eventDate;
@@ -82,11 +82,18 @@ function prepareData(event: IEvent): EventRequest {
   const filteredImage = +image?.id ?? undefined;
   const filteredHeaderImage = +headerImage?.id ?? undefined;
 
+  const filteredItem = item?.uid;
+  const filteredArtist = artist?.map((a) => a.uid);
+  const filteredEventManager = eventManager?.uid;
+
   return {
     ...other,
     eventDates: filteredEventDates,
     taxonomy: filteredTaxonomy,
     image: filteredImage,
     headerImage: filteredHeaderImage,
+    eventManager: filteredEventManager,
+    item: filteredItem,
+    artist: filteredArtist,
   };
 }

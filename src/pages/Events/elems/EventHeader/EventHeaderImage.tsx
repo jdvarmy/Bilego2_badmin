@@ -1,29 +1,25 @@
 import { Grid, TextField } from '@mui/material';
 import { TextFieldProps } from '@mui/material/TextField/TextField';
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import TextFieldImage from '../../../../components/TextFieldImage/TextFieldImage';
-import { selectEventState } from '../../../../domen/events/eventsSelectors';
+import { selectEventStateHeaderImageData } from '../../../../domen/events/eventsSelectors';
 import { setEventStateField } from '../../../../domen/events/eventsSlice';
+import { useChangeFnMediaEventField } from '../../../../domen/events/hooks/useChangeFnMediaEventField';
+import { useDeleteFnEventField } from '../../../../domen/events/hooks/useDeleteFnEventField';
 import { AppDispatch } from '../../../../domen/store';
 import { useThrottle } from '../../../../hooks/useThrottle';
-import { MediaSelectData } from '../../../../typings/types';
+import { isEqual } from '../../../../utils/functions/isEqual';
 import { MediaDisplay } from './MediaDisplay';
 
 export const EventHeaderImage = () => {
   const dispatch: AppDispatch = useDispatch();
-  const { headerImage, headerText, headerTextColor } = useSelector(selectEventState);
+  const { headerImage, headerText, headerTextColor } = useSelector(selectEventStateHeaderImageData, isEqual);
 
-  const handleChangeMedia = useCallback(
-    (image: MediaSelectData) => {
-      dispatch(setEventStateField({ headerImage: image }));
-    },
-    [dispatch],
-  );
-  const handleDeleteMedia = useCallback(() => {
-    dispatch(setEventStateField({ headerImage: undefined }));
-  }, [dispatch]);
+  const handleChangeImage = useChangeFnMediaEventField('headerImage');
+  const handleDeleteImage = useDeleteFnEventField('headerImage');
+
   const handleChange = (name: string, field: string, event: React.ChangeEvent<HTMLInputElement>) => {
     const prev = 'headerText' === name ? JSON.parse(headerText) : JSON.parse(headerTextColor);
 
@@ -54,8 +50,8 @@ export const EventHeaderImage = () => {
             <TextFieldImage
               size='small'
               value={headerImage}
-              onSelect={handleChangeMedia}
-              onDelete={handleDeleteMedia}
+              onSelect={handleChangeImage}
+              onDelete={handleDeleteImage}
             />
           </Grid>
           {fields.map(({ grid, label, ...props }) => (

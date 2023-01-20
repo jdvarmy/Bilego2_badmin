@@ -33,7 +33,6 @@ type Props = {
   concertManagerPercentage: IEvent['concertManagerPercentage'];
 };
 
-// 4_188_069
 const formControlLabelStyle = {
   display: 'flex',
   flexDirection: 'column-reverse',
@@ -78,7 +77,7 @@ export const EventInfo = memo(function EventInfo({
           onChange={handleChangeTitle}
         />
         <Grid spacing={3} container alignItems='center'>
-          <Grid item xs={6}>
+          <Grid item xs={7}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <TextFieldImage size='small' value={image} onSelect={handleChangeImage} onDelete={handleDeleteImage} />
@@ -132,7 +131,7 @@ export const EventInfo = memo(function EventInfo({
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={5}>
             <EventInfoMediaDisplay />
           </Grid>
         </Grid>

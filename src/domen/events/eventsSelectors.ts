@@ -15,8 +15,9 @@ export const selectEventStateHeaderImageData = (state: RootState) => {
 
 export const selectEventStateImageData = (state: RootState) => {
   const { image, title } = selectEventState(state);
+  const date = selectEventSelectedDate(state);
 
-  return { image, title };
+  return { image, title, date: date?.dateFrom ?? new Date() };
 };
 
 export const selectEvents = (state: RootState) => selectEventsStore(state).events;

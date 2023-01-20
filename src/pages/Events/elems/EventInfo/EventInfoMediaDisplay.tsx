@@ -4,6 +4,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectEventStateImageData } from '../../../../domen/events/eventsSelectors';
+import dateTimeFormatDefault from '../../../../helpers/dateTimeFormatDefault';
 import { HTTP_URL } from '../../../../typings/env';
 import { isEqual } from '../../../../utils/functions/isEqual';
 
@@ -52,9 +53,8 @@ const StyledTypography = styled(Typography)(
 
 const StyledTypographyDate = styled(Typography)(
   () => `
-    position: absolute;
-    bottom: 7rem;
-    left: 1rem;
+    position: relative;
+    bottom: 1rem;
     font-style: normal;
     font-weight: 400;
     font-size: 28px;
@@ -73,16 +73,25 @@ const StyledTypographyDate = styled(Typography)(
 `,
 );
 
+const formatter = new Intl.DateTimeFormat('ru', {
+  ...dateTimeFormatDefault,
+  month: 'short',
+  hour: undefined,
+  minute: undefined,
+  timeZone: undefined,
+  timeZoneName: undefined,
+});
+
 export const EventInfoMediaDisplay = () => {
-  const { image, title } = useSelector(selectEventStateImageData, isEqual);
+  const { image, title, date } = useSelector(selectEventStateImageData, isEqual);
 
   console.log('render EventInfoMediaDisplay');
 
   return (
     <StyledCard>
       {image && <StyledCardMedia image={`${HTTP_URL}${image.path}`} title={image.name} />}
-      <StyledTypographyDate>25 янв</StyledTypographyDate>
       <StyledBox>
+        <StyledTypographyDate>{formatter.format(new Date(date))}</StyledTypographyDate>
         <StyledTypography>{title}</StyledTypography>
       </StyledBox>
     </StyledCard>

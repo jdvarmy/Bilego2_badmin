@@ -1,19 +1,20 @@
-import React, { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
-import SaveTwoToneIcon from '@mui/icons-material/SaveTwoTone';
-import { Grid, Icon, TextField, Box } from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
-import ModalDialog from '../ModalDialog/ModalDialog';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectMedialibrary } from '../../domen/selectors';
-import { getMapListAsync, uploadFileMapAsync } from '../../domen/medialibrarySlice/medialibrarySlice';
-import { AppDispatch } from '../../domen/store';
-import UploadFiles from '../UploadFiles/UploadFiles';
 import HourglassDisabledTwoToneIcon from '@mui/icons-material/HourglassDisabledTwoTone';
-import MapImage from './MapImage';
-import { EventDate } from '../../typings/types';
-import { editEventDateAsync } from '../../domen/events/eventsSlice';
+import SaveTwoToneIcon from '@mui/icons-material/SaveTwoTone';
+import LoadingButton from '@mui/lab/LoadingButton';
+import { Box, Grid, Icon, TextField } from '@mui/material';
+import React, { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { editEventDateAsync } from '../../domens/events/store/eventsSlice';
+import { getMapListAsync, uploadFileMapAsync } from '../../domens/medialibrarySlice/medialibrarySlice';
+import { selectMedialibrary } from '../../domens/selectors';
+import { AppDispatch } from '../../domens/store';
 import { TicketType } from '../../typings/enum';
+import { EventDate } from '../../typings/types';
+import ModalDialog from '../ModalDialog/ModalDialog';
+import UploadFiles from '../UploadFiles/UploadFiles';
+import MapImage from './MapImage';
 
 export type MapContent = FileList | null;
 type Props = { open: boolean; onClose: () => void; selectedDate?: EventDate };

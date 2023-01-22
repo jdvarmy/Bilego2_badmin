@@ -210,11 +210,3 @@ export type MapFile = {
   paths?: any[];
   seats?: any[];
 };
-export type ViewBoxSizes = {
-  width: number;
-  height: number;
-};
-export type Point = {
-  x: number;
-  y: number;
-};

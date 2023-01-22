@@ -3,11 +3,11 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch } from 'react-redux';
 
-import { AppDispatch } from '../../domen/store';
-import { getUserAsync } from '../../domen/users/usersThuk';
-import { usePostStatus } from '../../hooks/usePostStatus';
+import { AppDispatch } from '../../domens/store';
+import { getUserAsync } from '../../domens/users/usersThuk';
 import { BaseRecordStatus, UserRole } from '../../typings/enum';
 import { MediaSelectData, User } from '../../typings/types';
+import { usePostStatus } from '../../utils/hooks/usePostStatus';
 import SaveUserButton from './elems/SaveUserButton';
 import UserMainData from './elems/UserMainData';
 import UserOrganizerData from './elems/UserOrganizerData';

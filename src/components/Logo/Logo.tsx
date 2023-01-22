@@ -1,13 +1,14 @@
-import React from 'react';
 import { Box, Hidden, Tooltip } from '@mui/material';
-import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
-import { APP_VERSION } from '../../typings/env';
-import LogoIcon from '../../icons/LogoIcon';
-import useYodaSays from '../../hooks/useYodaSays';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectAuth } from '../../domen/selectors';
+import { Link } from 'react-router-dom';
+
+import { selectAuth } from '../../domens/selectors';
+import LogoIcon from '../../theme/icons/LogoIcon';
+import { APP_VERSION } from '../../typings/env';
 import { loginPage } from '../../typings/types';
+import useYodaSays from '../../utils/hooks/useYodaSays';
 
 const LogoWrapper = styled(Link)(
   ({ theme }) => `

@@ -5,8 +5,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import ModalDialog from '../../../components/ModalDialog/ModalDialog';
-import { AppDispatch } from '../../../domen/store';
-import { deleteUserAsync } from '../../../domen/users/usersThuk';
+import { AppDispatch } from '../../../domens/store';
+import { deleteUserAsync } from '../../../domens/users/usersThuk';
 
 type Props = {
   email: string;

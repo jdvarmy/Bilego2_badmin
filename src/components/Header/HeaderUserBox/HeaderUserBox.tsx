@@ -1,30 +1,31 @@
-import React, { useRef, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
+import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
+import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
+import InboxTwoToneIcon from '@mui/icons-material/InboxTwoTone';
+import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
 import {
   Avatar,
   Box,
   Button,
   Divider,
   Hidden,
-  lighten,
   List,
   ListItem,
   ListItemText,
   Popover,
   Typography,
+  lighten,
 } from '@mui/material';
-import InboxTwoToneIcon from '@mui/icons-material/InboxTwoTone';
 import { styled } from '@mui/material/styles';
-import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
-import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
-import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
-import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
-import { AppDispatch } from '../../../domen/store';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../../domen/authSlice/authSlice';
-import { loginPage } from '../../../typings/types';
-import { selectAuth } from '../../../domen/selectors';
+import { NavLink, useNavigate } from 'react-router-dom';
+
+import { logout } from '../../../domens/authSlice/authSlice';
+import { selectAuth } from '../../../domens/selectors';
+import { AppDispatch } from '../../../domens/store';
 import { UserRole } from '../../../typings/enum';
+import { loginPage } from '../../../typings/types';
 
 const UserBoxButton = styled(Button)(
   ({ theme }) => `

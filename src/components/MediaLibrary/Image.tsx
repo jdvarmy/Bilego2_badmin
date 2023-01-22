@@ -3,8 +3,8 @@ import { Button, Card, CardActions, CardHeader, CardMedia, IconButton } from '@m
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { removeFileAsync } from '../../domen/medialibrarySlice/medialibrarySlice';
-import { AppDispatch } from '../../domen/store';
+import { removeFileAsync } from '../../domens/medialibrarySlice/medialibrarySlice';
+import { AppDispatch } from '../../domens/store';
 import { HTTP_URL } from '../../typings/env';
 import { MediaFile, MediaSelectData } from '../../typings/types';
 

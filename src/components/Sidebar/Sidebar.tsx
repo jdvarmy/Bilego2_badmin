@@ -1,13 +1,14 @@
-import React from 'react';
-import { Scrollbars } from 'react-custom-scrollbars-2';
 import { Box, Drawer, Hidden } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import React from 'react';
+import { Scrollbars } from 'react-custom-scrollbars-2';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSidebar } from '../../domen/selectors';
-import { toggleSidebar } from '../../domen/sidebarSlice/sidebarSlice';
-import SidebarMenu from './SidebarMenu/SidebarMenu';
+
+import { selectSidebar } from '../../domens/selectors';
+import { toggleSidebar } from '../../domens/sidebarSlice/sidebarSlice';
+import { AppDispatch } from '../../domens/store';
 import Logo from '../Logo/Logo';
-import { AppDispatch } from '../../domen/store';
+import SidebarMenu from './SidebarMenu/SidebarMenu';
 
 const SidebarWrapper = styled(Box)(
   ({ theme }) => `

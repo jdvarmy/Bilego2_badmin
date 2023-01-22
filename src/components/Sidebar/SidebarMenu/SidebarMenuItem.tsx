@@ -1,12 +1,13 @@
+import ExpandLessTwoToneIcon from '@mui/icons-material/ExpandLessTwoTone';
+import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
+import { Badge, Button, Collapse, ListItem } from '@mui/material';
+import clsx from 'clsx';
 import React, { FC, ReactNode, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink as RouterLink } from 'react-router-dom';
-import clsx from 'clsx';
-import { Button, Badge, Collapse, ListItem } from '@mui/material';
-import ExpandLessTwoToneIcon from '@mui/icons-material/ExpandLessTwoTone';
-import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
-import { toggleSidebar } from '../../../domen/sidebarSlice/sidebarSlice';
-import { AppDispatch } from '../../../domen/store';
+
+import { toggleSidebar } from '../../../domens/sidebarSlice/sidebarSlice';
+import { AppDispatch } from '../../../domens/store';
 
 interface SidebarMenuItemProps {
   name: string;

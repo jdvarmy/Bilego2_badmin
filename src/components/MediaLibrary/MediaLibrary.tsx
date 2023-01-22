@@ -1,29 +1,30 @@
-import React, { ChangeEvent, useState, useEffect, useCallback } from 'react';
+import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
+import CloseIcon from '@mui/icons-material/Close';
+import LoadingButton from '@mui/lab/LoadingButton';
 import {
   AppBar,
+  Box,
   Dialog,
-  DialogTitle,
   DialogContent,
+  DialogTitle,
+  FormControl,
   IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
   Toolbar,
   Typography,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Box,
-  TextField,
 } from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
-import CloseIcon from '@mui/icons-material/Close';
-import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
-import Image from './Image';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '../../domen/store';
-import { uploadFileAsync } from '../../domen/medialibrarySlice/medialibrarySlice';
-import { selectMedialibrary } from '../../domen/selectors';
+
+import { uploadFileAsync } from '../../domens/medialibrarySlice/medialibrarySlice';
+import { selectMedialibrary } from '../../domens/selectors';
+import { AppDispatch } from '../../domens/store';
 import { MediaFile, MediaSelectData } from '../../typings/types';
 import UploadFiles from '../UploadFiles/UploadFiles';
+import Image from './Image';
 
 type Props = {
   open: boolean;

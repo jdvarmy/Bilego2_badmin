@@ -1,14 +1,15 @@
-import React, { memo, useEffect, useMemo } from 'react';
-import { TermTypeLink, TermType } from '../../typings/enum';
-import { Helmet } from 'react-helmet-async';
 import { Grid } from '@mui/material';
-import TableHeader from './elems/TableHeader';
-import TableBody from './elems/TableBody';
-import PageTitle from '../../components/PageTitle/PageTitle';
+import React, { memo, useEffect, useMemo } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../domen/store';
+
 import ContentContainer from '../../components/ContentContainer/ContentContainer';
-import { getTaxonomyAsync } from '../../domen/taxonomy/taxonomyThunk';
+import PageTitle from '../../components/PageTitle/PageTitle';
+import { AppDispatch } from '../../domens/store';
+import TableBody from '../../domens/taxonomy/components/TableBody';
+import TableHeader from '../../domens/taxonomy/components/TableHeader';
+import { getTaxonomyAsync } from '../../domens/taxonomy/store/taxonomyThunk';
+import { TermType, TermTypeLink } from '../../typings/enum';
 import { Taxonomy as ITaxonomy } from '../../typings/types';
 
 type Props = {

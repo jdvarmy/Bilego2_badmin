@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Box, Button, Card, Divider, Container, Grid, Typography, TextField, CardContent } from '@mui/material';
-import { Helmet } from 'react-helmet-async';
+import { Box, Button, Card, CardContent, Container, Divider, Grid, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useDispatch } from 'react-redux';
-import { login } from '../../domen/authSlice/authSlice';
-import { AppDispatch } from '../../domen/store';
+
+import { login } from '../../domens/authSlice/authSlice';
+import { AppDispatch } from '../../domens/store';
 
 const Wrapper = styled(Container)(
   () => `

@@ -3,8 +3,8 @@ import { styled } from '@mui/material/styles';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectAlertStore } from '../../domen/alert/alertSelectors';
-import { clearAlert } from '../../domen/alert/alertSlice';
+import { selectAlertStore } from '../../domens/alert/alertSelectors';
+import { clearAlert } from '../../domens/alert/alertSlice';
 
 const AlertWrapper = styled(Box)(
   ({ theme }) => `

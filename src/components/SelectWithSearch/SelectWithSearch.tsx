@@ -2,8 +2,8 @@ import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import { Box, FormControl, IconButton, InputLabel, OutlinedInput, Select, SelectProps } from '@mui/material';
 import React, { MouseEventHandler, ReactNode, useEffect, useState } from 'react';
 
-import { useDebounce } from '../../hooks/useDebounce';
-import { isArray } from '../../utils/functions/isArray';
+import { isArray } from '../../utils/helpers/isArray';
+import { useDebounce } from '../../utils/hooks/useDebounce';
 import { SearchFieldWrapper } from './SearchFieldWrapper';
 
 interface BaseProps {

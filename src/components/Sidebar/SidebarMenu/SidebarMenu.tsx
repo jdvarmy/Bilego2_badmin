@@ -1,10 +1,11 @@
+import { List, ListSubheader } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import React from 'react';
-import { ListSubheader, List } from '@mui/material';
-import { useLocation, matchPath } from 'react-router-dom';
+import { matchPath, useLocation } from 'react-router-dom';
+
+import HiddenIsNotAuthorized from '../../../utils/hoc/HiddenIsNotAuthorized';
 import SidebarMenuItem from './SidebarMenuItem';
 import menuItems, { MenuItem } from './items';
-import { styled } from '@mui/material/styles';
-import HiddenIsNotAuthorized from '../../../hoc/HiddenIsNotAuthorized';
 
 const MenuWrapper = styled(List)(
   ({ theme }) => `

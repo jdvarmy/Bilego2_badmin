@@ -5,9 +5,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Label from '../../../components/Label/Label';
-import { selectUsers } from '../../../domen/selectors';
-import { AppDispatch } from '../../../domen/store';
-import { getUsersAsync } from '../../../domen/users/usersThuk';
+import { selectUsers } from '../../../domens/selectors';
+import { AppDispatch } from '../../../domens/store';
+import { getUsersAsync } from '../../../domens/users/usersThuk';
 import { User } from '../../../typings/types';
 import DeleteUserButton from './DeleteUserButton';
 import EditUserButton from './EditUserButton';

@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import SuspenseLoader from '../../components/SuspenseLoader/SuspenseLoader';
-import { selectEventState } from '../../domen/events/eventsSelectors';
-import { saveTemplateEventAsync } from '../../domen/events/eventsThunk';
-import { AppDispatch } from '../../domen/store';
+import { selectEventState } from '../../domens/events/store/eventsSelectors';
+import { saveTemplateEventAsync } from '../../domens/events/store/eventsThunk';
+import { AppDispatch } from '../../domens/store';
 
 const EventDataContainer = () => {
   const dispatch: AppDispatch = useDispatch();

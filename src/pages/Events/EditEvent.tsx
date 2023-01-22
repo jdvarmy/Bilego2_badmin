@@ -1,27 +1,25 @@
 import { Box, Container, Grid } from '@mui/material';
 import React, { useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
+import { PageHelmet } from '../../components/PageHelmet/PageHelmet';
 import SuspenseLoader from '../../components/SuspenseLoader/SuspenseLoader';
-import Tickets from '../../components/Tickets/Tickets';
-import { selectEventState } from '../../domen/events/eventsSelectors';
-import { setEvent, setEventState } from '../../domen/events/eventsSlice';
-import { getEventAsync } from '../../domen/events/eventsThunk';
-import { AppDispatch } from '../../domen/store';
-import EventDates from './elems/EventDates';
-import EventGallery from './elems/EventGallery';
-import EventHeader from './elems/EventHeader/EventHeader';
-import { EventInfo } from './elems/EventInfo/EventInfo';
-import { EventPlace } from './elems/EventPlace/EventPlace';
-import { EventProps } from './elems/EventProps';
-import EventSEO from './elems/EventSEO';
-import { EventSlugCreator } from './elems/EventSlugCreator';
-import { EventStatus } from './elems/EventStatus';
-import { EventTaxonomy } from './elems/EventTaxonomy/EventTaxonomy';
-import { SaveEventButtons } from './elems/SaveEventButtons';
-import TextRedactor from './elems/TextRedactor';
+import { Controls } from '../../domens/events/components/Controls/Controls';
+import EventDates from '../../domens/events/components/EventDates/EventDates';
+import EventGallery from '../../domens/events/components/EventGallery/EventGallery';
+import EventHeader from '../../domens/events/components/EventHeader/EventHeader';
+import { EventInfo } from '../../domens/events/components/EventInfo/EventInfo';
+import { EventPlace } from '../../domens/events/components/EventPlace/EventPlace';
+import { EventProps } from '../../domens/events/components/EventProps/EventProps';
+import EventSEO from '../../domens/events/components/EventSEO/EventSEO';
+import { EventTaxonomy } from '../../domens/events/components/EventTaxonomy/EventTaxonomy';
+import TextRedactor from '../../domens/events/components/TextRedactor/TextRedactor';
+import Tickets from '../../domens/events/components/Tickets/Tickets';
+import { selectEventState } from '../../domens/events/store/eventsSelectors';
+import { setEvent, setEventState } from '../../domens/events/store/eventsSlice';
+import { getEventAsync } from '../../domens/events/store/eventsThunk';
+import { AppDispatch } from '../../domens/store';
 
 const EditEvent = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -35,13 +33,14 @@ const EditEvent = () => {
     }
   }, [dispatch, eventState, searchParams]);
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       dispatch(setEvent(null));
       dispatch(setEventState(null));
       // todo: удалить пост если тип поста временный, перед этим показать пользователю предупреждение
-    };
-  }, [dispatch]);
+    },
+    [dispatch],
+  );
 
   if (!eventState) {
     return <SuspenseLoader />;
@@ -49,19 +48,9 @@ const EditEvent = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Событие {`${eventState.title || eventState.slug}` || 'не определено во вселенной'}</title>
-      </Helmet>
+      <PageHelmet title={`Событие ${eventState.title || eventState.slug || 'не определено во вселенной'}`} />
       <Container maxWidth='lg'>
-        <Grid container sx={{ my: 3 }} justifyContent='space-between' alignItems='center'>
-          <Grid item xs>
-            <EventSlugCreator {...{ uid: eventState.uid, slug: eventState.slug }} />
-          </Grid>
-          <Grid item xs container justifyContent='flex-end' alignItems='center'>
-            <EventStatus status={eventState.status} />
-            <SaveEventButtons />
-          </Grid>
-        </Grid>
+        <Controls {...{ uid: eventState.uid, slug: eventState.slug, status: eventState.status }} />
       </Container>
       <Container maxWidth='lg'>
         <Box component='form' noValidate autoComplete='off'>
@@ -80,13 +69,13 @@ const EditEvent = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <EventPlace city={eventState.city} item={eventState.item} artist={eventState.artist} />
+              <EventPlace {...{ city: eventState.city, item: eventState.item, artist: eventState.artist }} />
             </Grid>
             <Grid item xs={12}>
-              <EventTaxonomy uid={eventState.uid} stateTaxonomy={eventState.taxonomy} />
+              <EventTaxonomy {...{ uid: eventState.uid, stateTaxonomy: eventState.taxonomy }} />
             </Grid>
             <Grid item xs={12}>
-              <EventDates uid={eventState.uid} dates={eventState.eventDates} />
+              <EventDates {...{ uid: eventState.uid, dates: eventState.eventDates }} />
             </Grid>
             <Grid item xs={12}>
               <Tickets />
@@ -98,7 +87,7 @@ const EditEvent = () => {
               <TextRedactor text={eventState.text} />
             </Grid>
             <Grid item xs={12}>
-              <EventProps fragment={eventState.fragment} words={eventState.searchWords} />
+              <EventProps {...{ fragment: eventState.fragment, words: eventState.searchWords }} />
             </Grid>
             <Grid item xs={12}>
               <EventGallery />

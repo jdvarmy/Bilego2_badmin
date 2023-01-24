@@ -1,9 +1,9 @@
 import React, { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { RouterSuspense } from '../../utils/hoc/RouterSuspense';
+import { RouterSuspense } from '../utils/hoc/RouterSuspense';
 
-const Orders = lazy(() => import('../../pages/Orders/Orders'));
+const Orders = lazy(() => import('../pages/Orders/Orders'));
 
 const OrdersRouter = () => {
   return (

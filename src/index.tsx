@@ -4,9 +4,9 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import LayoutRouter from './domens/router/LayoutRouter';
 import store from './domens/store';
 import './index.css';
+import LayoutRouter from './router/LayoutRouter';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(

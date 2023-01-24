@@ -1,9 +1,9 @@
 import React, { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { RouterSuspense } from '../../utils/hoc/RouterSuspense';
+import { RouterSuspense } from '../utils/hoc/RouterSuspense';
 
-const Slider = lazy(() => import('../../pages/Slider/Slider'));
+const Slider = lazy(() => import('../pages/Slider/Slider'));
 
 const SliderRouter = () => {
   return (

@@ -1,10 +1,10 @@
 import React, { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import Home from '../../pages/Home/Home';
-import Layout from '../../pages/Layout/Layout';
-import Page404 from '../../pages/Page404/Page404';
-import { RouterSuspense } from '../../utils/hoc/RouterSuspense';
+import Home from '../pages/Home/Home';
+import Layout from '../pages/Layout/Layout';
+import Page404 from '../pages/Page404/Page404';
+import { RouterSuspense } from '../utils/hoc/RouterSuspense';
 
 const MainPageRouter = RouterSuspense(lazy(() => import('./SliderRouter')));
 const EventsRouter = RouterSuspense(lazy(() => import('./EventsRouter')));
@@ -13,7 +13,7 @@ const ItemsRouter = RouterSuspense(lazy(() => import('./ItemsRouter')));
 const ArtistsRouter = RouterSuspense(lazy(() => import('./ArtistsRouter')));
 const OrganizersRouter = RouterSuspense(lazy(() => import('./OrganizersRouter')));
 const UsersRouter = RouterSuspense(lazy(() => import('./UsersRouter')));
-const Login = RouterSuspense(lazy(() => import('../../pages/Auth/AuthLogin')));
+const Login = RouterSuspense(lazy(() => import('../pages/Auth/AuthLogin')));
 
 const TicketsRouter = RouterSuspense(lazy(() => import('./TicketsRouter')));
 const OrdersRouter = RouterSuspense(lazy(() => import('./OrdersRouter')));

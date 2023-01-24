@@ -1,10 +1,10 @@
 import React, { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { RouterSuspense } from '../../utils/hoc/RouterSuspense';
+import { RouterSuspense } from '../utils/hoc/RouterSuspense';
 
-const Organizers = lazy(() => import('../../pages/Organizers/Organizers'));
-const CreateOrganizers = lazy(() => import('../../pages/Organizers/CreateOrganizer'));
+const Organizers = lazy(() => import('../pages/Organizers/Organizers'));
+const CreateOrganizers = lazy(() => import('../pages/Organizers/CreateOrganizer'));
 
 const OrganizersRouter = () => {
   return (

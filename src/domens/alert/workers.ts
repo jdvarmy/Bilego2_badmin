@@ -17,7 +17,7 @@ export const addAlertWorker =
 export const addErrorAlertWorker =
   (data: ServerError, ms = delay): AppThunk =>
   async (dispatch) => {
-    let title = 'Неизвестная ошибка' + data?.message,
+    let title = 'Неизвестная ошибка ' + data?.message,
       text = 'Возникла ошибка в программе';
 
     if ('error' in data) {

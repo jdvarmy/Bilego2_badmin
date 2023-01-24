@@ -1,12 +1,12 @@
 import React, { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { RouterSuspense } from '../../utils/hoc/RouterSuspense';
+import { RouterSuspense } from '../utils/hoc/RouterSuspense';
 
-const Category = lazy(() => import('../../pages/Taxonomy/Category'));
-const Genre = lazy(() => import('../../pages/Taxonomy/Genre'));
-const Feeling = lazy(() => import('../../pages/Taxonomy/Feeling'));
-const Selection = lazy(() => import('../../pages/Taxonomy/Selection'));
+const Category = lazy(() => import('../pages/Taxonomy/Category'));
+const Genre = lazy(() => import('../pages/Taxonomy/Genre'));
+const Feeling = lazy(() => import('../pages/Taxonomy/Feeling'));
+const Selection = lazy(() => import('../pages/Taxonomy/Selection'));
 
 const TaxonomyRouter = () => {
   return (

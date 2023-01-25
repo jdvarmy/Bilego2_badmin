@@ -1,5 +1,5 @@
 import { Box, Container, Grid } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
@@ -17,8 +17,8 @@ import { EventTaxonomy } from '../../domens/events/components/EventTaxonomy/Even
 import TextRedactor from '../../domens/events/components/TextRedactor/TextRedactor';
 import Tickets from '../../domens/events/components/Tickets/Tickets';
 import { selectEventState } from '../../domens/events/store/eventsSelectors';
-import { setEvent, setEventState } from '../../domens/events/store/eventsSlice';
 import { getEventAsync } from '../../domens/events/store/eventsThunk';
+import { workerClearEventState } from '../../domens/events/store/worckers';
 import { AppDispatch } from '../../domens/store';
 
 const EditEvent = () => {
@@ -33,10 +33,9 @@ const EditEvent = () => {
     }
   }, [dispatch, eventState, searchParams]);
 
-  useEffect(
+  useLayoutEffect(
     () => () => {
-      dispatch(setEvent(null));
-      dispatch(setEventState(null));
+      dispatch(workerClearEventState());
       // todo: удалить пост если тип поста временный, перед этим показать пользователю предупреждение
     },
     [dispatch],

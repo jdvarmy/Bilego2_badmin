@@ -1,21 +1,14 @@
 import { SyntheticEvent, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { IEvent } from '../../../typings/types';
-import { AppDispatch } from '../../store';
-import { setEventStateField } from '../store/eventsSlice';
+import { useSetEventStateField } from './useSetEventStateField';
 
 export type ChangeEventCheckboxType = SyntheticEvent<Element, Event>;
 
 export function useChangeFnCheckboxEventField<T extends ChangeEventCheckboxType>(
   field: keyof IEvent,
 ): (event: T, checked: boolean) => void {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatchFn = useSetEventStateField(field);
 
-  return useCallback(
-    (event: T, checked: boolean) => {
-      dispatch(setEventStateField({ [field]: checked }));
-    },
-    [dispatch, field],
-  );
+  return useCallback((event: T, checked: boolean) => dispatchFn(checked), [dispatchFn]);
 }

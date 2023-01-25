@@ -1,14 +1,10 @@
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { IEvent } from '../../../typings/types';
-import { AppDispatch } from '../../store';
-import { setEventStateField } from '../store/eventsSlice';
+import { useSetEventStateField } from './useSetEventStateField';
 
 export function useDeleteFnEventField(field: keyof IEvent): () => void {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatchFn = useSetEventStateField(field);
 
-  return useCallback(() => {
-    dispatch(setEventStateField({ [field]: undefined }));
-  }, [dispatch, field]);
+  return useCallback(() => dispatchFn(undefined), [dispatchFn]);
 }

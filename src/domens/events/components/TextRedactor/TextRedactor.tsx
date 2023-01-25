@@ -1,5 +1,8 @@
 import { Editor } from '@tinymce/tinymce-react';
-import React, { memo, useRef } from 'react';
+import { ITinyEvents } from '@tinymce/tinymce-react/lib/cjs/main/ts/Events';
+import React, { memo, useEffect, useRef } from 'react';
+
+import { useSetEventStateField } from '../../hooks/useSetEventStateField';
 
 type Props = {
   text?: string;
@@ -39,14 +42,24 @@ const plugins = [
 
 const TextRedactor = ({ text }: Props) => {
   const editorRef = useRef(null);
+  const timerRef = useRef<NodeJS.Timeout>(null);
+  const handleChangeCity = useSetEventStateField('text');
 
-  // todo: сделать
-  const log = () => {
+  const handleInit: ITinyEvents['onInit'] = (evt, editor) => {
+    timerRef.current = setTimeout(() => {
+      editor.setContent(text ?? '');
+    }, 0);
+    editorRef.current = editor;
+  };
+
+  const handleChange: ITinyEvents['onChange'] = () => {
     if (editorRef.current) {
-      // @ts-ignore
-      console.log(editorRef.current.getContent());
+      const content = editorRef.current.getContent();
+      handleChangeCity(content);
     }
   };
+
+  useEffect(() => () => clearTimeout(timerRef.current));
 
   console.log('render TextRedactor');
 
@@ -55,8 +68,8 @@ const TextRedactor = ({ text }: Props) => {
       <Editor
         apiKey='mkbhjdmg9784ilfvaggoe0alboviospc5ch4sdz6e8yqqwic'
         // @ts-ignore
-        onInit={(evt, editor) => (editorRef.current = editor)}
-        onChange={log}
+        onInit={handleInit}
+        onChange={handleChange}
         init={{
           height: 350,
           menubar: false,

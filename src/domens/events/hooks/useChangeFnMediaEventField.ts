@@ -1,17 +1,10 @@
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { IEvent, MediaSelectData } from '../../../typings/types';
-import { AppDispatch } from '../../store';
-import { setEventStateField } from '../store/eventsSlice';
+import { useSetEventStateField } from './useSetEventStateField';
 
 export function useChangeFnMediaEventField<T extends MediaSelectData>(field: keyof IEvent): (image: T) => void {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatchFn = useSetEventStateField(field);
 
-  return useCallback(
-    (image: T) => {
-      dispatch(setEventStateField({ [field]: image }));
-    },
-    [dispatch, field],
-  );
+  return useCallback((image: T) => dispatchFn(image), [dispatchFn]);
 }

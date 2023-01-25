@@ -91,7 +91,7 @@ export const EventInfoMediaDisplay = () => {
     <StyledCard>
       {image && <StyledCardMedia image={`${HTTP_URL}${image.path}`} title={image.name} />}
       <StyledBox>
-        <StyledTypographyDate>{formatter.format(new Date(date))}</StyledTypographyDate>
+        {date && <StyledTypographyDate>{formatter.format(new Date(date))}</StyledTypographyDate>}
         <StyledTypography>{title}</StyledTypography>
       </StyledBox>
     </StyledCard>

@@ -1,9 +1,11 @@
-import { MediaSelectData, Taxonomy } from '../../../typings/types';
-import React, { useMemo, useState } from 'react';
-import { StandardTextFieldProps, TextFieldProps } from '@mui/material/TextField/TextField';
 import { TextField } from '@mui/material';
-import { TermType, TermTypeLink } from '../../../typings/enum';
+import { StandardTextFieldProps, TextFieldProps } from '@mui/material/TextField/TextField';
+import CyrillicToTranslit from 'cyrillic-to-translit-js';
+import React, { useMemo, useState } from 'react';
+
 import TextFieldImage, { MediaTextFieldProps } from '../../../components/TextFieldImage/TextFieldImage';
+import { TermType, TermTypeLink } from '../../../typings/enum';
+import { MediaSelectData, Taxonomy } from '../../../typings/types';
 
 type Props = {
   type: TermType;
@@ -14,6 +16,8 @@ type Props = {
 const defaultFieldProps: StandardTextFieldProps = { type: 'text', size: 'small', fullWidth: true };
 
 export function useTaxonomyHeaderFields({ type, link, fields }: Props) {
+  const cyrillicToTranslit = CyrillicToTranslit();
+
   const initialState: Taxonomy = useMemo(
     () => ({ name: '', type, link, slug: '', icon: undefined, image: undefined }),
     [type, link],
@@ -28,6 +32,10 @@ export function useTaxonomyHeaderFields({ type, link, fields }: Props) {
   };
   const handleDeleteMedia = (field: keyof Taxonomy) => () => {
     setTaxonomy((taxonomy: Taxonomy) => ({ ...taxonomy, [field]: undefined }));
+  };
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const slug = cyrillicToTranslit.transform(event.target.value, '-').toLowerCase();
+    setTaxonomy((taxonomy: Taxonomy) => ({ ...taxonomy, slug }));
   };
 
   const standardFields: (TextFieldProps & {
@@ -52,6 +60,7 @@ export function useTaxonomyHeaderFields({ type, link, fields }: Props) {
         focused: !!taxonomy.slug,
         onChange: handleChangeText('slug'),
         inputProps: { pattern: '[A-Za-z]' },
+        onBlur: handleBlur,
       },
       {
         name: 'description',
@@ -63,7 +72,7 @@ export function useTaxonomyHeaderFields({ type, link, fields }: Props) {
         onChange: handleChangeText('description'),
       },
     ],
-    [taxonomy.description, taxonomy.name, taxonomy.slug],
+    [handleBlur, taxonomy.description, taxonomy.name, taxonomy.slug],
   );
   const mediaFields: (MediaTextFieldProps & {
     name: keyof Taxonomy;

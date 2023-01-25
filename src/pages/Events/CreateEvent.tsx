@@ -11,17 +11,17 @@ import { AppDispatch } from '../../domens/store';
 const EventDataContainer = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
-  const event = useSelector(selectEventState);
+  const eventState = useSelector(selectEventState);
 
   useEffect(() => {
     dispatch(saveTemplateEventAsync());
   }, [dispatch]);
 
   useEffect(() => {
-    if (event?.uid) {
-      navigate({ pathname: '/events/edit', search: `uid=${event.uid}&slug=${event.slug}` });
+    if (eventState?.uid) {
+      navigate({ pathname: '/events/edit', search: `uid=${eventState.uid}&slug=${eventState.slug}` });
     }
-  }, [event]);
+  }, [eventState]);
 
   return (
     <>

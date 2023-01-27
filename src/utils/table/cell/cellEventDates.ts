@@ -9,7 +9,7 @@ export function cellEventDates<T>(props?: ColDef<T>): ColDef<T> {
     headerName: 'Даты',
     field: 'eventDates',
     sortable: true,
-    editable: true,
+    editable: false,
     filter: true,
     ...props,
   };

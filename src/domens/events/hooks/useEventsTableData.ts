@@ -7,6 +7,7 @@ import cloneDeep from '../../../utils/helpers/cloneDeep';
 import { cellCity } from '../../../utils/table/cell/cellCity';
 import { cellDelete } from '../../../utils/table/cell/cellDelete';
 import { cellEventDates } from '../../../utils/table/cell/cellEventDates';
+import { cellEventManager } from '../../../utils/table/cell/cellEventManager';
 import { cellIsSlider } from '../../../utils/table/cell/cellIsSlider';
 import { cellStatus } from '../../../utils/table/cell/cellStatus';
 import { cellTitle } from '../../../utils/table/cell/cellTitle';
@@ -67,6 +68,9 @@ export function useEventsTableData(): { rowData: IEvent[]; columnDefs: ColDef<IE
     }
     if (['isShowOnSlider'].includes(column)) {
       return cellIsSlider(columns);
+    }
+    if (['eventManager'].includes(column)) {
+      return cellEventManager(columns);
     }
     if (['concertManagerPercentage'].includes(column)) {
       columns.width = 52;

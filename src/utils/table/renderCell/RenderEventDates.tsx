@@ -22,15 +22,14 @@ const formatterTime = new Intl.DateTimeFormat('ru', {
 });
 
 export const RenderEventDates = ({ data: { eventDates } }: ICellRendererParams) => {
-  const { past, present, future } = getActualDate(eventDates);
-
+  const { past, present, future, passed } = getActualDate(eventDates);
   const presentDate = localFormatter(present);
 
   return (
     <Box sx={{ height: '100%', display: 'flex', alignItems: 'center' }}>
-      {presentDate.date && <StatusLabel>{presentDate.date}</StatusLabel>}
+      {presentDate?.date && <StatusLabel color={passed ? 'success' : 'secondary'}>{presentDate.date}</StatusLabel>}
       <Typography sx={{ ml: 1 }} variant='subtitle1'>
-        {presentDate.time}
+        {presentDate?.time}
       </Typography>
     </Box>
   );

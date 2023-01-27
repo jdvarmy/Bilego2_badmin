@@ -9,7 +9,7 @@ export function cellTitle<T>(props?: ColDef<T>): ColDef<T> {
     headerName: 'Заголовок',
     field: 'title',
     sortable: true,
-    editable: true,
+    editable: false,
     filter: true,
     ...props,
   };

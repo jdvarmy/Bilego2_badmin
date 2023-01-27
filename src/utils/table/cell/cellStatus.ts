@@ -9,7 +9,7 @@ export function cellStatus<T>(props?: ColDef<T>): ColDef<T> {
     headerName: 'Статус',
     field: 'status',
     sortable: true,
-    editable: true,
+    editable: false,
     filter: true,
     ...props,
   };

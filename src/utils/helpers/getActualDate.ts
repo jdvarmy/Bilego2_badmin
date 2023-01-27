@@ -4,10 +4,11 @@ import { dateParse } from './dateParse';
 
 export const getActualDate = <T extends EventDate>(
   dates: T[],
-): { past: T[] | undefined; present: T | undefined; future: T[] | undefined } => {
+): { past: T[] | undefined; present: T | undefined; future: T[] | undefined; passed: boolean } => {
   let past: T[] = [],
     present: T,
-    future: T[] = [];
+    future: T[] = [],
+    passed: boolean;
 
   const localTime = Date.now();
   const localDates = cloneDeep(dates) as T[];
@@ -26,15 +27,18 @@ export const getActualDate = <T extends EventDate>(
 
     future.sort((a, b) => dateParse(a.dateTo) - dateParse(b.dateTo));
     present = future.shift();
+    passed = true;
     if (!present) {
       past.sort((a, b) => dateParse(a.dateTo) - dateParse(b.dateTo));
       present = past.pop();
+      passed = false;
     }
   } else {
     past = undefined;
     present = localDates[0];
     future = undefined;
+    passed = present?.dateTo ? localTime < dateParse(present?.dateTo) : false;
   }
 
-  return { past, present, future };
+  return { past, present, future, passed };
 };

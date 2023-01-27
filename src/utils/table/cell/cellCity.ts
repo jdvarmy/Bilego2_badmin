@@ -9,7 +9,7 @@ export function cellCity<T>(props?: ColDef<T>): ColDef<T> {
     headerName: 'Город',
     field: 'city',
     sortable: true,
-    editable: true,
+    editable: false,
     filter: true,
     ...props,
   };

@@ -19,7 +19,6 @@ type Props = {
 
 const TableBody = ({ columns }: Props) => {
   const dispatch: AppDispatch = useDispatch();
-  // todo: поменять на shallowEqual
   const taxonomy = useSelector(selectTaxonomy, isEqual);
   const gridRef = useRef<AgGridReact | null>(null);
 

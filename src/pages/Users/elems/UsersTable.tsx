@@ -4,7 +4,7 @@ import { ru } from 'date-fns/locale';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Label from '../../../components/Label/Label';
+import { StatusLabel } from '../../../UI/StatusLabel';
 import { selectUsers } from '../../../domens/selectors';
 import { AppDispatch } from '../../../domens/store';
 import { getUsersAsync } from '../../../domens/users/usersThuk';
@@ -50,7 +50,11 @@ const UsersTable = () => {
               </TableCell>
               <TableCell>{user.access?.map(({ ip, device }) => `ip: ${ip} - ${device}`)}</TableCell>
               <TableCell align='right'>
-                {user.status === 1 ? <Label color='success'>Активен</Label> : <Label color='warning'>Не активен</Label>}
+                {user.status === 1 ? (
+                  <StatusLabel color='success'>Активен</StatusLabel>
+                ) : (
+                  <StatusLabel color='warning'>Не активен</StatusLabel>
+                )}
               </TableCell>
               <TableCell align='right'>
                 <EditUserButton uid={user.uid} />

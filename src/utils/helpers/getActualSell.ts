@@ -1,16 +1,17 @@
 import { TicketOnSell } from '../../typings/types';
+import { dateParse } from './dateParse';
 
 export const getActualSell = (sell: TicketOnSell[]): TicketOnSell | undefined => {
-  const localDate = Date.now();
+  const localTime = Date.now();
   return sell.find(({ dateFrom, dateTo }) => {
-    const _dateFrom = typeof dateFrom === 'string' ? Date.parse(dateFrom) : dateFrom || 0;
-    const _dateTo = typeof dateTo === 'string' ? Date.parse(dateTo) : dateTo || 0;
+    const _dateFrom = dateParse(dateFrom);
+    const _dateTo = dateParse(dateTo);
 
-    if (dateFrom && dateTo && localDate >= _dateFrom && localDate <= _dateTo) {
+    if (dateFrom && dateTo && localTime >= _dateFrom && localTime <= _dateTo) {
       return true;
-    } else if (!dateFrom && dateTo && localDate <= _dateTo) {
+    } else if (!dateFrom && dateTo && localTime <= _dateTo) {
       return true;
-    } else if (dateFrom && !dateTo && localDate >= _dateFrom) {
+    } else if (dateFrom && !dateTo && localTime >= _dateFrom) {
       return true;
     } else if (!dateFrom && !dateTo) {
       return true;

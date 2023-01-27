@@ -3,6 +3,7 @@ import React, { useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
+import ContentContainer from '../../components/ContentContainer/ContentContainer';
 import { PageHelmet } from '../../components/PageHelmet/PageHelmet';
 import SuspenseLoader from '../../components/SuspenseLoader/SuspenseLoader';
 import { Controls } from '../../domens/events/components/Controls/Controls';
@@ -51,7 +52,7 @@ const EditEvent = () => {
       <Container maxWidth='lg'>
         <Controls {...{ uid: eventState.uid, slug: eventState.slug, status: eventState.status }} />
       </Container>
-      <Container maxWidth='lg'>
+      <ContentContainer>
         <Box component='form' noValidate autoComplete='off'>
           <Grid container spacing={3}>
             <Grid item xs={12}>
@@ -96,7 +97,7 @@ const EditEvent = () => {
             </Grid>
           </Grid>
         </Box>
-      </Container>
+      </ContentContainer>
     </>
   );
 };

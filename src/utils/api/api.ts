@@ -49,6 +49,8 @@ instance.interceptors.response.use(
       } catch (e) {
         console.log(e);
       }
+
+      return;
     }
 
     return Promise.reject(error.response.data);

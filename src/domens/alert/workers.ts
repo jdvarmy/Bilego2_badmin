@@ -24,8 +24,7 @@ export const addErrorAlertWorker =
       title = data.error;
     }
     if ('statusCode' in data && 'message' in data) {
-      text = `Код статуса ${data.statusCode}. Сообщение номер ${data.message}!
-      Сохрани номер сообщения, он поможет в решении проблемы`;
+      text = `Код статуса ${data.statusCode}. Сообщение номер ${data.message}!`;
     }
 
     dispatch(

@@ -2,13 +2,27 @@ import { EventRequest, IEvent, ServerError } from '../../../typings/types';
 import { addAlertWorker, addErrorAlertWorker } from '../../alert/workers';
 import { AppThunk } from '../../store';
 import {
+  fetchEventsRequest,
   getEventRequest,
   patchEventRequest,
   postTemplateEventRequest,
   putTemplateEventRequest,
 } from '../api/eventsRequest';
 import { selectEventState } from './eventsSelectors';
-import { setEvent, setEventState, setLoading } from './eventsSlice';
+import { setEvent, setEventState, setEvents, setLoading } from './eventsSlice';
+
+export const fetchEventsAsync = (): AppThunk => async (dispatch) => {
+  dispatch(setLoading(true));
+
+  try {
+    const { data } = await fetchEventsRequest();
+    dispatch(setEvents(data));
+  } catch (e) {
+    dispatch(addErrorAlertWorker(e as ServerError));
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
 
 export const getEventAsync =
   (slug: string): AppThunk =>
@@ -76,6 +90,14 @@ export const editEventAsync =
     }
   };
 
+export const deleteEventAsync =
+  (uid: string): AppThunk =>
+  async () => {
+    // todo: сделать метод удаления события
+    console.log(uid);
+  };
+
+// HELPERS
 function prepareData(event: IEvent): EventRequest {
   const { eventDates, create, update, taxonomy, image, headerImage, item, artist, eventManager, ...other } = event;
 

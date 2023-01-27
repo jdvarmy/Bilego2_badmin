@@ -1,9 +1,9 @@
 import { Grid } from '@mui/material';
 import React, { memo, useEffect, useMemo } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useDispatch } from 'react-redux';
 
 import ContentContainer from '../../components/ContentContainer/ContentContainer';
+import { PageHelmet } from '../../components/PageHelmet/PageHelmet';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import { AppDispatch } from '../../domens/store';
 import TableBody from '../../domens/taxonomy/components/TableBody';
@@ -35,9 +35,7 @@ const Taxonomy = ({ type, columns }: Props) => {
 
   return (
     <>
-      <Helmet>
-        <title>{name}</title>
-      </Helmet>
+      <PageHelmet title={name} />
       <PageTitle title={name} />
       <ContentContainer>
         <Grid container spacing={3} sx={{ mb: 3 }} flexDirection='column' flexWrap='nowrap'>

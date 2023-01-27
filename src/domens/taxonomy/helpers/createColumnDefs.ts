@@ -1,6 +1,7 @@
 import { ColDef } from 'ag-grid-community';
 
 import { Taxonomy } from '../../../typings/types';
+import { cellDelete } from '../../../utils/table/cell/cellDelete';
 import { RenderCheckbox } from '../components/RenderCheckbox';
 import { RenderDeleteItem } from '../components/RenderDeleteItem';
 import { RenderImage } from '../components/RenderImage';
@@ -34,14 +35,6 @@ export function createColumnDefs(columns: (keyof Taxonomy)[]) {
     return res;
   });
 
-  result.push({
-    cellRenderer: RenderDeleteItem,
-    width: 95,
-    headerName: 'Удалить',
-    sortable: false,
-    editable: false,
-    field: 'delete',
-    filter: false,
-  });
+  result.push(cellDelete({ cellRenderer: RenderDeleteItem }));
   return result;
 }

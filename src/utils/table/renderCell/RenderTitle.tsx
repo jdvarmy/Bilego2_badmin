@@ -1,9 +1,10 @@
 import { Link as MULink, Typography } from '@mui/material';
 import { ICellRendererParams } from 'ag-grid-community';
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-export const RenderTitle = ({ data: { title, uid, slug } }: ICellRendererParams) => {
+// eslint-disable-next-line react/prop-types
+export const RenderTitle = memo(({ data: { title, uid, slug } }: ICellRendererParams) => {
   let returnComponent;
 
   if (title && uid && slug) {
@@ -25,4 +26,6 @@ export const RenderTitle = ({ data: { title, uid, slug } }: ICellRendererParams)
   }
 
   return returnComponent;
-};
+});
+
+RenderTitle.displayName = 'RenderTitle';

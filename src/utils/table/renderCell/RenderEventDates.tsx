@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import { ICellRendererParams } from 'ag-grid-community';
-import React from 'react';
+import React, { memo } from 'react';
 
 import { StatusLabel } from '../../../UI/StatusLabel';
 import { EventDate } from '../../../typings/types';
@@ -21,7 +21,7 @@ const formatterTime = new Intl.DateTimeFormat('ru', {
   minute: '2-digit',
 });
 
-export const RenderEventDates = ({ data: { eventDates } }: ICellRendererParams) => {
+export const RenderEventDates = memo(({ data: { eventDates } }: ICellRendererParams) => {
   const { past, present, future, passed } = getActualDate(eventDates);
   const presentDate = localFormatter(present);
 
@@ -33,7 +33,9 @@ export const RenderEventDates = ({ data: { eventDates } }: ICellRendererParams) 
       </Typography>
     </Box>
   );
-};
+});
+
+RenderEventDates.displayName = 'RenderEventDates';
 
 function localFormatter({ dateFrom, dateTo }: EventDate) {
   const formattedDate: { date: string | undefined; time: string | undefined } = { date: undefined, time: undefined };

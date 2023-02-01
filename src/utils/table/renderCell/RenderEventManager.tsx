@@ -1,8 +1,8 @@
 import { Box, Typography } from '@mui/material';
 import { ICellRendererParams } from 'ag-grid-community';
-import React from 'react';
+import React, { memo } from 'react';
 
-export const RenderEventManager = ({ data: { eventManager } }: ICellRendererParams) => {
+export const RenderEventManager = memo(({ data: { eventManager } }: ICellRendererParams) => {
   return (
     <Box sx={{ height: '100%', display: 'flex', alignItems: 'center' }}>
       <Typography variant='subtitle1'>{eventManager?.name}</Typography>
@@ -11,4 +11,6 @@ export const RenderEventManager = ({ data: { eventManager } }: ICellRendererPara
       </Typography>
     </Box>
   );
-};
+});
+
+RenderEventManager.displayName = 'RenderEventManager';

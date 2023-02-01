@@ -1,5 +1,5 @@
 import { ICellRendererParams } from 'ag-grid-community';
-import React from 'react';
+import React, { memo } from 'react';
 
 import { StatusLabel } from '../../../UI/StatusLabel';
 import { PostStatus } from '../../../typings/enum';
@@ -15,8 +15,10 @@ const postStatusMap: Record<PostStatus, string> = {
   [PostStatus.trash]: 'в корзине',
 };
 
-export const RenderStatus = (props: ICellRendererParams) => {
+export const RenderStatus = memo((props: ICellRendererParams) => {
   const color = getPostStatusColor(props.data.status);
 
   return <StatusLabel color={color}>{postStatusMap[props.data.status as PostStatus]}</StatusLabel>;
-};
+});
+
+RenderStatus.displayName = 'RenderStatus';

@@ -73,7 +73,7 @@ export function useEventsTableData(): { rowData: IEvent[]; columnDefs: ColDef<IE
       return cellEventManager(columns);
     }
     if (['concertManagerPercentage'].includes(column)) {
-      columns.width = 52;
+      columns.width = 62;
     }
 
     return columns;

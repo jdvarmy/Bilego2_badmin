@@ -86,3 +86,8 @@
 .ag-theme-admin-bilego.ag-theme-alpine-dark .ag-picker-field-wrapper:focus {
   box-shadow: var(--ag-input-focus-box-shadow);
 }
+.ag-cell,
+.ag-full-width-row .ag-cell-wrapper.ag-row-group {
+  display: flex;
+  align-items: center;
+}

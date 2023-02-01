@@ -1,11 +1,11 @@
-import React, { ForwardedRef, forwardRef } from 'react';
-import { AgGridReact } from 'ag-grid-react';
-
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-alpine-dark.css';
-import './ag-theme-admin-bilego.css';
-import { GridOptions } from 'ag-grid-community/dist/lib/entities/gridOptions';
 import { ColDef } from 'ag-grid-community';
+import { GridOptions } from 'ag-grid-community/dist/lib/entities/gridOptions';
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
+import { AgGridReact } from 'ag-grid-react';
+import React, { ForwardedRef, forwardRef } from 'react';
+
+import './ag-theme-admin-bilego.css';
 
 type Props = GridOptions;
 
@@ -19,7 +19,7 @@ const defaultColDef: ColDef = {
 
 const DataTable = forwardRef(({ rowData, columnDefs, ...props }: Props, ref: ForwardedRef<AgGridReact>) => {
   return (
-    <div className='ag-theme-alpine-dark ag-theme-admin-bilego' style={containerStyle}>
+    <div className='ag-theme-alpine-dark ag-theme-alpine ag-theme-admin-bilego' style={containerStyle}>
       <AgGridReact
         ref={ref}
         rowData={rowData}

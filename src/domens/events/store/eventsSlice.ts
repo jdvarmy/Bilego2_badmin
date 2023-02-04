@@ -55,6 +55,25 @@ const slice = createSlice({
       state.eventState = action.payload;
     });
 
+    // Работаем с датами события
+    builder.addCase(saveTemplateEventDateAsync.fulfilled, (state, action) => {
+      state.eventState.eventDates.push(action.payload);
+      state.event.eventDates.push(action.payload);
+    });
+    builder.addCase(editEventDateAsync.fulfilled, (state, action) => {
+      const index = state.event.eventDates.findIndex((date) => date.uid === action.payload.uid);
+      const indexState = state.eventState.eventDates.findIndex((date) => date.uid === action.payload.uid);
+
+      if (index + 1) {
+        state.event.eventDates.splice(index, 1, action.payload);
+      }
+      if (indexState + 1) {
+        state.eventState.eventDates.splice(indexState, 1, action.payload);
+      }
+
+      return undefined;
+    });
+
     builder.addMatcher(
       ({ type }) =>
         [
@@ -81,25 +100,6 @@ const slice = createSlice({
         state.status = StatusLoading.error;
       },
     );
-
-    // Работаем с датами события
-    builder.addCase(saveTemplateEventDateAsync.fulfilled, (state, action) => {
-      state.eventState.eventDates.push(action.payload);
-      state.event.eventDates.push(action.payload);
-    });
-    builder.addCase(editEventDateAsync.fulfilled, (state, action) => {
-      const index = state.event.eventDates.findIndex((date) => date.uid === action.payload.uid);
-      const indexState = state.eventState.eventDates.findIndex((date) => date.uid === action.payload.uid);
-
-      if (index + 1) {
-        state.event.eventDates.splice(index, 1, action.payload);
-      }
-      if (indexState + 1) {
-        state.eventState.eventDates.splice(indexState, 1, action.payload);
-      }
-
-      return undefined;
-    });
   },
 });
 

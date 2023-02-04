@@ -1,4 +1,4 @@
-import { selectSelectedDateMap } from '../../events/store/eventsSelectors';
+import { selectSelectedDateMap } from '../../eventDates/store/eventDatesSelectors';
 import { select } from '../../selectors';
 import { RootState } from '../../store';
 

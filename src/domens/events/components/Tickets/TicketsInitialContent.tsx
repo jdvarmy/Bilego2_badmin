@@ -6,9 +6,9 @@ import { useDispatch } from 'react-redux';
 
 import AppMapModal from '../../../../components/AddMapModal/AppMapModal';
 import { TicketType } from '../../../../typings/enum';
-import { EventDate } from '../../../../typings/types';
+import { editEventDateAsync } from '../../../eventDates/store/eventDateThunk';
+import { EventDate } from '../../../eventDates/types/types';
 import { AppDispatch } from '../../../store';
-import { editEventDateAsync } from '../../store/eventsSlice';
 
 type Props = {
   selectedDate?: EventDate;
@@ -21,8 +21,7 @@ const TicketsInitialContent = ({ selectedDate }: Props) => {
   const handleClick = useCallback(
     (type: TicketType) => () => {
       if (selectedDate) {
-        const { uid, ...data } = selectedDate;
-        !!uid && dispatch(editEventDateAsync(uid, { ...data, type }));
+        !!selectedDate.uid && dispatch(editEventDateAsync({ ...selectedDate, type }));
       }
     },
     [selectedDate, dispatch],

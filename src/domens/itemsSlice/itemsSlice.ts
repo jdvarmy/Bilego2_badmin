@@ -2,9 +2,10 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Dispatch, SetStateAction } from 'react';
 
 import { City } from '../../typings/enum';
-import { IEvent, Item, ServerError } from '../../typings/types';
+import { IEvent, Item } from '../../typings/types';
 import { fetchItemsRequest } from '../../utils/api/requests';
-import { addErrorAlertWorker } from '../alert/workers';
+import { addErrorAlertWorker } from '../alert/store/workers';
+import { ServerErrorStatus } from '../alert/types/types';
 import { AppThunk } from '../store';
 
 type State = {
@@ -51,7 +52,7 @@ export const getItemListForEventAsync =
       const { data } = await fetchItemsRequest({ search, ...params });
       reactDispatch(data);
     } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerError));
+      dispatch(addErrorAlertWorker(e as ServerErrorStatus));
     } finally {
       dispatch(setLoading(false));
     }

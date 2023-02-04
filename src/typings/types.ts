@@ -1,5 +1,6 @@
 import { Key } from 'react';
 
+import { EventDate } from '../domens/eventDates/types/types';
 import { City, EventHeaderType, PostStatus, TermType, TermTypeLink, TicketType, UserRole } from './enum';
 import { HTTP_URL, HTTP_VERSION } from './env';
 
@@ -8,8 +9,6 @@ export const storageTokenName = '_btoken' as const;
 export const axiosBaseUrl = `${HTTP_URL}${HTTP_VERSION}/`;
 
 export type ColorsFormat = 'plain' | 'hex' | 'rgb' | 'number' | 'unknown' | undefined;
-
-export type ServerError = { statusCode: number; message: number; error: string };
 
 export type User = {
   uid?: string;
@@ -50,16 +49,6 @@ interface Post {
   update?: Date;
   seo?: any;
 }
-
-export type EventDate = {
-  uid: string;
-  eventUid: string;
-  type?: TicketType;
-  map?: MapFile;
-  dateFrom?: Date;
-  dateTo?: Date;
-  closeDateTime?: Date;
-};
 
 export interface IEvent extends Post {
   uid: string;

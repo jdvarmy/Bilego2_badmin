@@ -1,34 +1,34 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { EventDate, IEvent, ServerError } from '../../../typings/types';
-import { deleteEventDateRequest, editEventDateRequest, saveEventDateRequest } from '../../../utils/api/requests';
-import { addErrorAlertWorker } from '../../alert/workers';
-import { AppThunk } from '../../store';
+import { StatusLoading } from '../../../typings/enum';
+import { IEvent } from '../../../typings/types';
+import { editEventDateAsync, saveTemplateEventDateAsync } from '../../eventDates/store/eventDateThunk';
+import { eventsScope } from '../types/types';
+import { fetchEventsAsync, getEventAsync } from './eventsThunk';
 
 type State = {
-  loading: boolean;
+  status: StatusLoading;
   // используется для хранения данных события, синхронизовано с данными в БД
   event: IEvent | null;
   // используется для хранения стейта события, синхронизовано с "клиентом"
   eventState: IEvent | null;
+  // список событий
   events: IEvent[] | null;
-  selectedDateUid?: string;
 };
 
 const initialState: State = {
-  loading: false,
+  status: StatusLoading.init,
   event: null,
   eventState: null,
   events: null,
-  selectedDateUid: undefined,
 };
 
-const events = createSlice({
+const slice = createSlice({
   initialState,
-  name: 'events',
+  name: eventsScope,
   reducers: {
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.loading = action.payload;
+    setStatus: (state, action: PayloadAction<StatusLoading>) => {
+      state.status = action.payload;
     },
     setEvent: (state, action: PayloadAction<IEvent | null>) => {
       state.event = action.payload;
@@ -42,70 +42,65 @@ const events = createSlice({
     setEvents: (state, action: PayloadAction<IEvent[]>) => {
       state.events = action.payload;
     },
-    setSelectedDateUid: (state, action: PayloadAction<string | undefined>) => {
-      state.selectedDateUid = action.payload;
-    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchEventsAsync.fulfilled, (state, action) => {
+      state.status = StatusLoading.success;
+      state.events = action.payload;
+    });
+
+    builder.addCase(getEventAsync.fulfilled, (state, action) => {
+      state.status = StatusLoading.success;
+      state.event = action.payload;
+      state.eventState = action.payload;
+    });
+
+    builder.addMatcher(
+      ({ type }) =>
+        [
+          `${eventsScope}/editEventAsync/fulfilled`,
+          `${eventsScope}/saveEventAsync/fulfilled`,
+          `${eventsScope}/saveTemplateEventAsync/fulfilled`,
+        ].includes(type),
+      (state, action: PayloadAction<IEvent>) => {
+        state.status = StatusLoading.success;
+        state.event = action.payload;
+        state.eventState = action.payload;
+      },
+    );
+
+    builder.addMatcher(
+      ({ type }) => type.startsWith(eventsScope) && type.endsWith('/pending'),
+      (state) => {
+        state.status = StatusLoading.loading;
+      },
+    );
+    builder.addMatcher(
+      ({ type }) => type.startsWith(eventsScope) && type.endsWith('/rejected'),
+      (state) => {
+        state.status = StatusLoading.error;
+      },
+    );
+
+    // Работаем с датами события
+    builder.addCase(saveTemplateEventDateAsync.fulfilled, (state, action) => {
+      state.eventState.eventDates.push(action.payload);
+      state.event.eventDates.push(action.payload);
+    });
+    builder.addCase(editEventDateAsync.fulfilled, (state, action) => {
+      const index = state.event.eventDates.findIndex((date) => date.uid === action.payload.uid);
+      const indexState = state.eventState.eventDates.findIndex((date) => date.uid === action.payload.uid);
+
+      if (index + 1) {
+        state.event.eventDates.splice(index, 1, action.payload);
+      }
+      if (indexState + 1) {
+        state.eventState.eventDates.splice(indexState, 1, action.payload);
+      }
+
+      return undefined;
+    });
   },
 });
 
-export const { setLoading, setEvent, setEventState, setEvents, setEventStateField, setSelectedDateUid } =
-  events.actions;
-
-export default events.reducer;
-
-export const saveTemplateEventDateAsync =
-  (eventUid: string): AppThunk =>
-  async (dispatch, getState) => {
-    dispatch(setLoading(true));
-    const eventDates = getState().events.eventState?.eventDates || [];
-
-    try {
-      const { data } = await saveEventDateRequest(eventUid);
-      dispatch(setEventStateField({ eventDates: [...eventDates, data] }));
-      dispatch(setSelectedDateUid(data.uid));
-    } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerError));
-    } finally {
-      dispatch(setLoading(false));
-    }
-  };
-
-export const deleteEventDateAsync =
-  (uid: string, eventUid: string): AppThunk =>
-  async (dispatch) => {
-    dispatch(setLoading(true));
-
-    try {
-      await deleteEventDateRequest(uid, eventUid);
-    } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerError));
-    } finally {
-      dispatch(setLoading(false));
-    }
-  };
-
-export const editEventDateAsync =
-  (uid: string, reqData: Partial<EventDate>): AppThunk =>
-  async (dispatch, getState) => {
-    const { eventState } = getState().events;
-    dispatch(setLoading(true));
-
-    try {
-      if (!eventState?.uid) {
-        return;
-      }
-      const { data } = await editEventDateRequest(eventState.uid, { ...reqData, uid });
-
-      const localEventDates = eventState?.eventDates?.map((d) => {
-        if (d.uid === data.uid) {
-          return data;
-        }
-        return d;
-      });
-      dispatch(setEventStateField({ eventDates: localEventDates }));
-    } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerError));
-    } finally {
-      dispatch(setLoading(false));
-    }
-  };
+export const { actions: eventsActions, reducer: eventsReducer } = slice;

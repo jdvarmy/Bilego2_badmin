@@ -6,7 +6,7 @@ import { Provider, ReactReduxContext, useSelector } from 'react-redux';
 
 import { isEqual } from '../../../../utils/helpers/isEqual';
 import { useResizeObserver } from '../../../../utils/hooks/useResizeObserver';
-import { selectSelectedDateMap } from '../../../events/store/eventsSelectors';
+import { selectSelectedDateMap } from '../../../eventDates/store/eventDatesSelectors';
 import { getScale } from '../../helpers/functions/getScale';
 import { handleDrag } from '../../helpers/functions/handleDrag';
 import { handleZoom } from '../../helpers/functions/handleZoom';

@@ -1,5 +1,5 @@
-import { RootState } from '../store';
-import { AlertState } from './alertSlice';
+import { RootState } from '../../store';
+import { AlertState } from '../types/types';
 
 export const selectAlertStore = (state: RootState) => state?.alert;
 

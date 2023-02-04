@@ -3,9 +3,10 @@ import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { TermType } from '../../../../typings/enum';
-import { IEvent, ServerError, Taxonomy } from '../../../../typings/types';
+import { IEvent, Taxonomy } from '../../../../typings/types';
 import { isEqual } from '../../../../utils/helpers/isEqual';
-import { addErrorAlertWorker } from '../../../alert/workers';
+import { addErrorAlertWorker } from '../../../alert/store/workers';
+import { ServerErrorStatus } from '../../../alert/types/types';
 import { AppDispatch } from '../../../store';
 import { getTaxonomyAsyncReq } from '../../../taxonomy/store/taxonomyThunk';
 import { EventTaxonomyElement } from './EventTaxonomyElement';
@@ -45,7 +46,7 @@ export const EventTaxonomy = memo(function EventTaxonomy<T extends IEvent['taxon
         setTaxonomies(localRes);
       })
       .catch((reject) => {
-        dispatch(addErrorAlertWorker(reject as ServerError));
+        dispatch(addErrorAlertWorker(reject as ServerErrorStatus));
       });
   }, [dispatch]);
 

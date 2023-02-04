@@ -6,8 +6,8 @@ import { useSearchParams } from 'react-router-dom';
 import ContentContainer from '../../components/ContentContainer/ContentContainer';
 import { PageHelmet } from '../../components/PageHelmet/PageHelmet';
 import SuspenseLoader from '../../components/SuspenseLoader/SuspenseLoader';
+import EventDates from '../../domens/eventDates/components/EventDates/EventDates';
 import { Controls } from '../../domens/events/components/Controls/Controls';
-import EventDates from '../../domens/events/components/EventDates/EventDates';
 import EventGallery from '../../domens/events/components/EventGallery/EventGallery';
 import EventHeader from '../../domens/events/components/EventHeader/EventHeader';
 import { EventInfo } from '../../domens/events/components/EventInfo/EventInfo';
@@ -30,7 +30,7 @@ const EditEvent = () => {
   useEffect(() => {
     const uid = searchParams.get('uid');
     if (!eventState && uid) {
-      dispatch(getEventAsync(uid));
+      dispatch(getEventAsync({ uid }));
     }
   }, [dispatch, eventState, searchParams]);
 

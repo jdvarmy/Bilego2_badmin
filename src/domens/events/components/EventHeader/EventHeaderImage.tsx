@@ -10,7 +10,7 @@ import { AppDispatch } from '../../../store';
 import { useChangeFnMediaEventField } from '../../hooks/useChangeFnMediaEventField';
 import { useDeleteFnEventField } from '../../hooks/useDeleteFnEventField';
 import { selectEventStateHeaderImageData } from '../../store/eventsSelectors';
-import { setEventStateField } from '../../store/eventsSlice';
+import { eventsActions } from '../../store/eventsSlice';
 import { MediaDisplay } from './MediaDisplay';
 
 export const EventHeaderImage = () => {
@@ -24,7 +24,7 @@ export const EventHeaderImage = () => {
     const prev = 'headerText' === name ? JSON.parse(headerText) : JSON.parse(headerTextColor);
 
     dispatch(
-      setEventStateField({
+      eventsActions.setEventStateField({
         [name]: JSON.stringify({ ...prev, [field]: event.target.value }),
       }),
     );

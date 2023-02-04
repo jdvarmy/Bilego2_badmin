@@ -9,7 +9,7 @@ import { getItemListForEventAsync } from '../../../itemsSlice/itemsSlice';
 import { AppDispatch } from '../../../store';
 import { ChangeEventFieldType, useChangeFnFieldEventField } from '../../hooks/useChangeFnFieldEventField';
 import { useDeleteFnEventField } from '../../hooks/useDeleteFnEventField';
-import { setEventStateField } from '../../store/eventsSlice';
+import { eventsActions } from '../../store/eventsSlice';
 
 type Props = {
   item?: IEvent['item'];
@@ -27,7 +27,7 @@ export const EventPlaceItem = memo(function EventPlaceItem({ item, city }: Props
   const handleChangeItemLocal = (event: ChangeEventFieldType) => {
     const eventCity = event.target.value as IEvent['item'];
     if (eventCity?.city && eventCity.city !== city) {
-      dispatch(setEventStateField({ city: eventCity.city }));
+      dispatch(eventsActions.setEventStateField({ city: eventCity.city }));
     }
     handleChangeItem(event);
   };

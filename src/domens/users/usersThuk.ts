@@ -2,8 +2,9 @@ import { Dispatch, SetStateAction } from 'react';
 
 import { UserState } from '../../pages/Users/UserDataContainer';
 import { UserRole } from '../../typings/enum';
-import { IEvent, RequestUser, ServerError } from '../../typings/types';
-import { addErrorAlertWorker } from '../alert/workers';
+import { IEvent, RequestUser } from '../../typings/types';
+import { addErrorAlertWorker } from '../alert/store/workers';
+import { ServerErrorStatus } from '../alert/types/types';
 import { setLoading } from '../artistsSlice/artistsSlice';
 import { AppThunk } from '../store';
 import { deleteUserRequest, fetchUsersRequest, getUserRequest, saveUserRequest } from './requests';
@@ -15,7 +16,7 @@ export const getUsersAsync = (): AppThunk => async (dispatch) => {
 
     dispatch(setUsers(data));
   } catch (e) {
-    dispatch(addErrorAlertWorker(e as ServerError));
+    dispatch(addErrorAlertWorker(e as ServerErrorStatus));
   }
 };
 
@@ -33,7 +34,7 @@ export const getUserAsync =
         avatar: avatar ? { id: +avatar.id, name: avatar.name } : undefined,
       }));
     } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerError));
+      dispatch(addErrorAlertWorker(e as ServerErrorStatus));
     }
   };
 
@@ -46,7 +47,7 @@ export const saveUserAsync =
         navigateToUsers();
       }
     } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerError));
+      dispatch(addErrorAlertWorker(e as ServerErrorStatus));
     }
   };
 
@@ -60,7 +61,7 @@ export const deleteUserAsync =
         dispatch(getUsersAsync());
       }
     } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerError));
+      dispatch(addErrorAlertWorker(e as ServerErrorStatus));
     }
   };
 
@@ -73,7 +74,7 @@ export const getManagerListForEventAsync =
       const { data } = await fetchUsersRequest({ search, role: UserRole.organizer });
       reactDispatch(data);
     } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerError));
+      dispatch(addErrorAlertWorker(e as ServerErrorStatus));
     } finally {
       dispatch(setLoading(false));
     }

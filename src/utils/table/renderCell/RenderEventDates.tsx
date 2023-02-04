@@ -3,7 +3,7 @@ import { ICellRendererParams } from 'ag-grid-community';
 import React, { memo } from 'react';
 
 import { StatusLabel } from '../../../UI/StatusLabel';
-import { EventDate } from '../../../typings/types';
+import { EventDate } from '../../../domens/eventDates/types/types';
 import { getActualDate } from '../../helpers/getActualDate';
 
 const formatterDate = new Intl.DateTimeFormat('ru', {

@@ -6,12 +6,12 @@ import { Box, Grid, Icon, TextField } from '@mui/material';
 import React, { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { editEventDateAsync } from '../../domens/events/store/eventsSlice';
+import { editEventDateAsync } from '../../domens/eventDates/store/eventDateThunk';
+import { EventDate } from '../../domens/eventDates/types/types';
 import { getMapListAsync, uploadFileMapAsync } from '../../domens/medialibrarySlice/medialibrarySlice';
 import { selectMedialibrary } from '../../domens/selectors';
 import { AppDispatch } from '../../domens/store';
 import { TicketType } from '../../typings/enum';
-import { EventDate } from '../../typings/types';
 import ModalDialog from '../ModalDialog/ModalDialog';
 import UploadFiles from '../UploadFiles/UploadFiles';
 import MapImage from './MapImage';
@@ -39,8 +39,8 @@ const AppMapModal = ({ open, onClose, selectedDate }: Props) => {
   };
   const handleAddMap = useCallback(() => {
     if (selected && selectedDate) {
-      const { uid, ...data } = selectedDate;
-      !!uid && dispatch(editEventDateAsync(uid, { ...data, type: TicketType.map, map: { uid: selected } }));
+      !!selectedDate.uid &&
+        dispatch(editEventDateAsync({ ...selectedDate, type: TicketType.map, map: { uid: selected } }));
     }
     onClose();
   }, [selected, selectedDate, onClose, dispatch]);

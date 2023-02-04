@@ -4,9 +4,10 @@ import { Grid, IconButton, TextField, Tooltip, Typography } from '@mui/material'
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { EventDate, IEvent } from '../../../../typings/types';
+import { IEvent } from '../../../../typings/types';
+import { eventsActions } from '../../../events/store/eventsSlice';
 import { AppDispatch } from '../../../store';
-import { setEventStateField } from '../../store/eventsSlice';
+import { EventDate } from '../../types/types';
 
 type Props = {
   selectDate?: EventDate;
@@ -37,7 +38,7 @@ const EventDatesTabContent = ({ selectDate, dates }: Props) => {
         return d;
       });
 
-      dispatch(setEventStateField({ eventDates }));
+      dispatch(eventsActions.setEventStateField({ eventDates }));
     };
   const handleCopyStartDate = () => {
     const eventDates = dates?.map((d) => {
@@ -48,7 +49,7 @@ const EventDatesTabContent = ({ selectDate, dates }: Props) => {
       return d;
     });
 
-    dispatch(setEventStateField({ eventDates }));
+    dispatch(eventsActions.setEventStateField({ eventDates }));
   };
 
   return (

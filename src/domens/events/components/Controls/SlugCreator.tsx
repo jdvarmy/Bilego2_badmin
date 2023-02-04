@@ -8,7 +8,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { useLocalSearchParams } from '../../../../utils/hooks/useLocalSearchParams';
 import { AppDispatch } from '../../../store';
-import { setEventStateField } from '../../store/eventsSlice';
+import { eventsActions } from '../../store/eventsSlice';
 import { editEventAsync } from '../../store/eventsThunk';
 
 type Props = {
@@ -46,7 +46,7 @@ export const SlugCreator = memo(function EventSlugCreator({ uid, slug }: Props) 
       const cyrillicToTranslit = new CyrillicToTranslit();
       const updatedSlug = cyrillicToTranslit.transform(localSlug, '-').toLowerCase();
 
-      dispatch(setEventStateField({ slug: updatedSlug }));
+      dispatch(eventsActions.setEventStateField({ slug: updatedSlug }));
       setSearchParams({ ...params, slug: updatedSlug });
       dispatch(editEventAsync({ uid, slug: updatedSlug }));
     }

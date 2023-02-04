@@ -1,6 +1,7 @@
 import { TicketType } from '../../../typings/enum';
-import { ServerError, Ticket, TicketOnSell } from '../../../typings/types';
-import { addAlertWorker, addErrorAlertWorker } from '../../alert/workers';
+import { Ticket, TicketOnSell } from '../../../typings/types';
+import { addAlertWorker, addErrorAlertWorker } from '../../alert/store/workers';
+import { ServerErrorStatus } from '../../alert/types/types';
 import { AppThunk } from '../../store';
 import { deleteTicketsRequest, fetchTicketsRequest, saveTicketsRequest } from '../api/ticketsRequest';
 import { setLoading, setTickets } from './ticketsSlice';
@@ -14,7 +15,7 @@ export const getTicketsAsync =
       const { data } = await fetchTicketsRequest(dateUid);
       dispatch(setTickets(data));
     } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerError));
+      dispatch(addErrorAlertWorker(e as ServerErrorStatus));
     } finally {
       dispatch(setLoading(false));
     }
@@ -49,7 +50,7 @@ export const saveTicketsAsync =
       dispatch(addAlertWorker({ severity: 'success', title: 'Сохранено', text: 'Билеты успешно сохранены!' }));
       dispatch(setTickets(data));
     } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerError));
+      dispatch(addErrorAlertWorker(e as ServerErrorStatus));
     } finally {
       dispatch(setLoading(false));
     }
@@ -58,7 +59,7 @@ export const saveTicketsAsync =
 export const deleteTicketsAsync =
   (ticketsUid: string[]): AppThunk =>
   async (dispatch, getState) => {
-    const dateUid = getState().events.selectedDateUid;
+    const dateUid = getState().eventDates.selectedDateUid;
     if (!dateUid) {
       return;
     }
@@ -70,7 +71,7 @@ export const deleteTicketsAsync =
       dispatch(addAlertWorker({ severity: 'success', title: 'Удалено', text: 'Билеты успешно удалены!' }));
       dispatch(getTicketsAsync(dateUid));
     } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerError));
+      dispatch(addErrorAlertWorker(e as ServerErrorStatus));
     } finally {
       dispatch(setLoading(false));
     }

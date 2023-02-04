@@ -10,7 +10,7 @@ import { isEqual } from '../../../../utils/helpers/isEqual';
 import { AppDispatch } from '../../../store';
 import { ChangeEventFieldType } from '../../hooks/useChangeFnFieldEventField';
 import { selectEvent } from '../../store/eventsSelectors';
-import { setEventStateField } from '../../store/eventsSlice';
+import { eventsActions } from '../../store/eventsSlice';
 import { editEventAsync } from '../../store/eventsThunk';
 
 type Props<T> = { type: TermType; eventUid: IEvent['uid']; selected: T; taxonomies: T; stateTaxonomy: T };
@@ -33,7 +33,7 @@ export const EventTaxonomyElement = memo(function EventTaxonomyElement<T extends
       const filterTax = (stateTaxonomy || []).filter((tax) => tax.type !== type);
 
       dispatch(
-        setEventStateField({
+        eventsActions.setEventStateField({
           taxonomy: [...filterTax, ...(event.target.value as []).map((value) => JSON.parse(value))],
         }),
       );

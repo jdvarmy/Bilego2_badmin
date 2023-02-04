@@ -1,4 +1,4 @@
-import { EventDate, IEvent, MediaFile, RequestAuth, ResponseAuth } from '../../typings/types';
+import { IEvent, MediaFile, RequestAuth, ResponseAuth } from '../../typings/types';
 import requests from './api';
 
 export const registerRequest = (data: RequestAuth) => requests.post<ResponseAuth>(`auth/register`, data);
@@ -14,11 +14,6 @@ export const removeFileMedialibraryRequest = (id: number) => requests.delete<boo
 export const fetchMapItemsRequest = () => requests.get<any[]>(`map`);
 export const uploadFileMapItemsRequest = (data: FormData) => requests.post<boolean>(`map/upload`, data);
 
-export const saveEventDateRequest = (eventUid: string) => requests.post<EventDate>(`events/${eventUid}/dates`);
-export const deleteEventDateRequest = (uid: string, eventUid: string) =>
-  requests.delete<boolean>(`events/${eventUid}/dates/${uid}`);
-export const editEventDateRequest = (eventUid: string, data: Partial<EventDate>) =>
-  requests.put<EventDate>(`events/${eventUid}/dates`, data);
-
 export const fetchItemsRequest = (data?: any) => requests.get<IEvent['item'][]>(`items`, data);
+
 export const fetchArtistsRequest = (data?: { search: string }) => requests.get<IEvent['artist']>(`artists`, data);

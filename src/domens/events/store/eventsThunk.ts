@@ -1,6 +1,9 @@
-import { EventRequest, IEvent, ServerError } from '../../../typings/types';
-import { addAlertWorker, addErrorAlertWorker } from '../../alert/workers';
-import { AppThunk } from '../../store';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
+import { IEvent } from '../../../typings/types';
+import { addAlertErrorAsync, addAlertSuccessAsync } from '../../alert/store/alertThunk';
+import { ServerErrorStatus } from '../../alert/types/types';
+import { AppThunk, RootState } from '../../store';
 import {
   fetchEventsRequest,
   getEventRequest,
@@ -8,119 +11,90 @@ import {
   postTemplateEventRequest,
   putTemplateEventRequest,
 } from '../api/eventsRequest';
+import { eventsScope } from '../types/types';
 import { selectEventState } from './eventsSelectors';
-import { setEvent, setEventState, setEvents, setLoading } from './eventsSlice';
+import { workerPrepareData } from './worckers';
 
-export const fetchEventsAsync = (): AppThunk => async (dispatch) => {
-  dispatch(setLoading(true));
-
-  try {
-    const { data } = await fetchEventsRequest();
-    dispatch(setEvents(data));
-  } catch (e) {
-    dispatch(addErrorAlertWorker(e as ServerError));
-  } finally {
-    dispatch(setLoading(false));
-  }
-};
-
-export const getEventAsync =
-  (slug: string): AppThunk =>
-  async (dispatch) => {
-    dispatch(setLoading(true));
-
+export const fetchEventsAsync = createAsyncThunk(
+  `${eventsScope}/fetchEventsAsync`,
+  async (_, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = await getEventRequest(slug);
-      dispatch(setEvent(data));
-      dispatch(setEventState(data));
-    } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerError));
-    } finally {
-      dispatch(setLoading(false));
+      const { data } = await fetchEventsRequest();
+
+      return data;
+    } catch (error) {
+      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      return rejectWithValue(error);
     }
-  };
+  },
+);
 
-export const saveEventAsync =
-  (type?: IEvent['status']): AppThunk =>
-  async (dispatch, getState) => {
-    dispatch(setLoading(true));
-
+export const getEventAsync = createAsyncThunk(
+  `${eventsScope}/getEventAsync`,
+  async ({ uid }: { uid: IEvent['uid'] }, { dispatch, rejectWithValue }) => {
     try {
-      const eventState = selectEventState(getState());
+      const { data } = await getEventRequest(uid);
 
-      const { data } = await putTemplateEventRequest(prepareData(type ? { ...eventState, status: type } : eventState));
-      dispatch(addAlertWorker({ severity: 'success', title: 'Сохранено', text: 'Событие успешно сохранено!' }));
-      dispatch(setEvent(data));
-      dispatch(setEventState(data));
-    } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerError));
-    } finally {
-      dispatch(setLoading(false));
+      return data;
+    } catch (error) {
+      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      return rejectWithValue(error);
     }
-  };
+  },
+);
 
-export const saveTemplateEventAsync = (): AppThunk => async (dispatch) => {
-  dispatch(setLoading(true));
-
-  try {
-    const { data } = await postTemplateEventRequest();
-    dispatch(setEvent(data));
-    dispatch(setEventState(data));
-  } catch (e) {
-    dispatch(addErrorAlertWorker(e as ServerError));
-  } finally {
-    dispatch(setLoading(false));
-  }
-};
-
-export const editEventAsync =
-  (event: IEvent): AppThunk =>
-  async (dispatch) => {
-    dispatch(setLoading(true));
-
+export const saveEventAsync = createAsyncThunk(
+  `${eventsScope}/saveEventAsync`,
+  async ({ type }: { type?: IEvent['status'] }, { dispatch, getState, rejectWithValue }) => {
     try {
-      const { data } = await patchEventRequest(prepareData(event));
-      dispatch(addAlertWorker({ severity: 'success', title: 'Сохранено', text: 'Данные события успешно сохранены!' }));
-      dispatch(setEvent(data));
-      dispatch(setEventState(data));
-    } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerError));
-    } finally {
-      dispatch(setLoading(false));
-    }
-  };
+      const eventState = selectEventState(getState() as RootState);
 
+      const { data } = await putTemplateEventRequest(
+        workerPrepareData(type ? { ...eventState, status: type } : eventState),
+      );
+      dispatch(addAlertSuccessAsync({ title: 'Сохранено', text: 'Событие успешно сохранено!' }));
+
+      return data;
+    } catch (error) {
+      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const saveTemplateEventAsync = createAsyncThunk(
+  `${eventsScope}/saveTemplateEventAsync`,
+  async (_, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await postTemplateEventRequest();
+
+      return data;
+    } catch (error) {
+      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const editEventAsync = createAsyncThunk(
+  `${eventsScope}/editEventAsync`,
+  async (event: IEvent, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await patchEventRequest(workerPrepareData(event));
+      dispatch(addAlertSuccessAsync({ title: 'Сохранено', text: 'Данные события успешно сохранены!' }));
+
+      return data;
+    } catch (error) {
+      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      return rejectWithValue(error);
+    }
+  },
+);
+
+// todo:
 export const deleteEventAsync =
   (uid: string): AppThunk =>
   async () => {
     // todo: сделать метод удаления события
     console.log(uid);
   };
-
-// HELPERS
-function prepareData(event: IEvent): EventRequest {
-  const { eventDates, create, update, taxonomy, image, headerImage, item, artist, eventManager, ...other } = event;
-
-  const filteredEventDates = eventDates?.map((eventDate) => {
-    const { uid, type, dateFrom, dateTo, closeDateTime } = eventDate;
-    return { uid, type, dateFrom, dateTo, closeDateTime };
-  });
-  const filteredTaxonomy = taxonomy?.map((tax) => +tax.id);
-  const filteredImage = +image?.id ?? undefined;
-  const filteredHeaderImage = +headerImage?.id ?? undefined;
-
-  const filteredItem = item?.uid;
-  const filteredArtist = artist?.map((a) => a.uid);
-  const filteredEventManager = eventManager?.uid;
-
-  return {
-    ...other,
-    eventDates: filteredEventDates,
-    taxonomy: filteredTaxonomy,
-    image: filteredImage,
-    headerImage: filteredHeaderImage,
-    eventManager: filteredEventManager,
-    item: filteredItem,
-    artist: filteredArtist,
-  };
-}

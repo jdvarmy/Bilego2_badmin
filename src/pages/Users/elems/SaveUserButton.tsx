@@ -4,7 +4,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { addAlertWorker } from '../../../domens/alert/workers';
+import { addAlertWorker } from '../../../domens/alert/store/workers';
 import { AppDispatch } from '../../../domens/store';
 import { saveUserAsync } from '../../../domens/users/usersThuk';
 import { RequestUser } from '../../../typings/types';

@@ -6,19 +6,17 @@ import { Card, CardContent, CardHeader, Divider, Grid, IconButton, Tab, Tabs, To
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import React, { SyntheticEvent, memo, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { TicketType } from '../../../../typings/enum';
 import { IEvent } from '../../../../typings/types';
 import { isEqual } from '../../../../utils/helpers/isEqual';
-import { AppDispatch } from '../../../store';
-import { selectEventSelectedDateUid } from '../../store/eventsSelectors';
-import {
-  deleteEventDateAsync,
-  saveTemplateEventDateAsync,
-  setEventStateField,
-  setSelectedDateUid,
-} from '../../store/eventsSlice';
+import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
+import { eventsActions } from '../../../events/store/eventsSlice';
+import { useAppDispatch } from '../../../store';
+import { deleteEventDateAsync, saveTemplateEventDateAsync } from '../../store/eventDateThunk';
+import { selectEventDateSelectedUid } from '../../store/eventDatesSelectors';
+import { eventDatesActions } from '../../store/eventDatesSlice';
 import EventDatesTabContent from './EventDatesTabContent';
 
 type Props = {
@@ -27,31 +25,33 @@ type Props = {
 };
 
 const EventDates = ({ uid, dates }: Props) => {
-  const dispatch: AppDispatch = useDispatch();
-  const selectedDateUid = useSelector(selectEventSelectedDateUid);
+  const dispatch = useAppDispatch();
+  const actionsEvents = useActionCreators(eventsActions);
+  const actionsEventDates = useActionCreators(eventDatesActions);
+  const selectedDateUid = useSelector(selectEventDateSelectedUid);
 
   console.log('render EventDates');
 
   const handleChangeTab = (_: SyntheticEvent, newValue: string) => {
-    dispatch(setSelectedDateUid(newValue));
+    actionsEventDates.setSelectedDateUid(newValue);
   };
   const handleAddTab = () => {
     if (uid) {
-      dispatch(saveTemplateEventDateAsync(uid));
+      dispatch(saveTemplateEventDateAsync({ eventUid: uid }));
     }
   };
   const handleDeleteTab = () => {
     if (selectedDateUid && uid && dates) {
       const localDates = dates.filter((d) => d.uid !== selectedDateUid);
-      dispatch(deleteEventDateAsync(selectedDateUid, uid));
-      dispatch(setEventStateField({ eventDates: localDates }));
-      dispatch(setSelectedDateUid(localDates.at(-1)?.uid ?? undefined));
+      dispatch(deleteEventDateAsync({ uid: selectedDateUid, eventUid: uid }));
+      actionsEvents.setEventStateField({ eventDates: localDates });
+      actionsEventDates.setSelectedDateUid(localDates.at(-1)?.uid ?? undefined);
     }
   };
 
   useEffect(() => {
-    dispatch(setSelectedDateUid(Array.isArray(dates) ? dates.at(-1)?.uid : undefined));
-  }, [dispatch]);
+    actionsEventDates.setSelectedDateUid(Array.isArray(dates) ? dates.at(-1)?.uid : undefined);
+  }, [actionsEventDates]);
 
   return (
     <Card>

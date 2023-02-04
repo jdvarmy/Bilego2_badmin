@@ -6,7 +6,7 @@ import React, { ReactElement, SyntheticEvent, memo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { EventHeaderType } from '../../../../typings/enum';
-import { setEventStateField } from '../../store/eventsSlice';
+import { eventsActions } from '../../store/eventsSlice';
 import TabContent from './TabContent';
 
 const headerMapNames: Record<EventHeaderType, { label: string; icon: ReactElement }> = {
@@ -25,7 +25,7 @@ const EventHeader = ({ type }: Props) => {
   console.log('render EventHeader');
 
   const handleChangeTab = (_: SyntheticEvent, newValue: EventHeaderType) => {
-    dispatch(setEventStateField({ headerType: newValue }));
+    dispatch(eventsActions.setEventStateField({ headerType: newValue }));
   };
 
   return (

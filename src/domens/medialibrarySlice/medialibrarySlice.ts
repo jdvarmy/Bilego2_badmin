@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { MapContent } from '../../components/AddMapModal/AppMapModal';
-import { MapFile, MediaFile, ServerError } from '../../typings/types';
+import { MapFile, MediaFile } from '../../typings/types';
 import {
   fetchMapItemsRequest,
   fetchMedialibraryRequest,
@@ -9,7 +9,8 @@ import {
   uploadFileMapItemsRequest,
   uploadFileMedialibraryRequest,
 } from '../../utils/api/requests';
-import { addErrorAlertWorker } from '../alert/workers';
+import { addErrorAlertWorker } from '../alert/store/workers';
+import { ServerErrorStatus } from '../alert/types/types';
 import { AppThunk } from '../store';
 
 type State = {
@@ -51,7 +52,7 @@ export const getFileListAsync = (): AppThunk => async (dispatch) => {
 
     dispatch(setFileList(data));
   } catch (e) {
-    dispatch(addErrorAlertWorker(e as ServerError));
+    dispatch(addErrorAlertWorker(e as ServerErrorStatus));
   } finally {
     dispatch(setLoading(false));
   }
@@ -64,7 +65,7 @@ export const getMapListAsync = (): AppThunk => async (dispatch) => {
 
     dispatch(setMapList(data));
   } catch (e) {
-    dispatch(addErrorAlertWorker(e as ServerError));
+    dispatch(addErrorAlertWorker(e as ServerErrorStatus));
   } finally {
     dispatch(setLoading(false));
   }
@@ -85,7 +86,7 @@ export const uploadFileAsync =
         dispatch(getFileListAsync());
       }
     } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerError));
+      dispatch(addErrorAlertWorker(e as ServerErrorStatus));
     } finally {
       dispatch(setLoading(false));
     }
@@ -110,7 +111,7 @@ export const uploadFileMapAsync =
         dispatch(getMapListAsync());
       }
     } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerError));
+      dispatch(addErrorAlertWorker(e as ServerErrorStatus));
     } finally {
       dispatch(setLoading(false));
     }
@@ -127,7 +128,7 @@ export const removeFileAsync =
         dispatch(getFileListAsync());
       }
     } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerError));
+      dispatch(addErrorAlertWorker(e as ServerErrorStatus));
     } finally {
       dispatch(setLoading(false));
     }

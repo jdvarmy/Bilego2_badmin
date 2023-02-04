@@ -14,10 +14,10 @@ export const SaveButtons = memo(function SaveEventButtons() {
   const dispatch: AppDispatch = useDispatch();
 
   const handleButtonClick = () => {
-    dispatch(saveEventAsync());
+    dispatch(saveEventAsync({}));
   };
   const handleIconClick = (type: PostStatus) => () => {
-    dispatch(saveEventAsync(type));
+    dispatch(saveEventAsync({ type }));
   };
 
   console.log('render SaveEventButtons');

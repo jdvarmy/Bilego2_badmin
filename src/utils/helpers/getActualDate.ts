@@ -1,4 +1,4 @@
-import { EventDate } from '../../typings/types';
+import { EventDate } from '../../domens/eventDates/types/types';
 import cloneDeep from './cloneDeep';
 import { dateParse } from './dateParse';
 

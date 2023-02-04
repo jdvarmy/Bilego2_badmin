@@ -59,3 +59,10 @@ export enum ButtonType {
   edit = 'edit',
   save = 'save',
 }
+
+export enum StatusLoading {
+  init,
+  loading,
+  success,
+  error,
+}

@@ -16,7 +16,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import ColorPicker from '../../../../components/ColorPicker/ColorPicker';
 import { TicketOnSell } from '../../../../typings/types';
 import dateTimeFormatDefault from '../../../../utils/helpers/dateTimeFormatDefault';
-import { pickerProps } from '../../../events/components/EventDates/EventDatesTabContent';
+import { pickerProps } from '../../../eventDates/components/EventDates/EventDatesTabContent';
 
 const TicketOnSellContent = ({
   uid,

@@ -3,13 +3,13 @@ import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { isEqual } from '../../../../utils/helpers/isEqual';
+import { selectEventDateSelected } from '../../../eventDates/store/eventDatesSelectors';
 import TicketControls from '../../../tickets/componets/TicketControls/TicketControls';
 import TicketsContent from '../../../tickets/componets/TicketsContent/TicketsContent';
-import { selectEventSelectedDate } from '../../store/eventsSelectors';
 import TicketsInitialContent from './TicketsInitialContent';
 
 const Tickets = () => {
-  const selectedDate = useSelector(selectEventSelectedDate, isEqual);
+  const selectedDate = useSelector(selectEventDateSelected, isEqual);
 
   console.log('render Tickets');
 

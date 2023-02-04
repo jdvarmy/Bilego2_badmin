@@ -1,9 +1,8 @@
 import { v4 as uidv4 } from 'uuid';
 
-import { ServerError } from '../../typings/types';
-import dateTimeFormatDefault from '../../utils/helpers/dateTimeFormatDefault';
-import { AppThunk } from '../store';
-import { AlertState, setAlert } from './alertSlice';
+import dateTimeFormatDefault from '../../../utils/helpers/dateTimeFormatDefault';
+import { AppThunk } from '../../store';
+import { AlertState, ServerErrorStatus } from '../types/types';
 
 const delay = 6000;
 const formatter = new Intl.DateTimeFormat('ru', dateTimeFormatDefault);
@@ -11,11 +10,11 @@ const formatter = new Intl.DateTimeFormat('ru', dateTimeFormatDefault);
 export const addAlertWorker =
   (data: Pick<AlertState, 'severity' | 'title' | 'text'>, ms = delay): AppThunk =>
   async (dispatch) => {
-    dispatch(setAlert({ ...data, date: formatter.format(new Date()), uid: uidv4(), delay: ms }));
+    // dispatch(setAlert({ ...data, date: formatter.format(new Date()), uid: uidv4(), delay: ms }));
   };
 
 export const addErrorAlertWorker =
-  (data: ServerError, ms = delay): AppThunk =>
+  (data: ServerErrorStatus, ms = delay): AppThunk =>
   async (dispatch) => {
     let title = 'Неизвестная ошибка ' + data?.message,
       text = 'Возникла ошибка в программе';
@@ -27,14 +26,14 @@ export const addErrorAlertWorker =
       text = `Код статуса ${data.statusCode}. Сообщение номер ${data.message}!`;
     }
 
-    dispatch(
-      setAlert({
-        uid: uidv4(),
-        date: formatter.format(new Date()),
-        severity: 'error',
-        title,
-        text,
-        delay: ms,
-      }),
-    );
+    // dispatch(
+    //   setAlert({
+    //     uid: uidv4(),
+    //     date: formatter.format(new Date()),
+    //     severity: 'error',
+    //     title,
+    //     text,
+    //     delay: ms,
+    //   }),
+    // );
   };

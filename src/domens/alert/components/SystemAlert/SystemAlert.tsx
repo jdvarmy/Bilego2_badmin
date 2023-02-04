@@ -3,8 +3,9 @@ import { styled } from '@mui/material/styles';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectAlertStore } from '../../domens/alert/alertSelectors';
-import { clearAlert } from '../../domens/alert/alertSlice';
+import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
+import { selectAlertStore } from '../../store/alertSelectors';
+import { alertActions } from '../../store/alertSlice';
 
 const AlertWrapper = styled(Box)(
   ({ theme }) => `
@@ -47,11 +48,11 @@ const AlertWrapper = styled(Box)(
 );
 
 const SystemAlert = () => {
-  const dispatch = useDispatch();
+  const actions = useActionCreators(alertActions);
   const { show, message } = useSelector(selectAlertStore);
 
   const handleClose = () => {
-    dispatch(clearAlert(message));
+    actions.clearAlert(message);
   };
 
   return (

@@ -1,13 +1,12 @@
 import { ICellRendererParams } from 'ag-grid-community';
 import React, { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { DeleteTableCellItemIcon } from '../../../../UI/DeleteTableCellItemIcon';
-import { AppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../store';
 import { deleteEventAsync } from '../../store/eventsThunk';
 
 export const RenderDeleteItem = (props: ICellRendererParams) => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleDeleteMedia = useCallback(() => {
     if (props.data.uid) {

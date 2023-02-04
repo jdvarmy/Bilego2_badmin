@@ -1,11 +1,10 @@
 import { MenuItem } from '@mui/material';
 import React, { memo, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
 import { IEvent } from '../../../../typings/types';
 import { getArtistListForEventAsync } from '../../../artistsSlice/artistsSlice';
-import { AppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../store';
 import { useChangeFnFieldEventField } from '../../hooks/useChangeFnFieldEventField';
 import { useDeleteFnEventField } from '../../hooks/useDeleteFnEventField';
 
@@ -14,7 +13,7 @@ type Props = {
 };
 
 export const EventPlaceArtist = memo(function EventPlaceArtist({ artist }: Props) {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [artists, setArtists] = useState<IEvent['artist']>([]);
 
   const handleChangeArtist = useChangeFnFieldEventField('artist');

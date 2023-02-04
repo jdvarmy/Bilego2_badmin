@@ -1,10 +1,9 @@
 import { MenuItem, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
 import { IEvent } from '../../../../typings/types';
-import { AppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../store';
 import { getManagerListForEventAsync } from '../../../users/usersThuk';
 import { useChangeFnFieldEventField } from '../../hooks/useChangeFnFieldEventField';
 import { useDeleteFnEventField } from '../../hooks/useDeleteFnEventField';
@@ -14,7 +13,7 @@ type Props = {
 };
 
 export const EventInfoManager = ({ manager }: Props) => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [managers, setManagers] = useState<IEvent['eventManager'][]>([]);
 
   const handleChange = useChangeFnFieldEventField('eventManager');

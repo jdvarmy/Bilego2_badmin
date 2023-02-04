@@ -3,9 +3,9 @@ import ImageTwoToneIcon from '@mui/icons-material/ImageTwoTone';
 import OndemandVideoTwoToneIcon from '@mui/icons-material/OndemandVideoTwoTone';
 import { Card, CardContent, CardHeader, Divider, Grid, Tab, Tabs } from '@mui/material';
 import React, { ReactElement, SyntheticEvent, memo } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { EventHeaderType } from '../../../../typings/enum';
+import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { eventsActions } from '../../store/eventsSlice';
 import TabContent from './TabContent';
 
@@ -20,12 +20,12 @@ type Props = {
 };
 
 const EventHeader = ({ type }: Props) => {
-  const dispatch = useDispatch();
+  const actionsEvents = useActionCreators(eventsActions);
 
   console.log('render EventHeader');
 
   const handleChangeTab = (_: SyntheticEvent, newValue: EventHeaderType) => {
-    dispatch(eventsActions.setEventStateField({ headerType: newValue }));
+    actionsEvents.setEventStateField({ headerType: newValue });
   };
 
   return (

@@ -1,12 +1,12 @@
 import { Grid, TextField } from '@mui/material';
 import { TextFieldProps } from '@mui/material/TextField/TextField';
-import React, { useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 import TextFieldImage from '../../../../components/TextFieldImage/TextFieldImage';
 import { isEqual } from '../../../../utils/helpers/isEqual';
+import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { useThrottle } from '../../../../utils/hooks/useThrottle';
-import { AppDispatch } from '../../../store';
 import { useChangeFnMediaEventField } from '../../hooks/useChangeFnMediaEventField';
 import { useDeleteFnEventField } from '../../hooks/useDeleteFnEventField';
 import { selectEventStateHeaderImageData } from '../../store/eventsSelectors';
@@ -14,28 +14,36 @@ import { eventsActions } from '../../store/eventsSlice';
 import { MediaDisplay } from './MediaDisplay';
 
 export const EventHeaderImage = () => {
-  const dispatch: AppDispatch = useDispatch();
+  const actionsEvents = useActionCreators(eventsActions);
   const { headerImage, headerText, headerTextColor } = useSelector(selectEventStateHeaderImageData, isEqual);
 
   const handleChangeImage = useChangeFnMediaEventField('headerImage');
   const handleDeleteImage = useDeleteFnEventField('headerImage');
 
-  const handleChange = (name: string, field: string, event: React.ChangeEvent<HTMLInputElement>) => {
-    const prev = 'headerText' === name ? JSON.parse(headerText) : JSON.parse(headerTextColor);
+  const handleChange = useCallback(
+    (name: string, field: string, event: React.ChangeEvent<HTMLInputElement>) => {
+      const prev = 'headerText' === name ? JSON.parse(headerText) : JSON.parse(headerTextColor);
 
-    dispatch(
-      eventsActions.setEventStateField({
+      actionsEvents.setEventStateField({
         [name]: JSON.stringify({ ...prev, [field]: event.target.value }),
-      }),
-    );
-  };
+      });
+    },
+    [actionsEvents, headerText, headerTextColor],
+  );
+
   const throttleHandleChange = useThrottle(handleChange);
-  const handleChangeText = (name: string, field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange(name, field, event);
-  };
-  const handleChangeColor = (name: string, field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    throttleHandleChange(name, field, event);
-  };
+  const handleChangeText = useCallback(
+    (name: string, field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      handleChange(name, field, event);
+    },
+    [handleChange],
+  );
+  const handleChangeColor = useCallback(
+    (name: string, field: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      throttleHandleChange(name, field, event);
+    },
+    [throttleHandleChange],
+  );
 
   const fields = useMemo(
     () => getFields(headerText, headerTextColor, handleChangeText, handleChangeColor),
@@ -71,8 +79,8 @@ export const EventHeaderImage = () => {
 function getFields(
   headerText: string,
   headerTextColor: string,
-  onText: any,
-  onColor: any,
+  onText: (name: string, field: string) => (event: React.ChangeEvent<HTMLInputElement>) => void,
+  onColor: (name: string, field: string) => (event: React.ChangeEvent<HTMLInputElement>) => void,
 ): (TextFieldProps & { grid: number; label: string })[] {
   const { title, subtitle, meta } = JSON.parse(headerText);
   const { title: titleColor, subtitle: subtitleColor, meta: metaColor } = JSON.parse(headerTextColor);

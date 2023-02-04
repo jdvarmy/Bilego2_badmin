@@ -1,12 +1,12 @@
 import { MenuItem } from '@mui/material';
 import React, { memo, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
 import { City } from '../../../../typings/enum';
 import { IEvent } from '../../../../typings/types';
+import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { getItemListForEventAsync } from '../../../itemsSlice/itemsSlice';
-import { AppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../store';
 import { ChangeEventFieldType, useChangeFnFieldEventField } from '../../hooks/useChangeFnFieldEventField';
 import { useDeleteFnEventField } from '../../hooks/useDeleteFnEventField';
 import { eventsActions } from '../../store/eventsSlice';
@@ -17,17 +17,17 @@ type Props = {
 };
 
 export const EventPlaceItem = memo(function EventPlaceItem({ item, city }: Props) {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const actionsEvents = useActionCreators(eventsActions);
   const [items, setItems] = useState<IEvent['item'][]>([]);
 
   const handleChangeItem = useChangeFnFieldEventField('item');
-
   const handleDeleteItem = useDeleteFnEventField('item');
 
   const handleChangeItemLocal = (event: ChangeEventFieldType) => {
     const eventCity = event.target.value as IEvent['item'];
     if (eventCity?.city && eventCity.city !== city) {
-      dispatch(eventsActions.setEventStateField({ city: eventCity.city }));
+      actionsEvents.setEventStateField({ city: eventCity.city });
     }
     handleChangeItem(event);
   };

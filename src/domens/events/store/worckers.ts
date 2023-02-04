@@ -10,6 +10,7 @@ export const workerClearEventState = () => (dispatch: AppDispatch) => {
 };
 
 export function workerPrepareData(event: IEvent): EventRequest {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { eventDates, create, update, taxonomy, image, headerImage, item, artist, eventManager, ...other } = event;
 
   const filteredEventDates = eventDates?.map((eventDate) => {
@@ -26,6 +27,8 @@ export function workerPrepareData(event: IEvent): EventRequest {
 
   return {
     ...other,
+    ageRestriction: !isNaN(Number(other.ageRestriction)) ? +other.ageRestriction : 0,
+    concertManagerPercentage: !isNaN(Number(other.concertManagerPercentage)) ? +other.concertManagerPercentage : 0,
     eventDates: filteredEventDates,
     taxonomy: filteredTaxonomy,
     image: filteredImage,

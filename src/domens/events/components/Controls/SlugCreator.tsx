@@ -3,11 +3,11 @@ import SaveTwoToneIcon from '@mui/icons-material/SaveTwoTone';
 import { Box, Button, IconButton, TextField } from '@mui/material';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import React, { memo, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
+import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { useLocalSearchParams } from '../../../../utils/hooks/useLocalSearchParams';
-import { AppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../store';
 import { eventsActions } from '../../store/eventsSlice';
 import { editEventAsync } from '../../store/eventsThunk';
 
@@ -17,7 +17,8 @@ type Props = {
 };
 
 export const SlugCreator = memo(function EventSlugCreator({ uid, slug }: Props) {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const actionsEvents = useActionCreators(eventsActions);
   const params = useLocalSearchParams();
   const [, setSearchParams] = useSearchParams();
 
@@ -46,7 +47,7 @@ export const SlugCreator = memo(function EventSlugCreator({ uid, slug }: Props) 
       const cyrillicToTranslit = new CyrillicToTranslit();
       const updatedSlug = cyrillicToTranslit.transform(localSlug, '-').toLowerCase();
 
-      dispatch(eventsActions.setEventStateField({ slug: updatedSlug }));
+      actionsEvents.setEventStateField({ slug: updatedSlug });
       setSearchParams({ ...params, slug: updatedSlug });
       dispatch(editEventAsync({ uid, slug: updatedSlug }));
     }

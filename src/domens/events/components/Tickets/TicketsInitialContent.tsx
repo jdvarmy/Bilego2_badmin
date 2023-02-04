@@ -2,20 +2,19 @@ import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 import MapIcon from '@mui/icons-material/Map';
 import { Button, Grid } from '@mui/material';
 import React, { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import AppMapModal from '../../../../components/AddMapModal/AppMapModal';
 import { TicketType } from '../../../../typings/enum';
 import { editEventDateAsync } from '../../../eventDates/store/eventDateThunk';
 import { EventDate } from '../../../eventDates/types/types';
-import { AppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../store';
 
 type Props = {
   selectedDate?: EventDate;
 };
 
 const TicketsInitialContent = ({ selectedDate }: Props) => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [show, setShow] = useState<boolean>(false);
 
   const handleClick = useCallback(

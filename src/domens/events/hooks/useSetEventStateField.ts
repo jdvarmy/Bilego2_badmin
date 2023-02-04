@@ -1,12 +1,11 @@
 import { useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { IEvent } from '../../../typings/types';
-import { AppDispatch } from '../../store';
+import { useActionCreators } from '../../../utils/hooks/useActionCreators';
 import { eventsActions } from '../store/eventsSlice';
 
 export function useSetEventStateField(field: keyof IEvent) {
-  const dispatch: AppDispatch = useDispatch();
+  const actionsEvents = useActionCreators(eventsActions);
 
-  return useCallback((value: any) => dispatch(eventsActions.setEventStateField({ [field]: value })), [dispatch, field]);
+  return useCallback((value: any) => actionsEvents.setEventStateField({ [field]: value }), [actionsEvents, field]);
 }

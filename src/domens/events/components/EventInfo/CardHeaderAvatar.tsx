@@ -1,15 +1,16 @@
 import HelpOutlineTwoToneIcon from '@mui/icons-material/HelpOutlineTwoTone';
 import { Grid, Tooltip } from '@mui/material';
 import React, { memo } from 'react';
-import { useSelector } from 'react-redux';
 
 import dateTimeFormatDefault from '../../../../utils/helpers/dateTimeFormatDefault';
+import { useStateSelector } from '../../../store';
 import { selectEventState } from '../../store/eventsSelectors';
 
 const formatter = new Intl.DateTimeFormat('ru', dateTimeFormatDefault);
 
 export const CardHeaderAvatar = memo(function CardHeaderAvatar() {
-  const { create, update } = useSelector(selectEventState);
+  const create = useStateSelector((state) => selectEventState(state).create);
+  const update = useStateSelector((state) => selectEventState(state).update);
 
   return (
     <Tooltip

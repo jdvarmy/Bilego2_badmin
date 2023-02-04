@@ -7,12 +7,18 @@ import { AlertState, ServerErrorStatus } from '../types/types';
 const delay = 6000;
 const formatter = new Intl.DateTimeFormat('ru', dateTimeFormatDefault);
 
+/**
+ * @deprecated
+ */
 export const addAlertWorker =
   (data: Pick<AlertState, 'severity' | 'title' | 'text'>, ms = delay): AppThunk =>
   async (dispatch) => {
     // dispatch(setAlert({ ...data, date: formatter.format(new Date()), uid: uidv4(), delay: ms }));
   };
 
+/**
+ * @deprecated
+ */
 export const addErrorAlertWorker =
   (data: ServerErrorStatus, ms = delay): AppThunk =>
   async (dispatch) => {

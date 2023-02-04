@@ -8,7 +8,7 @@ export const selectEventDateSelectedUid = (state: RootState) => selectEventDates
 export const selectEventDates = (state: RootState) => selectEventState(state)?.eventDates;
 
 export const selectEventDateSelected = (state: RootState) => {
-  const selectedDateUid = selectEventDatesStore(state).selectedDateUid;
+  const selectedDateUid = selectEventDateSelectedUid(state);
 
   return selectEventDates(state)?.find((date) => date.uid === selectedDateUid);
 };

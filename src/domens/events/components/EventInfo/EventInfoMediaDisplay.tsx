@@ -1,16 +1,16 @@
 import { Box, Card, CardMedia, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { memo } from 'react';
 
 import { HTTP_URL } from '../../../../typings/env';
 import dateTimeFormatDefault from '../../../../utils/helpers/dateTimeFormatDefault';
 import { isEqual } from '../../../../utils/helpers/isEqual';
+import { useStateSelector } from '../../../store';
 import { selectEventStateImageData } from '../../store/eventsSelectors';
 
 const StyledCard = styled(Card)(
   () => `
-    width: 470px;
+    width: 100%;
     height: 396px;
     position: relative;
     box-shadow: none;
@@ -82,8 +82,8 @@ const formatter = new Intl.DateTimeFormat('ru', {
   timeZoneName: undefined,
 });
 
-export const EventInfoMediaDisplay = () => {
-  const { image, title, date } = useSelector(selectEventStateImageData, isEqual);
+export const EventInfoMediaDisplay = memo(function EventInfoMediaDisplay() {
+  const { image, title, date } = useStateSelector(selectEventStateImageData, isEqual);
 
   console.log('render EventInfoMediaDisplay');
 
@@ -96,4 +96,4 @@ export const EventInfoMediaDisplay = () => {
       </StyledBox>
     </StyledCard>
   );
-};
+});

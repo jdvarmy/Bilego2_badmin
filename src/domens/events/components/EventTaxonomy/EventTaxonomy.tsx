@@ -1,13 +1,12 @@
 import { Box, Card, CardContent, CardHeader, Divider, Grid } from '@mui/material';
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { TermType } from '../../../../typings/enum';
 import { IEvent, Taxonomy } from '../../../../typings/types';
 import { isEqual } from '../../../../utils/helpers/isEqual';
-import { addErrorAlertWorker } from '../../../alert/store/workers';
+import { addAlertErrorAsync } from '../../../alert/store/alertThunk';
 import { ServerErrorStatus } from '../../../alert/types/types';
-import { AppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../store';
 import { getTaxonomyAsyncReq } from '../../../taxonomy/store/taxonomyThunk';
 import { EventTaxonomyElement } from './EventTaxonomyElement';
 
@@ -17,7 +16,7 @@ export const EventTaxonomy = memo(function EventTaxonomy<T extends IEvent['taxon
   uid,
   stateTaxonomy,
 }: Props<T>) {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [taxonomies, setTaxonomies] = useState<IEvent['taxonomy']>([]);
 
   console.log('render EventTaxonomy');
@@ -46,7 +45,7 @@ export const EventTaxonomy = memo(function EventTaxonomy<T extends IEvent['taxon
         setTaxonomies(localRes);
       })
       .catch((reject) => {
-        dispatch(addErrorAlertWorker(reject as ServerErrorStatus));
+        dispatch(addAlertErrorAsync(reject as ServerErrorStatus));
       });
   }, [dispatch]);
 

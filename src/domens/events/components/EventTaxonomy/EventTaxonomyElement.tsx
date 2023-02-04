@@ -1,13 +1,13 @@
 import { MenuItem } from '@mui/material';
 import React, { memo, useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
 import { nameMapTaxonomy } from '../../../../pages/Taxonomy/Taxonomy';
 import { TermType } from '../../../../typings/enum';
 import { IEvent } from '../../../../typings/types';
 import { isEqual } from '../../../../utils/helpers/isEqual';
-import { AppDispatch } from '../../../store';
+import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
+import { useAppDispatch, useStateSelector } from '../../../store';
 import { ChangeEventFieldType } from '../../hooks/useChangeFnFieldEventField';
 import { selectEvent } from '../../store/eventsSelectors';
 import { eventsActions } from '../../store/eventsSlice';
@@ -22,8 +22,9 @@ export const EventTaxonomyElement = memo(function EventTaxonomyElement<T extends
   selected,
   stateTaxonomy,
 }: Props<T>) {
-  const dispatch: AppDispatch = useDispatch();
-  const { taxonomy } = useSelector(selectEvent, isEqual);
+  const dispatch = useAppDispatch();
+  const actionsEvents = useActionCreators(eventsActions);
+  const taxonomy = useStateSelector((state) => selectEvent(state).taxonomy);
   const [localTax, setLocalTax] = useState<IEvent['taxonomy']>(() => taxonomies);
 
   console.info('render EventTaxonomyElement');
@@ -32,13 +33,11 @@ export const EventTaxonomyElement = memo(function EventTaxonomyElement<T extends
     (event: ChangeEventFieldType) => {
       const filterTax = (stateTaxonomy || []).filter((tax) => tax.type !== type);
 
-      dispatch(
-        eventsActions.setEventStateField({
-          taxonomy: [...filterTax, ...(event.target.value as []).map((value) => JSON.parse(value))],
-        }),
-      );
+      actionsEvents.setEventStateField({
+        taxonomy: [...filterTax, ...(event.target.value as []).map((value) => JSON.parse(value))],
+      });
     },
-    [dispatch, stateTaxonomy, type],
+    [actionsEvents, stateTaxonomy, type],
   );
 
   const handleSaveEventTaxonomy = useCallback(() => {

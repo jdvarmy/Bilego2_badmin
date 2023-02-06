@@ -5,8 +5,8 @@ import { v4 as uidv4 } from 'uuid';
 
 import { TicketType } from '../../../../typings/enum';
 import { Ticket, TicketOnSell } from '../../../../typings/types';
-import { selectCircleStore } from '../../../selectors';
-import { selectTicketsStore } from '../../store/ticketsSelectors';
+import { selectSelectedCircles } from '../../../selectors';
+import { selectSelectedTicket } from '../../store/ticketsSelectors';
 import TicketControlDeleteTicketMapButton from './TicketControlDeleteTicketButton';
 import TicketControlTicketOnSell from './TicketControlTicketOnSell';
 import TicketControlsSaveTicketButton from './TicketControlsSaveTicketButton';
@@ -18,8 +18,8 @@ type Props = {
 };
 
 const TicketControls = ({ type, dateUid }: Props) => {
-  const { selectedTicket } = useSelector(selectTicketsStore);
-  const { selectedCircles } = useSelector(selectCircleStore);
+  const selectedTicket = useSelector(selectSelectedTicket);
+  const selectedCircles = useSelector(selectSelectedCircles);
   const [ticketData, setTicketData] = useState<Ticket>(initialTicketDataFc(type));
   const [sellData, setSellData] = useState<TicketOnSell[]>([initialTicketSellDataFc()]);
 

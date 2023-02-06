@@ -13,4 +13,4 @@ export const saveTicketsRequest = (
     : requests.post<Ticket[]>(`tickets/${dateUid}`, data);
 
 export const deleteTicketsRequest = (dateUid: string, ticketsUid: string[]) =>
-  requests.delete<boolean>(`tickets/${dateUid}`, { data: ticketsUid });
+  requests.delete<Ticket[]>(`tickets/${dateUid}`, { data: ticketsUid });

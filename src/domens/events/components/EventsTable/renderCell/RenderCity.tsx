@@ -1,6 +1,6 @@
 import { ICellRendererParams } from 'ag-grid-community';
 
-import { City } from '../../../typings/enum';
+import { City } from '../../../../../typings/enum';
 
 const cityMap: Record<City, string> = {
   [City.moscow]: 'Москва',

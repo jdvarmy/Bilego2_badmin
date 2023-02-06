@@ -4,21 +4,20 @@ import { RootState } from '../../store';
 
 export const selectTicketsStore = (state: RootState) => select(state)?.tickets;
 
+export const selectTickets = (state: RootState) => selectTicketsStore(state)?.tickets;
+
+export const selectSelectedTicket = (state: RootState) => selectTicketsStore(state)?.selectedTicket;
+
 export const selectTicketsCircleSelector = (state: RootState) => {
+  const tickets = selectTickets(state);
   const mapFile = selectSelectedDateMap(state);
-  if (!mapFile?.seats) {
-    return [];
-  }
-
-  const { tickets } = selectTicketsStore(state);
-  const { seats: _seats } = mapFile;
-
   const ticketIds = tickets?.map((ticket) => ticket.uid);
-  if (!ticketIds) {
-    return [];
-  }
 
-  const circle = _seats.filter((seat) => ticketIds.includes(seat.uid));
+  if (!mapFile?.seats) return [];
+  if (!ticketIds) return [];
+
+  const { seats } = mapFile;
+  const circle = seats.filter((seat) => ticketIds.includes(seat.uid));
 
   return tickets?.map((ticket) => ({ ...ticket, circle: circle.find((c) => c.uid === ticket.uid) }));
 };

@@ -45,12 +45,10 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchEventsAsync.fulfilled, (state, action) => {
-      state.status = StatusLoading.success;
       state.events = action.payload;
     });
 
     builder.addCase(getEventAsync.fulfilled, (state, action) => {
-      state.status = StatusLoading.success;
       state.event = action.payload;
       state.eventState = action.payload;
     });
@@ -82,7 +80,6 @@ const slice = createSlice({
           `${eventsScope}/saveTemplateEventAsync/fulfilled`,
         ].includes(type),
       (state, action: PayloadAction<IEvent>) => {
-        state.status = StatusLoading.success;
         state.event = action.payload;
         state.eventState = action.payload;
       },
@@ -92,6 +89,12 @@ const slice = createSlice({
       ({ type }) => type.startsWith(eventsScope) && type.endsWith('/pending'),
       (state) => {
         state.status = StatusLoading.loading;
+      },
+    );
+    builder.addMatcher(
+      ({ type }) => type.startsWith(eventsScope) && type.endsWith('/fulfilled'),
+      (state) => {
+        state.status = StatusLoading.success;
       },
     );
     builder.addMatcher(

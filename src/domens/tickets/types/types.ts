@@ -1,3 +1,5 @@
+export const ticketsScope = 'tickets' as const;
+
 // todo: нужно рассчитывать максимальное приближение исходя из размеров карты
 export const maxScale = 0.85 as const;
 

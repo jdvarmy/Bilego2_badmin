@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { TicketType } from '../../../../typings/enum';
-import { AppDispatch } from '../../../store';
-import { setTickets } from '../../store/ticketsSlice';
+import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
+import { useAppDispatch } from '../../../store';
+import { ticketsActions } from '../../store/ticketsSlice';
 import { getTicketsAsync } from '../../store/ticketsThunk';
 import TicketMap from '../TicketMap/TicketMap';
 import TicketSimple from '../TicketSimple/TicketSimple';
@@ -15,18 +15,20 @@ type Props = {
 };
 
 const TicketsContent = ({ type, selectedDateUid }: Props) => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const actionsTickets = useActionCreators(ticketsActions);
 
   useEffect(() => {
     if (!type || !selectedDateUid) {
       return;
     }
 
-    dispatch(getTicketsAsync(selectedDateUid));
+    dispatch(getTicketsAsync({ dateUid: selectedDateUid }));
+
     return () => {
-      dispatch(setTickets(null));
+      actionsTickets.setTickets(null);
     };
-  }, [selectedDateUid, type, dispatch]);
+  }, [selectedDateUid, type, dispatch, actionsTickets]);
 
   return <Box sx={{ mx: '-16px' }}>{type === TicketType.map ? <TicketMap /> : <TicketSimple />}</Box>;
 };

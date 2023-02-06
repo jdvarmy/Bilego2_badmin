@@ -4,15 +4,15 @@ import { useSelector } from 'react-redux';
 
 import { IEvent } from '../../../typings/types';
 import cloneDeep from '../../../utils/helpers/cloneDeep';
-import { cellCity } from '../../../utils/table/cell/cellCity';
-import { cellDelete } from '../../../utils/table/cell/cellDelete';
-import { cellEventDates } from '../../../utils/table/cell/cellEventDates';
-import { cellEventManager } from '../../../utils/table/cell/cellEventManager';
-import { cellIsSlider } from '../../../utils/table/cell/cellIsSlider';
-import { cellStatus } from '../../../utils/table/cell/cellStatus';
-import { cellTitle } from '../../../utils/table/cell/cellTitle';
 import { useAppDispatch } from '../../store';
 import { RenderDeleteItem } from '../components/EventsTable/RenderDeleteItem';
+import { cellCity } from '../components/EventsTable/cell/cellCity';
+import { cellDelete } from '../components/EventsTable/cell/cellDelete';
+import { cellEventDates } from '../components/EventsTable/cell/cellEventDates';
+import { cellEventManager } from '../components/EventsTable/cell/cellEventManager';
+import { cellIsSlider } from '../components/EventsTable/cell/cellIsSlider';
+import { cellStatus } from '../components/EventsTable/cell/cellStatus';
+import { cellTitle } from '../components/EventsTable/cell/cellTitle';
 import { selectEvents } from '../store/eventsSelectors';
 import { fetchEventsAsync } from '../store/eventsThunk';
 

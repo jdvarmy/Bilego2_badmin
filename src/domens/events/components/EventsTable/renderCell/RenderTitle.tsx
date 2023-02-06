@@ -4,7 +4,7 @@ import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
 // eslint-disable-next-line react/prop-types
-export const RenderTitle = memo(({ data: { title, uid, slug } }: ICellRendererParams) => {
+export const RenderTitle = memo(function RenderTitle({ data: { uid, title, slug } }: ICellRendererParams) {
   let returnComponent;
 
   if (title && uid && slug) {
@@ -27,5 +27,3 @@ export const RenderTitle = memo(({ data: { title, uid, slug } }: ICellRendererPa
 
   return returnComponent;
 });
-
-RenderTitle.displayName = 'RenderTitle';

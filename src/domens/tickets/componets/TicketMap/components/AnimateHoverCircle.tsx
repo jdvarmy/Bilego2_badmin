@@ -2,13 +2,13 @@ import { animated, config, useTransition } from '@react-spring/konva';
 import Konva from 'konva';
 import React, { memo, useCallback } from 'react';
 import { Circle, Group, Text } from 'react-konva';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { CircleColors } from '../../../../../typings/enum';
 import { DrawCircleType } from '../../../../../typings/types';
 import { deleteHoveredCircle, setSelectedCircles } from '../../../../circleSlice/circleSlice';
 import { selectCircleStore } from '../../../../selectors';
-import { AppDispatch } from '../../../../store';
+import { useAppDispatch } from '../../../../store';
 import CircleTooltip from './CircleTooltip';
 
 import TextConfig = Konva.TextConfig;
@@ -19,7 +19,7 @@ const multiplier = 1.19;
 const textProps: TextConfig = { fontSize: 24, align: 'center', width: 100, fill: 'white', fontStyle: 'bold' };
 
 const AnimateHoverCircle = () => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { hoveredCircle } = useSelector(selectCircleStore);
 
   const transitions = useTransition(hoveredCircle, transitionConf(hoveredCircle));

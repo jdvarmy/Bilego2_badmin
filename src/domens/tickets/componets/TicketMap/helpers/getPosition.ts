@@ -1,5 +1,5 @@
-import { plusser } from '../../componets/TicketMap/TicketMap';
-import { Point, ViewBoxSizes } from '../../types/types';
+import { Point, ViewBoxSizes } from '../../../types/types';
+import { plusser } from '../TicketMap';
 
 export function getPosition(
   _x: number,

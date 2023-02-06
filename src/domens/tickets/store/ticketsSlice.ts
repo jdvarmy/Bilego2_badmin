@@ -1,25 +1,28 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
+import { StatusLoading } from '../../../typings/enum';
 import { Ticket } from '../../../typings/types';
+import { ticketsScope } from '../types/types';
+import { getTicketsAsync, saveTicketsAsync } from './ticketsThunk';
 
 type State = {
-  loading: boolean;
+  status: StatusLoading;
   tickets: Ticket[] | null;
   selectedTicket?: Ticket | null;
 };
 
 const initialState: State = {
-  loading: false,
+  status: StatusLoading.init,
   tickets: null,
   selectedTicket: null,
 };
 
-const tickets = createSlice({
+const slice = createSlice({
   initialState,
-  name: 'tickets',
+  name: ticketsScope,
   reducers: {
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.loading = action.payload;
+    setStatus: (state, action: PayloadAction<StatusLoading>) => {
+      state.status = action.payload;
     },
     setTickets: (state, action: PayloadAction<Ticket[] | null>) => {
       state.tickets = action.payload;
@@ -28,8 +31,41 @@ const tickets = createSlice({
       state.selectedTicket = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(getTicketsAsync.fulfilled, (state, action) => {
+      state.tickets = action.payload;
+    });
+    builder.addCase(saveTicketsAsync.fulfilled, (state, action) => {
+      state.tickets = action.payload;
+    });
+
+    builder.addMatcher(
+      ({ type }) =>
+        [`${ticketsScope}/getTicketsAsync/fulfilled`, `${ticketsScope}/saveTicketsAsync/fulfilled`].includes(type),
+      (state, action) => {
+        state.tickets = action.payload;
+      },
+    );
+
+    builder.addMatcher(
+      ({ type }) => type.startsWith(ticketsScope) && type.endsWith('/pending'),
+      (state) => {
+        state.status = StatusLoading.loading;
+      },
+    );
+    builder.addMatcher(
+      ({ type }) => type.startsWith(ticketsScope) && type.endsWith('/fulfilled'),
+      (state) => {
+        state.status = StatusLoading.success;
+      },
+    );
+    builder.addMatcher(
+      ({ type }) => type.startsWith(ticketsScope) && type.endsWith('/rejected'),
+      (state) => {
+        state.status = StatusLoading.error;
+      },
+    );
+  },
 });
 
-export const { setLoading, setTickets, setSelectedTicket } = tickets.actions;
-
-export default tickets.reducer;
+export const { actions: ticketsActions, reducer: ticketsReducer } = slice;

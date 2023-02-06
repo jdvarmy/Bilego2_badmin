@@ -1,7 +1,7 @@
 import { ColDef } from 'ag-grid-community';
 
 import { Taxonomy } from '../../../typings/types';
-import { cellDelete } from '../../../utils/table/cell/cellDelete';
+import { cellDelete } from '../../events/components/EventsTable/cell/cellDelete';
 import { RenderCheckbox } from '../components/RenderCheckbox';
 import { RenderDeleteItem } from '../components/RenderDeleteItem';
 import { RenderImage } from '../components/RenderImage';

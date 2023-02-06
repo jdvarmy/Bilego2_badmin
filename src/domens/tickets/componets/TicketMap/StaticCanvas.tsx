@@ -5,8 +5,8 @@ import { useDispatch } from 'react-redux';
 import { MapFile } from '../../../../typings/types';
 import { deleteHoveredCircle } from '../../../circleSlice/circleSlice';
 import { AppDispatch } from '../../../store';
-import DrawCircle from './elements/DrawCircle';
-import DrawPath from './elements/DrawPath';
+import DrawCircle from './components/DrawCircle';
+import DrawPath from './components/DrawPath';
 
 type Props = {
   data?: MapFile;

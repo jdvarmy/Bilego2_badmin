@@ -1,43 +1,44 @@
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import HighlightOffTwoToneIcon from '@mui/icons-material/HighlightOffTwoTone';
 import { Box, IconButton, Tooltip } from '@mui/material';
+import { ICellRendererParams } from 'ag-grid-community';
 import React, { useCallback, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { AppDispatch } from '../../../store';
-import TicketControlDeleteTicketButton from '../../componets/TicketControls/TicketControlDeleteTicketButton';
-import { selectTicketsStore } from '../../store/ticketsSelectors';
-import { setSelectedTicket } from '../../store/ticketsSlice';
+import { useActionCreators } from '../../../../../../utils/hooks/useActionCreators';
+import { selectTicketsStore } from '../../../../store/ticketsSelectors';
+import { ticketsActions } from '../../../../store/ticketsSlice';
+import TicketControlDeleteTicketButton from '../../../TicketControls/TicketControlDeleteTicketButton';
 
-export const LocalActions = (uid: string) => {
-  const dispatch: AppDispatch = useDispatch();
+export const RenderTicketManagement = ({ data: { uid } }: ICellRendererParams) => {
+  const actionsEvents = useActionCreators(ticketsActions);
   const { tickets, selectedTicket } = useSelector(selectTicketsStore);
 
   const editingTicket = useMemo(() => tickets?.find((t) => t.uid === uid) ?? null, [tickets, uid]);
   const isCurrentEditingTicket = useMemo(() => selectedTicket?.uid === uid, [selectedTicket?.uid, uid]);
 
   const handleEdit = useCallback(() => {
-    dispatch(setSelectedTicket(editingTicket));
-  }, [editingTicket, dispatch]);
+    actionsEvents.setSelectedTicket(editingTicket);
+  }, [actionsEvents, editingTicket]);
   const handleCancel = useCallback(() => {
-    dispatch(setSelectedTicket(null));
-  }, [dispatch]);
+    actionsEvents.setSelectedTicket(null);
+  }, [actionsEvents]);
 
   if (!uid) {
     return 'Нет идентификатора';
   }
 
   return (
-    <Box sx={{ justifyContent: 'flex-end' }}>
+    <Box>
       {isCurrentEditingTicket ? (
         <Tooltip arrow placement='top' title='Отменить редактирование билета'>
-          <IconButton sx={{ p: 0, m: 0, mr: 1 }} color='secondary' onClick={handleCancel}>
+          <IconButton color='secondary' onClick={handleCancel}>
             <HighlightOffTwoToneIcon fontSize='small' />
           </IconButton>
         </Tooltip>
       ) : (
         <Tooltip arrow placement='top' title='Редактировать билет'>
-          <IconButton sx={{ p: 0, m: 0, mr: 1 }} color='warning' onClick={handleEdit}>
+          <IconButton color='warning' onClick={handleEdit}>
             <EditTwoToneIcon fontSize='small' />
           </IconButton>
         </Tooltip>

@@ -1,7 +1,7 @@
 import Konva from 'konva';
 
-import { Point, ViewBoxSizes } from '../../types/types';
-import { maxScale } from '../../types/types';
+import { Point, ViewBoxSizes } from '../../../types/types';
+import { maxScale } from '../../../types/types';
 import { getPosition } from './getPosition';
 
 import KonvaEventObject = Konva.KonvaEventObject;

@@ -1,78 +1,96 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import { TicketType } from '../../../typings/enum';
 import { Ticket, TicketOnSell } from '../../../typings/types';
-import { addAlertWorker, addErrorAlertWorker } from '../../alert/store/workers';
+import { addAlertErrorAsync, addAlertSuccessAsync } from '../../alert/store/alertThunk';
 import { ServerErrorStatus } from '../../alert/types/types';
-import { AppThunk } from '../../store';
+import { selectEventDateSelectedUid } from '../../eventDates/store/eventDatesSelectors';
+import { selectCircleStore } from '../../selectors';
+import { RootState } from '../../store';
 import { deleteTicketsRequest, fetchTicketsRequest, saveTicketsRequest } from '../api/ticketsRequest';
-import { setLoading, setTickets } from './ticketsSlice';
+import { ticketsScope } from '../types/types';
 
-export const getTicketsAsync =
-  (dateUid: string): AppThunk =>
-  async (dispatch) => {
-    dispatch(setLoading(true));
-
+export const getTicketsAsync = createAsyncThunk(
+  `${ticketsScope}/getTicketsAsync`,
+  async ({ dateUid }: { dateUid: string }, { dispatch, rejectWithValue }) => {
     try {
       const { data } = await fetchTicketsRequest(dateUid);
-      dispatch(setTickets(data));
-    } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerErrorStatus));
-    } finally {
-      dispatch(setLoading(false));
+
+      return data;
+    } catch (error) {
+      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      return rejectWithValue(error);
     }
-  };
+  },
+);
 
-export const saveTicketsAsync =
-  (reqType: 'edit' | 'save', dateUid: string, ticket: Ticket, sell: TicketOnSell[]): AppThunk =>
-  async (dispatch, getState) => {
-    dispatch(setLoading(true));
-    const { selectedCircles } = getState().circle;
+export const saveTicketsAsync = createAsyncThunk(
+  `${ticketsScope}/saveTicketsAsync`,
+  async (
+    data: { reqType: 'edit' | 'save'; dateUid: string; ticket: Ticket; sell: TicketOnSell[] },
+    { dispatch, getState, rejectWithValue },
+  ) => {
+    const { reqType, dateUid, ticket, sell } = data;
+    const { selectedCircles } = selectCircleStore(getState() as RootState);
 
-    let tickets = [] as Ticket[];
+    const tickets: Ticket[] = [];
     // обработка билетов с карты клуба
-    if (ticket.type === TicketType.map && selectedCircles) {
-      selectedCircles.forEach(({ uid, seat, row, sector }) => {
-        tickets.push({
-          ...ticket,
-          uid,
-          // здесь приоритет имеет то что ввел юзер в форме, вдруг юзер захочет изменить название у сектора билета, например
-          seat: ticket.seat ?? seat,
-          row: ticket.row ?? row,
-          sector: ticket.sector ?? sector,
+    switch (ticket.type) {
+      case TicketType.map:
+        if (!selectedCircles) {
+          return;
+        }
+
+        selectedCircles.forEach(({ uid, seat, row, sector }) => {
+          tickets.push({
+            ...ticket,
+            uid,
+            // здесь приоритет имеет то что ввел юзер в форме, вдруг юзер захочет изменить название у сектора билета, например
+            seat: ticket.seat ?? seat,
+            row: ticket.row ?? row,
+            sector: ticket.sector ?? sector,
+          });
         });
-      });
-    } else {
-      // обработка обычных билетов, без карты
-      tickets = [ticket];
+
+        break;
+      case TicketType.simple:
+        tickets.push(ticket);
+        break;
+    }
+
+    if (!tickets.length) {
+      return;
     }
 
     try {
       const { data } = await saveTicketsRequest(reqType, dateUid, { tickets, sell });
-      dispatch(addAlertWorker({ severity: 'success', title: 'Сохранено', text: 'Билеты успешно сохранены!' }));
-      dispatch(setTickets(data));
-    } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerErrorStatus));
-    } finally {
-      dispatch(setLoading(false));
-    }
-  };
+      dispatch(addAlertSuccessAsync({ title: 'Сохранено', text: 'Билеты успешно сохранены!' }));
 
-export const deleteTicketsAsync =
-  (ticketsUid: string[]): AppThunk =>
-  async (dispatch, getState) => {
-    const dateUid = getState().eventDates.selectedDateUid;
+      return data;
+    } catch (error) {
+      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const deleteTicketsAsync = createAsyncThunk(
+  `${ticketsScope}/deleteTicketsAsync`,
+  async ({ ticketsUid }: { ticketsUid: string[] }, { dispatch, getState, rejectWithValue }) => {
+    const dateUid = selectEventDateSelectedUid(getState() as RootState);
     if (!dateUid) {
       return;
     }
-
-    dispatch(setLoading(true));
-
     try {
-      await deleteTicketsRequest(dateUid, ticketsUid);
-      dispatch(addAlertWorker({ severity: 'success', title: 'Удалено', text: 'Билеты успешно удалены!' }));
-      dispatch(getTicketsAsync(dateUid));
-    } catch (e) {
-      dispatch(addErrorAlertWorker(e as ServerErrorStatus));
-    } finally {
-      dispatch(setLoading(false));
+      const { data } = await deleteTicketsRequest(dateUid, ticketsUid);
+
+      if (Array.isArray(data) && data.length) {
+        dispatch(addAlertSuccessAsync({ title: 'Удалено', text: 'Билеты успешно удалены!' }));
+        dispatch(getTicketsAsync({ dateUid }));
+      }
+    } catch (error) {
+      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      return rejectWithValue(error);
     }
-  };
+  },
+);

@@ -12,7 +12,7 @@ import itemsSlice from './itemsSlice/itemsSlice';
 import medialibrarySlice from './medialibrarySlice/medialibrarySlice';
 import sidebarSlice from './sidebarSlice/sidebarSlice';
 import taxonomySlice from './taxonomy/store/taxonomySlice';
-import ticketsSlice from './tickets/store/ticketsSlice';
+import { ticketsReducer } from './tickets/store/ticketsSlice';
 import usersSlice from './users/usersSlice';
 
 const reducer = combineReducers({
@@ -23,7 +23,7 @@ const reducer = combineReducers({
   items: itemsSlice,
   artists: artistsSlice,
   users: usersSlice,
-  tickets: ticketsSlice,
+  tickets: ticketsReducer,
   medialibrary: medialibrarySlice,
   alert: alertReducer,
   circle: circleSlice,

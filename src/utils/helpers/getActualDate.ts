@@ -1,14 +1,15 @@
 import { EventDate } from '../../domens/eventDates/types/types';
+import { TicketOnSell } from '../../typings/types';
 import cloneDeep from './cloneDeep';
 import { dateParse } from './dateParse';
 
-export const getActualDate = <T extends EventDate>(
+export const getActualDate = <T extends EventDate | TicketOnSell>(
   dates: T[],
-): { past: T[] | undefined; present: T | undefined; future: T[] | undefined; passed: boolean } => {
+): { past: T[] | undefined; present: T | undefined; future: T[] | undefined; isPassed: boolean } => {
   let past: T[] = [],
     present: T,
     future: T[] = [],
-    passed: boolean;
+    isPassed: boolean;
 
   const localTime = Date.now();
   const localDates = cloneDeep(dates) as T[];
@@ -27,18 +28,18 @@ export const getActualDate = <T extends EventDate>(
 
     future.sort((a, b) => dateParse(a.dateTo) - dateParse(b.dateTo));
     present = future.shift();
-    passed = true;
+    isPassed = true;
     if (!present) {
       past.sort((a, b) => dateParse(a.dateTo) - dateParse(b.dateTo));
       present = past.pop();
-      passed = false;
+      isPassed = false;
     }
   } else {
     past = undefined;
     present = localDates[0];
     future = undefined;
-    passed = present?.dateTo ? localTime < dateParse(present?.dateTo) : false;
+    isPassed = present?.dateTo ? localTime < dateParse(present?.dateTo) : false;
   }
 
-  return { past, present, future, passed };
+  return { past, present, future, isPassed };
 };

@@ -1,30 +1,19 @@
-import groupBy from 'lodash.groupby';
-import React, { useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { Box } from '@mui/material';
+import { AgGridReact } from 'ag-grid-react';
+import React, { useRef } from 'react';
 
-import TableGrid from '../../../../components/TableGrid/TableGrid';
-import { FactoryCols } from '../../helpers/components/FactoryCols';
-import { factoryRows } from '../../helpers/functions/factoryRows';
-import { selectTicketsStore } from '../../store/ticketsSelectors';
+import DataTable from '../../../../components/DataTable/DataTable';
+import { useTicketsTableData } from '../../hooks/useTicketsTableData';
 
 const TicketSimple = () => {
-  const { tickets } = useSelector(selectTicketsStore);
-  const [expandedGroupIds, setExpandedGroupIds] = useState<ReadonlySet<unknown>>(() => new Set<unknown>(new Set()));
+  const gridRef = useRef<AgGridReact | null>(null);
 
-  const cols = useMemo(FactoryCols, []);
-  const rows = useMemo(() => (!tickets ? [] : factoryRows(tickets)), [tickets]);
-  const rowGrouper = (rows: any, _columnKey: string): Record<string, any> => groupBy(rows, 'uid');
+  const { rowData, columnDefs } = useTicketsTableData();
 
   return (
-    <TableGrid
-      // @ts-ignore
-      columns={cols}
-      rows={rows}
-      groupBy={['name']}
-      rowGrouper={rowGrouper}
-      expandedGroupIds={expandedGroupIds}
-      onExpandedGroupIdsChange={setExpandedGroupIds}
-    />
+    <Box sx={{ height: '438px' }}>
+      <DataTable ref={gridRef} rowData={rowData} columnDefs={columnDefs} />
+    </Box>
   );
 };
 

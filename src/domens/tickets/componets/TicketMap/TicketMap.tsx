@@ -7,13 +7,13 @@ import { Provider, ReactReduxContext, useSelector } from 'react-redux';
 import { isEqual } from '../../../../utils/helpers/isEqual';
 import { useResizeObserver } from '../../../../utils/hooks/useResizeObserver';
 import { selectSelectedDateMap } from '../../../eventDates/store/eventDatesSelectors';
-import { getScale } from '../../helpers/functions/getScale';
-import { handleDrag } from '../../helpers/functions/handleDrag';
-import { handleZoom } from '../../helpers/functions/handleZoom';
-import { moveToCenter } from '../../helpers/functions/moveToCenter';
 import ActiveCanvas from './ActiveCanvas';
 import Paths from './Paths';
 import StaticCanvas from './StaticCanvas';
+import { getScale } from './helpers/getScale';
+import { handleDrag } from './helpers/handleDrag';
+import { handleZoom } from './helpers/handleZoom';
+import { moveToCenter } from './helpers/moveToCenter';
 
 import KonvaEventObject = Konva.KonvaEventObject;
 import Vector2d = Konva.Vector2d;
@@ -55,6 +55,7 @@ const TicketMap = () => {
     (pos: Vector2d) => {
       return handleDrag(containerSizes, contentSizes, refStage.current?.scaleX() ?? fitScale)(pos);
     },
+    // todo: Убрать refStage.current и проверить
     [fitScale, containerSizes, contentSizes, refStage.current],
   );
 

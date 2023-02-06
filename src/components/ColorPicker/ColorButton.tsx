@@ -1,5 +1,5 @@
-import React, { ForwardedRef, forwardRef, Dispatch, SetStateAction } from 'react';
 import { Button } from '@mui/material';
+import React, { Dispatch, ForwardedRef, SetStateAction, forwardRef } from 'react';
 
 type Props = {
   color: any;
@@ -22,7 +22,7 @@ const ColorButton = forwardRef(({ color, setOpen }: Props, ref: ForwardedRef<HTM
       fullWidth
       onClick={handleClick}
     >
-      {isColor ? 'Выберите цвет' : color}
+      {isColor ? 'Цвет' : color}
     </Button>
   );
 });

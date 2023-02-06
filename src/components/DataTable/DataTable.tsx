@@ -22,6 +22,7 @@ const DataTable = forwardRef(({ rowData, columnDefs, ...props }: Props, ref: For
     <div className='ag-theme-alpine-dark ag-theme-alpine ag-theme-admin-bilego' style={containerStyle}>
       <AgGridReact
         ref={ref}
+        rowHeight={58}
         rowData={rowData}
         columnDefs={columnDefs}
         defaultColDef={defaultColDef}

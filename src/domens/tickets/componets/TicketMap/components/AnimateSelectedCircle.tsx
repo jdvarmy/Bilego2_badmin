@@ -1,19 +1,20 @@
 import Konva from 'konva';
 import React, { useCallback } from 'react';
 import { Circle, Group } from 'react-konva';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { CircleColors } from '../../../../../typings/enum';
 import { DrawCircleType } from '../../../../../typings/types';
 import { deleteHoveredCircle, deleteSelectedCircle, setHoveredCircle } from '../../../../circleSlice/circleSlice';
 import { selectCircleStore } from '../../../../selectors';
+import { useAppDispatch } from '../../../../store';
 
 import KonvaEventObject = Konva.KonvaEventObject;
 
 const multiplier = 1.39 as const;
 
 const AnimateSelectedCircle = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { selectedCircles } = useSelector(selectCircleStore);
 
   const handleMouseEnter = useCallback((circle: DrawCircleType) => dispatch(setHoveredCircle(circle)), [dispatch]);

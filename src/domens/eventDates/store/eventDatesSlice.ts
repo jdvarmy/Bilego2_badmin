@@ -39,6 +39,12 @@ const slice = createSlice({
       },
     );
     builder.addMatcher(
+      ({ type }) => type.startsWith(eventDatesScope) && type.endsWith('/fulfilled'),
+      (state) => {
+        state.status = StatusLoading.success;
+      },
+    );
+    builder.addMatcher(
       ({ type }) => type.startsWith(eventDatesScope) && type.endsWith('/rejected'),
       (state) => {
         state.status = StatusLoading.error;

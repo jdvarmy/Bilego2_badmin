@@ -1,9 +1,9 @@
 import { ICellRendererParams } from 'ag-grid-community';
 import React, { memo } from 'react';
 
-import { StatusLabel } from '../../../UI/StatusLabel';
-import { PostStatus } from '../../../typings/enum';
-import { getPostStatusColor } from '../../helpers/getPostStatusColor';
+import { StatusLabel } from '../../../../../UI/StatusLabel';
+import { PostStatus } from '../../../../../typings/enum';
+import { getPostStatusColor } from '../../../../../utils/helpers/getPostStatusColor';
 
 const postStatusMap: Record<PostStatus, string> = {
   [PostStatus.temp]: 'временный',

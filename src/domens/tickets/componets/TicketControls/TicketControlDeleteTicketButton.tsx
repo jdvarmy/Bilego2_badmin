@@ -1,10 +1,9 @@
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import { Box, Button, Grid, IconButton, Popover, Tooltip, Typography } from '@mui/material';
 import React, { memo, useCallback, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { clearSelectedCircle } from '../../../circleSlice/circleSlice';
-import { AppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../store';
 import { deleteTicketsAsync } from '../../store/ticketsThunk';
 
 type Props = {
@@ -14,14 +13,14 @@ type Props = {
 };
 
 const TicketControlDeleteTicketButton = ({ show, ticketsUid, disabled }: Props) => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const ref = useRef<HTMLSpanElement>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const handleOpen = useCallback(() => setOpen(true), []);
   const handleClose = useCallback(() => setOpen(false), []);
   const handleDelete = useCallback(() => {
-    dispatch(deleteTicketsAsync(ticketsUid));
+    dispatch(deleteTicketsAsync({ ticketsUid }));
     dispatch(clearSelectedCircle());
     handleClose();
   }, [dispatch, ticketsUid, handleClose]);

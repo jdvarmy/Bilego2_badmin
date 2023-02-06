@@ -1,12 +1,13 @@
 import Konva from 'konva';
 import React, { memo, useCallback } from 'react';
 import { Circle, Group } from 'react-konva';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { TicketType } from '../../../../../typings/enum';
 import { DrawCircleType } from '../../../../../typings/types';
 import { getActualSell } from '../../../../../utils/helpers/getActualSell';
 import { deleteHoveredCircle, setHoveredCircle } from '../../../../circleSlice/circleSlice';
+import { useAppDispatch } from '../../../../store';
 import { selectTicketsCircleSelector } from '../../../store/ticketsSelectors';
 
 import KonvaEventObject = Konva.KonvaEventObject;
@@ -14,7 +15,7 @@ import KonvaEventObject = Konva.KonvaEventObject;
 const multiplier = 1.19 as const;
 
 const AnimateTicketsCircle = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const tickets = useSelector(selectTicketsCircleSelector);
 
   const handleMouseEnter = useCallback((circle: DrawCircleType) => dispatch(setHoveredCircle(circle)), [dispatch]);

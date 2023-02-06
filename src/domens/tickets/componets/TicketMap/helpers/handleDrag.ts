@@ -1,6 +1,6 @@
 import Konva from 'konva';
 
-import { ViewBoxSizes } from '../../types/types';
+import { ViewBoxSizes } from '../../../types/types';
 import { getPosition } from './getPosition';
 
 import Vector2d = Konva.Vector2d;

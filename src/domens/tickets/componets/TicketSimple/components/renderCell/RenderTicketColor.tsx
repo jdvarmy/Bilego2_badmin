@@ -10,7 +10,7 @@ export const RenderTicketColor = memo(({ data: { sell } }: ICellRendererParams) 
   return (
     <Box
       sx={{
-        backgroundColor: actualSell.color,
+        backgroundColor: actualSell?.color,
         overflow: 'hidden',
         borderRadius: '1rem',
         height: '25px',

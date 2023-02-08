@@ -1,6 +1,6 @@
 import { ColDef } from 'ag-grid-community';
 
-import { RenderTicketColor } from './RenderTicketColor';
+import { RenderTicketColor } from '../renderCell/RenderTicketColor';
 
 export function cellTicketColor<T>(props: ColDef<T>): ColDef<T> {
   return {

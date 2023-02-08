@@ -40,7 +40,7 @@ export function useTicketsTableData(): { rowData: Ticket[]; columnDefs: ColDef<T
     if (['uid'].includes(column)) columns.hide = true;
     if (['name'].includes(column)) columns.width = 282;
     if (['description'].includes(column)) columns.flex = 1;
-    if (['stock'].includes(column)) columns.width = 98;
+    if (['stock'].includes(column)) columns.width = 88;
 
     if (['color'].includes(column)) {
       return cellTicketColor(columns);

@@ -77,6 +77,7 @@ export const saveTaxonomyMediaAsync =
     }
   };
 
+// см пример в удалении события
 export const deleteTaxonomyAsync =
   (id: Key): AppThunk =>
   async (dispatch, getState) => {

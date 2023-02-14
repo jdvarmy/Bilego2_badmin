@@ -44,6 +44,7 @@ const slice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // Работаем с событиями
     builder.addCase(fetchEventsAsync.fulfilled, (state, action) => {
       state.events = action.payload;
     });
@@ -72,6 +73,7 @@ const slice = createSlice({
       return undefined;
     });
 
+    // Помошники
     builder.addMatcher(
       ({ type }) =>
         [

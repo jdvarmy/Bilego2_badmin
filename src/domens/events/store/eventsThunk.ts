@@ -3,8 +3,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IEvent } from '../../../typings/types';
 import { addAlertErrorAsync, addAlertSuccessAsync } from '../../alert/store/alertThunk';
 import { ServerErrorStatus } from '../../alert/types/types';
-import { AppThunk, RootState } from '../../store';
+import { RootState } from '../../store';
 import {
+  deleteEventRequest,
   fetchEventsRequest,
   getEventRequest,
   patchEventRequest,
@@ -91,10 +92,16 @@ export const editEventAsync = createAsyncThunk(
   },
 );
 
-// todo:
-export const deleteEventAsync =
-  (uid: string): AppThunk =>
-  async () => {
-    // todo: сделать метод удаления события
-    console.log(uid);
-  };
+export const deleteEventAsync = createAsyncThunk(
+  `${eventsScope}/deleteEventAsync`,
+  async (uid: string, { dispatch, rejectWithValue }) => {
+    try {
+      await deleteEventRequest(uid);
+
+      dispatch(fetchEventsAsync());
+    } catch (error) {
+      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      return rejectWithValue(error);
+    }
+  },
+);

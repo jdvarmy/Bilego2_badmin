@@ -16,7 +16,7 @@ type Props = {
 
 const TicketsContent = ({ type, selectedDateUid }: Props) => {
   const dispatch = useAppDispatch();
-  const actionsTickets = useActionCreators(ticketsActions);
+  const actions = useActionCreators(ticketsActions);
 
   useEffect(() => {
     if (!type || !selectedDateUid) {
@@ -26,9 +26,9 @@ const TicketsContent = ({ type, selectedDateUid }: Props) => {
     dispatch(getTicketsAsync({ dateUid: selectedDateUid }));
 
     return () => {
-      actionsTickets.setTickets(null);
+      actions.setTickets(null);
     };
-  }, [selectedDateUid, type, dispatch, actionsTickets]);
+  }, [selectedDateUid, type, dispatch, actions]);
 
   return <Box sx={{ mx: '-16px' }}>{type === TicketType.map ? <TicketMap /> : <TicketSimple />}</Box>;
 };

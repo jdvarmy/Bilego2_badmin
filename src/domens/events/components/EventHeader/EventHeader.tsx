@@ -20,12 +20,12 @@ type Props = {
 };
 
 const EventHeader = ({ type }: Props) => {
-  const actionsEvents = useActionCreators(eventsActions);
+  const actions = useActionCreators(eventsActions);
 
   console.log('render EventHeader');
 
   const handleChangeTab = (_: SyntheticEvent, newValue: EventHeaderType) => {
-    actionsEvents.setEventStateField({ headerType: newValue });
+    actions.setEventStateField({ headerType: newValue });
   };
 
   return (

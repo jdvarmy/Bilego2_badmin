@@ -21,7 +21,7 @@ export const pickerProps = {
 };
 
 const EventDatesTabContent = ({ selectDate, dates }: Props) => {
-  const actionsEvents = useActionCreators(eventsActions);
+  const actions = useActionCreators(eventsActions);
 
   if (!selectDate) {
     return null;
@@ -37,7 +37,7 @@ const EventDatesTabContent = ({ selectDate, dates }: Props) => {
         return d;
       });
 
-      actionsEvents.setEventStateField({ eventDates });
+      actions.setEventStateField({ eventDates });
     };
   const handleCopyStartDate = () => {
     const eventDates = dates?.map((d) => {
@@ -48,7 +48,7 @@ const EventDatesTabContent = ({ selectDate, dates }: Props) => {
       return d;
     });
 
-    actionsEvents.setEventStateField({ eventDates });
+    actions.setEventStateField({ eventDates });
   };
 
   return (

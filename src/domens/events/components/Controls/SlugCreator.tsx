@@ -18,7 +18,7 @@ type Props = {
 
 export const SlugCreator = memo(function EventSlugCreator({ uid, slug }: Props) {
   const dispatch = useAppDispatch();
-  const actionsEvents = useActionCreators(eventsActions);
+  const actions = useActionCreators(eventsActions);
   const params = useLocalSearchParams();
   const [, setSearchParams] = useSearchParams();
 
@@ -47,7 +47,7 @@ export const SlugCreator = memo(function EventSlugCreator({ uid, slug }: Props) 
       const cyrillicToTranslit = new CyrillicToTranslit();
       const updatedSlug = cyrillicToTranslit.transform(localSlug, '-').toLowerCase();
 
-      actionsEvents.setEventStateField({ slug: updatedSlug });
+      actions.setEventStateField({ slug: updatedSlug });
       setSearchParams({ ...params, slug: updatedSlug });
       dispatch(editEventAsync({ uid, slug: updatedSlug }));
     }

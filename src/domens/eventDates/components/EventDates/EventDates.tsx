@@ -26,14 +26,14 @@ type Props = {
 
 const EventDates = ({ uid, dates }: Props) => {
   const dispatch = useAppDispatch();
-  const actionsEvents = useActionCreators(eventsActions);
-  const actionsEventDates = useActionCreators(eventDatesActions);
+  const actionsCreatorEvents = useActionCreators(eventsActions);
+  const actionsCreatorEventDates = useActionCreators(eventDatesActions);
   const selectedDateUid = useSelector(selectEventDateSelectedUid);
 
   console.log('render EventDates');
 
   const handleChangeTab = (_: SyntheticEvent, newValue: string) => {
-    actionsEventDates.setSelectedDateUid(newValue);
+    actionsCreatorEventDates.setSelectedDateUid(newValue);
   };
   const handleAddTab = () => {
     if (uid) {
@@ -44,14 +44,14 @@ const EventDates = ({ uid, dates }: Props) => {
     if (selectedDateUid && uid && dates) {
       const localDates = dates.filter((d) => d.uid !== selectedDateUid);
       dispatch(deleteEventDateAsync({ uid: selectedDateUid, eventUid: uid }));
-      actionsEvents.setEventStateField({ eventDates: localDates });
-      actionsEventDates.setSelectedDateUid(localDates.at(-1)?.uid ?? undefined);
+      actionsCreatorEvents.setEventStateField({ eventDates: localDates });
+      actionsCreatorEventDates.setSelectedDateUid(localDates.at(-1)?.uid ?? undefined);
     }
   };
 
   useEffect(() => {
-    actionsEventDates.setSelectedDateUid(Array.isArray(dates) ? dates.at(-1)?.uid : undefined);
-  }, [actionsEventDates]);
+    actionsCreatorEventDates.setSelectedDateUid(Array.isArray(dates) ? dates.at(-1)?.uid : undefined);
+  }, [actionsCreatorEventDates]);
 
   return (
     <Card>

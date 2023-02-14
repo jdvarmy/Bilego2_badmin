@@ -19,12 +19,14 @@ const formatterTime = new Intl.DateTimeFormat('ru', {
 export function localFormatterFunc({ dateFrom, dateTo }: EventDate | TicketOnSell) {
   const formattedDate: { date: string | undefined; time: string | undefined } = { date: undefined, time: undefined };
 
-  if (dateFrom && dateTo) {
-    const _dateFrom = formatterDate.format(new Date(dateFrom));
-    const _dateTo = formatterDate.format(new Date(dateTo));
-    const _timeFrom = formatterTime.format(new Date(dateFrom));
-    const _timeTo = formatterTime.format(new Date(dateTo));
+  const from = dateFrom ? new Date(dateFrom) : undefined;
+  const to = dateTo ? new Date(dateTo) : undefined;
+  const _dateFrom = from ? formatterDate.format(from) : undefined;
+  const _dateTo = to ? formatterDate.format(to) : undefined;
+  const _timeFrom = from ? formatterTime.format(from) : undefined;
+  const _timeTo = to ? formatterTime.format(to) : undefined;
 
+  if (dateFrom && dateTo) {
     if (_dateFrom === _dateTo) {
       formattedDate.date = `${_dateTo}`;
 
@@ -32,6 +34,10 @@ export function localFormatterFunc({ dateFrom, dateTo }: EventDate | TicketOnSel
     } else {
       formattedDate.date = `${_dateFrom} ${_timeFrom} - ${_dateTo} ${_timeTo}`;
     }
+  } else if (dateFrom && !dateTo) {
+    formattedDate.date = `c ${_dateFrom} ${_timeFrom}`;
+  } else if (!dateFrom && dateTo) {
+    formattedDate.date = `по ${_dateTo} ${_timeTo}`;
   }
 
   return formattedDate;

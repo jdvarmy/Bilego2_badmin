@@ -18,9 +18,16 @@ type Props = {
   clearFc: () => void;
 };
 
-const TicketControlsSaveTicketButton = ({ isEdit, dateUid, ticketData, sellData, disabled, clearFc }: Props) => {
+export const TicketControlsSaveTicketButton = memo(function TicketControlsSaveTicketButton({
+  isEdit,
+  dateUid,
+  ticketData,
+  sellData,
+  disabled,
+  clearFc,
+}: Props) {
   const dispatch = useAppDispatch();
-  const actionsTickets = useActionCreators(ticketsActions);
+  const actions = useActionCreators(ticketsActions);
 
   const title = useMemo(
     () =>
@@ -43,7 +50,7 @@ const TicketControlsSaveTicketButton = ({ isEdit, dateUid, ticketData, sellData,
         sell: sellData,
       }),
     );
-    actionsTickets.setSelectedTicket(null);
+    actions.setSelectedTicket(null);
     dispatch(clearSelectedCircle());
     clearFc();
   };
@@ -57,6 +64,4 @@ const TicketControlsSaveTicketButton = ({ isEdit, dateUid, ticketData, sellData,
       </span>
     </Tooltip>
   );
-};
-
-export default memo(TicketControlsSaveTicketButton);
+});

@@ -14,7 +14,7 @@ import { eventsActions } from '../../store/eventsSlice';
 import { MediaDisplay } from './MediaDisplay';
 
 export const EventHeaderImage = () => {
-  const actionsEvents = useActionCreators(eventsActions);
+  const actions = useActionCreators(eventsActions);
   const { headerImage, headerText, headerTextColor } = useSelector(selectEventStateHeaderImageData, isEqual);
 
   const handleChangeImage = useChangeFnMediaEventField('headerImage');
@@ -24,11 +24,11 @@ export const EventHeaderImage = () => {
     (name: string, field: string, event: React.ChangeEvent<HTMLInputElement>) => {
       const prev = 'headerText' === name ? JSON.parse(headerText) : JSON.parse(headerTextColor);
 
-      actionsEvents.setEventStateField({
+      actions.setEventStateField({
         [name]: JSON.stringify({ ...prev, [field]: event.target.value }),
       });
     },
-    [actionsEvents, headerText, headerTextColor],
+    [actions, headerText, headerTextColor],
   );
 
   const throttleHandleChange = useThrottle(handleChange);

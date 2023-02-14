@@ -1,10 +1,10 @@
+import { ActionCreatorsMapObject, bindActionCreators } from '@reduxjs/toolkit';
 import { useMemo } from 'react';
-import { ActionCreatorsMapObject, bindActionCreators } from 'redux';
 
 import { useAppDispatch } from '../../domens/store';
 
-export const useActionCreators = (actions: ActionCreatorsMapObject) => {
+export const useActionCreators = (actionsObject: ActionCreatorsMapObject) => {
   const dispatch = useAppDispatch();
 
-  return useMemo(() => bindActionCreators(actions, dispatch), [dispatch]);
+  return useMemo(() => bindActionCreators(actionsObject, dispatch), [dispatch]);
 };

@@ -7,9 +7,9 @@ import { TicketType } from '../../../../typings/enum';
 import { Ticket, TicketOnSell } from '../../../../typings/types';
 import { selectSelectedCircles } from '../../../selectors';
 import { selectSelectedTicket } from '../../store/ticketsSelectors';
-import TicketControlDeleteTicketMapButton from './TicketControlDeleteTicketButton';
-import TicketControlTicketOnSell from './TicketControlTicketOnSell';
-import TicketControlsSaveTicketButton from './TicketControlsSaveTicketButton';
+import { TicketControlDeleteTicketButton } from './TicketControlDeleteTicketButton';
+import { TicketControlTicketOnSell } from './TicketControlTicketOnSell';
+import { TicketControlsSaveTicketButton } from './TicketControlsSaveTicketButton';
 import TicketControlsTicketName from './TicketControlsTicketName';
 
 type Props = {
@@ -76,7 +76,7 @@ const TicketControls = ({ type, dateUid }: Props) => {
         />
       </Grid>
       <Grid item xs={3} container direction='row' wrap='nowrap' justifyContent='flex-end' alignItems='center'>
-        <TicketControlDeleteTicketMapButton
+        <TicketControlDeleteTicketButton
           show={type === TicketType.map}
           ticketsUid={ticketsToDelete}
           disabled={!disabledDeleteButton}

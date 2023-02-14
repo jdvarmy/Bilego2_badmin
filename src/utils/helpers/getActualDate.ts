@@ -14,12 +14,13 @@ export const getActualDate = <T extends EventDate | TicketOnSell>(
   const localTime = Date.now();
   const localDates = cloneDeep(dates) as T[];
 
-  if (localDates.length > 1) {
+  if (localDates.length > 0) {
     while (localDates.length) {
       const date = localDates.shift();
+      const timeFrom = dateParse(date.dateFrom);
       const timeTo = dateParse(date.dateTo);
 
-      if (localTime > timeTo) {
+      if (localTime > timeTo && (date.dateFrom ? localTime < timeFrom : true)) {
         past.push(date);
       } else {
         future.push(date);

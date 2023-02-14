@@ -2,8 +2,10 @@ import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import { Box, Button, Grid, IconButton, Popover, Tooltip, Typography } from '@mui/material';
 import React, { memo, useCallback, useRef, useState } from 'react';
 
+import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { clearSelectedCircle } from '../../../circleSlice/circleSlice';
 import { useAppDispatch } from '../../../store';
+import { ticketsActions } from '../../store/ticketsSlice';
 import { deleteTicketsAsync } from '../../store/ticketsThunk';
 
 type Props = {
@@ -12,8 +14,13 @@ type Props = {
   ticketsUid: string[];
 };
 
-const TicketControlDeleteTicketButton = ({ show, ticketsUid, disabled }: Props) => {
+export const TicketControlDeleteTicketButton = memo(function TicketControlDeleteTicketButton({
+  show,
+  ticketsUid,
+  disabled,
+}: Props) {
   const dispatch = useAppDispatch();
+  const actions = useActionCreators(ticketsActions);
   const ref = useRef<HTMLSpanElement>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
 
@@ -22,8 +29,9 @@ const TicketControlDeleteTicketButton = ({ show, ticketsUid, disabled }: Props) 
   const handleDelete = useCallback(() => {
     dispatch(deleteTicketsAsync({ ticketsUid }));
     dispatch(clearSelectedCircle());
+    actions.setSelectedTicket(null);
     handleClose();
-  }, [dispatch, ticketsUid, handleClose]);
+  }, [dispatch, ticketsUid, actions, handleClose]);
 
   if (!show) {
     return null;
@@ -65,6 +73,4 @@ const TicketControlDeleteTicketButton = ({ show, ticketsUid, disabled }: Props) 
       </Popover>
     </>
   );
-};
-
-export default memo(TicketControlDeleteTicketButton);
+});

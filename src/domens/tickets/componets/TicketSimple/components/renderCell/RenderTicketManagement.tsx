@@ -8,21 +8,21 @@ import { useSelector } from 'react-redux';
 import { useActionCreators } from '../../../../../../utils/hooks/useActionCreators';
 import { selectTicketsStore } from '../../../../store/ticketsSelectors';
 import { ticketsActions } from '../../../../store/ticketsSlice';
-import TicketControlDeleteTicketButton from '../../../TicketControls/TicketControlDeleteTicketButton';
+import { TicketControlDeleteTicketButton } from '../../../TicketControls/TicketControlDeleteTicketButton';
 
 export const RenderTicketManagement = ({ data: { uid } }: ICellRendererParams) => {
-  const actionsEvents = useActionCreators(ticketsActions);
+  const actions = useActionCreators(ticketsActions);
   const { tickets, selectedTicket } = useSelector(selectTicketsStore);
 
   const editingTicket = useMemo(() => tickets?.find((t) => t.uid === uid) ?? null, [tickets, uid]);
   const isCurrentEditingTicket = useMemo(() => selectedTicket?.uid === uid, [selectedTicket?.uid, uid]);
 
   const handleEdit = useCallback(() => {
-    actionsEvents.setSelectedTicket(editingTicket);
-  }, [actionsEvents, editingTicket]);
+    actions.setSelectedTicket(editingTicket);
+  }, [actions, editingTicket]);
   const handleCancel = useCallback(() => {
-    actionsEvents.setSelectedTicket(null);
-  }, [actionsEvents]);
+    actions.setSelectedTicket(null);
+  }, [actions]);
 
   if (!uid) {
     return 'Нет идентификатора';

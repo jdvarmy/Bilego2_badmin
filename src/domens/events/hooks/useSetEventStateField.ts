@@ -5,7 +5,7 @@ import { useActionCreators } from '../../../utils/hooks/useActionCreators';
 import { eventsActions } from '../store/eventsSlice';
 
 export function useSetEventStateField(field: keyof IEvent) {
-  const actionsEvents = useActionCreators(eventsActions);
+  const actions = useActionCreators(eventsActions);
 
-  return useCallback((value: any) => actionsEvents.setEventStateField({ [field]: value }), [actionsEvents, field]);
+  return useCallback((value: any) => actions.setEventStateField({ [field]: value }), [actions, field]);
 }

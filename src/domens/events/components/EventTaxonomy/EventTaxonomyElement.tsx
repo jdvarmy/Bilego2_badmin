@@ -23,7 +23,7 @@ export const EventTaxonomyElement = memo(function EventTaxonomyElement<T extends
   stateTaxonomy,
 }: Props<T>) {
   const dispatch = useAppDispatch();
-  const actionsEvents = useActionCreators(eventsActions);
+  const actions = useActionCreators(eventsActions);
   const taxonomy = useStateSelector((state) => selectEvent(state).taxonomy);
   const [localTax, setLocalTax] = useState<IEvent['taxonomy']>(() => taxonomies);
 
@@ -33,11 +33,11 @@ export const EventTaxonomyElement = memo(function EventTaxonomyElement<T extends
     (event: ChangeEventFieldType) => {
       const filterTax = (stateTaxonomy || []).filter((tax) => tax.type !== type);
 
-      actionsEvents.setEventStateField({
+      actions.setEventStateField({
         taxonomy: [...filterTax, ...(event.target.value as []).map((value) => JSON.parse(value))],
       });
     },
-    [actionsEvents, stateTaxonomy, type],
+    [actions, stateTaxonomy, type],
   );
 
   const handleSaveEventTaxonomy = useCallback(() => {

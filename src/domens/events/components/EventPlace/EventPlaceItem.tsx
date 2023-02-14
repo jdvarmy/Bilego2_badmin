@@ -18,7 +18,7 @@ type Props = {
 
 export const EventPlaceItem = memo(function EventPlaceItem({ item, city }: Props) {
   const dispatch = useAppDispatch();
-  const actionsEvents = useActionCreators(eventsActions);
+  const actions = useActionCreators(eventsActions);
   const [items, setItems] = useState<IEvent['item'][]>([]);
 
   const handleChangeItem = useChangeFnFieldEventField('item');
@@ -27,7 +27,7 @@ export const EventPlaceItem = memo(function EventPlaceItem({ item, city }: Props
   const handleChangeItemLocal = (event: ChangeEventFieldType) => {
     const eventCity = event.target.value as IEvent['item'];
     if (eventCity?.city && eventCity.city !== city) {
-      actionsEvents.setEventStateField({ city: eventCity.city });
+      actions.setEventStateField({ city: eventCity.city });
     }
     handleChangeItem(event);
   };

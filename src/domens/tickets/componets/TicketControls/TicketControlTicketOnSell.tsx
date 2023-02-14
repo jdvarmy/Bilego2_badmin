@@ -11,10 +11,10 @@ type Props = {
   setData: React.Dispatch<React.SetStateAction<TicketOnSell[]>>;
 };
 
-const TicketControlTicketOnSell = ({ data, setData }: Props) => {
+export const TicketControlTicketOnSell = memo(function TicketControlTicketOnSell({ data, setData }: Props) {
   const handleAddTicketOnSell = useCallback(() => {
     setData((prev) => [...prev, initialTicketSellDataFc()]);
-  }, []);
+  }, [setData]);
   const handleDeleteTicketOnSell = (uid: string) => () => {
     if (!uid) {
       return;
@@ -57,6 +57,4 @@ const TicketControlTicketOnSell = ({ data, setData }: Props) => {
       </CardContent>
     </Card>
   );
-};
-
-export default memo(TicketControlTicketOnSell);
+});

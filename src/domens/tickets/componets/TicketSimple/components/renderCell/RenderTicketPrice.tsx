@@ -13,7 +13,7 @@ export const RenderTicketPrice = memo(({ data: { sell } }: ICellRendererParams) 
   return (
     <Box sx={{ height: '100%', display: 'flex', alignItems: 'center' }}>
       {actualSell && (
-        <Tooltip arrow title={`В стоимость билета входит сервисный сбор ${actualSell.service} рублей`}>
+        <Tooltip arrow placement='top' title={`В стоимость билета входит сервисный сбор ${actualSell.service} рублей`}>
           <NotificationsBadge
             badgeContent={actualSell.service}
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}

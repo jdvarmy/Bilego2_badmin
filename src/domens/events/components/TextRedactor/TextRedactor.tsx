@@ -43,7 +43,7 @@ const plugins = [
 const TextRedactor = ({ text }: Props) => {
   const editorRef = useRef(null);
   const timerRef = useRef<NodeJS.Timeout>(null);
-  const handleChangeCity = useSetEventStateField('text');
+  const handleChangeText = useSetEventStateField('text');
 
   const handleInit: ITinyEvents['onInit'] = (evt, editor) => {
     timerRef.current = setTimeout(() => {
@@ -55,7 +55,7 @@ const TextRedactor = ({ text }: Props) => {
   const handleChange: ITinyEvents['onChange'] = () => {
     if (editorRef.current) {
       const content = editorRef.current.getContent();
-      handleChangeCity(content);
+      handleChangeText(content);
     }
   };
 

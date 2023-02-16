@@ -38,6 +38,7 @@ const store = configureStore({
 export default store;
 
 export type RootState = ReturnType<typeof store.getState>;
+// todo: удалить, далее используется useAppDispatch
 export type AppDispatch = typeof store.dispatch;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
 

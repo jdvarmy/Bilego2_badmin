@@ -20,10 +20,10 @@ import Tickets from '../../domens/events/components/Tickets/Tickets';
 import { selectEventState } from '../../domens/events/store/eventsSelectors';
 import { getEventAsync } from '../../domens/events/store/eventsThunk';
 import { workerClearEventState } from '../../domens/events/store/worckers';
-import { AppDispatch } from '../../domens/store';
+import { useAppDispatch } from '../../domens/store';
 
 const EditEvent = () => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const eventState = useSelector(selectEventState);
   const [searchParams] = useSearchParams();
 

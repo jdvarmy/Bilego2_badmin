@@ -1,13 +1,18 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import { EventRequest, IEvent } from '../../../typings/types';
 import { eventDatesActions } from '../../eventDates/store/eventDatesSlice';
-import { AppDispatch } from '../../store';
+import { eventsScope } from '../types/types';
 import { eventsActions } from './eventsSlice';
 
-export const workerClearEventState = () => (dispatch: AppDispatch) => {
-  dispatch(eventsActions.setEvent(null));
-  dispatch(eventsActions.setEventState(null));
-  dispatch(eventDatesActions.setSelectedDateUid(undefined));
-};
+export const workerClearEventState = createAsyncThunk(
+  `${eventsScope}/workerClearEventState`,
+  async (_, { dispatch }) => {
+    dispatch(eventsActions.setEvent(null));
+    dispatch(eventsActions.setEventState(null));
+    dispatch(eventDatesActions.setSelectedDateUid(undefined));
+  },
+);
 
 export function workerPrepareData(event: IEvent): EventRequest {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

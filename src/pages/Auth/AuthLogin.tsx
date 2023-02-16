@@ -18,18 +18,16 @@ const Wrapper = styled(Container)(
 
 const AuthLogin = () => {
   const dispatch: AppDispatch = useDispatch();
-  const [emailValue, setEmailValue] = useState<string>('');
-  const [passValue, setPassValue] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [pass, setPass] = useState<string>('');
 
-  const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmailValue(event.target.value);
-  };
-  const handleChangePass = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassValue(event.target.value);
-  };
+  const handleChange =
+    (fn: React.Dispatch<React.SetStateAction<string>>) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      fn(event.target.value);
+    };
   const handleLogin = () => {
-    if (emailValue && passValue) {
-      dispatch(login({ email: emailValue, password: passValue }));
+    if (email && pass) {
+      dispatch(login({ email: email, password: pass }));
     }
   };
 
@@ -53,10 +51,10 @@ const AuthLogin = () => {
                     fullWidth
                     required
                     label='Email'
-                    value={emailValue}
+                    value={email}
                     helperText='Учетные записи раздает только администратор системы (jdvarmy@gmail.com)'
                     variant='standard'
-                    onChange={handleChangeEmail}
+                    onChange={handleChange(setEmail)}
                   />
                 </Box>
                 <Box sx={{ pb: 3, pl: 3, pr: 3 }}>
@@ -66,14 +64,14 @@ const AuthLogin = () => {
                     required
                     type='password'
                     label='Пароль'
-                    value={passValue}
+                    value={pass}
                     variant='standard'
-                    onChange={handleChangePass}
+                    onChange={handleChange(setPass)}
                   />
                 </Box>
                 <Divider />
                 <Box sx={{ p: 3 }}>
-                  <Button size='large' variant='contained' onClick={handleLogin}>
+                  <Button type='submit' size='large' variant='contained' onClick={handleLogin}>
                     Войти
                   </Button>
                 </Box>

@@ -18,7 +18,7 @@ const NoMaxWidthTooltip = styled(({ className, ...props }: TooltipProps) => (
 });
 
 export const RenderTicketDates = memo(({ data: { sell } }: ICellRendererParams) => {
-  const { present, isPassed } = getActualDate<TicketOnSell>(sell);
+  const { present, isPassed } = getActualDate<TicketOnSell>(sell, true);
   const presentDate = localFormatterFunc(present);
 
   return (

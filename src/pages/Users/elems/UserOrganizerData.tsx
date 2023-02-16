@@ -1,5 +1,6 @@
-import React from 'react';
 import { Box, Card, CardContent, CardHeader, Divider, Grid, TextField } from '@mui/material';
+import React from 'react';
+
 import { UserState } from '../UserDataContainer';
 
 type Props = {
@@ -11,7 +12,9 @@ const UserOrganizerData = ({ userData, setUserData }: Props) => {
   const { concertManagerPercentage, concertManagerInfo } = userData;
 
   const handleChange = (field: keyof UserState) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserData({ ...userData, [field]: event.target.value });
+    const value = ['concertManagerPercentage'].includes(field) ? +event.target.value : event.target.value;
+
+    setUserData({ ...userData, [field]: value });
   };
 
   return (

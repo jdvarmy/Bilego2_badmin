@@ -87,7 +87,7 @@ export const EventInfo = memo(function EventInfo({
                   fullWidth
                   label='Возраст'
                   type='number'
-                  value={ageRestriction}
+                  value={ageRestriction || ''}
                   focused={!!ageRestriction}
                   onChange={handleChangeAgeRestriction}
                 />
@@ -97,7 +97,7 @@ export const EventInfo = memo(function EventInfo({
                   fullWidth
                   label='Процент сделки'
                   type='number'
-                  value={concertManagerPercentage}
+                  value={concertManagerPercentage || ''}
                   focused={!!concertManagerPercentage}
                   onChange={handleChangeConcertManagerPercentage}
                 />

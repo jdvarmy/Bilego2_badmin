@@ -5,6 +5,7 @@ import { dateParse } from './dateParse';
 
 export const getActualDate = <T extends EventDate | TicketOnSell>(
   dates: T[],
+  workWidthSell = false,
 ): { past: T[] | undefined; present: T | undefined; future: T[] | undefined; isPassed: boolean } => {
   let past: T[] = [],
     present: T,
@@ -20,10 +21,12 @@ export const getActualDate = <T extends EventDate | TicketOnSell>(
       const timeFrom = dateParse(date.dateFrom);
       const timeTo = dateParse(date.dateTo);
 
-      if (localTime > timeTo && (date.dateFrom ? localTime < timeFrom : true)) {
-        past.push(date);
-      } else {
+      const checkDateTo = date.dateTo ? localTime < timeTo : true;
+
+      if (workWidthSell ? (date.dateFrom ? localTime > timeFrom : true) && checkDateTo : checkDateTo) {
         future.push(date);
+      } else {
+        past.push(date);
       }
     }
 

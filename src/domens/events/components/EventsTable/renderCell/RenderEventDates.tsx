@@ -7,7 +7,7 @@ import { localFormatterFunc } from '../../../../../utils/helpers/dateFormatterFu
 import { getActualDate } from '../../../../../utils/helpers/getActualDate';
 
 export const RenderEventDates = memo(({ data: { eventDates } }: ICellRendererParams) => {
-  const { past, present, future, isPassed } = getActualDate(eventDates);
+  const { past, present, future, isPassed } = getActualDate(eventDates, false);
   const presentDate = localFormatterFunc(present);
 
   return (

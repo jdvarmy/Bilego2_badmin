@@ -18,15 +18,7 @@ import { fetchEventsAsync } from '../store/eventsThunk';
 
 type EventColumns = Pick<
   IEvent,
-  | 'title'
-  | 'status'
-  | 'eventDates'
-  | 'city'
-  | 'item'
-  | 'artist'
-  | 'isShowOnSlider'
-  | 'eventManager'
-  | 'concertManagerPercentage'
+  'title' | 'status' | 'eventDates' | 'city' | 'item' | 'isShowOnSlider' | 'eventManager' | 'concertManagerPercentage'
 >;
 
 const columns: Record<keyof EventColumns, string> = {
@@ -35,7 +27,6 @@ const columns: Record<keyof EventColumns, string> = {
   eventDates: 'Даты',
   city: 'Город',
   item: 'Место',
-  artist: 'Артист',
   isShowOnSlider: 'Слайдер',
   eventManager: 'Менеджер',
   concertManagerPercentage: '%',

@@ -8,4 +8,5 @@ export const uploadFileMedialibraryRequest = (data: FormData) =>
 export const removeFileMedialibraryRequest = (id: number) => requests.delete<boolean>(`media/${id}`);
 
 export const fetchMapItemsRequest = () => requests.get<any[]>(`map`);
-export const uploadFileMapItemsRequest = (data: FormData) => requests.post<boolean>(`map/upload`, data);
+export const uploadFileMapItemsRequest = (data: FormData) =>
+  requests.post<boolean>(`map/upload`, data, { headers: { 'Content-Type': 'multipart/form-data' } });

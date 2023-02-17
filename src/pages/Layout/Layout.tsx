@@ -5,10 +5,10 @@ import ruLocale from 'date-fns/locale/ru';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
+import AuthProvider from '../../domens/auth/hoc/AuthProvider';
 import { getFileListAsync } from '../../domens/medialibrarySlice/medialibrarySlice';
 import { AppDispatch } from '../../domens/store';
 import ThemeProvider from '../../theme/ThemeProvider';
-import AuthProvider from '../../utils/hoc/AuthProvider';
 import Content from './Content';
 
 const Layout = () => {

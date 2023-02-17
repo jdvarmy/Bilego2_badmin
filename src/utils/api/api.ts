@@ -1,7 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as qs from 'qs';
 
-import { ResponseAuth, axiosBaseUrl, storageTokenName } from '../../typings/types';
+import { ResponseAuth } from '../../domens/auth/types/types';
+import { axiosBaseUrl, storageTokenName } from '../../typings/types';
 
 const baseConfig = {
   baseURL: axiosBaseUrl,
@@ -47,6 +48,7 @@ instance.interceptors.response.use(
 
         return instance.request(originalRequest);
       } catch (e) {
+        // todo: Убрать, сделать нормальный обработчик
         console.log(e);
       }
 

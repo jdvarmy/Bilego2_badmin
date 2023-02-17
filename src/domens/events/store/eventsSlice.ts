@@ -4,7 +4,7 @@ import { StatusLoading } from '../../../typings/enum';
 import { IEvent } from '../../../typings/types';
 import { editEventDateAsync, saveTemplateEventDateAsync } from '../../eventDates/store/eventDateThunk';
 import { eventsScope } from '../types/types';
-import { fetchEventsAsync, getEventAsync } from './eventsThunk';
+import { editEventAsync, fetchEventsAsync, getEventAsync, saveEventAsync, saveTemplateEventAsync } from './eventsThunk';
 
 type State = {
   status: StatusLoading;
@@ -73,14 +73,12 @@ const slice = createSlice({
       return undefined;
     });
 
-    // Помошники
+    // Помощники
     builder.addMatcher(
       ({ type }) =>
-        [
-          `${eventsScope}/editEventAsync/fulfilled`,
-          `${eventsScope}/saveEventAsync/fulfilled`,
-          `${eventsScope}/saveTemplateEventAsync/fulfilled`,
-        ].includes(type),
+        [editEventAsync.fulfilled.type, saveEventAsync.fulfilled.type, saveTemplateEventAsync.fulfilled.type].includes(
+          type,
+        ),
       (state, action: PayloadAction<IEvent>) => {
         state.event = action.payload;
         state.eventState = action.payload;

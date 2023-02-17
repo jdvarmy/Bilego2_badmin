@@ -5,12 +5,12 @@ import { styled } from '@mui/material/styles';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import LoginButton from '../../domens/auth/components/LoginButton/LoginButton';
 import { selectSidebar } from '../../domens/selectors';
 import { toggleSidebar } from '../../domens/sidebarSlice/sidebarSlice';
 import { AppDispatch } from '../../domens/store';
 import HiddenIsNotAuthorized from '../../utils/hoc/HiddenIsNotAuthorized';
 import useYodaSays from '../../utils/hooks/useYodaSays';
-import LoginButton from '../LoginButton/LoginButton';
 import Logo from '../Logo/Logo';
 import HeaderButtons from './HeaderButtons/HeaderButtons';
 import HeaderMenu from './HeaderMenu/HeaderMenu';

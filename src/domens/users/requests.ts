@@ -1,6 +1,7 @@
 import { UserRole } from '../../typings/enum';
-import { RequestUser, User } from '../../typings/types';
+import { User } from '../../typings/types';
 import requests from '../../utils/api/api';
+import { RequestUser } from '../auth/types/types';
 
 export const fetchUsersRequest = (data?: { search?: string; role?: UserRole }) => requests.get<User[]>(`users`, data);
 

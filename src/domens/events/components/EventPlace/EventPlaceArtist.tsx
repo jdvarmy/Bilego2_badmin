@@ -3,10 +3,10 @@ import React, { memo, useState } from 'react';
 
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
 import { IEvent } from '../../../../typings/types';
-import { getArtistListForEventAsync } from '../../../artistsSlice/artistsSlice';
 import { useAppDispatch } from '../../../store';
 import { useChangeFnFieldEventField } from '../../hooks/useChangeFnFieldEventField';
 import { useDeleteFnEventField } from '../../hooks/useDeleteFnEventField';
+import { workerGetArtistListForEvent } from '../../store/worckers';
 
 type Props = {
   artist?: IEvent['artist'];
@@ -22,7 +22,11 @@ export const EventPlaceArtist = memo(function EventPlaceArtist({ artist }: Props
 
   const fetchFnArtists = (search: string) => {
     // todo: добавить прерывание запроса
-    dispatch(getArtistListForEventAsync(search, setArtists));
+    dispatch(workerGetArtistListForEvent({ search }))
+      .unwrap()
+      .then((artists) => {
+        setArtists(artists);
+      });
   };
 
   return (

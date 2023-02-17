@@ -3,8 +3,8 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import thunk from 'redux-thunk';
 
 import { alertReducer } from './alert/store/alertSlice';
-import artistsSlice from './artistsSlice/artistsSlice';
-import authSlice from './authSlice/authSlice';
+import { artistsReducer } from './artists/store/artistsSlice';
+import { authReducer } from './auth/store/authSlice';
 import circleSlice from './circleSlice/circleSlice';
 import { eventDatesReducer } from './eventDates/store/eventDatesSlice';
 import { eventsReducer } from './events/store/eventsSlice';
@@ -17,11 +17,11 @@ import usersSlice from './users/usersSlice';
 
 const reducer = combineReducers({
   sidebar: sidebarSlice,
-  auth: authSlice,
+  auth: authReducer,
   events: eventsReducer,
   eventDates: eventDatesReducer,
   items: itemsSlice,
-  artists: artistsSlice,
+  artists: artistsReducer,
   users: usersSlice,
   tickets: ticketsReducer,
   medialibrary: medialibrarySlice,
@@ -38,7 +38,9 @@ const store = configureStore({
 export default store;
 
 export type RootState = ReturnType<typeof store.getState>;
-// todo: удалить, далее используется useAppDispatch
+/**
+ * @deprecated
+ */
 export type AppDispatch = typeof store.dispatch;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
 

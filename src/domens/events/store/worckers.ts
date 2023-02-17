@@ -1,6 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { EventRequest, IEvent } from '../../../typings/types';
+import { addAlertErrorAsync } from '../../alert/store/alertThunk';
+import { ServerErrorStatus } from '../../alert/types/types';
+import { fetchArtistsRequest } from '../../artists/api/artistsRequest';
 import { eventDatesActions } from '../../eventDates/store/eventDatesSlice';
 import { eventsScope } from '../types/types';
 import { eventsActions } from './eventsSlice';
@@ -43,3 +46,17 @@ export function workerPrepareData(event: IEvent): EventRequest {
     artist: filteredArtist,
   };
 }
+
+export const workerGetArtistListForEvent = createAsyncThunk(
+  `${eventsScope}/workerGetArtistListForEvent`,
+  async ({ search }: { search: string }, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await fetchArtistsRequest({ search });
+
+      return data;
+    } catch (error) {
+      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      return rejectWithValue(error);
+    }
+  },
+);

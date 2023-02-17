@@ -1,10 +1,13 @@
 import React, { ReactElement, ReactNode } from 'react';
-import { useSelector } from 'react-redux';
 
-import { selectAuth } from '../../domens/selectors';
+import { selectAuthIsAuthenticated } from '../../domens/auth/store/authSelector';
+import { useStateSelector } from '../../domens/store';
 
-const HiddenIsNotAuthorized = ({ children, replace }: { children: ReactNode; replace?: ReactElement }) => {
-  const { isAuthenticated } = useSelector(selectAuth);
+type Props = { children: ReactNode; replace?: ReactElement };
+
+const HiddenIsNotAuthorized = ({ children, replace }: Props) => {
+  const isAuthenticated = useStateSelector(selectAuthIsAuthenticated);
+
   return isAuthenticated ? <>{children}</> : replace ? <>{replace}</> : null;
 };
 

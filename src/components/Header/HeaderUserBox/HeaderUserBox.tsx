@@ -21,8 +21,8 @@ import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import { logout } from '../../../domens/authSlice/authSlice';
-import { selectAuth } from '../../../domens/selectors';
+import { selectAuthStore } from '../../../domens/auth/store/authSelector';
+import { logout } from '../../../domens/auth/store/authThunk';
 import { AppDispatch } from '../../../domens/store';
 import { UserRole } from '../../../typings/enum';
 import { loginPage } from '../../../typings/types';
@@ -70,7 +70,8 @@ const roleMap = {
 function HeaderUserBox() {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector(selectAuth);
+  // todo
+  const { user } = useSelector(selectAuthStore);
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
 

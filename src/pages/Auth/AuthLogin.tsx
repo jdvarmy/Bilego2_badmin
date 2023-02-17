@@ -2,10 +2,9 @@ import { Box, Button, Card, CardContent, Container, Divider, Grid, TextField, Ty
 import { styled } from '@mui/material/styles';
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useDispatch } from 'react-redux';
 
-import { login } from '../../domens/authSlice/authSlice';
-import { AppDispatch } from '../../domens/store';
+import { login } from '../../domens/auth/store/authThunk';
+import { useAppDispatch } from '../../domens/store';
 
 const Wrapper = styled(Container)(
   () => `
@@ -17,7 +16,7 @@ const Wrapper = styled(Container)(
 );
 
 const AuthLogin = () => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState<string>('');
   const [pass, setPass] = useState<string>('');
 
@@ -27,7 +26,7 @@ const AuthLogin = () => {
     };
   const handleLogin = () => {
     if (email && pass) {
-      dispatch(login({ email: email, password: pass }));
+      dispatch(login({ authData: { email, password: pass } }));
     }
   };
 

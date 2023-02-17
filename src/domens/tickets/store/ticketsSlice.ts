@@ -40,8 +40,7 @@ const slice = createSlice({
     });
 
     builder.addMatcher(
-      ({ type }) =>
-        [`${ticketsScope}/getTicketsAsync/fulfilled`, `${ticketsScope}/saveTicketsAsync/fulfilled`].includes(type),
+      ({ type }) => [getTicketsAsync.fulfilled.type, saveTicketsAsync.fulfilled.type].includes(type),
       (state, action) => {
         state.tickets = action.payload;
       },

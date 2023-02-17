@@ -2,10 +2,10 @@ import { Dispatch, SetStateAction } from 'react';
 
 import { UserState } from '../../pages/Users/UserDataContainer';
 import { UserRole } from '../../typings/enum';
-import { IEvent, RequestUser } from '../../typings/types';
+import { IEvent } from '../../typings/types';
 import { addErrorAlertWorker } from '../alert/store/workers';
 import { ServerErrorStatus } from '../alert/types/types';
-import { setLoading } from '../artistsSlice/artistsSlice';
+import { RequestUser } from '../auth/types/types';
 import { AppThunk } from '../store';
 import { deleteUserRequest, fetchUsersRequest, getUserRequest, saveUserRequest } from './requests';
 import { setUsers } from './usersSlice';
@@ -68,14 +68,10 @@ export const deleteUserAsync =
 export const getManagerListForEventAsync =
   (search: string, reactDispatch: Dispatch<SetStateAction<IEvent['eventManager'][]>>): AppThunk =>
   async (dispatch) => {
-    dispatch(setLoading(true));
-
     try {
       const { data } = await fetchUsersRequest({ search, role: UserRole.organizer });
       reactDispatch(data);
     } catch (e) {
       dispatch(addErrorAlertWorker(e as ServerErrorStatus));
-    } finally {
-      dispatch(setLoading(false));
     }
   };

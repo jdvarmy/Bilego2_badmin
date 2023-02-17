@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import { alertReducer } from './alert/store/alertSlice';
 import { artistsReducer } from './artists/store/artistsSlice';
 import { authReducer } from './auth/store/authSlice';
-import circleSlice from './circleSlice/circleSlice';
+import { circleReducer } from './circle/store/circleSlice';
 import { eventDatesReducer } from './eventDates/store/eventDatesSlice';
 import { eventsReducer } from './events/store/eventsSlice';
 import itemsSlice from './itemsSlice/itemsSlice';
@@ -26,7 +26,7 @@ const reducer = combineReducers({
   tickets: ticketsReducer,
   medialibrary: medialibrarySlice,
   alert: alertReducer,
-  circle: circleSlice,
+  circle: circleReducer,
   taxonomy: taxonomySlice,
 });
 

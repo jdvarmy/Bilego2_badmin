@@ -1,24 +1,24 @@
 import Konva from 'konva';
 import React, { useCallback } from 'react';
 import { Circle, Group } from 'react-konva';
-import { useSelector } from 'react-redux';
 
 import { CircleColors } from '../../../../../typings/enum';
 import { DrawCircleType } from '../../../../../typings/types';
-import { deleteHoveredCircle, deleteSelectedCircle, setHoveredCircle } from '../../../../circleSlice/circleSlice';
-import { selectCircleStore } from '../../../../selectors';
-import { useAppDispatch } from '../../../../store';
+import { useActionCreators } from '../../../../../utils/hooks/useActionCreators';
+import { selectSelectedCircles } from '../../../../circle/store/circleSelectors';
+import { circleActions } from '../../../../circle/store/circleSlice';
+import { useStateSelector } from '../../../../store';
 
 import KonvaEventObject = Konva.KonvaEventObject;
 
 const multiplier = 1.39 as const;
 
 const AnimateSelectedCircle = () => {
-  const dispatch = useAppDispatch();
-  const { selectedCircles } = useSelector(selectCircleStore);
+  const actions = useActionCreators(circleActions);
+  const selectedCircles = useStateSelector(selectSelectedCircles);
 
-  const handleMouseEnter = useCallback((circle: DrawCircleType) => dispatch(setHoveredCircle(circle)), [dispatch]);
-  const handleClick = useCallback((uid: string) => () => dispatch(deleteSelectedCircle(uid)), [dispatch]);
+  const handleMouseEnter = useCallback((circle: DrawCircleType) => actions.setHoveredCircle(circle), []);
+  const handleClick = useCallback((uid: string) => () => actions.deleteSelectedCircle(uid), []);
   const handleMouse = useCallback(
     (type: 'enter' | 'leave', circle?: DrawCircleType) => (evt: KonvaEventObject<MouseEvent>) => {
       const container = evt?.target?.getStage()?.container();
@@ -33,19 +33,17 @@ const AnimateSelectedCircle = () => {
             break;
           case 'leave':
           default:
-            dispatch(deleteHoveredCircle());
+            actions.deleteHoveredCircle();
             container.style.cursor = 'default';
         }
       }
     },
-    [dispatch],
+    [],
   );
 
   return (
     <Group>
-      {selectedCircles?.map((p, k) => {
-        const { uid, r, fill: _fill, ...props } = p;
-
+      {selectedCircles?.map(({ uid, r, fill, ...props }, k) => {
         return (
           <Circle
             key={uid}

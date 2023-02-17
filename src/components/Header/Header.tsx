@@ -6,10 +6,10 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import LoginButton from '../../domens/auth/components/LoginButton/LoginButton';
+import HiddenIsNotAuthorized from '../../domens/auth/hoc/HiddenIsNotAuthorized';
 import { selectSidebar } from '../../domens/selectors';
 import { toggleSidebar } from '../../domens/sidebarSlice/sidebarSlice';
 import { AppDispatch } from '../../domens/store';
-import HiddenIsNotAuthorized from '../../utils/hoc/HiddenIsNotAuthorized';
 import useYodaSays from '../../utils/hooks/useYodaSays';
 import Logo from '../Logo/Logo';
 import HeaderButtons from './HeaderButtons/HeaderButtons';

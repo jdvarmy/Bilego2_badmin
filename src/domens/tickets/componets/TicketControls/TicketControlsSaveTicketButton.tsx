@@ -4,7 +4,7 @@ import React, { memo, useMemo } from 'react';
 import { ButtonType } from '../../../../typings/enum';
 import { Ticket, TicketOnSell } from '../../../../typings/types';
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
-import { clearSelectedCircle } from '../../../circleSlice/circleSlice';
+import { circleActions } from '../../../circle/store/circleSlice';
 import { useAppDispatch } from '../../../store';
 import { ticketsActions } from '../../store/ticketsSlice';
 import { saveTicketsAsync } from '../../store/ticketsThunk';
@@ -28,6 +28,7 @@ export const TicketControlsSaveTicketButton = memo(function TicketControlsSaveTi
 }: Props) {
   const dispatch = useAppDispatch();
   const actions = useActionCreators(ticketsActions);
+  const actionsCircle = useActionCreators(circleActions);
 
   const title = useMemo(
     () =>
@@ -51,7 +52,7 @@ export const TicketControlsSaveTicketButton = memo(function TicketControlsSaveTi
       }),
     );
     actions.setSelectedTicket(null);
-    dispatch(clearSelectedCircle());
+    actionsCircle.clearSelectedCircle();
     clearFc();
   };
 

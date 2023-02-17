@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import React from 'react';
 import { matchPath, useLocation } from 'react-router-dom';
 
-import HiddenIsNotAuthorized from '../../../utils/hoc/HiddenIsNotAuthorized';
+import HiddenIsNotAuthorized from '../../../domens/auth/hoc/HiddenIsNotAuthorized';
 import SidebarMenuItem from './SidebarMenuItem';
 import menuItems, { MenuItem } from './items';
 

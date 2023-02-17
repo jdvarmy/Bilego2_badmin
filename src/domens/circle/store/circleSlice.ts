@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DrawCircleType } from '../../typings/types';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
+import { DrawCircleType } from '../../../typings/types';
 
 type State = {
   hoveredCircle: DrawCircleType | null;
@@ -10,7 +11,7 @@ const initialState: State = {
   selectedCircles: [],
 };
 
-const circle = createSlice({
+const slice = createSlice({
   initialState,
   name: 'circle',
   reducers: {
@@ -47,7 +48,4 @@ const circle = createSlice({
   },
 });
 
-export const { setHoveredCircle, deleteHoveredCircle, setSelectedCircles, deleteSelectedCircle, clearSelectedCircle } =
-  circle.actions;
-
-export default circle.reducer;
+export const { actions: circleActions, reducer: circleReducer } = slice;

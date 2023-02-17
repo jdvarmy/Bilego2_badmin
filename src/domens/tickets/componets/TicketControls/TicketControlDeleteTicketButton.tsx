@@ -3,7 +3,7 @@ import { Box, Button, Grid, IconButton, Popover, Tooltip, Typography } from '@mu
 import React, { memo, useCallback, useRef, useState } from 'react';
 
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
-import { clearSelectedCircle } from '../../../circleSlice/circleSlice';
+import { circleActions } from '../../../circle/store/circleSlice';
 import { useAppDispatch } from '../../../store';
 import { ticketsActions } from '../../store/ticketsSlice';
 import { deleteTicketsAsync } from '../../store/ticketsThunk';
@@ -21,6 +21,7 @@ export const TicketControlDeleteTicketButton = memo(function TicketControlDelete
 }: Props) {
   const dispatch = useAppDispatch();
   const actions = useActionCreators(ticketsActions);
+  const actionsCircle = useActionCreators(circleActions);
   const ref = useRef<HTMLSpanElement>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
 
@@ -28,10 +29,10 @@ export const TicketControlDeleteTicketButton = memo(function TicketControlDelete
   const handleClose = useCallback(() => setOpen(false), []);
   const handleDelete = useCallback(() => {
     dispatch(deleteTicketsAsync({ ticketsUid }));
-    dispatch(clearSelectedCircle());
+    actionsCircle.clearSelectedCircle();
     actions.setSelectedTicket(null);
     handleClose();
-  }, [dispatch, ticketsUid, actions, handleClose]);
+  }, [dispatch, ticketsUid, handleClose]);
 
   if (!show) {
     return null;

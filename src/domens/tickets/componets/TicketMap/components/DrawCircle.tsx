@@ -1,16 +1,17 @@
 import React, { Key, useCallback } from 'react';
 import { Circle } from 'react-konva';
-import { useDispatch } from 'react-redux';
 
 import { CircleElement, DrawCircleType } from '../../../../../typings/types';
-import { setHoveredCircle } from '../../../../circleSlice/circleSlice';
+import { useActionCreators } from '../../../../../utils/hooks/useActionCreators';
+import { circleActions } from '../../../../circle/store/circleSlice';
 
 type Props = {
   active?: boolean;
 };
 
 const DrawCircle = ({ cx, cy, r, fill, active = false, ...props }: CircleElement & Props) => {
-  const dispatch = useDispatch();
+  const actions = useActionCreators(circleActions);
+
   const { uid, name, rowName, sector, multi } = props as Partial<{
     uid: string;
     name: Key;
@@ -29,7 +30,7 @@ const DrawCircle = ({ cx, cy, r, fill, active = false, ...props }: CircleElement
     multi: !!multi || false,
   };
 
-  const handleMouseEnter = useCallback(() => dispatch(setHoveredCircle(circle)), [dispatch]);
+  const handleMouseEnter = useCallback(() => actions.setHoveredCircle(circle), []);
 
   return (
     <Circle

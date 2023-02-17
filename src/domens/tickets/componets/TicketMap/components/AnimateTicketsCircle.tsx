@@ -1,13 +1,13 @@
 import Konva from 'konva';
 import React, { memo, useCallback } from 'react';
 import { Circle, Group } from 'react-konva';
-import { useSelector } from 'react-redux';
 
 import { TicketType } from '../../../../../typings/enum';
 import { DrawCircleType } from '../../../../../typings/types';
 import { getActualSell } from '../../../../../utils/helpers/getActualSell';
-import { deleteHoveredCircle, setHoveredCircle } from '../../../../circleSlice/circleSlice';
-import { useAppDispatch } from '../../../../store';
+import { useActionCreators } from '../../../../../utils/hooks/useActionCreators';
+import { circleActions } from '../../../../circle/store/circleSlice';
+import { useStateSelector } from '../../../../store';
 import { selectTicketsCircleSelector } from '../../../store/ticketsSelectors';
 
 import KonvaEventObject = Konva.KonvaEventObject;
@@ -15,10 +15,10 @@ import KonvaEventObject = Konva.KonvaEventObject;
 const multiplier = 1.19 as const;
 
 const AnimateTicketsCircle = () => {
-  const dispatch = useAppDispatch();
-  const tickets = useSelector(selectTicketsCircleSelector);
+  const actions = useActionCreators(circleActions);
+  const tickets = useStateSelector(selectTicketsCircleSelector);
 
-  const handleMouseEnter = useCallback((circle: DrawCircleType) => dispatch(setHoveredCircle(circle)), [dispatch]);
+  const handleMouseEnter = useCallback((circle: DrawCircleType) => actions.setHoveredCircle(circle), []);
   const handleMouse = useCallback(
     (type: 'enter' | 'leave', circle?: DrawCircleType) => (evt: KonvaEventObject<MouseEvent>) => {
       const container = evt?.target?.getStage()?.container();
@@ -33,12 +33,12 @@ const AnimateTicketsCircle = () => {
             break;
           case 'leave':
           default:
-            dispatch(deleteHoveredCircle());
+            actions.deleteHoveredCircle();
             container.style.cursor = 'default';
         }
       }
     },
-    [dispatch],
+    [],
   );
 
   return (

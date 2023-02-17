@@ -1,10 +1,9 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { Group, Layer } from 'react-konva';
-import { useDispatch } from 'react-redux';
 
 import { MapFile } from '../../../../typings/types';
-import { deleteHoveredCircle } from '../../../circleSlice/circleSlice';
-import { AppDispatch } from '../../../store';
+import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
+import { circleActions } from '../../../circle/store/circleSlice';
 import DrawCircle from './components/DrawCircle';
 import DrawPath from './components/DrawPath';
 
@@ -13,7 +12,9 @@ type Props = {
 };
 
 const StaticCanvas = ({ data }: Props) => {
-  const dispatch: AppDispatch = useDispatch();
+  const actions = useActionCreators(circleActions);
+
+  const enterHandler = () => actions.deleteHoveredCircle();
 
   if (!data) {
     return null;
@@ -21,7 +22,7 @@ const StaticCanvas = ({ data }: Props) => {
 
   return (
     <Layer>
-      <Group onMouseEnter={() => dispatch(deleteHoveredCircle())}>
+      <Group onMouseEnter={enterHandler}>
         {data.background?.map((tag, key) => {
           switch (tag.tagName) {
             case 'path':
@@ -41,6 +42,4 @@ const StaticCanvas = ({ data }: Props) => {
   );
 };
 
-StaticCanvas.displayName = 'StaticCanvas';
-
-export default memo(StaticCanvas);
+export default StaticCanvas;

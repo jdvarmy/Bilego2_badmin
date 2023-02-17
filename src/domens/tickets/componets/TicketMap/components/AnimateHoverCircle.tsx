@@ -1,50 +1,45 @@
-import { animated, config, useTransition } from '@react-spring/konva';
+import { animated, useTransition } from '@react-spring/konva';
 import Konva from 'konva';
 import React, { memo, useCallback } from 'react';
 import { Circle, Group, Text } from 'react-konva';
-import { useSelector } from 'react-redux';
 
-import { CircleColors } from '../../../../../typings/enum';
 import { DrawCircleType } from '../../../../../typings/types';
-import { deleteHoveredCircle, setSelectedCircles } from '../../../../circleSlice/circleSlice';
-import { selectCircleStore } from '../../../../selectors';
-import { useAppDispatch } from '../../../../store';
+import { useActionCreators } from '../../../../../utils/hooks/useActionCreators';
+import { selectHoveredCircle } from '../../../../circle/store/circleSelectors';
+import { circleActions } from '../../../../circle/store/circleSlice';
+import { useStateSelector } from '../../../../store';
+import { multiplier, transitionConf } from '../helpers/transitionConf';
 import CircleTooltip from './CircleTooltip';
 
 import TextConfig = Konva.TextConfig;
 import KonvaEventObject = Konva.KonvaEventObject;
 
-const defaultRadius = 10;
-const multiplier = 1.19;
 const textProps: TextConfig = { fontSize: 24, align: 'center', width: 100, fill: 'white', fontStyle: 'bold' };
 
 const AnimateHoverCircle = () => {
-  const dispatch = useAppDispatch();
-  const { hoveredCircle } = useSelector(selectCircleStore);
+  const actions = useActionCreators(circleActions);
+  const hoveredCircle = useStateSelector(selectHoveredCircle);
 
   const transitions = useTransition(hoveredCircle, transitionConf(hoveredCircle));
 
-  const handleClick = useCallback((circle: DrawCircleType) => () => dispatch(setSelectedCircles(circle)), [dispatch]);
-  const handleMouse = useCallback(
-    (type: 'enter' | 'leave') => {
-      return (evt: KonvaEventObject<MouseEvent>) => {
-        const container = evt?.target?.getStage()?.container();
+  const handleClick = useCallback((circle: DrawCircleType) => () => actions.setSelectedCircles(circle), []);
+  const handleMouse = useCallback((type: 'enter' | 'leave') => {
+    return (evt: KonvaEventObject<MouseEvent>) => {
+      const container = evt?.target?.getStage()?.container();
 
-        if (container) {
-          switch (type) {
-            case 'enter':
-              container.style.cursor = 'pointer';
-              break;
-            case 'leave':
-            default:
-              dispatch(deleteHoveredCircle());
-              container.style.cursor = 'default';
-          }
+      if (container) {
+        switch (type) {
+          case 'enter':
+            container.style.cursor = 'pointer';
+            break;
+          case 'leave':
+          default:
+            actions.deleteHoveredCircle();
+            container.style.cursor = 'default';
         }
-      };
-    },
-    [dispatch],
-  );
+      }
+    };
+  }, []);
 
   return (
     <Group>
@@ -78,21 +73,3 @@ const AnimateHoverCircle = () => {
 };
 
 export default memo(AnimateHoverCircle);
-
-function transitionConf(circle: DrawCircleType | null) {
-  return {
-    from: () => {
-      const fill = circle?.fill || CircleColors.default;
-      return { fill, radius: defaultRadius };
-    },
-    enter: () => async (next: any) => {
-      const radius = circle?.r || 0;
-      await next({ fill: CircleColors.hovered, radius: radius * multiplier });
-    },
-    leave: () => async (next: any) => {
-      const fill = circle?.fill || CircleColors.default;
-      await next({ fill, radius: defaultRadius });
-    },
-    config: config.stiff,
-  };
-}

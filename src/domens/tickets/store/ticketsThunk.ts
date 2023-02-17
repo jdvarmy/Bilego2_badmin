@@ -4,8 +4,8 @@ import { TicketType } from '../../../typings/enum';
 import { Ticket, TicketOnSell } from '../../../typings/types';
 import { addAlertErrorAsync, addAlertSuccessAsync } from '../../alert/store/alertThunk';
 import { ServerErrorStatus } from '../../alert/types/types';
+import { selectSelectedCircles } from '../../circle/store/circleSelectors';
 import { selectEventDateSelectedUid } from '../../eventDates/store/eventDatesSelectors';
-import { selectCircleStore } from '../../selectors';
 import { RootState } from '../../store';
 import { deleteTicketsRequest, fetchTicketsRequest, saveTicketsRequest } from '../api/ticketsRequest';
 import { ticketsScope } from '../types/types';
@@ -31,7 +31,7 @@ export const saveTicketsAsync = createAsyncThunk(
     { dispatch, getState, rejectWithValue },
   ) => {
     const { reqType, dateUid, ticket, sell } = data;
-    const { selectedCircles } = selectCircleStore(getState() as RootState);
+    const selectedCircles = selectSelectedCircles(getState() as RootState);
 
     const tickets: Ticket[] = [];
     // обработка билетов с карты клуба

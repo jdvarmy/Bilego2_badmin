@@ -1,10 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { City } from '../../../typings/enum';
 import { EventRequest, IEvent } from '../../../typings/types';
 import { addAlertErrorAsync } from '../../alert/store/alertThunk';
 import { ServerErrorStatus } from '../../alert/types/types';
 import { fetchArtistsRequest } from '../../artists/api/artistsRequest';
 import { eventDatesActions } from '../../eventDates/store/eventDatesSlice';
+import { fetchItemsRequest } from '../../itemsSlice/api/itemsRequest';
 import { eventsScope } from '../types/types';
 import { eventsActions } from './eventsSlice';
 
@@ -52,6 +54,20 @@ export const workerGetArtistListForEvent = createAsyncThunk(
   async ({ search }: { search: string }, { dispatch, rejectWithValue }) => {
     try {
       const { data } = await fetchArtistsRequest({ search });
+
+      return data;
+    } catch (error) {
+      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      return rejectWithValue(error);
+    }
+  },
+);
+
+export const workerGetItemListForEvent = createAsyncThunk(
+  `${eventsScope}/workerGetItemListForEvent`,
+  async ({ search, params }: { search: string; params: { city?: City } }, { dispatch, rejectWithValue }) => {
+    try {
+      const { data } = await fetchItemsRequest({ search, ...params });
 
       return data;
     } catch (error) {

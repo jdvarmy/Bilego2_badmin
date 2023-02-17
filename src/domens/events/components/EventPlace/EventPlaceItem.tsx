@@ -5,11 +5,11 @@ import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWith
 import { City } from '../../../../typings/enum';
 import { IEvent } from '../../../../typings/types';
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
-import { getItemListForEventAsync } from '../../../itemsSlice/itemsSlice';
 import { useAppDispatch } from '../../../store';
 import { ChangeEventFieldType, useChangeFnFieldEventField } from '../../hooks/useChangeFnFieldEventField';
 import { useDeleteFnEventField } from '../../hooks/useDeleteFnEventField';
 import { eventsActions } from '../../store/eventsSlice';
+import { workerGetItemListForEvent } from '../../store/worckers';
 
 type Props = {
   item?: IEvent['item'];
@@ -34,7 +34,11 @@ export const EventPlaceItem = memo(function EventPlaceItem({ item, city }: Props
 
   const fetchFnItems = (search: string) => {
     // todo: добавить прерывание запроса
-    dispatch(getItemListForEventAsync(search, setItems, { city }));
+    dispatch(workerGetItemListForEvent({ search, params: { city } }))
+      .unwrap()
+      .then((items) => {
+        setItems(items);
+      });
   };
 
   return (

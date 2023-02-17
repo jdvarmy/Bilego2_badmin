@@ -1,11 +1,11 @@
 import { Grid, TextField } from '@mui/material';
 import React, { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { v4 as uidv4 } from 'uuid';
 
 import { TicketType } from '../../../../typings/enum';
 import { Ticket, TicketOnSell } from '../../../../typings/types';
-import { selectSelectedCircles } from '../../../selectors';
+import { selectSelectedCircles } from '../../../circle/store/circleSelectors';
+import { useStateSelector } from '../../../store';
 import { selectSelectedTicket } from '../../store/ticketsSelectors';
 import { TicketControlDeleteTicketButton } from './TicketControlDeleteTicketButton';
 import { TicketControlTicketOnSell } from './TicketControlTicketOnSell';
@@ -18,8 +18,8 @@ type Props = {
 };
 
 const TicketControls = ({ type, dateUid }: Props) => {
-  const selectedTicket = useSelector(selectSelectedTicket);
-  const selectedCircles = useSelector(selectSelectedCircles);
+  const selectedTicket = useStateSelector(selectSelectedTicket);
+  const selectedCircles = useStateSelector(selectSelectedCircles);
   const [ticketData, setTicketData] = useState<Ticket>(initialTicketDataFc(type));
   const [sellData, setSellData] = useState<TicketOnSell[]>([initialTicketSellDataFc()]);
 

@@ -8,7 +8,7 @@ import { authReducer } from './auth/store/authSlice';
 import { circleReducer } from './circle/store/circleSlice';
 import { eventDatesReducer } from './eventDates/store/eventDatesSlice';
 import { eventsReducer } from './events/store/eventsSlice';
-import itemsSlice from './itemsSlice/itemsSlice';
+import { itemsReducer } from './itemsSlice/store/itemsSlice';
 import medialibrarySlice from './medialibrarySlice/medialibrarySlice';
 import sidebarSlice from './sidebarSlice/sidebarSlice';
 import taxonomySlice from './taxonomy/store/taxonomySlice';
@@ -20,7 +20,7 @@ const reducer = combineReducers({
   auth: authReducer,
   events: eventsReducer,
   eventDates: eventDatesReducer,
-  items: itemsSlice,
+  items: itemsReducer,
   artists: artistsReducer,
   users: usersSlice,
   tickets: ticketsReducer,

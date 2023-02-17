@@ -1,4 +1,4 @@
-import { IEvent, MediaFile } from '../../typings/types';
+import { MediaFile } from '../../typings/types';
 import requests from './api';
 
 export const fetchMedialibraryRequest = () => requests.get<MediaFile[]>(`media`);
@@ -9,5 +9,3 @@ export const removeFileMedialibraryRequest = (id: number) => requests.delete<boo
 
 export const fetchMapItemsRequest = () => requests.get<any[]>(`map`);
 export const uploadFileMapItemsRequest = (data: FormData) => requests.post<boolean>(`map/upload`, data);
-
-export const fetchItemsRequest = (data?: any) => requests.get<IEvent['item'][]>(`items`, data);

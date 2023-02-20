@@ -4,16 +4,15 @@ import SaveTwoToneIcon from '@mui/icons-material/SaveTwoTone';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { Box, Grid, Icon, TextField } from '@mui/material';
 import React, { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { editEventDateAsync } from '../../domens/eventDates/store/eventDateThunk';
-import { EventDate } from '../../domens/eventDates/types/types';
-import { getMapListAsync, uploadFileMapAsync } from '../../domens/medialibrarySlice/medialibrarySlice';
-import { selectMedialibrary } from '../../domens/selectors';
-import { AppDispatch } from '../../domens/store';
-import { TicketType } from '../../typings/enum';
-import ModalDialog from '../ModalDialog/ModalDialog';
-import UploadFiles from '../UploadFiles/UploadFiles';
+import ModalDialog from '../../../../components/ModalDialog/ModalDialog';
+import UploadFiles from '../../../../components/UploadFiles/UploadFiles';
+import { StatusLoading, TicketType } from '../../../../typings/enum';
+import { editEventDateAsync } from '../../../eventDates/store/eventDateThunk';
+import { EventDate } from '../../../eventDates/types/types';
+import { useAppDispatch, useStateSelector } from '../../../store';
+import { selectMedialibraryMaps, selectMedialibraryStatus } from '../../store/medialibrarySelectors';
+import { getMapListAsync, uploadFileMapAsync } from '../../store/medialibraryThunk';
 import MapImage from './MapImage';
 
 export type MapContent = FileList | null;
@@ -23,8 +22,9 @@ type FileListType = { map: MapContent | null; minimap: MapContent | null };
 const initialFileList: FileListType = { map: null, minimap: null };
 
 const AppMapModal = ({ open, onClose, selectedDate }: Props) => {
-  const dispatch: AppDispatch = useDispatch();
-  const { loading, maps } = useSelector(selectMedialibrary);
+  const dispatch = useAppDispatch();
+  const maps = useStateSelector(selectMedialibraryMaps);
+  const status = useStateSelector(selectMedialibraryStatus);
   const [fileList, setFileList] = useState<FileListType>(initialFileList);
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -89,7 +89,7 @@ const AppMapModal = ({ open, onClose, selectedDate }: Props) => {
             </UploadFiles>
             <LoadingButton
               sx={{ mx: 2 }}
-              loading={loading}
+              loading={[StatusLoading.init, StatusLoading.loading].includes(status)}
               loadingPosition='start'
               variant='contained'
               onClick={handleUpload}

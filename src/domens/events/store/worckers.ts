@@ -6,7 +6,7 @@ import { addAlertErrorAsync } from '../../alert/store/alertThunk';
 import { ServerErrorStatus } from '../../alert/types/types';
 import { fetchArtistsRequest } from '../../artists/api/artistsRequest';
 import { eventDatesActions } from '../../eventDates/store/eventDatesSlice';
-import { fetchItemsRequest } from '../../itemsSlice/api/itemsRequest';
+import { fetchItemsRequest } from '../../items/api/itemsRequest';
 import { eventsScope } from '../types/types';
 import { eventsActions } from './eventsSlice';
 
@@ -28,8 +28,8 @@ export function workerPrepareData(event: IEvent): EventRequest {
     return { uid, type, dateFrom, dateTo, closeDateTime };
   });
   const filteredTaxonomy = taxonomy?.map((tax) => +tax.id);
-  const filteredImage = +image?.id ?? undefined;
-  const filteredHeaderImage = +headerImage?.id ?? undefined;
+  const filteredImage = !Number.isNaN(+image?.id) ? +image?.id : undefined;
+  const filteredHeaderImage = !Number.isNaN(+headerImage?.id) ? +headerImage?.id : undefined;
 
   const filteredItem = item?.uid;
   const filteredArtist = artist?.map((a) => a.uid);

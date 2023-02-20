@@ -3,10 +3,10 @@ import MapIcon from '@mui/icons-material/Map';
 import { Button, Grid } from '@mui/material';
 import React, { useCallback, useState } from 'react';
 
-import AppMapModal from '../../../../components/AddMapModal/AppMapModal';
 import { TicketType } from '../../../../typings/enum';
 import { editEventDateAsync } from '../../../eventDates/store/eventDateThunk';
 import { EventDate } from '../../../eventDates/types/types';
+import AppMapModal from '../../../medialibrary/components/AddMapModal/AppMapModal';
 import { useAppDispatch } from '../../../store';
 
 type Props = {

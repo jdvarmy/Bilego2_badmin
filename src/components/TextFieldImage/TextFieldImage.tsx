@@ -4,8 +4,8 @@ import { Box, IconButton, TextField } from '@mui/material';
 import { OverridableStringUnion } from '@mui/types';
 import React, { useState } from 'react';
 
+import MediaLibrary from '../../domens/medialibrary/components/MediaLibrary/MediaLibrary';
 import { MediaSelectData } from '../../typings/types';
-import MediaLibrary from '../MediaLibrary/MediaLibrary';
 
 export type MediaTextFieldProps = {
   label?: React.ReactNode;

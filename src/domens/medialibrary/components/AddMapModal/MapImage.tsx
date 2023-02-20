@@ -1,9 +1,10 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import { MapFile } from '../../typings/types';
-import { Card, CardHeader, CardMedia, IconButton, useTheme } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { HTTP_URL } from '../../typings/env';
+import { Card, CardHeader, CardMedia, IconButton, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import React, { Dispatch, SetStateAction } from 'react';
+
+import { HTTP_URL } from '../../../../typings/env';
+import { MapFile } from '../../../../typings/types';
 
 const MapCard = styled(Card)(
   ({ theme, color }) => `

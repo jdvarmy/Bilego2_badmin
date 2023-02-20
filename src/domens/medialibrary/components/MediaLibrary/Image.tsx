@@ -1,12 +1,11 @@
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Button, Card, CardActions, CardHeader, CardMedia, IconButton } from '@mui/material';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 
-import { removeFileAsync } from '../../domens/medialibrarySlice/medialibrarySlice';
-import { AppDispatch } from '../../domens/store';
-import { HTTP_URL } from '../../typings/env';
-import { MediaFile, MediaSelectData } from '../../typings/types';
+import { HTTP_URL } from '../../../../typings/env';
+import { MediaFile, MediaSelectData } from '../../../../typings/types';
+import { useAppDispatch } from '../../../store';
+import { removeFileAsync } from '../../store/medialibraryThunk';
 
 type Props = {
   file: MediaFile;
@@ -15,10 +14,10 @@ type Props = {
 };
 
 const Image = ({ file, loading, selectHandle }: Props) => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleRemove = () => {
     if (file.id) {
-      dispatch(removeFileAsync(file.id));
+      dispatch(removeFileAsync({ id: file.id }));
     }
   };
   const handleSelect = () => {

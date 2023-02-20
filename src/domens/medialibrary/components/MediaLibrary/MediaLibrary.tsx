@@ -17,13 +17,13 @@ import {
   Typography,
 } from '@mui/material';
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { uploadFileAsync } from '../../domens/medialibrarySlice/medialibrarySlice';
-import { selectMedialibrary } from '../../domens/selectors';
-import { AppDispatch } from '../../domens/store';
-import { MediaFile, MediaSelectData } from '../../typings/types';
-import UploadFiles from '../UploadFiles/UploadFiles';
+import UploadFiles from '../../../../components/UploadFiles/UploadFiles';
+import { StatusLoading } from '../../../../typings/enum';
+import { MediaFile, MediaSelectData } from '../../../../typings/types';
+import { useAppDispatch, useStateSelector } from '../../../store';
+import { selectMedialibraryFiles, selectMedialibraryStatus } from '../../store/medialibrarySelectors';
+import { uploadFileAsync } from '../../store/medialibraryThunk';
 import Image from './Image';
 
 type Props = {
@@ -33,8 +33,9 @@ type Props = {
 };
 
 const MediaLibrary = ({ open, closeHandler, selectHandle }: Props) => {
-  const dispatch: AppDispatch = useDispatch();
-  const { loading, files } = useSelector(selectMedialibrary);
+  const dispatch = useAppDispatch();
+  const files = useStateSelector(selectMedialibraryFiles);
+  const status = useStateSelector(selectMedialibraryStatus);
   const [fileList, setFileList] = useState<FileList | null>(null);
 
   const handleSetFile = (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +43,7 @@ const MediaLibrary = ({ open, closeHandler, selectHandle }: Props) => {
   };
   const handleUpload = useCallback(() => {
     if (fileList) {
-      dispatch(uploadFileAsync(fileList));
+      dispatch(uploadFileAsync({ files: fileList }));
     }
   }, [fileList, dispatch]);
   const handleSelect = useCallback(
@@ -97,7 +98,7 @@ const MediaLibrary = ({ open, closeHandler, selectHandle }: Props) => {
           </UploadFiles>
           <LoadingButton
             sx={{ mx: 2 }}
-            loading={loading}
+            loading={[StatusLoading.init, StatusLoading.loading].includes(status)}
             loadingPosition='start'
             variant='contained'
             onClick={handleUpload}
@@ -109,7 +110,12 @@ const MediaLibrary = ({ open, closeHandler, selectHandle }: Props) => {
       </AppBar>
       <DialogContent sx={{ overflow: 'scroll-y' }}>
         {files?.map((file: MediaFile) => (
-          <Image key={file.id} file={file} loading={loading} selectHandle={handleSelect} />
+          <Image
+            key={file.id}
+            file={file}
+            loading={[StatusLoading.init, StatusLoading.loading].includes(status)}
+            selectHandle={handleSelect}
+          />
         ))}
       </DialogContent>
     </Dialog>

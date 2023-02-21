@@ -1,17 +1,16 @@
 import { Container, Grid } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useDispatch } from 'react-redux';
 
-import { AppDispatch } from '../../domens/store';
-import { getUserAsync } from '../../domens/users/usersThuk';
-import { BaseRecordStatus, UserRole } from '../../typings/enum';
-import { MediaSelectData, User } from '../../typings/types';
-import { usePostStatus } from '../../utils/hooks/usePostStatus';
-import SaveUserButton from './elems/SaveUserButton';
-import UserMainData from './elems/UserMainData';
-import UserOrganizerData from './elems/UserOrganizerData';
-import UserSubData from './elems/UserSubData';
+import { BaseRecordStatus, UserRole } from '../../../typings/enum';
+import { MediaSelectData, User } from '../../../typings/types';
+import { usePostStatus } from '../../../utils/hooks/usePostStatus';
+import { useAppDispatch } from '../../store';
+import { getUserAsync } from '../store/usersThuk';
+import SaveUserButton from './SaveUserButton';
+import UserMainData from './UserMainData';
+import UserOrganizerData from './UserOrganizerData';
+import UserSubData from './UserSubData';
 
 export type UserState = Omit<User, 'uid' | 'status' | 'avatar'> & {
   status: boolean;
@@ -37,7 +36,7 @@ const initialState: UserState = {
 };
 
 const UserDataContainer = () => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [values, setValues] = useState<UserState>(initialState);
   const { status, uid } = usePostStatus();
 
@@ -45,7 +44,19 @@ const UserDataContainer = () => {
 
   useEffect(() => {
     if (isEdit) {
-      dispatch(getUserAsync(uid as string, setValues));
+      dispatch(getUserAsync({ uid }))
+        .unwrap()
+        .then((user) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { access, uid, status, avatar, ...userProps } = user;
+
+          setValues((prev: UserState) => ({
+            ...prev,
+            ...userProps,
+            status: Boolean(status),
+            avatar: avatar ? { id: +avatar.id, name: avatar.name } : undefined,
+          }));
+        });
     }
   }, [dispatch, uid, isEdit]);
 

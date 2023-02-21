@@ -1,11 +1,10 @@
 import { Grid } from '@mui/material';
 import React, { memo, useEffect, useMemo } from 'react';
-import { useDispatch } from 'react-redux';
 
 import ContentContainer from '../../components/ContentContainer/ContentContainer';
 import { PageHelmet } from '../../components/PageHelmet/PageHelmet';
 import PageTitle from '../../components/PageTitle/PageTitle';
-import { AppDispatch } from '../../domens/store';
+import { useAppDispatch } from '../../domens/store';
 import TableBody from '../../domens/taxonomy/components/TableBody';
 import TableHeader from '../../domens/taxonomy/components/TableHeader';
 import { getTaxonomyAsync } from '../../domens/taxonomy/store/taxonomyThunk';
@@ -26,11 +25,11 @@ export const nameMapTaxonomy = {
 };
 
 const Taxonomy = ({ type, columns }: Props) => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const name = useMemo(() => nameMapTaxonomy[type], [type]);
 
   useEffect(() => {
-    dispatch(getTaxonomyAsync(type));
+    dispatch(getTaxonomyAsync({ type }));
   }, [dispatch, type]);
 
   return (

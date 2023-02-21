@@ -1,6 +1,5 @@
 import { Action, ThunkAction, combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import thunk from 'redux-thunk';
 
 import { alertReducer } from './alert/store/alertSlice';
 import { artistsReducer } from './artists/store/artistsSlice';
@@ -10,30 +9,27 @@ import { eventDatesReducer } from './eventDates/store/eventDatesSlice';
 import { eventsReducer } from './events/store/eventsSlice';
 import { itemsReducer } from './items/store/itemsSlice';
 import { medialibraryReducer } from './medialibrary/store/medialibrarySlice';
-import sidebarSlice from './sidebarSlice/sidebarSlice';
-import taxonomySlice from './taxonomy/store/taxonomySlice';
+import { sidebarReducer } from './sidebarSlice/store/sidebarSlice';
+import { taxonomyReducer } from './taxonomy/store/taxonomySlice';
 import { ticketsReducer } from './tickets/store/ticketsSlice';
-import usersSlice from './users/usersSlice';
+import { usersReducer } from './users/store/usersSlice';
 
 const reducer = combineReducers({
-  sidebar: sidebarSlice,
+  sidebar: sidebarReducer,
   auth: authReducer,
   events: eventsReducer,
   eventDates: eventDatesReducer,
   items: itemsReducer,
   artists: artistsReducer,
-  users: usersSlice,
+  users: usersReducer,
   tickets: ticketsReducer,
   medialibrary: medialibraryReducer,
   alert: alertReducer,
   circle: circleReducer,
-  taxonomy: taxonomySlice,
+  taxonomy: taxonomyReducer,
 });
 
-const store = configureStore({
-  reducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }).concat(thunk),
-});
+const store = configureStore({ reducer });
 
 export default store;
 

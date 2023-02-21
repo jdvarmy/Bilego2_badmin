@@ -2,11 +2,10 @@ import SaveAsTwoToneIcon from '@mui/icons-material/SaveAsTwoTone';
 import { Box, Card, CardContent, CardHeader, Divider, Grid, IconButton, Tooltip } from '@mui/material';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import React, { useCallback, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { TermType, TermTypeLink } from '../../../typings/enum';
 import { Taxonomy } from '../../../typings/types';
-import { AppDispatch } from '../../store';
+import { useAppDispatch } from '../../store';
 import { useTaxonomyHeaderFields } from '../helpers/useTaxonomyHeaderFields';
 import { saveTaxonomyAsync } from '../store/taxonomyThunk';
 
@@ -17,7 +16,7 @@ type Props = {
 };
 
 const TableHeader = (props: Props) => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { fields, taxonomy, initialTaxonomy, setTaxonomy } = useTaxonomyHeaderFields(props);
 
   const handleSave = useCallback(() => {

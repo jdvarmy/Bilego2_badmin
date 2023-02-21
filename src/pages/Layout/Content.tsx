@@ -3,8 +3,8 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 
 import Header from '../../components/Header/Header';
-import Sidebar from '../../components/Sidebar/Sidebar';
 import SystemAlert from '../../domens/alert/components/SystemAlert/SystemAlert';
+import Sidebar from '../../domens/sidebarSlice/components/Sidebar/Sidebar';
 
 const MainWrapper = styled(Box)(
   () => `

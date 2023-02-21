@@ -1,14 +1,13 @@
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import { Button } from '@mui/material';
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { addAlertWorker } from '../../../domens/alert/store/workers';
-import { RequestUser } from '../../../domens/auth/types/types';
-import { AppDispatch } from '../../../domens/store';
-import { saveUserAsync } from '../../../domens/users/usersThuk';
-import { UserState } from '../UserDataContainer';
+import { addAlertWorker } from '../../alert/store/workers';
+import { RequestUser } from '../../auth/types/types';
+import { useAppDispatch } from '../../store';
+import { saveUserAsync } from '../store/usersThuk';
+import { UserState } from './UserDataContainer';
 
 type Props = {
   userData: UserState;
@@ -16,7 +15,7 @@ type Props = {
 };
 
 const SaveUserButton = ({ userData, uid }: Props) => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const { email, password, avatar, ...userValues } = userData;
@@ -27,10 +26,7 @@ const SaveUserButton = ({ userData, uid }: Props) => {
       return;
     }
 
-    const navigateToUsers = () => {
-      navigate('/users');
-    };
-    const userData: RequestUser = {
+    const user: RequestUser = {
       email,
       password,
       ...userValues,
@@ -38,7 +34,11 @@ const SaveUserButton = ({ userData, uid }: Props) => {
       avatar: typeof avatar === 'object' ? +avatar.id : undefined,
     };
 
-    dispatch(saveUserAsync(userData, navigateToUsers, uid));
+    dispatch(saveUserAsync({ user, uid }))
+      .unwrap()
+      .then(() => {
+        navigate('/users');
+      });
   };
 
   return (

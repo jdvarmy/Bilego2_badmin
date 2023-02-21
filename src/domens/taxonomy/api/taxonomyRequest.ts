@@ -9,7 +9,7 @@ export const fetchTaxonomyRequest = (link: TermTypeLink, type?: TermType) =>
 
 export const saveTaxonomyRequest = (data: Taxonomy) => requests.post<Taxonomy[]>(`taxonomy`, data);
 
-export const deleteTaxonomyRequest = (id: Key) => requests.delete<Taxonomy[]>(`taxonomy/${id}`);
+export const deleteTaxonomyRequest = (id: Key) => requests.delete<Taxonomy>(`taxonomy/${id}`);
 
 export const patchTaxonomyRequest = ({
   id,

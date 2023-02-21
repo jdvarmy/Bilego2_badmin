@@ -1,13 +1,13 @@
 import { Box, Card, CardContent, CardHeader, Divider, Grid } from '@mui/material';
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { TermType } from '../../../../typings/enum';
+import { TermType, TermTypeLink } from '../../../../typings/enum';
 import { IEvent, Taxonomy } from '../../../../typings/types';
 import { isEqual } from '../../../../utils/helpers/isEqual';
 import { addAlertErrorAsync } from '../../../alert/store/alertThunk';
 import { ServerErrorStatus } from '../../../alert/types/types';
 import { useAppDispatch } from '../../../store';
-import { getTaxonomyAsyncReq } from '../../../taxonomy/store/taxonomyThunk';
+import { fetchTaxonomyRequest } from '../../../taxonomy/api/taxonomyRequest';
 import { EventTaxonomyElement } from './EventTaxonomyElement';
 
 type Props<T> = { uid: IEvent['uid']; stateTaxonomy: T };
@@ -39,9 +39,9 @@ export const EventTaxonomy = memo(function EventTaxonomy<T extends IEvent['taxon
   const eventFeelingTaxonomies = useMemo(() => getTax(TermType.eventFeeling, taxonomies), [getTax, taxonomies]);
 
   useEffect(() => {
-    getTaxonomyAsyncReq()
-      .then((res) => {
-        const localRes = res.map((tax) => ({ id: tax.id, name: tax.name, type: tax.type }));
+    fetchTaxonomyRequest(TermTypeLink.event)
+      .then(({ data }) => {
+        const localRes = data.map((tax) => ({ id: tax.id, name: tax.name, type: tax.type }));
         setTaxonomies(localRes);
       })
       .catch((reject) => {

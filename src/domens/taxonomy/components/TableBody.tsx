@@ -2,13 +2,12 @@ import { CellValueChangedEvent, ColDef } from 'ag-grid-community';
 import { RowDragEvent } from 'ag-grid-community/dist/lib/events';
 import { AgGridReact } from 'ag-grid-react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import DataTable from '../../../components/DataTable/DataTable';
 import { Taxonomy } from '../../../typings/types';
 import cloneDeep from '../../../utils/helpers/cloneDeep';
 import { isEqual } from '../../../utils/helpers/isEqual';
-import { AppDispatch } from '../../store';
+import { useAppDispatch, useStateSelector } from '../../store';
 import { createColumnDefs } from '../helpers/createColumnDefs';
 import { selectTaxonomy } from '../store/taxonomySelectors';
 import { editTaxonomyAsync } from '../store/taxonomyThunk';
@@ -18,8 +17,8 @@ type Props = {
 };
 
 const TableBody = ({ columns }: Props) => {
-  const dispatch: AppDispatch = useDispatch();
-  const taxonomy = useSelector(selectTaxonomy, isEqual);
+  const dispatch = useAppDispatch();
+  const taxonomy = useStateSelector(selectTaxonomy, isEqual);
   const gridRef = useRef<AgGridReact | null>(null);
 
   const [data, setData] = useState<{ columnDefs: ColDef[]; rowData: object[] }>({ columnDefs: [], rowData: [] });

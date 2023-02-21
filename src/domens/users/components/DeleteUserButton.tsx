@@ -2,11 +2,10 @@ import DeleteSweepTwoToneIcon from '@mui/icons-material/DeleteSweepTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import { IconButton, Tooltip, useTheme } from '@mui/material';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import ModalDialog from '../../../components/ModalDialog/ModalDialog';
-import { AppDispatch } from '../../../domens/store';
-import { deleteUserAsync } from '../../../domens/users/usersThuk';
+import { useAppDispatch } from '../../store';
+import { deleteUserAsync } from '../store/usersThuk';
 
 type Props = {
   email: string;
@@ -14,13 +13,13 @@ type Props = {
 };
 
 const DeleteUserButton = ({ uid, email }: Props) => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const theme = useTheme();
   const [openDelete, setOpenDelete] = useState<boolean>(false);
 
   const handleDeleteUser = (uid?: string) => () => {
     if (uid) {
-      dispatch(deleteUserAsync(uid));
+      dispatch(deleteUserAsync({ uid }));
       setOpenDelete(false);
     }
   };

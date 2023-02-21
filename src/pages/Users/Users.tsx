@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import {
+  Box,
   Card,
   CardHeader,
   Divider,
-  Select,
-  Box,
   FormControl,
   InputLabel,
   MenuItem,
+  Select,
   SelectChangeEvent,
 } from '@mui/material';
-import UsersTable from './elems/UsersTable';
-import CreateUserButton from './elems/CreateUserButton';
+import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+
+import CreateUserButton from '../../domens/users/components/CreateUserButton';
+import UsersTable from '../../domens/users/components/UsersTable';
 
 type Filters = 'Любой' | 'Активнен' | 'Не активнен';
 const statusOptions = [

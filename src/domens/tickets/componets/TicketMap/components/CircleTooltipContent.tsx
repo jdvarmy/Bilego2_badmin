@@ -156,7 +156,7 @@ function GetSellFormat({ dateFrom, dateTo, price, service }: TicketOnSell) {
         </Typography>
         {', '}
         <Typography variant='caption' component='span' color='text.primary'>
-          сервисный сбор
+          сервис
         </Typography>{' '}
         <Typography variant='body2' component='span' color='text.primary'>
           {formatterPrice.format(service || 0)}

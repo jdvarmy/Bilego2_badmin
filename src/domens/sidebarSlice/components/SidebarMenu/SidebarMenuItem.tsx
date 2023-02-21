@@ -3,11 +3,10 @@ import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 import { Badge, Button, Collapse, ListItem } from '@mui/material';
 import clsx from 'clsx';
 import React, { FC, ReactNode, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { NavLink as RouterLink } from 'react-router-dom';
 
-import { toggleSidebar } from '../../../domens/sidebarSlice/sidebarSlice';
-import { AppDispatch } from '../../../domens/store';
+import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
+import { sidebarActions } from '../../store/sidebarSlice';
 
 interface SidebarMenuItemProps {
   name: string;
@@ -29,11 +28,11 @@ const SidebarMenuItem: FC<SidebarMenuItemProps> = ({
   name,
   ...rest
 }) => {
-  const dispatch: AppDispatch = useDispatch();
+  const actions = useActionCreators(sidebarActions);
   const [menuToggle, setMenuToggle] = useState<boolean>(openParent || false);
 
   const handleClick = () => {
-    dispatch(toggleSidebar());
+    actions.toggleSidebar();
   };
 
   const toggleMenu = (): void => {

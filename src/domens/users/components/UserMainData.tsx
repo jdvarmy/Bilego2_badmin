@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from 'react';
+import VpnKeyTwoToneIcon from '@mui/icons-material/VpnKeyTwoTone';
 import {
   Box,
   Card,
@@ -12,10 +12,11 @@ import {
   MenuItem,
   TextField,
 } from '@mui/material';
-import VpnKeyTwoToneIcon from '@mui/icons-material/VpnKeyTwoTone';
-import { UserRole } from '../../../typings/enum';
-import { UserState } from '../UserDataContainer';
+import React, { SyntheticEvent } from 'react';
 import { v4 as uidv4 } from 'uuid';
+
+import { UserRole } from '../../../typings/enum';
+import { UserState } from './UserDataContainer';
 
 const userRoleMap: Record<UserRole, string> = {
   [UserRole.admin]: 'Администратор',

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
 import { IEvent } from '../../../../typings/types';
 import { useAppDispatch } from '../../../store';
-import { getManagerListForEventAsync } from '../../../users/usersThuk';
+import { getManagerListForEventAsync } from '../../../users/store/usersThuk';
 import { useChangeFnFieldEventField } from '../../hooks/useChangeFnFieldEventField';
 import { useDeleteFnEventField } from '../../hooks/useDeleteFnEventField';
 
@@ -21,7 +21,11 @@ export const EventInfoManager = ({ manager }: Props) => {
 
   const fetchFnManagers = (search: string) => {
     // todo: добавить прерывание запроса
-    dispatch(getManagerListForEventAsync(search, setManagers));
+    dispatch(getManagerListForEventAsync({ search }))
+      .unwrap()
+      .then((users) => {
+        setManagers(users);
+      });
   };
 
   return (

@@ -1,21 +1,22 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
-import { setTaxonomy } from '../../domens/taxonomy/store/taxonomySlice';
+import { taxonomyActions } from '../../domens/taxonomy/store/taxonomySlice';
 import { TermType } from '../../typings/enum';
 import { Taxonomy as ITaxonomy } from '../../typings/types';
+import { useActionCreators } from '../../utils/hooks/useActionCreators';
 import Taxonomy from './Taxonomy';
 
 const columns: (keyof ITaxonomy)[] = ['name', 'slug', 'description', 'icon', 'id', 'link'];
 
 const Feeling = () => {
-  const dispatch = useDispatch();
+  const actions = useActionCreators(taxonomyActions);
 
-  useEffect(() => {
-    return () => {
-      dispatch(setTaxonomy(null));
-    };
-  }, [dispatch]);
+  useEffect(
+    () => () => {
+      actions.setTaxonomy(null);
+    },
+    [actions],
+  );
 
   return <Taxonomy type={TermType.eventFeeling} columns={columns} />;
 };

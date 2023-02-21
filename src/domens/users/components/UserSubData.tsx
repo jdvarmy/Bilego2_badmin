@@ -19,9 +19,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import React, { forwardRef, useState } from 'react';
 import { IMaskInput } from 'react-imask';
 
-import MediaLibrary from '../../../domens/medialibrary/components/MediaLibrary/MediaLibrary';
 import { MediaSelectData } from '../../../typings/types';
-import { UserState } from '../UserDataContainer';
+import MediaLibrary from '../../medialibrary/components/MediaLibrary/MediaLibrary';
+import { UserState } from './UserDataContainer';
 
 interface CustomProps {
   onChange: (event: { target: { name: string; value: string } }) => void;

@@ -2,20 +2,20 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { StatusLabel } from '../../../UI/StatusLabel';
-import { selectUsers } from '../../../domens/selectors';
-import { AppDispatch } from '../../../domens/store';
-import { getUsersAsync } from '../../../domens/users/usersThuk';
 import { User } from '../../../typings/types';
+import { useAppDispatch } from '../../store';
+import { selectUsers } from '../store/usersSelectors';
+import { getUsersAsync } from '../store/usersThuk';
 import DeleteUserButton from './DeleteUserButton';
 import EditUserButton from './EditUserButton';
 
 const UsersTable = () => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { users } = useSelector(selectUsers);
+  const users = useSelector(selectUsers);
 
   useEffect(() => {
     dispatch(getUsersAsync());

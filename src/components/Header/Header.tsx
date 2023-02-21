@@ -7,9 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import LoginButton from '../../domens/auth/components/LoginButton/LoginButton';
 import HiddenIsNotAuthorized from '../../domens/auth/hoc/HiddenIsNotAuthorized';
-import { selectSidebar } from '../../domens/selectors';
-import { toggleSidebar } from '../../domens/sidebarSlice/sidebarSlice';
-import { AppDispatch } from '../../domens/store';
+import { selectSidebarShow } from '../../domens/sidebarSlice/store/sidebarSelectors';
+import { sidebarActions } from '../../domens/sidebarSlice/store/sidebarSlice';
+import { useActionCreators } from '../../utils/hooks/useActionCreators';
 import useYodaSays from '../../utils/hooks/useYodaSays';
 import Logo from '../Logo/Logo';
 import HeaderButtons from './HeaderButtons/HeaderButtons';
@@ -45,12 +45,12 @@ const Greeting = styled(Typography)(
 );
 
 const Header = () => {
-  const dispatch: AppDispatch = useDispatch();
-  const { isShow } = useSelector(selectSidebar);
+  const actions = useActionCreators(sidebarActions);
+  const isShow = useSelector(selectSidebarShow);
   const yodaSay = useYodaSays(true);
 
   const sidebarHandler = () => {
-    dispatch(toggleSidebar());
+    actions.toggleSidebar();
   };
 
   return (

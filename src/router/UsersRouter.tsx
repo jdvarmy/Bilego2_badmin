@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import { RouterSuspense } from '../utils/hoc/RouterSuspense';
 
 const Users = lazy(() => import('../pages/Users/Users'));
-const UserDataContainer = lazy(() => import('../pages/Users/UserDataContainer'));
+const UserDataContainer = lazy(() => import('../domens/users/components/UserDataContainer'));
 
 const UsersRouter = () => {
   return (

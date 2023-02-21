@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, CardHeader, Divider, Grid, TextField } from '@mui/material';
 import React from 'react';
 
-import { UserState } from '../UserDataContainer';
+import { UserState } from './UserDataContainer';
 
 type Props = {
   userData: UserState;

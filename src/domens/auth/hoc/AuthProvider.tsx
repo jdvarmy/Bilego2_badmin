@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const toLoginPage = useCallback(() => navigate(loginPage), [navigate]);
+  const toLoginPage = useCallback(() => navigate(loginPage), []);
 
   useEffect(() => {
     dispatch(checkIsUserLogin())

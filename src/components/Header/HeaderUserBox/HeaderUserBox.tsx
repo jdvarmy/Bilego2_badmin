@@ -18,12 +18,12 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import React, { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import { selectAuthStore } from '../../../domens/auth/store/authSelector';
 import { logout } from '../../../domens/auth/store/authThunk';
-import { AppDispatch } from '../../../domens/store';
+import { useAppDispatch } from '../../../domens/store';
 import { UserRole } from '../../../typings/enum';
 import { loginPage } from '../../../typings/types';
 
@@ -68,7 +68,7 @@ const roleMap = {
 };
 
 function HeaderUserBox() {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   // todo
   const { user } = useSelector(selectAuthStore);

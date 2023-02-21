@@ -2,7 +2,7 @@ import { Box, styled } from '@mui/material';
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
-import Header from '../../components/Header/Header';
+import { Header } from '../../components/Header/Header';
 import SystemAlert from '../../domens/alert/components/SystemAlert/SystemAlert';
 import Sidebar from '../../domens/sidebarSlice/components/Sidebar/Sidebar';
 

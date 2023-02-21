@@ -33,11 +33,8 @@ const store = configureStore({ reducer });
 
 export default store;
 
+type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
-/**
- * @deprecated
- */
-export type AppDispatch = typeof store.dispatch;
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
 
 export const useAppDispatch = useDispatch<AppDispatch>;

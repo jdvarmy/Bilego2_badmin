@@ -1,7 +1,7 @@
 import requests from '../../../utils/api/api';
 import { IItem, ItemRequest, itemsScope } from '../type/types';
 
-export const fetchItemsRequest = (props: any) => requests.get<IItem[]>(`${itemsScope}`);
+export const fetchItemsRequest = (props?: any) => requests.get<IItem[]>(`${itemsScope}`);
 
 export const getItemRequest = (uid: string) => requests.get<IItem>(`${itemsScope}/${uid}`);
 

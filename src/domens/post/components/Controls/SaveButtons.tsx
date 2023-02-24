@@ -3,17 +3,33 @@ import SaveAsTwoToneIcon from '@mui/icons-material/SaveAsTwoTone';
 import { Box, Button, IconButton, Tooltip } from '@mui/material';
 import React, { memo } from 'react';
 
-import { PostStatus } from '../../../../typings/enum';
+import { PostStatus, PostType } from '../../../../typings/enum';
 import { saveEventAsync } from '../../../events/store/eventsThunk';
+import { saveItemAsync } from '../../../items/store/itemsThunk';
 import { useAppDispatch } from '../../../store';
+
+type Props = {
+  type: PostType;
+};
 
 const tooltipStyle = { ml: 2, my: 0.5 };
 
-export const SaveButtons = memo(function SaveEventButtons() {
+export const SaveButtons = memo(function SaveEventButtons({ type }: Props) {
   const dispatch = useAppDispatch();
 
-  const handleButtonClick = (status?: PostStatus) => () => {
-    dispatch(saveEventAsync(status ? { status } : {}));
+  const handleButtonClick = (status?: PostStatus) => {
+    switch (type) {
+      case PostType.event:
+        return () => {
+          dispatch(saveEventAsync(status ? { status } : {}));
+        };
+      case PostType.item:
+        return () => {
+          dispatch(saveItemAsync(status ? { status } : {}));
+        };
+      case PostType.artist:
+        return () => ({});
+    }
   };
 
   console.log('render SaveButtons');

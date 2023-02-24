@@ -24,7 +24,7 @@ export const Controls = ({ uid, slug, type, status }: Props) => {
         <Grid item xs container justifyContent='flex-end' alignItems='center'>
           <DeleteButton {...{ uid, type }} />
           <Status {...{ status, type }} />
-          <SaveButtons />
+          <SaveButtons type={type} />
         </Grid>
       </Grid>
     </Container>

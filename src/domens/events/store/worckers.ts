@@ -5,7 +5,7 @@ import { addAlertErrorAsync } from '../../alert/store/alertThunk';
 import { ServerErrorStatus } from '../../alert/types/types';
 import { fetchArtistsRequest } from '../../artists/api/artistsRequest';
 import { eventDatesActions } from '../../eventDates/store/eventDatesSlice';
-import { fetchItemsRequestForEvent } from '../../items/api/itemsRequest';
+import { fetchItemsRequest } from '../../items/api/itemsRequest';
 import { EventRequest, IEvent, eventsScope } from '../types/types';
 import { eventsActions } from './eventsSlice';
 
@@ -63,7 +63,7 @@ export const workerGetItemListForEvent = createAsyncThunk(
   `${eventsScope}/workerGetItemListForEvent`,
   async ({ search, params }: { search: string; params: { city?: City } }, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = await fetchItemsRequestForEvent({ search, ...params });
+      const { data } = await fetchItemsRequest({ search, ...params });
 
       return data;
     } catch (error) {

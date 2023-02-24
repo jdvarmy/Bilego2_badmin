@@ -2,10 +2,10 @@ import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import { IconButton, MenuItem, TextField } from '@mui/material';
 import React, { memo } from 'react';
 
-import { City } from '../../../../typings/enum';
-import { IEvent } from '../../../../typings/types';
-import { ChangeEventFieldType, useChangeFnFieldEventField } from '../../hooks/useChangeFnFieldEventField';
-import { useDeleteFnEventField } from '../../hooks/useDeleteFnEventField';
+import { City, PostType } from '../../../../typings/enum';
+import { ChangePostFieldType, useChangeFnFieldPostField } from '../../../post/hooks/useChangeFnFieldPostField';
+import { useDeleteFnPostField } from '../../../post/hooks/useDeleteFnPostField';
+import { IEvent } from '../../types/types';
 
 type Props = {
   city?: City;
@@ -18,12 +18,12 @@ const cityMapNames: Record<City, string> = {
 };
 
 export const EventPlaceCity = memo(function EventPlaceCity({ city, item }: Props) {
-  const handleChangeCity = useChangeFnFieldEventField('city');
+  const handleChangeCity = useChangeFnFieldPostField({ field: 'city', type: PostType.event });
 
-  const handleDeleteCity = useDeleteFnEventField('city');
-  const handleDeleteItem = useDeleteFnEventField('item');
+  const handleDeleteCity = useDeleteFnPostField({ field: 'city', type: PostType.event });
+  const handleDeleteItem = useDeleteFnPostField({ field: 'item', type: PostType.event });
 
-  const handleChangeCityLocal = (event: ChangeEventFieldType) => {
+  const handleChangeCityLocal = (event: ChangePostFieldType) => {
     if (item && item.city !== event.target.value) {
       handleDeleteItem();
     }

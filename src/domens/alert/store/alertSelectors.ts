@@ -1,8 +1,9 @@
 import { RootState } from '../../store';
-import { AlertState } from '../types/types';
 
 export const selectAlertStore = (state: RootState) => state?.alert;
 
-export const selectAlertMessage = (state: RootState): AlertState => selectAlertStore(state)?.message;
+export const selectAlertShow = (state: RootState) => selectAlertStore(state)?.show;
 
-export const selectAlertArchive = (state: RootState): AlertState[] => selectAlertStore(state)?.archive;
+export const selectAlertMessage = (state: RootState) => selectAlertStore(state)?.message;
+
+export const selectAlertArchive = (state: RootState) => selectAlertStore(state)?.archive;

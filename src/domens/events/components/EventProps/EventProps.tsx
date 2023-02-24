@@ -1,14 +1,15 @@
 import { Card, CardContent, CardHeader, Divider, Grid, TextField } from '@mui/material';
 import React, { memo } from 'react';
 
-import { IEvent } from '../../../../typings/types';
-import { useChangeFnFieldEventField } from '../../hooks/useChangeFnFieldEventField';
+import { PostType } from '../../../../typings/enum';
+import { useChangeFnFieldPostField } from '../../../post/hooks/useChangeFnFieldPostField';
+import { IEvent } from '../../types/types';
 
 type Props = { fragment: IEvent['fragment']; words: IEvent['searchWords'] };
 
 export const EventProps = memo(function EventProps({ fragment, words }: Props) {
-  const handleChangeFragment = useChangeFnFieldEventField('fragment');
-  const handleChangeSearchWords = useChangeFnFieldEventField('searchWords');
+  const handleChangeFragment = useChangeFnFieldPostField({ field: 'fragment', type: PostType.event });
+  const handleChangeSearchWords = useChangeFnFieldPostField({ field: 'searchWords', type: PostType.event });
 
   return (
     <Card>

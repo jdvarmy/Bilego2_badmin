@@ -1,7 +1,6 @@
 import { Key } from 'react';
 
-import { EventDate } from '../domens/eventDates/types/types';
-import { City, EventHeaderType, PostStatus, TermType, TermTypeLink, TicketType, UserRole } from './enum';
+import { PostStatus, TermType, TermTypeLink, TicketType, UserRole } from './enum';
 import { HTTP_URL, HTTP_VERSION } from './env';
 
 export const loginPage = '/login';
@@ -39,7 +38,7 @@ export interface Taxonomy {
   showInMainPage?: boolean;
 }
 
-interface Post {
+export interface Post {
   uid?: string;
   slug?: string;
   status?: PostStatus;
@@ -50,47 +49,6 @@ interface Post {
   seo?: any;
 }
 
-export interface IEvent extends Post {
-  uid: string;
-  item?: Pick<Item, 'uid' | 'title' | 'city'>;
-  artist?: Pick<Artist, 'uid' | 'title'>[];
-  city?: City;
-  eventManager?: User;
-  taxonomy?: Pick<Taxonomy, 'id' | 'name' | 'type'>[];
-  eventDates?: EventDate[];
-  image?: MediaSelectData;
-  fragment?: string;
-  searchWords?: string;
-  ageRestriction?: number;
-  isShowOnSlider?: boolean;
-  musicLink?: string;
-  videoLink?: string;
-  headerType?: EventHeaderType;
-  headerImage?: MediaSelectData;
-  headerMedia?: string;
-  headerText?: string;
-  headerTextColor?: string;
-  concertManagerInfo?: string;
-  concertManagerPercentage?: number;
-}
-export interface EventRequest
-  extends Omit<
-    IEvent,
-    'create' | 'update' | 'eventDates' | 'taxonomy' | 'image' | 'headerImage' | 'item' | 'artist' | 'eventManager'
-  > {
-  taxonomy?: number[];
-  eventDates?: Omit<EventDate, 'eventUid' | 'map'>[];
-  image?: number;
-  headerImage?: number;
-  item?: string;
-  artist?: string[];
-  eventManager?: string;
-}
-
-export interface Item extends Post {
-  image?: MediaSelectData | number;
-  city?: City;
-}
 export interface Artist extends Post {
   avatar?: MediaSelectData | number;
 }

@@ -1,14 +1,12 @@
-import { EventRequest, IEvent } from '../../../typings/types';
 import requests from '../../../utils/api/api';
+import { EventRequest, IEvent, eventsScope } from '../types/types';
 
-export const fetchEventsRequest = () => requests.get<IEvent[]>(`events`);
+export const fetchEventsRequest = () => requests.get<IEvent[]>(`${eventsScope}`);
 
-export const getEventRequest = (uid: string) => requests.get<IEvent>(`events/${uid}`);
+export const getEventRequest = (uid: string) => requests.get<IEvent>(`${eventsScope}/${uid}`);
 
-export const postTemplateEventRequest = () => requests.post<IEvent>(`events`);
+export const postTemplateEventRequest = () => requests.post<IEvent>(`${eventsScope}`);
 
-export const putTemplateEventRequest = (data: EventRequest) => requests.put<IEvent>(`events/${data.uid}`, data);
+export const putEventRequest = (data: EventRequest) => requests.put<IEvent>(`${eventsScope}/${data.uid}`, data);
 
-export const patchEventRequest = (data: EventRequest) => requests.patch<IEvent>(`events/${data.uid}`, data);
-
-export const deleteEventRequest = (uid: string) => requests.delete<IEvent>(`events/${uid}`);
+export const deleteEventRequest = (uid: string) => requests.delete<IEvent>(`${eventsScope}/${uid}`);

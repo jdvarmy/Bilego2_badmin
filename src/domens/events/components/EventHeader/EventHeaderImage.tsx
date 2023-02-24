@@ -1,24 +1,25 @@
 import { Grid, TextField } from '@mui/material';
 import { TextFieldProps } from '@mui/material/TextField/TextField';
 import React, { useCallback, useMemo } from 'react';
-import { useSelector } from 'react-redux';
 
 import TextFieldImage from '../../../../components/TextFieldImage/TextFieldImage';
+import { PostType } from '../../../../typings/enum';
 import { isEqual } from '../../../../utils/helpers/isEqual';
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { useThrottle } from '../../../../utils/hooks/useThrottle';
-import { useChangeFnMediaEventField } from '../../hooks/useChangeFnMediaEventField';
-import { useDeleteFnEventField } from '../../hooks/useDeleteFnEventField';
+import { useChangeFnMediaPostField } from '../../../post/hooks/useChangeFnMediaPostField';
+import { useDeleteFnPostField } from '../../../post/hooks/useDeleteFnPostField';
+import { useStateSelector } from '../../../store';
 import { selectEventStateHeaderImageData } from '../../store/eventsSelectors';
 import { eventsActions } from '../../store/eventsSlice';
 import { MediaDisplay } from './MediaDisplay';
 
 export const EventHeaderImage = () => {
   const actions = useActionCreators(eventsActions);
-  const { headerImage, headerText, headerTextColor } = useSelector(selectEventStateHeaderImageData, isEqual);
+  const { headerImage, headerText, headerTextColor } = useStateSelector(selectEventStateHeaderImageData, isEqual);
 
-  const handleChangeImage = useChangeFnMediaEventField('headerImage');
-  const handleDeleteImage = useDeleteFnEventField('headerImage');
+  const handleChangeImage = useChangeFnMediaPostField({ field: 'headerImage', type: PostType.event });
+  const handleDeleteImage = useDeleteFnPostField({ field: 'headerImage', type: PostType.event });
 
   const handleChange = useCallback(
     (name: string, field: string, event: React.ChangeEvent<HTMLInputElement>) => {

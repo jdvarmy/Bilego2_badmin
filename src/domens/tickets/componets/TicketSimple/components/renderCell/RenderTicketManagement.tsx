@@ -3,18 +3,18 @@ import HighlightOffTwoToneIcon from '@mui/icons-material/HighlightOffTwoTone';
 import { Box, IconButton, Tooltip } from '@mui/material';
 import { ICellRendererParams } from 'ag-grid-community';
 import React, { useCallback, useMemo } from 'react';
-import { useSelector } from 'react-redux';
 
 import { useActionCreators } from '../../../../../../utils/hooks/useActionCreators';
+import { useStateSelector } from '../../../../../store';
 import { selectTicketsStore } from '../../../../store/ticketsSelectors';
 import { ticketsActions } from '../../../../store/ticketsSlice';
 import { TicketControlDeleteTicketButton } from '../../../TicketControls/TicketControlDeleteTicketButton';
 
 export const RenderTicketManagement = ({ data: { uid } }: ICellRendererParams) => {
   const actions = useActionCreators(ticketsActions);
-  const { tickets, selectedTicket } = useSelector(selectTicketsStore);
+  const { tickets, selectedTicket } = useStateSelector(selectTicketsStore);
 
-  const editingTicket = useMemo(() => tickets?.find((t) => t.uid === uid) ?? null, [tickets, uid]);
+  const editingTicket = useMemo(() => tickets?.find((ticket) => ticket.uid === uid) ?? null, [tickets, uid]);
   const isCurrentEditingTicket = useMemo(() => selectedTicket?.uid === uid, [selectedTicket?.uid, uid]);
 
   const handleEdit = useCallback(() => {

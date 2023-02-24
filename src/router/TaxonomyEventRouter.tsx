@@ -8,7 +8,7 @@ const Genre = lazy(() => import('../pages/Taxonomy/Genre'));
 const Feeling = lazy(() => import('../pages/Taxonomy/Feeling'));
 const Selection = lazy(() => import('../pages/Taxonomy/Selection'));
 
-const TaxonomyRouter = () => {
+const TaxonomyEventRouter = () => {
   return (
     <Routes>
       <Route path='/' element={RouterSuspense(Category)} />
@@ -20,4 +20,4 @@ const TaxonomyRouter = () => {
   );
 };
 
-export default TaxonomyRouter;
+export default TaxonomyEventRouter;

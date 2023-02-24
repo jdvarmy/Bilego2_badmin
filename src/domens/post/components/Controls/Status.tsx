@@ -1,10 +1,9 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import React, { memo } from 'react';
 
-import { PostStatus } from '../../../../typings/enum';
-import { IEvent } from '../../../../typings/types';
+import { PostStatus, PostType } from '../../../../typings/enum';
 import { getPostStatusColor } from '../../../../utils/helpers/getPostStatusColor';
-import { useChangeFnFieldEventField } from '../../hooks/useChangeFnFieldEventField';
+import { useChangeFnFieldPostField } from '../../hooks/useChangeFnFieldPostField';
 
 const postStatusMap: Record<PostStatus, string> = {
   [PostStatus.temp]: 'временный шаблон',
@@ -17,15 +16,16 @@ const postStatusMap: Record<PostStatus, string> = {
 };
 
 type Props = {
-  status: IEvent['status'];
+  status: PostStatus;
+  type: PostType;
 };
 
-export const Status = memo(function EventStatus({ status }: Props) {
-  console.log('render EventStatus');
+export const Status = memo(function EventStatus({ status, type }: Props) {
+  console.log('render Status');
 
   const color = getPostStatusColor(status);
 
-  const handleChange = useChangeFnFieldEventField('status');
+  const handleChange = useChangeFnFieldPostField({ field: 'status', type });
 
   return (
     <FormControl focused={!!status} color={color} sx={{ width: 256 }} size='small' variant='outlined'>

@@ -1,13 +1,11 @@
-import { Box, Container, Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import React, { useEffect, useLayoutEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
 import ContentContainer from '../../components/ContentContainer/ContentContainer';
 import { PageHelmet } from '../../components/PageHelmet/PageHelmet';
 import SuspenseLoader from '../../components/SuspenseLoader/SuspenseLoader';
 import EventDates from '../../domens/eventDates/components/EventDates/EventDates';
-import { Controls } from '../../domens/events/components/Controls/Controls';
 import EventGallery from '../../domens/events/components/EventGallery/EventGallery';
 import EventHeader from '../../domens/events/components/EventHeader/EventHeader';
 import { EventInfo } from '../../domens/events/components/EventInfo/EventInfo';
@@ -19,12 +17,14 @@ import TextRedactor from '../../domens/events/components/TextRedactor/TextRedact
 import Tickets from '../../domens/events/components/Tickets/Tickets';
 import { selectEventState } from '../../domens/events/store/eventsSelectors';
 import { getEventAsync } from '../../domens/events/store/eventsThunk';
-import { workerClearEventState } from '../../domens/events/store/worckers';
-import { useAppDispatch } from '../../domens/store';
+import { workerEventClear } from '../../domens/events/store/worckers';
+import { Controls } from '../../domens/post/components/Controls/Controls';
+import { useAppDispatch, useStateSelector } from '../../domens/store';
+import { PostType } from '../../typings/enum';
 
 const EditEvent = () => {
   const dispatch = useAppDispatch();
-  const eventState = useSelector(selectEventState);
+  const eventState = useStateSelector(selectEventState);
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const EditEvent = () => {
 
   useLayoutEffect(
     () => () => {
-      dispatch(workerClearEventState());
+      dispatch(workerEventClear());
       // todo: удалить пост если тип поста временный, перед этим показать пользователю предупреждение
     },
     [dispatch],
@@ -49,9 +49,7 @@ const EditEvent = () => {
   return (
     <>
       <PageHelmet title={`Событие ${eventState.title || eventState.slug || 'не определено во вселенной'}`} />
-      <Container maxWidth='lg'>
-        <Controls {...{ uid: eventState.uid, slug: eventState.slug, status: eventState.status }} />
-      </Container>
+      <Controls {...{ uid: eventState.uid, slug: eventState.slug, status: eventState.status, type: PostType.event }} />
       <ContentContainer>
         <Box component='form' noValidate autoComplete='off'>
           <Grid container spacing={3}>

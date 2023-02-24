@@ -18,12 +18,11 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import React, { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import { selectAuthStore } from '../../../domens/auth/store/authSelector';
+import { selectAuthUser } from '../../../domens/auth/store/authSelector';
 import { logout } from '../../../domens/auth/store/authThunk';
-import { useAppDispatch } from '../../../domens/store';
+import { useAppDispatch, useStateSelector } from '../../../domens/store';
 import { UserRole } from '../../../typings/enum';
 import { loginPage } from '../../../typings/types';
 
@@ -70,8 +69,7 @@ const roleMap = {
 function HeaderUserBox() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  // todo
-  const { user } = useSelector(selectAuthStore);
+  const user = useStateSelector(selectAuthUser);
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
 

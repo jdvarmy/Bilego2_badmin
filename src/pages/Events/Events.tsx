@@ -13,7 +13,7 @@ const Events = () => {
       <PageTitle title='Список событий' />
       <ContentContainer>
         <Grid container spacing={3} sx={{ mb: 3 }} flexDirection='column' flexWrap='nowrap'>
-          <Grid item></Grid>
+          <Grid item />
           <Grid item xs={12} flex={1}>
             <EventsTable />
           </Grid>

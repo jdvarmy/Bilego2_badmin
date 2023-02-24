@@ -6,14 +6,13 @@ import { Card, CardContent, CardHeader, Divider, Grid, IconButton, Tab, Tabs, To
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import React, { SyntheticEvent, memo, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 
 import { TicketType } from '../../../../typings/enum';
-import { IEvent } from '../../../../typings/types';
 import { isEqual } from '../../../../utils/helpers/isEqual';
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { eventsActions } from '../../../events/store/eventsSlice';
-import { useAppDispatch } from '../../../store';
+import { IEvent } from '../../../events/types/types';
+import { useAppDispatch, useStateSelector } from '../../../store';
 import { deleteEventDateAsync, saveTemplateEventDateAsync } from '../../store/eventDateThunk';
 import { selectEventDateSelectedUid } from '../../store/eventDatesSelectors';
 import { eventDatesActions } from '../../store/eventDatesSlice';
@@ -28,7 +27,7 @@ const EventDates = ({ uid, dates }: Props) => {
   const dispatch = useAppDispatch();
   const actionsCreatorEvents = useActionCreators(eventsActions);
   const actionsCreatorEventDates = useActionCreators(eventDatesActions);
-  const selectedDateUid = useSelector(selectEventDateSelectedUid);
+  const selectedDateUid = useStateSelector(selectEventDateSelectedUid);
 
   console.log('render EventDates');
 

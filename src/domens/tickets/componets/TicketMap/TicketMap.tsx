@@ -2,11 +2,12 @@ import { Box } from '@mui/material';
 import Konva from 'konva';
 import React, { CSSProperties, createContext, memo, useCallback, useContext, useMemo, useRef } from 'react';
 import { Stage } from 'react-konva';
-import { Provider, ReactReduxContext, useSelector } from 'react-redux';
+import { Provider, ReactReduxContext } from 'react-redux';
 
 import { isEqual } from '../../../../utils/helpers/isEqual';
 import { useResizeObserver } from '../../../../utils/hooks/useResizeObserver';
 import { selectSelectedDateMap } from '../../../eventDates/store/eventDatesSelectors';
+import { useStateSelector } from '../../../store';
 import ActiveCanvas from './ActiveCanvas';
 import Paths from './Paths';
 import StaticCanvas from './StaticCanvas';
@@ -32,7 +33,7 @@ const TicketMap = () => {
   console.log('RERENDER MAP');
   const ref = useRef<HTMLDivElement>(null);
   const refStage = useRef<StageType>(null);
-  const map = useSelector(selectSelectedDateMap, isEqual);
+  const map = useStateSelector(selectSelectedDateMap, isEqual);
 
   const rect = useResizeObserver(ref);
 

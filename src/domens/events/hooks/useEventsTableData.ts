@@ -1,10 +1,8 @@
 import { ColDef } from 'ag-grid-community';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 
-import { IEvent } from '../../../typings/types';
 import cloneDeep from '../../../utils/helpers/cloneDeep';
-import { useAppDispatch } from '../../store';
+import { useAppDispatch, useStateSelector } from '../../store';
 import { RenderDeleteItem } from '../components/EventsTable/RenderDeleteItem';
 import { cellCity } from '../components/EventsTable/cell/cellCity';
 import { cellDelete } from '../components/EventsTable/cell/cellDelete';
@@ -15,6 +13,7 @@ import { cellStatus } from '../components/EventsTable/cell/cellStatus';
 import { cellTitle } from '../components/EventsTable/cell/cellTitle';
 import { selectEvents } from '../store/eventsSelectors';
 import { fetchEventsAsync } from '../store/eventsThunk';
+import { IEvent } from '../types/types';
 
 type EventColumns = Pick<
   IEvent,
@@ -34,7 +33,7 @@ const columns: Record<keyof EventColumns, string> = {
 
 export function useEventsTableData(): { rowData: IEvent[]; columnDefs: ColDef<IEvent>[] } {
   const dispatch = useAppDispatch();
-  const events = useSelector(selectEvents);
+  const events = useStateSelector(selectEvents);
 
   const columnDefs: ColDef<IEvent>[] = Object.entries(columns).map(([column, name]) => {
     const columns: ColDef<IEvent> = {

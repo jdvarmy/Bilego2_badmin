@@ -1,23 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { City } from '../../../typings/enum';
-import { EventRequest, IEvent } from '../../../typings/types';
 import { addAlertErrorAsync } from '../../alert/store/alertThunk';
 import { ServerErrorStatus } from '../../alert/types/types';
 import { fetchArtistsRequest } from '../../artists/api/artistsRequest';
 import { eventDatesActions } from '../../eventDates/store/eventDatesSlice';
-import { fetchItemsRequest } from '../../items/api/itemsRequest';
-import { eventsScope } from '../types/types';
+import { fetchItemsRequestForEvent } from '../../items/api/itemsRequest';
+import { EventRequest, IEvent, eventsScope } from '../types/types';
 import { eventsActions } from './eventsSlice';
 
-export const workerClearEventState = createAsyncThunk(
-  `${eventsScope}/workerClearEventState`,
-  async (_, { dispatch }) => {
-    dispatch(eventsActions.setEvent(null));
-    dispatch(eventsActions.setEventState(null));
-    dispatch(eventDatesActions.setSelectedDateUid(undefined));
-  },
-);
+export const workerEventClear = createAsyncThunk(`${eventsScope}/workerEventClear`, (_, { dispatch }) => {
+  dispatch(eventsActions.setEvent(null));
+  dispatch(eventsActions.setEventState(null));
+  dispatch(eventDatesActions.setSelectedDateUid(undefined));
+});
 
 export function workerPrepareData(event: IEvent): EventRequest {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -67,7 +63,7 @@ export const workerGetItemListForEvent = createAsyncThunk(
   `${eventsScope}/workerGetItemListForEvent`,
   async ({ search, params }: { search: string; params: { city?: City } }, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = await fetchItemsRequest({ search, ...params });
+      const { data } = await fetchItemsRequestForEvent({ search, ...params });
 
       return data;
     } catch (error) {

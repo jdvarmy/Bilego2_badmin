@@ -2,7 +2,8 @@ import { Editor } from '@tinymce/tinymce-react';
 import { ITinyEvents } from '@tinymce/tinymce-react/lib/cjs/main/ts/Events';
 import React, { memo, useEffect, useRef } from 'react';
 
-import { useSetEventStateField } from '../../hooks/useSetEventStateField';
+import { PostType } from '../../../../typings/enum';
+import { useSetPostStateField } from '../../../post/hooks/useSetPostStateField';
 
 type Props = {
   text?: string;
@@ -43,7 +44,7 @@ const plugins = [
 const TextRedactor = ({ text }: Props) => {
   const editorRef = useRef(null);
   const timerRef = useRef<NodeJS.Timeout>(null);
-  const handleChangeText = useSetEventStateField('text');
+  const handleChangeText = useSetPostStateField({ field: 'text', type: PostType.event });
 
   const handleInit: ITinyEvents['onInit'] = (evt, editor) => {
     timerRef.current = setTimeout(() => {

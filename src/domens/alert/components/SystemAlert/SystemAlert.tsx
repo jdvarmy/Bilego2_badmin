@@ -1,55 +1,16 @@
-import { Alert, AlertTitle, Box, Snackbar } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Alert, AlertTitle, Snackbar } from '@mui/material';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
-import { selectAlertStore } from '../../store/alertSelectors';
+import { useStateSelector } from '../../../store';
+import { selectAlertMessage, selectAlertShow } from '../../store/alertSelectors';
 import { alertActions } from '../../store/alertSlice';
-
-const AlertWrapper = styled(Box)(
-  ({ theme }) => `
-    padding: ${theme.spacing(0.5, 1)};
-    font-size: ${theme.typography.pxToRem(13)};
-    border-radius: ${theme.general.borderRadius};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    & .MuiPaper-root.MuiAlert-standardError {
-      background-color: ${theme.colors.error.lighter};
-      
-      & .MuiAlert-message{
-        color: ${theme.palette.error.main}
-      }
-    }
-    & .MuiPaper-root.MuiAlert-standardSuccess {
-      background-color: ${theme.colors.success.lighter};
-      
-      & .MuiAlert-message{
-        color: ${theme.palette.success.main}
-      }
-    }
-    & .MuiPaper-root.MuiAlert-standardWarning {
-      background-color: ${theme.colors.warning.lighter};
-      
-      & .MuiAlert-message{
-        color: ${theme.palette.warning.main}
-      }
-    }
-    & .MuiPaper-root.MuiAlert-standardInfo {
-      background-color: ${theme.colors.info.lighter};
-      
-      & .MuiAlert-message{
-        color: ${theme.palette.info.main}
-      }
-    }
-`,
-);
+import { AlertWrapper } from './styledComponents';
 
 const SystemAlert = () => {
   const actions = useActionCreators(alertActions);
-  const { show, message } = useSelector(selectAlertStore);
+  const show = useStateSelector(selectAlertShow);
+  const message = useStateSelector(selectAlertMessage);
 
   const handleClose = () => {
     actions.clearAlert(message);

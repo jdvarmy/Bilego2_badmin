@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import SuspenseLoader from '../../components/SuspenseLoader/SuspenseLoader';
 import { saveTemplateEventAsync } from '../../domens/events/store/eventsThunk';
-import { workerClearEventState } from '../../domens/events/store/worckers';
+import { workerEventClear } from '../../domens/events/store/worckers';
 import { useAppDispatch } from '../../domens/store';
 
 const EventDataContainer = () => {
@@ -12,7 +12,7 @@ const EventDataContainer = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(workerClearEventState());
+    dispatch(workerEventClear());
     dispatch(saveTemplateEventAsync())
       .unwrap()
       .then((eventState) => {

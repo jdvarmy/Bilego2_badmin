@@ -2,11 +2,12 @@ import { MenuItem } from '@mui/material';
 import React, { memo, useState } from 'react';
 
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
-import { IEvent } from '../../../../typings/types';
+import { PostType } from '../../../../typings/enum';
+import { useChangeFnFieldPostField } from '../../../post/hooks/useChangeFnFieldPostField';
+import { useDeleteFnPostField } from '../../../post/hooks/useDeleteFnPostField';
 import { useAppDispatch } from '../../../store';
-import { useChangeFnFieldEventField } from '../../hooks/useChangeFnFieldEventField';
-import { useDeleteFnEventField } from '../../hooks/useDeleteFnEventField';
 import { workerGetArtistListForEvent } from '../../store/worckers';
+import { IEvent } from '../../types/types';
 
 type Props = {
   artist?: IEvent['artist'];
@@ -16,9 +17,9 @@ export const EventPlaceArtist = memo(function EventPlaceArtist({ artist }: Props
   const dispatch = useAppDispatch();
   const [artists, setArtists] = useState<IEvent['artist']>([]);
 
-  const handleChangeArtist = useChangeFnFieldEventField('artist');
+  const handleChangeArtist = useChangeFnFieldPostField({ field: 'artist', type: PostType.event });
 
-  const handleDeleteArtist = useDeleteFnEventField('artist');
+  const handleDeleteArtist = useDeleteFnPostField({ field: 'artist', type: PostType.event });
 
   const fetchFnArtists = (search: string) => {
     // todo: добавить прерывание запроса

@@ -6,7 +6,7 @@ import { RouterSuspense } from '../utils/hoc/RouterSuspense';
 const Events = lazy(() => import('../pages/Events/Events'));
 const CreateEvent = lazy(() => import('../pages/Events/CreateEvent'));
 const EditEvent = lazy(() => import('../pages/Events/EditEvent'));
-const TaxonomyRouter = lazy(() => import('./TaxonomyRouter'));
+const TaxonomyEventRouter = lazy(() => import('./TaxonomyEventRouter'));
 
 const EventsRouter = () => {
   return (
@@ -14,7 +14,7 @@ const EventsRouter = () => {
       <Route path='/' element={RouterSuspense(Events)} />
       <Route path='create' element={RouterSuspense(CreateEvent)} />
       <Route path='edit' element={RouterSuspense(EditEvent)} />
-      <Route path='terms/*' element={RouterSuspense(TaxonomyRouter)} />
+      <Route path='terms/*' element={RouterSuspense(TaxonomyEventRouter)} />
     </Routes>
   );
 };

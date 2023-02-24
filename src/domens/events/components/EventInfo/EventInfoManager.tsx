@@ -2,11 +2,12 @@ import { MenuItem, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
-import { IEvent } from '../../../../typings/types';
+import { PostType } from '../../../../typings/enum';
+import { useChangeFnFieldPostField } from '../../../post/hooks/useChangeFnFieldPostField';
+import { useDeleteFnPostField } from '../../../post/hooks/useDeleteFnPostField';
 import { useAppDispatch } from '../../../store';
 import { getManagerListForEventAsync } from '../../../users/store/usersThuk';
-import { useChangeFnFieldEventField } from '../../hooks/useChangeFnFieldEventField';
-import { useDeleteFnEventField } from '../../hooks/useDeleteFnEventField';
+import { IEvent } from '../../types/types';
 
 type Props = {
   manager?: IEvent['eventManager'];
@@ -16,8 +17,8 @@ export const EventInfoManager = ({ manager }: Props) => {
   const dispatch = useAppDispatch();
   const [managers, setManagers] = useState<IEvent['eventManager'][]>([]);
 
-  const handleChange = useChangeFnFieldEventField('eventManager');
-  const handleDelete = useDeleteFnEventField('eventManager');
+  const handleChange = useChangeFnFieldPostField({ field: 'eventManager', type: PostType.event });
+  const handleDelete = useDeleteFnPostField({ field: 'eventManager', type: PostType.event });
 
   const fetchFnManagers = (search: string) => {
     // todo: добавить прерывание запроса

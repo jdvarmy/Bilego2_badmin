@@ -4,9 +4,16 @@ export enum UserRole {
   organizer = 'event_ceo',
   subscriber = 'subscriber',
 }
+
 export enum BaseRecordStatus {
   create = 'create',
   edit = 'edit',
+}
+
+export enum PostType {
+  event = 'Event',
+  item = 'Item',
+  artist = 'Artist',
 }
 
 export enum PostStatus {

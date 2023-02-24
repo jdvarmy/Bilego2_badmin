@@ -2,14 +2,14 @@ import { MenuItem } from '@mui/material';
 import React, { memo, useState } from 'react';
 
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
-import { City } from '../../../../typings/enum';
-import { IEvent } from '../../../../typings/types';
+import { City, PostType } from '../../../../typings/enum';
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
+import { ChangePostFieldType, useChangeFnFieldPostField } from '../../../post/hooks/useChangeFnFieldPostField';
+import { useDeleteFnPostField } from '../../../post/hooks/useDeleteFnPostField';
 import { useAppDispatch } from '../../../store';
-import { ChangeEventFieldType, useChangeFnFieldEventField } from '../../hooks/useChangeFnFieldEventField';
-import { useDeleteFnEventField } from '../../hooks/useDeleteFnEventField';
 import { eventsActions } from '../../store/eventsSlice';
 import { workerGetItemListForEvent } from '../../store/worckers';
+import { IEvent } from '../../types/types';
 
 type Props = {
   item?: IEvent['item'];
@@ -21,10 +21,10 @@ export const EventPlaceItem = memo(function EventPlaceItem({ item, city }: Props
   const actions = useActionCreators(eventsActions);
   const [items, setItems] = useState<IEvent['item'][]>([]);
 
-  const handleChangeItem = useChangeFnFieldEventField('item');
-  const handleDeleteItem = useDeleteFnEventField('item');
+  const handleChangeItem = useChangeFnFieldPostField({ field: 'item', type: PostType.event });
+  const handleDeleteItem = useDeleteFnPostField({ field: 'item', type: PostType.event });
 
-  const handleChangeItemLocal = (event: ChangeEventFieldType) => {
+  const handleChangeItemLocal = (event: ChangePostFieldType) => {
     const eventCity = event.target.value as IEvent['item'];
     if (eventCity?.city && eventCity.city !== city) {
       actions.setEventStateField({ city: eventCity.city });

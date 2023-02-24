@@ -2,11 +2,10 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 
 import { StatusLabel } from '../../../UI/StatusLabel';
 import { User } from '../../../typings/types';
-import { useAppDispatch } from '../../store';
+import { useAppDispatch, useStateSelector } from '../../store';
 import { selectUsers } from '../store/usersSelectors';
 import { getUsersAsync } from '../store/usersThuk';
 import DeleteUserButton from './DeleteUserButton';
@@ -15,7 +14,7 @@ import EditUserButton from './EditUserButton';
 const UsersTable = () => {
   const dispatch = useAppDispatch();
 
-  const users = useSelector(selectUsers);
+  const users = useStateSelector(selectUsers);
 
   useEffect(() => {
     dispatch(getUsersAsync());

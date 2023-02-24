@@ -2,12 +2,13 @@ import { Box, Card, CardContent, CardHeader, Divider, Grid } from '@mui/material
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { TermType, TermTypeLink } from '../../../../typings/enum';
-import { IEvent, Taxonomy } from '../../../../typings/types';
+import { Taxonomy } from '../../../../typings/types';
 import { isEqual } from '../../../../utils/helpers/isEqual';
 import { addAlertErrorAsync } from '../../../alert/store/alertThunk';
 import { ServerErrorStatus } from '../../../alert/types/types';
 import { useAppDispatch } from '../../../store';
 import { fetchTaxonomyRequest } from '../../../taxonomy/api/taxonomyRequest';
+import { IEvent } from '../../types/types';
 import { EventTaxonomyElement } from './EventTaxonomyElement';
 
 type Props<T> = { uid: IEvent['uid']; stateTaxonomy: T };

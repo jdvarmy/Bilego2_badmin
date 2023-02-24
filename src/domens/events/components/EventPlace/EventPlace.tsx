@@ -2,7 +2,7 @@ import { Box, Card, CardContent, CardHeader, Divider, Grid } from '@mui/material
 import React, { memo } from 'react';
 
 import { City } from '../../../../typings/enum';
-import { IEvent } from '../../../../typings/types';
+import { IEvent } from '../../types/types';
 import { EventPlaceArtist } from './EventPlaceArtist';
 import { EventPlaceCity } from './EventPlaceCity';
 import { EventPlaceItem } from './EventPlaceItem';

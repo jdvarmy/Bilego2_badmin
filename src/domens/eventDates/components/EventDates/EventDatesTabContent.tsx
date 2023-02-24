@@ -3,9 +3,9 @@ import { DateTimePicker } from '@mui/lab';
 import { Grid, IconButton, TextField, Tooltip, Typography } from '@mui/material';
 import React from 'react';
 
-import { IEvent } from '../../../../typings/types';
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { eventsActions } from '../../../events/store/eventsSlice';
+import { IEvent } from '../../../events/types/types';
 import { EventDate } from '../../types/types';
 
 type Props = {

@@ -1,17 +1,16 @@
 import React, { ReactNode, useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import SuspenseLoader from '../../../components/SuspenseLoader/SuspenseLoader';
 import { StatusLoading, UserRole } from '../../../typings/enum';
 import { loginPage } from '../../../typings/types';
-import { useAppDispatch } from '../../store';
+import { useAppDispatch, useStateSelector } from '../../store';
 import { selectAuthStore } from '../store/authSelector';
 import { checkIsUserLogin } from '../store/authThunk';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const dispatch = useAppDispatch();
-  const { isAuthenticated, status, user } = useSelector(selectAuthStore);
+  const { isAuthenticated, status, user } = useStateSelector(selectAuthStore);
   const navigate = useNavigate();
   const { pathname } = useLocation();
 

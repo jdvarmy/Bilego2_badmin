@@ -4,19 +4,19 @@ import { Box, Button, IconButton, Tooltip } from '@mui/material';
 import React, { memo } from 'react';
 
 import { PostStatus } from '../../../../typings/enum';
+import { saveEventAsync } from '../../../events/store/eventsThunk';
 import { useAppDispatch } from '../../../store';
-import { saveEventAsync } from '../../store/eventsThunk';
 
 const tooltipStyle = { ml: 2, my: 0.5 };
 
 export const SaveButtons = memo(function SaveEventButtons() {
   const dispatch = useAppDispatch();
 
-  const handleButtonClick = (type?: PostStatus) => () => {
-    dispatch(saveEventAsync(type ? { type } : {}));
+  const handleButtonClick = (status?: PostStatus) => () => {
+    dispatch(saveEventAsync(status ? { status } : {}));
   };
 
-  console.log('render SaveEventButtons');
+  console.log('render SaveButtons');
 
   return (
     <Box>

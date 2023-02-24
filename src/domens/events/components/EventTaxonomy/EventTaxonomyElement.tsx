@@ -4,14 +4,14 @@ import React, { memo, useCallback, useEffect, useState } from 'react';
 import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWithSearch';
 import { nameMapTaxonomy } from '../../../../pages/Taxonomy/Taxonomy';
 import { TermType } from '../../../../typings/enum';
-import { IEvent } from '../../../../typings/types';
 import { isEqual } from '../../../../utils/helpers/isEqual';
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
+import { ChangePostFieldType } from '../../../post/hooks/useChangeFnFieldPostField';
 import { useAppDispatch, useStateSelector } from '../../../store';
-import { ChangeEventFieldType } from '../../hooks/useChangeFnFieldEventField';
 import { selectEvent } from '../../store/eventsSelectors';
 import { eventsActions } from '../../store/eventsSlice';
-import { editEventAsync } from '../../store/eventsThunk';
+import { saveEventAsync } from '../../store/eventsThunk';
+import { IEvent } from '../../types/types';
 
 type Props<T> = { type: TermType; eventUid: IEvent['uid']; selected: T; taxonomies: T; stateTaxonomy: T };
 
@@ -30,7 +30,7 @@ export const EventTaxonomyElement = memo(function EventTaxonomyElement<T extends
   console.info('render EventTaxonomyElement');
 
   const handleChangeTaxonomy = useCallback(
-    (event: ChangeEventFieldType) => {
+    (event: ChangePostFieldType) => {
       const filterTax = (stateTaxonomy || []).filter((tax) => tax.type !== type);
 
       actions.setEventStateField({
@@ -42,7 +42,7 @@ export const EventTaxonomyElement = memo(function EventTaxonomyElement<T extends
 
   const handleSaveEventTaxonomy = useCallback(() => {
     if (Array.isArray(stateTaxonomy) && stateTaxonomy.length && !isEqual(stateTaxonomy, taxonomy)) {
-      dispatch(editEventAsync({ uid: eventUid, taxonomy: stateTaxonomy }));
+      dispatch(saveEventAsync({ taxonomy: stateTaxonomy }));
     }
     setLocalTax(taxonomies);
   }, [stateTaxonomy, taxonomy, taxonomies, dispatch, eventUid]);

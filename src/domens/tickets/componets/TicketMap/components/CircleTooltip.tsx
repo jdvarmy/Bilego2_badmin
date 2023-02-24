@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Html } from 'react-konva-utils';
-import { useSelector } from 'react-redux';
 
 import { DrawCircleType } from '../../../../../typings/types';
 import { selectSelectedDateMapSectors } from '../../../../eventDates/store/eventDatesSelectors';
+import { useStateSelector } from '../../../../store';
 import { useMapStage } from '../TicketMap';
 import CircleTooltipContent from './CircleTooltipContent';
 
@@ -23,7 +23,7 @@ type Props = {
 };
 
 const CircleTooltip = ({ circle, multiplier }: Props) => {
-  const sectors = useSelector(selectSelectedDateMapSectors);
+  const sectors = useStateSelector(selectSelectedDateMapSectors);
   const [box, setBox] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
   const stage = useMapStage();
 

@@ -1,10 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { StatusLoading } from '../../../typings/enum';
-import { IEvent } from '../../../typings/types';
 import { editEventDateAsync, saveTemplateEventDateAsync } from '../../eventDates/store/eventDateThunk';
-import { eventsScope } from '../types/types';
-import { editEventAsync, fetchEventsAsync, getEventAsync, saveEventAsync, saveTemplateEventAsync } from './eventsThunk';
+import { IEvent, eventsScope } from '../types/types';
+import { fetchEventsAsync, getEventAsync, saveEventAsync, saveTemplateEventAsync } from './eventsThunk';
 
 type State = {
   status: StatusLoading;
@@ -75,10 +74,7 @@ const slice = createSlice({
 
     // Помощники
     builder.addMatcher(
-      ({ type }) =>
-        [editEventAsync.fulfilled.type, saveEventAsync.fulfilled.type, saveTemplateEventAsync.fulfilled.type].includes(
-          type,
-        ),
+      ({ type }) => [saveEventAsync.fulfilled.type, saveTemplateEventAsync.fulfilled.type].includes(type),
       (state, action: PayloadAction<IEvent>) => {
         state.event = action.payload;
         state.eventState = action.payload;

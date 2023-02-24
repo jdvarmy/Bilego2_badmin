@@ -3,19 +3,21 @@ import { ICellRendererParams } from 'ag-grid-community';
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
+import { eventsScope } from '../../../types/types';
+
 // eslint-disable-next-line react/prop-types
 export const RenderTitle = memo(function RenderTitle({ data: { uid, title, slug } }: ICellRendererParams) {
   let returnComponent;
 
   if (title && uid && slug) {
     returnComponent = (
-      <MULink variant='h6' underline='hover' component={Link} to={`/events/edit?uid=${uid}&slug=${slug}`}>
+      <MULink variant='h6' underline='hover' component={Link} to={`/${eventsScope}/edit?uid=${uid}&slug=${slug}`}>
         {title}
       </MULink>
     );
   } else if (uid && slug) {
     returnComponent = (
-      <MULink variant='h6' underline='hover' component={Link} to={`/events/edit?uid=${uid}&slug=${slug}`}>
+      <MULink variant='h6' underline='hover' component={Link} to={`/${eventsScope}/edit?uid=${uid}&slug=${slug}`}>
         Нет заголовка
       </MULink>
     );

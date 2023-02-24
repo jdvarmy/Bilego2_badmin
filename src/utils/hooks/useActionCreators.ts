@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 import { useAppDispatch } from '../../domens/store';
 
-export const useActionCreators = (actionsObject: ActionCreatorsMapObject) => {
+export const useActionCreators = (actionsObject: ActionCreatorsMapObject): ActionCreatorsMapObject => {
   const dispatch = useAppDispatch();
 
   return useMemo(() => bindActionCreators(actionsObject, dispatch), [dispatch]);

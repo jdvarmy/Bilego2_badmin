@@ -5,27 +5,49 @@ import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import React, { memo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
+import { PostType } from '../../../../typings/enum';
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { useLocalSearchParams } from '../../../../utils/hooks/useLocalSearchParams';
+import { eventsActions } from '../../../events/store/eventsSlice';
+import { saveEventAsync } from '../../../events/store/eventsThunk';
+import { itemsActions } from '../../../items/store/itemsSlice';
+import { saveItemAsync } from '../../../items/store/itemsThunk';
 import { useAppDispatch } from '../../../store';
-import { eventsActions } from '../../store/eventsSlice';
-import { editEventAsync } from '../../store/eventsThunk';
 
 type Props = {
   uid?: string;
   slug?: string;
+  type: PostType;
 };
 
-export const SlugCreator = memo(function EventSlugCreator({ uid, slug }: Props) {
+export const SlugCreator = memo(function SlugCreator({ uid, slug, type }: Props) {
   const dispatch = useAppDispatch();
-  const actions = useActionCreators(eventsActions);
+  const eventActions = useActionCreators(eventsActions);
+  const itemActions = useActionCreators(itemsActions);
   const params = useLocalSearchParams();
   const [, setSearchParams] = useSearchParams();
 
-  console.log('render EventSlugCreator');
+  console.log('render SlugCreator');
 
   const [edit, setEdit] = useState<boolean>(false);
   const [localSlug, setLocalSlug] = useState<string | undefined>(slug);
+
+  const workerHandler = ({ uid, slug }: { uid: string; slug: string }) => {
+    switch (type) {
+      case PostType.event:
+        return () => {
+          eventActions.setEventStateField({ slug });
+          dispatch(saveEventAsync({ slug }));
+        };
+      case PostType.item:
+        return () => {
+          itemActions.setItemStateField({ slug });
+          dispatch(saveItemAsync({ uid, slug }));
+        };
+      case PostType.artist:
+        return () => ({});
+    }
+  };
 
   const handleClick = () => {
     setEdit((prev) => !prev);
@@ -47,9 +69,8 @@ export const SlugCreator = memo(function EventSlugCreator({ uid, slug }: Props) 
       const cyrillicToTranslit = new CyrillicToTranslit();
       const updatedSlug = cyrillicToTranslit.transform(localSlug, '-').toLowerCase();
 
-      actions.setEventStateField({ slug: updatedSlug });
+      workerHandler({ uid, slug: updatedSlug })();
       setSearchParams({ ...params, slug: updatedSlug });
-      dispatch(editEventAsync({ uid, slug: updatedSlug }));
     }
   };
 

@@ -15,12 +15,12 @@ import React, { memo } from 'react';
 import TextFieldImage from '../../../../components/TextFieldImage/TextFieldImage';
 import { PostType } from '../../../../typings/enum';
 import { isEqual } from '../../../../utils/helpers/isEqual';
+import { CardHeaderAvatar } from '../../../post/components/PostInfo/CardHeaderAvatar';
 import { useChangeFnCheckboxPostField } from '../../../post/hooks/useChangeFnCheckboxPostField';
 import { useChangeFnFieldPostField } from '../../../post/hooks/useChangeFnFieldPostField';
 import { useChangeFnMediaPostField } from '../../../post/hooks/useChangeFnMediaPostField';
 import { useDeleteFnPostField } from '../../../post/hooks/useDeleteFnPostField';
 import { IEvent } from '../../types/types';
-import { CardHeaderAvatar } from './CardHeaderAvatar';
 import { EventInfoManager } from './EventInfoManager';
 import { EventInfoMediaDisplay } from './EventInfoMediaDisplay';
 
@@ -52,26 +52,21 @@ export const EventInfo = memo(function EventInfo({
   concertManagerPercentage,
 }: Props) {
   console.log('render EventInfo');
+  const type = PostType.event;
 
-  const handleChangeTitle = useChangeFnFieldPostField({ field: 'title', type: PostType.event });
-  const handleChangeAgeRestriction = useChangeFnFieldPostField({ field: 'ageRestriction', type: PostType.event });
-  const handleChangeConcertManagerPercentage = useChangeFnFieldPostField({
-    field: 'concertManagerPercentage',
-    type: PostType.event,
-  });
-  const handleChangeConcertManagerInfo = useChangeFnFieldPostField({
-    field: 'concertManagerInfo',
-    type: PostType.event,
-  });
-  const handleChangeImage = useChangeFnMediaPostField({ field: 'image', type: PostType.event });
+  const handleChangeTitle = useChangeFnFieldPostField({ field: 'title', type });
+  const handleChangeAgeRestriction = useChangeFnFieldPostField({ field: 'ageRestriction', type });
+  const handleChangeConcertManagerPercentage = useChangeFnFieldPostField({ field: 'concertManagerPercentage', type });
+  const handleChangeConcertManagerInfo = useChangeFnFieldPostField({ field: 'concertManagerInfo', type });
+  const handleChangeImage = useChangeFnMediaPostField({ field: 'image', type });
 
-  const handleChangeIsShowOnSlider = useChangeFnCheckboxPostField({ field: 'isShowOnSlider', type: PostType.event });
+  const handleChangeIsShowOnSlider = useChangeFnCheckboxPostField({ field: 'isShowOnSlider', type });
 
-  const handleDeleteImage = useDeleteFnPostField({ field: 'image', type: PostType.event });
+  const handleDeleteImage = useDeleteFnPostField({ field: 'image', type });
 
   return (
     <Card>
-      <CardHeader title='Информация' avatar={<CardHeaderAvatar />} />
+      <CardHeader title='Информация' avatar={<CardHeaderAvatar type={type} />} />
       <Divider />
       <CardContent>
         <TextField

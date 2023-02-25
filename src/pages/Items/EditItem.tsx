@@ -5,6 +5,7 @@ import { useSearchParams } from 'react-router-dom';
 import ContentContainer from '../../components/ContentContainer/ContentContainer';
 import { PageHelmet } from '../../components/PageHelmet/PageHelmet';
 import SuspenseLoader from '../../components/SuspenseLoader/SuspenseLoader';
+import { ItemInfo } from '../../domens/items/components/ItemInfo/ItemInfo';
 import { selectItemState } from '../../domens/items/store/itemsSelector';
 import { getItemAsync } from '../../domens/items/store/itemsThunk';
 import { workerItemClear } from '../../domens/items/store/workers';
@@ -38,12 +39,14 @@ const EditItem = () => {
 
   return (
     <>
-      <PageHelmet title={`Событие ${itemState.title || itemState.slug || 'не определено во вселенной'}`} />
+      <PageHelmet title={`Площадка ${itemState.title || itemState.slug || 'не определена во вселенной'}`} />
       <Controls {...{ uid: itemState.uid, slug: itemState.slug, status: itemState.status, type: PostType.item }} />
       <ContentContainer>
-        <Box component='form' noValidate autoComplete='off'>
+        <Box component='form' noValidate autoComplete='off' sx={{ width: '100%' }}>
           <Grid container spacing={3}>
-            <Grid item xs={12}></Grid>
+            <Grid item xs={12}>
+              <ItemInfo {...{ title: itemState.title, image: itemState.image, city: itemState.city }} />
+            </Grid>
           </Grid>
         </Box>
       </ContentContainer>

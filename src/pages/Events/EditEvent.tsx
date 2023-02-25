@@ -51,7 +51,7 @@ const EditEvent = () => {
       <PageHelmet title={`Событие ${eventState.title || eventState.slug || 'не определено во вселенной'}`} />
       <Controls {...{ uid: eventState.uid, slug: eventState.slug, status: eventState.status, type: PostType.event }} />
       <ContentContainer>
-        <Box component='form' noValidate autoComplete='off'>
+        <Box component='form' noValidate autoComplete='off' sx={{ width: '100%' }}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <EventInfo

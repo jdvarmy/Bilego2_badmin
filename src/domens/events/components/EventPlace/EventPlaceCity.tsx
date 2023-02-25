@@ -3,6 +3,7 @@ import { IconButton, MenuItem, TextField } from '@mui/material';
 import React, { memo } from 'react';
 
 import { City, PostType } from '../../../../typings/enum';
+import { cityMap } from '../../../../utils/helpers/cityMap';
 import { ChangePostFieldType, useChangeFnFieldPostField } from '../../../post/hooks/useChangeFnFieldPostField';
 import { useDeleteFnPostField } from '../../../post/hooks/useDeleteFnPostField';
 import { IEvent } from '../../types/types';
@@ -10,11 +11,6 @@ import { IEvent } from '../../types/types';
 type Props = {
   city?: City;
   item?: IEvent['item'];
-};
-
-const cityMapNames: Record<City, string> = {
-  [City.moscow]: 'Москва',
-  [City.petersburg]: 'Санкт-Петербург',
 };
 
 export const EventPlaceCity = memo(function EventPlaceCity({ city, item }: Props) {
@@ -40,7 +36,7 @@ export const EventPlaceCity = memo(function EventPlaceCity({ city, item }: Props
         focused={!!city}
         onChange={handleChangeCityLocal}
       >
-        {Object.entries(cityMapNames).map(([key, value]) => (
+        {Object.entries(cityMap).map(([key, value]) => (
           <MenuItem key={key} value={key}>
             {value}
           </MenuItem>

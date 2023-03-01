@@ -36,7 +36,7 @@ export const EventPlaceItem = memo(function EventPlaceItem({ item, city }: Props
     // todo: добавить прерывание запроса
     dispatch(workerGetItemListForEvent({ search, params: { city } }))
       .unwrap()
-      .then((items) => {
+      .then(({ items }) => {
         setItems(items);
       });
   };

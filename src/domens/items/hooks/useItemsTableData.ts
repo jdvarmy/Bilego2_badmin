@@ -1,14 +1,16 @@
-import { ColDef } from 'ag-grid-community';
-import { useEffect } from 'react';
+import { ColDef, GridReadyEvent } from 'ag-grid-community';
+import { IDatasource } from 'ag-grid-community/dist/lib/interfaces/iDatasource';
+import { CityColumnFilter } from 'src/components/TableGrid/filters/CityColumnFilter';
 
-import cloneDeep from '../../../utils/helpers/cloneDeep';
-import { useAppDispatch, useStateSelector } from '../../store';
+import { StatusColumnFilter } from '../../../components/TableGrid/filters/StatusColumnFilter';
+import { filterModelParser } from '../../../components/TableGrid/parser/filterModelParser';
+import { defaultCountPost } from '../../post/types/types';
+import { useAppDispatch } from '../../store';
 import { RenderDeleteItem } from '../components/ItemsTable/RenderDeleteItem';
 import { cellCity } from '../components/ItemsTable/cell/cellCity';
 import { cellDelete } from '../components/ItemsTable/cell/cellDelete';
 import { cellStatus } from '../components/ItemsTable/cell/cellStatus';
 import { cellTitle } from '../components/ItemsTable/cell/cellTitle';
-import { selectItems } from '../store/itemsSelector';
 import { fetchItemsAsync } from '../store/itemsThunk';
 import { IItem } from '../type/types';
 
@@ -20,10 +22,11 @@ const columns: Record<keyof ItemColumns, string> = {
   city: 'Город',
 };
 
-export function useItemsTableData(): { rowData: IItem[]; columnDefs: ColDef<IItem>[] } {
+export function useItemsTableData(): {
+  columnDefs: ColDef<IItem>[];
+  onGridReady: (event: GridReadyEvent) => void;
+} {
   const dispatch = useAppDispatch();
-  const items = useStateSelector(selectItems);
-
   const columnDefs: ColDef<IItem>[] = Object.entries(columns).map(([column, name]) => {
     const columns: ColDef<IItem> = {
       field: column,
@@ -34,12 +37,20 @@ export function useItemsTableData(): { rowData: IItem[]; columnDefs: ColDef<IIte
     };
 
     if (['title'].includes(column)) {
+      columns.filter = 'agTextColumnFilter';
+      columns.floatingFilter = true;
+      columns.filterParams = {
+        filterOptions: ['contains'],
+        defaultOption: 'contains',
+      };
       return cellTitle(columns);
     }
     if (['status'].includes(column)) {
+      columns.filter = StatusColumnFilter;
       return cellStatus(columns);
     }
     if (['city'].includes(column)) {
+      columns.filter = CityColumnFilter;
       return cellCity(columns);
     }
 
@@ -48,13 +59,25 @@ export function useItemsTableData(): { rowData: IItem[]; columnDefs: ColDef<IIte
 
   columnDefs.push(cellDelete({ cellRenderer: RenderDeleteItem }));
 
-  const rowData = (cloneDeep(items) as IItem[])?.map((item) => {
-    return item;
-  });
+  const dataSource: IDatasource = {
+    getRows: ({ startRow, filterModel, successCallback }) => {
+      dispatch(
+        fetchItemsAsync({
+          count: defaultCountPost,
+          offset: startRow,
+          filter: filterModelParser(filterModel),
+        }),
+      )
+        .unwrap()
+        .then((data) => {
+          successCallback(data.items, data.props?.total ?? 0);
+        });
+    },
+  };
 
-  useEffect(() => {
-    dispatch(fetchItemsAsync());
-  }, [dispatch]);
+  const onGridReady = (params: GridReadyEvent) => {
+    params.api.setDatasource(dataSource);
+  };
 
-  return { rowData, columnDefs };
+  return { columnDefs, onGridReady };
 }

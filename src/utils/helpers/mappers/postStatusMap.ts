@@ -1,4 +1,4 @@
-import { PostStatus } from '../../typings/enum';
+import { PostStatus } from '../../../typings/enum';
 
 export const postStatusMap: Record<PostStatus, string> = {
   [PostStatus.temp]: 'временный',

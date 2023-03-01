@@ -3,7 +3,7 @@ import { Box, IconButton, MenuItem, TextField } from '@mui/material';
 import React, { memo } from 'react';
 
 import { City, PostType } from '../../../../typings/enum';
-import { cityMap } from '../../../../utils/helpers/cityMap';
+import { cityMap } from '../../../../utils/helpers/mappers/cityMap';
 import { useChangeFnFieldPostField } from '../../../post/hooks/useChangeFnFieldPostField';
 import { useDeleteFnPostField } from '../../../post/hooks/useDeleteFnPostField';
 

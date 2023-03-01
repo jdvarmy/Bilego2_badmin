@@ -6,23 +6,34 @@ import { Link } from 'react-router-dom';
 import { itemsScope } from '../../../type/types';
 
 // eslint-disable-next-line react/prop-types
-export const RenderTitle = memo(function RenderTitle({ data: { uid, title, slug } }: ICellRendererParams) {
+export const RenderTitle = memo(function RenderTitle({ data }: ICellRendererParams) {
   let returnComponent;
 
-  if (title && uid && slug) {
+  // eslint-disable-next-line react/prop-types
+  if (data?.title && data?.uid && data?.slug) {
     returnComponent = (
-      <MULink variant='h6' underline='hover' component={Link} to={`/${itemsScope}/edit?uid=${uid}&slug=${slug}`}>
-        {title}
+      <MULink
+        variant='h6'
+        underline='hover'
+        component={Link}
+        to={`/${itemsScope}/edit?uid=${data.uid}&slug=${data.slug}`}
+      >
+        {data.title}
       </MULink>
     );
-  } else if (uid && slug) {
+  } else if (data?.uid && data?.slug) {
     returnComponent = (
-      <MULink variant='h6' underline='hover' component={Link} to={`/${itemsScope}/edit?uid=${uid}&slug=${slug}`}>
+      <MULink
+        variant='h6'
+        underline='hover'
+        component={Link}
+        to={`/${itemsScope}/edit?uid=${data.uid}&slug=${data.slug}`}
+      >
         Нет заголовка
       </MULink>
     );
-  } else if (title) {
-    returnComponent = <Typography variant='h6'>{title}</Typography>;
+  } else if (data?.title) {
+    returnComponent = <Typography variant='h6'>{data.title}</Typography>;
   } else {
     returnComponent = null;
   }

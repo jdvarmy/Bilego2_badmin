@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { addAlertErrorAsync, addAlertSuccessAsync } from '../../alert/store/alertThunk';
 import { ServerErrorStatus } from '../../alert/types/types';
+import { PagePostProps } from '../../post/types/types';
 import { RootState } from '../../store';
 import {
   deleteItemRequest,
@@ -16,9 +17,9 @@ import { workerPrepareData } from './workers';
 
 export const fetchItemsAsync = createAsyncThunk(
   `${itemsScope}/fetchItemsAsync`,
-  async (_, { dispatch, rejectWithValue }) => {
+  async (pageProps: PagePostProps<IItem>, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = await fetchItemsRequest();
+      const { data } = await fetchItemsRequest(pageProps);
 
       return data;
     } catch (error) {
@@ -79,7 +80,7 @@ export const deleteItemAsync = createAsyncThunk(
     try {
       await deleteItemRequest(uid);
 
-      dispatch(fetchItemsAsync());
+      dispatch(fetchItemsAsync({}));
     } catch (error) {
       dispatch(addAlertErrorAsync(error as ServerErrorStatus));
       return rejectWithValue(error);

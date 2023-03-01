@@ -5,7 +5,7 @@ import { RenderStatus } from '../renderCell/RenderStatus';
 export function cellStatus<T>(props?: ColDef<T>): ColDef<T> {
   return {
     cellRenderer: RenderStatus,
-    width: 156,
+    width: 186,
     headerName: 'Статус',
     field: 'status',
     sortable: true,

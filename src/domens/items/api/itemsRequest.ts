@@ -1,7 +1,9 @@
 import requests from '../../../utils/api/api';
+import { PagePostProps, PagePostPropsResponseType } from '../../post/types/types';
 import { IItem, ItemRequest, itemsScope } from '../type/types';
 
-export const fetchItemsRequest = (props?: any) => requests.get<IItem[]>(`${itemsScope}`);
+export const fetchItemsRequest = <ITEM extends IItem>(props?: PagePostProps<ITEM>) =>
+  requests.get<PagePostPropsResponseType<ITEM>>(`${itemsScope}`, props);
 
 export const getItemRequest = (uid: string) => requests.get<IItem>(`${itemsScope}/${uid}`);
 

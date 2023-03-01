@@ -40,7 +40,7 @@ const slice = createSlice({
   extraReducers: (builder) => {
     // Работаем с площадками
     builder.addCase(fetchItemsAsync.fulfilled, (state, action) => {
-      state.items = action.payload;
+      state.items = action.payload.items;
     });
 
     builder.addCase(getItemAsync.fulfilled, (state, action) => {

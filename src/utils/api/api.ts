@@ -69,7 +69,7 @@ const requests: Record<
   get: (url, data, cfg) => {
     if (data) {
       // @ts-ignore
-      Object.keys(data).forEach((key) => !data[key] && delete data[key]);
+      Object.keys(data).forEach((key) => !data[key] ?? delete data[key]);
     }
 
     return baseRequest({

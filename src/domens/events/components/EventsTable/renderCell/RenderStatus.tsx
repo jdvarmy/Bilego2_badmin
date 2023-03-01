@@ -4,7 +4,7 @@ import React, { memo } from 'react';
 import { StatusLabel } from '../../../../../UI/StatusLabel';
 import { PostStatus } from '../../../../../typings/enum';
 import { getPostStatusColor } from '../../../../../utils/helpers/getPostStatusColor';
-import { postStatusMap } from '../../../../../utils/helpers/postStatusMap';
+import { postStatusMap } from '../../../../../utils/helpers/mappers/postStatusMap';
 
 export const RenderStatus = memo((props: ICellRendererParams) => {
   const color = getPostStatusColor(props.data.status);

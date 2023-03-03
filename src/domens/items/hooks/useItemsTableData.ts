@@ -1,9 +1,9 @@
 import { ColDef, GridReadyEvent } from 'ag-grid-community';
 import { IDatasource } from 'ag-grid-community/dist/lib/interfaces/iDatasource';
-import { CityColumnFilter } from 'src/components/TableGrid/filters/CityColumnFilter';
+import { CityColumnFilter } from 'src/components/DataTable/filters/CityColumnFilter';
 
-import { StatusColumnFilter } from '../../../components/TableGrid/filters/StatusColumnFilter';
-import { filterModelParser } from '../../../components/TableGrid/parser/filterModelParser';
+import { StatusColumnFilter } from '../../../components/DataTable/filters/StatusColumnFilter';
+import { filterModelParser } from '../../../components/DataTable/parser/filterModelParser';
 import { defaultCountPost } from '../../post/types/types';
 import { useAppDispatch } from '../../store';
 import { RenderDeleteItem } from '../components/ItemsTable/RenderDeleteItem';
@@ -27,7 +27,33 @@ export function useItemsTableData(): {
   onGridReady: (event: GridReadyEvent) => void;
 } {
   const dispatch = useAppDispatch();
-  const columnDefs: ColDef<IItem>[] = Object.entries(columns).map(([column, name]) => {
+  const columnDefs = columnDefsCreator();
+
+  const dataSource: IDatasource = {
+    getRows: ({ startRow, filterModel, successCallback }) => {
+      dispatch(
+        fetchItemsAsync({
+          count: defaultCountPost,
+          offset: startRow,
+          filter: filterModelParser(filterModel),
+        }),
+      )
+        .unwrap()
+        .then((data) => {
+          successCallback(data.items, data.props?.total ?? 0);
+        });
+    },
+  };
+
+  const onGridReady = (params: GridReadyEvent) => {
+    params.api.setDatasource(dataSource);
+  };
+
+  return { columnDefs, onGridReady };
+}
+
+function columnDefsCreator(): ColDef<IItem>[] {
+  const columnDefs = Object.entries(columns).map(([column, name]) => {
     const columns: ColDef<IItem> = {
       field: column,
       headerName: name,
@@ -59,25 +85,5 @@ export function useItemsTableData(): {
 
   columnDefs.push(cellDelete({ cellRenderer: RenderDeleteItem }));
 
-  const dataSource: IDatasource = {
-    getRows: ({ startRow, filterModel, successCallback }) => {
-      dispatch(
-        fetchItemsAsync({
-          count: defaultCountPost,
-          offset: startRow,
-          filter: filterModelParser(filterModel),
-        }),
-      )
-        .unwrap()
-        .then((data) => {
-          successCallback(data.items, data.props?.total ?? 0);
-        });
-    },
-  };
-
-  const onGridReady = (params: GridReadyEvent) => {
-    params.api.setDatasource(dataSource);
-  };
-
-  return { columnDefs, onGridReady };
+  return columnDefs;
 }

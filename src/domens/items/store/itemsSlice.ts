@@ -1,33 +1,36 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { StatusLoading } from '../../../typings/enum';
+import { ItemsPageProps } from '../../post/types/types';
 import { IItem, itemsScope } from '../type/types';
 import { fetchItemsAsync, getItemAsync, saveItemAsync, saveTemplateItemAsync } from './itemsThunk';
 
 type State = {
   status: StatusLoading;
   // используется для хранения данных площадки, синхронизовано с данными в БД
-  item: IItem | null;
+  item: IItem | undefined;
   // используется для хранения стейта площадки, синхронизовано с "клиентом"
-  itemState: IItem | null;
-  items: IItem[] | null;
+  itemState: IItem | undefined;
+  items: IItem[] | undefined;
+  pagination: ItemsPageProps | undefined;
 };
 
 const initialState: State = {
   status: StatusLoading.init,
-  item: null,
-  itemState: null,
-  items: null,
+  item: undefined,
+  itemState: undefined,
+  items: undefined,
+  pagination: undefined,
 };
 
 const slice = createSlice({
   initialState,
   name: 'items',
   reducers: {
-    setItem: (state, action: PayloadAction<IItem | null>) => {
+    setItem: (state, action: PayloadAction<IItem | undefined>) => {
       state.item = action.payload;
     },
-    setItemState: (state, action: PayloadAction<IItem | null>) => {
+    setItemState: (state, action: PayloadAction<IItem | undefined>) => {
       state.itemState = action.payload;
     },
     setItemStateField: (state, action: PayloadAction<Partial<IItem>>) => {
@@ -40,7 +43,9 @@ const slice = createSlice({
   extraReducers: (builder) => {
     // Работаем с площадками
     builder.addCase(fetchItemsAsync.fulfilled, (state, action) => {
-      state.items = action.payload.items;
+      // Не используется
+      state.items = action.payload?.items ?? undefined;
+      state.pagination = action.payload?.props ?? undefined;
     });
 
     builder.addCase(getItemAsync.fulfilled, (state, action) => {

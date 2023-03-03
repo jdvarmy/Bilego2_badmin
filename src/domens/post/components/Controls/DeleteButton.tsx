@@ -24,7 +24,7 @@ export const DeleteButton = memo(function DeleteButton({ uid, type }: Props) {
         };
       case PostType.item:
         return () => {
-          dispatch(deleteItemAsync(uid));
+          dispatch(deleteItemAsync({ uid }));
         };
       case PostType.artist:
         return () => ({});

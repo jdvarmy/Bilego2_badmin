@@ -2,7 +2,7 @@ import { ColDef } from 'ag-grid-community';
 
 export function cellDelete<T>(props?: ColDef<T>): ColDef<T> {
   return {
-    width: 70,
+    width: 82,
     headerName: 'Del',
     field: 'delete',
     sortable: false,

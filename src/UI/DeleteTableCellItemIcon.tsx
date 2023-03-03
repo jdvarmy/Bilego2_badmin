@@ -1,11 +1,19 @@
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import { Box, IconButton } from '@mui/material';
-import React, { memo } from 'react';
+import React, { MouseEventHandler, forwardRef } from 'react';
 
-export const DeleteTableCellItemIcon = (onDeleteHandler: () => void) =>
-  memo(function DeleteTableCellItemIcon() {
+type Props = {
+  onClick?: MouseEventHandler;
+};
+
+export const DeleteTableCellItemIcon = (onDeleteHandler?: () => void) =>
+  forwardRef(function DeleteTableCellItemIcon({ onClick }: Props, ref) {
     return (
-      <Box sx={{ display: 'flex', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+      <Box
+        ref={ref}
+        sx={{ display: 'flex', height: '100%', justifyContent: 'center', alignItems: 'center' }}
+        onClick={onClick}
+      >
         <IconButton size='small' color='error' onClick={onDeleteHandler}>
           <DeleteForeverTwoToneIcon />
         </IconButton>

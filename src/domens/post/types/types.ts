@@ -1,6 +1,7 @@
 export const defaultCountPost = 30;
 
 export type PagePostProps<ITEM> = {
+  // todo: удалить
   search?: string;
   offset?: number;
   count?: number;

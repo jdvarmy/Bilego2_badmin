@@ -17,7 +17,7 @@ import { workerPrepareData } from './workers';
 
 export const fetchItemsAsync = createAsyncThunk(
   `${itemsScope}/fetchItemsAsync`,
-  async (pageProps: PagePostProps<IItem>, { dispatch, rejectWithValue }) => {
+  async (pageProps: PagePostProps<IItem> | undefined, { dispatch, rejectWithValue }) => {
     try {
       const { data } = await fetchItemsRequest(pageProps);
 
@@ -76,11 +76,9 @@ export const saveTemplateItemAsync = createAsyncThunk(
 
 export const deleteItemAsync = createAsyncThunk(
   `${itemsScope}/deleteItemAsync`,
-  async (uid: string, { dispatch, rejectWithValue }) => {
+  async ({ uid }: { uid: string; pageProps?: PagePostProps<IItem> }, { dispatch, rejectWithValue }) => {
     try {
       await deleteItemRequest(uid);
-
-      dispatch(fetchItemsAsync({}));
     } catch (error) {
       dispatch(addAlertErrorAsync(error as ServerErrorStatus));
       return rejectWithValue(error);

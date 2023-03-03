@@ -13,7 +13,6 @@ export const ItemsTable = memo(function EventsTable() {
   return (
     <DataTable
       ref={gridRef}
-      rowData={[]}
       columnDefs={columnDefs}
       rowModelType='infinite'
       onGridReady={onGridReady}

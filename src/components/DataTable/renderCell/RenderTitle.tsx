@@ -3,7 +3,7 @@ import { ICellRendererParams } from 'ag-grid-community';
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { itemsScope } from '../../../type/types';
+import { itemsScope } from '../../../domens/items/type/types';
 
 // eslint-disable-next-line react/prop-types
 export const RenderTitle = memo(function RenderTitle({ data }: ICellRendererParams) {

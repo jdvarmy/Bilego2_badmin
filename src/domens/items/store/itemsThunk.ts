@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { addAlertErrorAsync, addAlertSuccessAsync } from '../../alert/store/alertThunk';
-import { ServerErrorStatus } from '../../alert/types/types';
+import { useAlertError } from '../../alert/hooks/useAlertError';
+import { addAlertSuccessAsync } from '../../alert/store/alertThunk';
 import { PagePostProps } from '../../post/types/types';
 import { RootState } from '../../store';
 import {
@@ -17,28 +17,26 @@ import { workerPrepareData } from './workers';
 
 export const fetchItemsAsync = createAsyncThunk(
   `${itemsScope}/fetchItemsAsync`,
-  async (pageProps: PagePostProps<IItem> | undefined, { dispatch, rejectWithValue }) => {
+  async (pageProps: PagePostProps<IItem> | undefined, { rejectWithValue }) => {
     try {
       const { data } = await fetchItemsRequest(pageProps);
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
-      return rejectWithValue(error);
+      useAlertError(error, rejectWithValue);
     }
   },
 );
 
 export const getItemAsync = createAsyncThunk(
   `${itemsScope}/getItemAsync`,
-  async ({ uid }: { uid: IItem['uid'] }, { dispatch, rejectWithValue }) => {
+  async ({ uid }: { uid: IItem['uid'] }, { rejectWithValue }) => {
     try {
       const { data } = await getItemRequest(uid);
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
-      return rejectWithValue(error);
+      useAlertError(error, rejectWithValue);
     }
   },
 );
@@ -54,34 +52,31 @@ export const saveItemAsync = createAsyncThunk(
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
-      return rejectWithValue(error);
+      useAlertError(error, rejectWithValue);
     }
   },
 );
 
 export const saveTemplateItemAsync = createAsyncThunk(
   `${itemsScope}/saveTemplateItemAsync`,
-  async (_, { dispatch, rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const { data } = await postTemplateItemRequest();
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
-      return rejectWithValue(error);
+      useAlertError(error, rejectWithValue);
     }
   },
 );
 
 export const deleteItemAsync = createAsyncThunk(
   `${itemsScope}/deleteItemAsync`,
-  async ({ uid }: { uid: string; pageProps?: PagePostProps<IItem> }, { dispatch, rejectWithValue }) => {
+  async ({ uid }: { uid: string; pageProps?: PagePostProps<IItem> }, { rejectWithValue }) => {
     try {
       await deleteItemRequest(uid);
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
-      return rejectWithValue(error);
+      useAlertError(error, rejectWithValue);
     }
   },
 );

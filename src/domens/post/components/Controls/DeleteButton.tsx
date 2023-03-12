@@ -20,7 +20,7 @@ export const DeleteButton = memo(function DeleteButton({ uid, type }: Props) {
     switch (type) {
       case PostType.event:
         return () => {
-          dispatch(deleteEventAsync(uid));
+          dispatch(deleteEventAsync({ uid }));
         };
       case PostType.item:
         return () => {

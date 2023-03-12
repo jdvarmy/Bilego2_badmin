@@ -2,24 +2,26 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { StatusLoading } from '../../../typings/enum';
 import { editEventDateAsync, saveTemplateEventDateAsync } from '../../eventDates/store/eventDateThunk';
+import { ItemsPageProps } from '../../post/types/types';
 import { IEvent, eventsScope } from '../types/types';
 import { fetchEventsAsync, getEventAsync, saveEventAsync, saveTemplateEventAsync } from './eventsThunk';
 
 type State = {
   status: StatusLoading;
   // используется для хранения данных события, синхронизовано с данными в БД
-  event: IEvent | null;
+  event: IEvent | undefined;
   // используется для хранения стейта события, синхронизовано с "клиентом"
-  eventState: IEvent | null;
-  // список событий
-  events: IEvent[] | null;
+  eventState: IEvent | undefined;
+  events: IEvent[] | undefined;
+  pagination: ItemsPageProps | undefined;
 };
 
 const initialState: State = {
   status: StatusLoading.init,
-  event: null,
-  eventState: null,
-  events: null,
+  event: undefined,
+  eventState: undefined,
+  events: undefined,
+  pagination: undefined,
 };
 
 const slice = createSlice({
@@ -29,10 +31,10 @@ const slice = createSlice({
     setStatus: (state, action: PayloadAction<StatusLoading>) => {
       state.status = action.payload;
     },
-    setEvent: (state, action: PayloadAction<IEvent | null>) => {
+    setEvent: (state, action: PayloadAction<IEvent | undefined>) => {
       state.event = action.payload;
     },
-    setEventState: (state, action: PayloadAction<IEvent | null>) => {
+    setEventState: (state, action: PayloadAction<IEvent | undefined>) => {
       state.eventState = action.payload;
     },
     setEventStateField: (state, action: PayloadAction<Partial<IEvent>>) => {
@@ -45,7 +47,9 @@ const slice = createSlice({
   extraReducers: (builder) => {
     // Работаем с событиями
     builder.addCase(fetchEventsAsync.fulfilled, (state, action) => {
-      state.events = action.payload;
+      // Не используется
+      state.events = action.payload?.items ?? undefined;
+      state.pagination = action.payload?.props ?? undefined;
     });
 
     builder.addCase(getEventAsync.fulfilled, (state, action) => {

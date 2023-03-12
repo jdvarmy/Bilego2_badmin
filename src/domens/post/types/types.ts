@@ -1,18 +1,18 @@
 export const defaultCountPost = 30;
 
-export type PagePostProps<ITEM> = {
+export type PagePostProps<POST> = {
   // todo: удалить
   search?: string;
   offset?: number;
   count?: number;
-  filter?: Record<keyof ITEM, string>;
+  filter?: Record<keyof POST, string>;
 };
 
 export type ItemsPageProps = {
   total: number;
 };
 
-export type PagePostPropsResponseType<ITEM> = {
-  items: ITEM[];
+export type PagePostPropsResponseType<POST> = {
+  items: POST[];
   props: ItemsPageProps;
 };

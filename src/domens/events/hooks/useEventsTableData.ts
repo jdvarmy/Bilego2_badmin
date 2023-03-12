@@ -1,18 +1,18 @@
-import { ColDef } from 'ag-grid-community';
-import { useEffect } from 'react';
+import { ColDef, GridReadyEvent } from 'ag-grid-community';
+import { IDatasource } from 'ag-grid-community/dist/lib/interfaces/iDatasource';
 
-import cloneDeep from '../../../utils/helpers/cloneDeep';
-import { useAppDispatch, useStateSelector } from '../../store';
-import { RenderDeleteItem } from '../components/EventsTable/RenderDeleteItem';
-import { cellCity } from '../components/EventsTable/cell/cellCity';
-import { cellDelete } from '../components/EventsTable/cell/cellDelete';
+import { cellCity } from '../../../components/DataTable/cells/cellCity';
+import { cellDelete } from '../../../components/DataTable/cells/cellDelete';
+import { cellStatus } from '../../../components/DataTable/cells/cellStatus';
+import { cellTitle } from '../../../components/DataTable/cells/cellTitle';
+import { filterModelParser } from '../../../components/DataTable/parser/filterModelParser';
+import { RenderDelete } from '../../../components/DataTable/renderCell/RenderDelete';
+import { defaultCountPost } from '../../post/types/types';
+import { useAppDispatch } from '../../store';
 import { cellEventDates } from '../components/EventsTable/cell/cellEventDates';
 import { cellEventManager } from '../components/EventsTable/cell/cellEventManager';
 import { cellIsSlider } from '../components/EventsTable/cell/cellIsSlider';
-import { cellStatus } from '../components/EventsTable/cell/cellStatus';
-import { cellTitle } from '../components/EventsTable/cell/cellTitle';
-import { selectEvents } from '../store/eventsSelectors';
-import { fetchEventsAsync } from '../store/eventsThunk';
+import { deleteEventAsync, fetchEventsAsync } from '../store/eventsThunk';
 import { IEvent } from '../types/types';
 
 type EventColumns = Pick<
@@ -31,16 +31,39 @@ const columns: Record<keyof EventColumns, string> = {
   concertManagerPercentage: '%',
 };
 
-export function useEventsTableData(): { rowData: IEvent[]; columnDefs: ColDef<IEvent>[] } {
+export function useEventsTableData(): { columnDefs: ColDef<IEvent>[]; onGridReady: (event: GridReadyEvent) => void } {
   const dispatch = useAppDispatch();
-  const events = useStateSelector(selectEvents);
+  const columnDefs = columnDefsCreator();
 
+  const dataSource: IDatasource = {
+    getRows: ({ startRow, filterModel, successCallback }) => {
+      dispatch(
+        fetchEventsAsync({
+          count: defaultCountPost,
+          offset: startRow,
+          filter: filterModelParser(filterModel),
+        }),
+      )
+        .unwrap()
+        .then((data) => {
+          successCallback(data.items, data.props?.total ?? 0);
+        });
+    },
+  };
+
+  const onGridReady = (params: GridReadyEvent) => {
+    params.api.setDatasource(dataSource);
+  };
+
+  return { columnDefs, onGridReady };
+}
+
+function columnDefsCreator(): ColDef<IEvent>[] {
   const columnDefs: ColDef<IEvent>[] = Object.entries(columns).map(([column, name]) => {
     const columns: ColDef<IEvent> = {
       field: column,
       headerName: name,
       editable: false,
-      filter: false,
       sortable: false,
     };
 
@@ -53,6 +76,9 @@ export function useEventsTableData(): { rowData: IEvent[]; columnDefs: ColDef<IE
     if (['city'].includes(column)) {
       return cellCity(columns);
     }
+    if (['item'].includes(column)) {
+      columns.filter = false;
+    }
     if (['eventDates'].includes(column)) {
       return cellEventDates(columns);
     }
@@ -63,21 +89,14 @@ export function useEventsTableData(): { rowData: IEvent[]; columnDefs: ColDef<IE
       return cellEventManager(columns);
     }
     if (['concertManagerPercentage'].includes(column)) {
+      columns.filter = false;
       columns.width = 62;
     }
 
     return columns;
   });
 
-  columnDefs.push(cellDelete({ cellRenderer: RenderDeleteItem }));
+  columnDefs.push(cellDelete({ cellRenderer: RenderDelete<IEvent>(deleteEventAsync) }));
 
-  const rowData = (cloneDeep(events) as IEvent[])?.map((event) => {
-    return event;
-  });
-
-  useEffect(() => {
-    dispatch(fetchEventsAsync());
-  }, [dispatch]);
-
-  return { rowData, columnDefs };
+  return columnDefs;
 }

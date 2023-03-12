@@ -1,12 +1,11 @@
 import { ColDef } from 'ag-grid-community';
 
 import { Taxonomy } from '../../../typings/types';
-import { cellDelete } from '../../events/components/EventsTable/cell/cellDelete';
 import { RenderCheckbox } from '../components/RenderCheckbox';
-import { RenderDeleteItem } from '../components/RenderDeleteItem';
 import { RenderImage } from '../components/RenderImage';
 import { nameMap } from './nameMap';
 
+// todo: refactor!
 export function createColumnDefs(columns: (keyof Taxonomy)[]) {
   const result = columns.map((name) => {
     const res: ColDef = {
@@ -35,6 +34,6 @@ export function createColumnDefs(columns: (keyof Taxonomy)[]) {
     return res;
   });
 
-  result.push(cellDelete({ cellRenderer: RenderDeleteItem }));
+  // result.push(cellDelete({ cellRenderer: RenderDelete(deleteTaxonomyAsync) }));
   return result;
 }

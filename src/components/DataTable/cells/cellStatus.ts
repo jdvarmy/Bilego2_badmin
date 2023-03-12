@@ -1,5 +1,6 @@
 import { ColDef } from 'ag-grid-community';
 
+import { StatusColumnFilter } from '../filters/StatusColumnFilter';
 import { RenderStatus } from '../renderCell/RenderStatus';
 
 export function cellStatus<T>(props?: ColDef<T>): ColDef<T> {
@@ -10,7 +11,7 @@ export function cellStatus<T>(props?: ColDef<T>): ColDef<T> {
     field: 'status',
     sortable: true,
     editable: false,
-    filter: true,
+    filter: StatusColumnFilter,
     ...props,
   };
 }

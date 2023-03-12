@@ -10,7 +10,7 @@ export function cellEventDates<T>(props?: ColDef<T>): ColDef<T> {
     field: 'eventDates',
     sortable: true,
     editable: false,
-    filter: true,
+    filter: false,
     ...props,
   };
 }

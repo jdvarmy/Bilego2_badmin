@@ -1,17 +1,15 @@
 import { ColDef, GridReadyEvent } from 'ag-grid-community';
 import { IDatasource } from 'ag-grid-community/dist/lib/interfaces/iDatasource';
-import { CityColumnFilter } from 'src/components/DataTable/filters/CityColumnFilter';
 
-import { StatusColumnFilter } from '../../../components/DataTable/filters/StatusColumnFilter';
+import { cellCity } from '../../../components/DataTable/cells/cellCity';
+import { cellDelete } from '../../../components/DataTable/cells/cellDelete';
+import { cellStatus } from '../../../components/DataTable/cells/cellStatus';
+import { cellTitle } from '../../../components/DataTable/cells/cellTitle';
 import { filterModelParser } from '../../../components/DataTable/parser/filterModelParser';
+import { RenderDelete } from '../../../components/DataTable/renderCell/RenderDelete';
 import { defaultCountPost } from '../../post/types/types';
 import { useAppDispatch } from '../../store';
-import { RenderDeleteItem } from '../components/ItemsTable/RenderDeleteItem';
-import { cellCity } from '../components/ItemsTable/cell/cellCity';
-import { cellDelete } from '../components/ItemsTable/cell/cellDelete';
-import { cellStatus } from '../components/ItemsTable/cell/cellStatus';
-import { cellTitle } from '../components/ItemsTable/cell/cellTitle';
-import { fetchItemsAsync } from '../store/itemsThunk';
+import { deleteItemAsync, fetchItemsAsync } from '../store/itemsThunk';
 import { IItem } from '../type/types';
 
 type ItemColumns = Pick<IItem, 'title' | 'status' | 'city'>;
@@ -22,10 +20,7 @@ const columns: Record<keyof ItemColumns, string> = {
   city: 'Город',
 };
 
-export function useItemsTableData(): {
-  columnDefs: ColDef<IItem>[];
-  onGridReady: (event: GridReadyEvent) => void;
-} {
+export function useItemsTableData(): { columnDefs: ColDef<IItem>[]; onGridReady: (event: GridReadyEvent) => void } {
   const dispatch = useAppDispatch();
   const columnDefs = columnDefsCreator();
 
@@ -58,32 +53,23 @@ function columnDefsCreator(): ColDef<IItem>[] {
       field: column,
       headerName: name,
       editable: false,
-      filter: false,
       sortable: false,
     };
 
     if (['title'].includes(column)) {
-      columns.filter = 'agTextColumnFilter';
-      columns.floatingFilter = true;
-      columns.filterParams = {
-        filterOptions: ['contains'],
-        defaultOption: 'contains',
-      };
       return cellTitle(columns);
     }
     if (['status'].includes(column)) {
-      columns.filter = StatusColumnFilter;
       return cellStatus(columns);
     }
     if (['city'].includes(column)) {
-      columns.filter = CityColumnFilter;
       return cellCity(columns);
     }
 
     return columns;
   });
 
-  columnDefs.push(cellDelete({ cellRenderer: RenderDeleteItem }));
+  columnDefs.push(cellDelete({ cellRenderer: RenderDelete<IItem>(deleteItemAsync) }));
 
   return columnDefs;
 }

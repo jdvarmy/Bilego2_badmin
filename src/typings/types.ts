@@ -7,6 +7,10 @@ export const loginPage = '/login';
 export const storageTokenName = '_btoken' as const;
 export const axiosBaseUrl = `${HTTP_URL}${HTTP_VERSION}/`;
 
+export function isObjectGuard(value: unknown): value is object {
+  return typeof value === 'object' && value !== null;
+}
+
 export type ColorsFormat = 'plain' | 'hex' | 'rgb' | 'number' | 'unknown' | undefined;
 
 export type User = {

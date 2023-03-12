@@ -10,7 +10,7 @@ export function cellEventManager<T>(props?: ColDef<T>): ColDef<T> {
     field: 'eventManager',
     sortable: true,
     editable: false,
-    filter: true,
+    filter: false,
     ...props,
   };
 }

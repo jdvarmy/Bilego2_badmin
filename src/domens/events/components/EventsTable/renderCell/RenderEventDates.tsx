@@ -6,8 +6,12 @@ import { StatusLabel } from '../../../../../UI/StatusLabel';
 import { localFormatterFunc } from '../../../../../utils/helpers/dateFormatterFunc';
 import { getActualDate } from '../../../../../utils/helpers/getActualDate';
 
-export const RenderEventDates = memo(({ data: { eventDates } }: ICellRendererParams) => {
-  const { past, present, future, isPassed } = getActualDate(eventDates, false);
+export const RenderEventDates = memo(({ data }: ICellRendererParams | undefined) => {
+  if (!data || !data?.eventDates) {
+    return null;
+  }
+
+  const { past, present, future, isPassed } = getActualDate(data.eventDates, false);
   const presentDate = localFormatterFunc(present);
 
   return (

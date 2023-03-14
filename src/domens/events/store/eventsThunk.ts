@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { useAlertError } from '../../alert/hooks/useAlertError';
 import { addAlertSuccessAsync } from '../../alert/store/alertThunk';
+import { workerAddError } from '../../alert/store/workers';
 import { PagePostProps } from '../../post/types/types';
 import { RootState } from '../../store';
 import {
@@ -17,26 +17,28 @@ import { workerPrepareData } from './worckers';
 
 export const fetchEventsAsync = createAsyncThunk(
   `${eventsScope}/fetchEventsAsync`,
-  async (pageProps: PagePostProps<IEvent> | undefined, { rejectWithValue }) => {
+  async (pageProps: PagePostProps<IEvent> | undefined, { dispatch, rejectWithValue }) => {
     try {
       const { data } = await fetchEventsRequest(pageProps);
 
       return data;
     } catch (error) {
-      useAlertError(error, rejectWithValue);
+      dispatch(workerAddError(error));
+      return rejectWithValue(error);
     }
   },
 );
 
 export const getEventAsync = createAsyncThunk(
   `${eventsScope}/getEventAsync`,
-  async ({ uid }: { uid: IEvent['uid'] }, { rejectWithValue }) => {
+  async ({ uid }: { uid: IEvent['uid'] }, { dispatch, rejectWithValue }) => {
     try {
       const { data } = await getEventRequest(uid);
 
       return data;
     } catch (error) {
-      useAlertError(error, rejectWithValue);
+      dispatch(workerAddError(error));
+      return rejectWithValue(error);
     }
   },
 );
@@ -52,31 +54,36 @@ export const saveEventAsync = createAsyncThunk(
 
       return data;
     } catch (error) {
-      useAlertError(error, rejectWithValue);
+      dispatch(workerAddError(error));
+      return rejectWithValue(error);
     }
   },
 );
 
 export const saveTemplateEventAsync = createAsyncThunk(
   `${eventsScope}/saveTemplateEventAsync`,
-  async (_, { rejectWithValue }) => {
+  async (_, { dispatch, rejectWithValue }) => {
     try {
       const { data } = await postTemplateEventRequest();
 
       return data;
     } catch (error) {
-      useAlertError(error, rejectWithValue);
+      dispatch(workerAddError(error));
+      return rejectWithValue(error);
     }
   },
 );
 
 export const deleteEventAsync = createAsyncThunk(
   `${eventsScope}/deleteEventAsync`,
-  async ({ uid }: { uid: string; pageProps?: PagePostProps<IEvent> }, { rejectWithValue }) => {
+  async ({ uid }: { uid: string; pageProps?: PagePostProps<IEvent> }, { dispatch, rejectWithValue }) => {
     try {
-      await deleteEventRequest(uid);
+      const { data } = await deleteEventRequest(uid);
+
+      return data;
     } catch (error) {
-      useAlertError(error, rejectWithValue);
+      dispatch(workerAddError(error));
+      return rejectWithValue(error);
     }
   },
 );

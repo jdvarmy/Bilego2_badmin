@@ -1,28 +1,34 @@
 import SaveAsTwoToneIcon from '@mui/icons-material/SaveAsTwoTone';
 import { Box, Card, CardContent, CardHeader, Divider, Grid, IconButton, Tooltip } from '@mui/material';
+import { AgGridReact } from 'ag-grid-react';
 import CyrillicToTranslit from 'cyrillic-to-translit-js';
-import React, { useCallback, useEffect } from 'react';
+import React, { forwardRef, useCallback, useEffect } from 'react';
 
-import { TermType, TermTypeLink } from '../../../typings/enum';
-import { Taxonomy } from '../../../typings/types';
-import { useAppDispatch } from '../../store';
-import { useTaxonomyHeaderFields } from '../helpers/useTaxonomyHeaderFields';
-import { saveTaxonomyAsync } from '../store/taxonomyThunk';
+import { TermType, TermTypeLink } from '../../../../../typings/enum';
+import { useAppDispatch } from '../../../../store';
+import { useTaxonomyHeaderFields } from '../../../hooks/useTaxonomyHeaderFields';
+import { saveTaxonomyAsync } from '../../../store/taxonomyThunk';
+import { ITaxonomy } from '../../../types/types';
 
 type Props = {
   type: TermType;
   link: TermTypeLink;
-  fields?: (keyof Taxonomy)[];
+  fields?: (keyof ITaxonomy)[];
 };
 
-const TableHeader = (props: Props) => {
+export const TableHeader = forwardRef<AgGridReact, Props>(function TableHeader(props: Props, gridRef) {
   const dispatch = useAppDispatch();
   const { fields, taxonomy, initialTaxonomy, setTaxonomy } = useTaxonomyHeaderFields(props);
 
   const handleSave = useCallback(() => {
-    dispatch(saveTaxonomyAsync(taxonomy));
-    setTaxonomy(initialTaxonomy);
-  }, [dispatch, initialTaxonomy, setTaxonomy, taxonomy]);
+    dispatch(saveTaxonomyAsync(taxonomy))
+      .unwrap()
+      .then(() => {
+        // @ts-ignore
+        gridRef?.current?.api.refreshInfiniteCache();
+        setTaxonomy(initialTaxonomy);
+      });
+  }, [dispatch, gridRef, initialTaxonomy, setTaxonomy, taxonomy]);
 
   const disabled = !(taxonomy.name && taxonomy.slug);
 
@@ -62,6 +68,4 @@ const TableHeader = (props: Props) => {
       </CardContent>
     </Card>
   );
-};
-
-export default TableHeader;
+});

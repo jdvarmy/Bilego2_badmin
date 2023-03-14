@@ -1,15 +1,11 @@
-import { Grid } from '@mui/material';
-import React, { memo, useEffect, useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 
 import ContentContainer from '../../components/ContentContainer/ContentContainer';
 import { PageHelmet } from '../../components/PageHelmet/PageHelmet';
 import PageTitle from '../../components/PageTitle/PageTitle';
-import { useAppDispatch } from '../../domens/store';
-import TableBody from '../../domens/taxonomy/components/TableBody';
-import TableHeader from '../../domens/taxonomy/components/TableHeader';
-import { getTaxonomyAsync } from '../../domens/taxonomy/store/taxonomyThunk';
-import { TermType, TermTypeLink } from '../../typings/enum';
-import { Taxonomy as ITaxonomy } from '../../typings/types';
+import { TaxonomyTable } from '../../domens/taxonomy/components/TaxonomyTable/TaxonomyTable';
+import { ITaxonomy } from '../../domens/taxonomy/types/types';
+import { TermType } from '../../typings/enum';
 
 type Props = {
   type: TermType;
@@ -24,30 +20,16 @@ export const nameMapTaxonomy = {
   [TermType.itemType]: 'Тип',
 };
 
-const Taxonomy = ({ type, columns }: Props) => {
-  const dispatch = useAppDispatch();
-  const name = useMemo(() => nameMapTaxonomy[type], [type]);
-
-  useEffect(() => {
-    dispatch(getTaxonomyAsync({ type }));
-  }, [dispatch, type]);
+export const Taxonomy = memo(function Taxonomy(props: Props) {
+  const name = useMemo(() => nameMapTaxonomy[props.type], [props.type]);
 
   return (
     <>
       <PageHelmet title={name} />
       <PageTitle title={name} />
       <ContentContainer>
-        <Grid container spacing={3} sx={{ mb: 3 }} flexDirection='column' flexWrap='nowrap'>
-          <Grid item>
-            <TableHeader type={type} link={TermTypeLink.event} fields={columns} />
-          </Grid>
-          <Grid item xs={12} flex={1}>
-            <TableBody columns={columns} />
-          </Grid>
-        </Grid>
+        <TaxonomyTable {...props} />
       </ContentContainer>
     </>
   );
-};
-
-export default memo(Taxonomy);
+});

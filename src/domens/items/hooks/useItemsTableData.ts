@@ -7,10 +7,11 @@ import { cellStatus } from '../../../components/DataTable/cells/cellStatus';
 import { cellTitle } from '../../../components/DataTable/cells/cellTitle';
 import { filterModelParser } from '../../../components/DataTable/parser/filterModelParser';
 import { RenderDelete } from '../../../components/DataTable/renderCell/RenderDelete';
+import { isPagePostPropsResponseTypeGuard } from '../../../typings/types';
 import { defaultCountPost } from '../../post/types/types';
 import { useAppDispatch } from '../../store';
 import { deleteItemAsync, fetchItemsAsync } from '../store/itemsThunk';
-import { IItem } from '../type/types';
+import { IItem, itemsScope } from '../type/types';
 
 type ItemColumns = Pick<IItem, 'title' | 'status' | 'city'>;
 
@@ -35,7 +36,9 @@ export function useItemsTableData(): { columnDefs: ColDef<IItem>[]; onGridReady:
       )
         .unwrap()
         .then((data) => {
-          successCallback(data.items, data.props?.total ?? 0);
+          if (isPagePostPropsResponseTypeGuard<IItem>(data)) {
+            successCallback(data.items, data.props?.total ?? 0);
+          }
         });
     },
   };
@@ -57,7 +60,7 @@ function columnDefsCreator(): ColDef<IItem>[] {
     };
 
     if (['title'].includes(column)) {
-      return cellTitle(columns);
+      return cellTitle(itemsScope, columns);
     }
     if (['status'].includes(column)) {
       return cellStatus(columns);

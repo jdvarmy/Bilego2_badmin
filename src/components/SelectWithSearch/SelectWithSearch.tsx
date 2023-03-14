@@ -1,6 +1,6 @@
 import DeleteForeverTwoToneIcon from '@mui/icons-material/DeleteForeverTwoTone';
 import { Box, FormControl, IconButton, InputLabel, OutlinedInput, Select, SelectProps } from '@mui/material';
-import React, { MouseEventHandler, ReactNode, useEffect, useState } from 'react';
+import React, { MouseEventHandler, useState } from 'react';
 
 import { isArray } from '../../utils/helpers/isArray';
 import { useDebounce } from '../../utils/hooks/useDebounce';
@@ -8,7 +8,7 @@ import { SearchFieldWrapper } from './SearchFieldWrapper';
 
 interface BaseProps {
   maxVisibleOptions?: number;
-  fetchFn?: (query: string) => void;
+  fetchFn?: (query?: string) => void;
   onDelete?: MouseEventHandler<HTMLButtonElement>;
   onClose?: MouseEventHandler<HTMLButtonElement>;
 }
@@ -29,12 +29,6 @@ const SelectWithSearch = (props: SearchableSelectProps) => {
     debounceFetchFn();
   };
 
-  useEffect(() => {
-    if (fetchFn) {
-      fetchFn('');
-    }
-  }, []);
-
   return (
     <Box sx={{ display: 'flex' }}>
       <FormControl fullWidth={fullWidth}>
@@ -46,13 +40,16 @@ const SelectWithSearch = (props: SearchableSelectProps) => {
           multiple={multiple}
           fullWidth={fullWidth}
           value={value}
-          renderValue={(selected: any) =>
-            (multiple
-              ? (selected.map((s: any) => s.title || s.name) as string[]).join(', ')
-              : selected?.title || selected.surname
-              ? `${selected.surname} ${selected.name}`
-              : selected.name) as ReactNode
-          }
+          renderValue={(selected: any) => {
+            if (multiple) {
+              return (selected.map((s: any) => s.title || s.name) as string[]).join(', ');
+            }
+            if (selected?.title || selected.surname) {
+              `${selected.surname} ${selected.name}`;
+            }
+
+            return selected.name ?? selected.title;
+          }}
           onChange={onChange}
           onClose={onClose}
           {...other}

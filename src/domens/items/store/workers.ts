@@ -12,7 +12,7 @@ export function workerPrepareData(item: IItem): ItemRequest {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { create, update, taxonomy, image, headerImage, ...other } = item;
 
-  const filteredTaxonomy = taxonomy?.map((tax) => +tax.id);
+  const filteredTaxonomy = taxonomy?.map((tax) => tax.uid);
   const filteredImage = !Number.isNaN(+image?.id) ? +image?.id : undefined;
   const filteredHeaderImage = !Number.isNaN(+headerImage?.id) ? +headerImage?.id : undefined;
 

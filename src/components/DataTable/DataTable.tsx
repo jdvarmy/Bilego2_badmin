@@ -3,7 +3,7 @@ import { GridOptions } from 'ag-grid-community/dist/lib/entities/gridOptions';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { AgGridReact } from 'ag-grid-react';
-import React, { ForwardedRef, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 
 import './ag-theme-admin-bilego.css';
 
@@ -12,21 +12,13 @@ const defaultColDef: ColDef = {
   filter: 'agTextColumnFilter',
   sortable: false,
   resizable: true,
-  editable: true,
+  editable: false,
 };
 
-const DataTable = forwardRef(({ rowData, columnDefs, ...props }: GridOptions, ref: ForwardedRef<AgGridReact>) => {
+const DataTable = forwardRef<AgGridReact, GridOptions>((props, ref) => {
   return (
     <div className='ag-theme-alpine-dark ag-theme-alpine ag-theme-admin-bilego' style={containerStyle}>
-      <AgGridReact
-        ref={ref}
-        rowHeight={58}
-        rowData={rowData}
-        columnDefs={columnDefs}
-        defaultColDef={defaultColDef}
-        animateRows
-        {...props}
-      />
+      <AgGridReact ref={ref} rowHeight={58} defaultColDef={defaultColDef} animateRows {...props} />
     </div>
   );
 });

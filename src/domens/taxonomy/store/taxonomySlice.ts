@@ -1,52 +1,36 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { StatusLoading } from '../../../typings/enum';
-import { Taxonomy } from '../../../typings/types';
-import { taxonomyScope } from '../types/types';
-import { deleteTaxonomyAsync, getTaxonomyAsync, saveTaxonomyAsync, saveTaxonomyMediaAsync } from './taxonomyThunk';
+import { ItemsPageProps } from '../../post/types/types';
+import { ITaxonomy, taxonomyScope } from '../types/types';
+import { fetchTaxonomyAsync } from './taxonomyThunk';
 
 type State = {
   status: StatusLoading;
-  taxonomy: Taxonomy[] | null;
+  taxonomy: ITaxonomy[] | undefined;
+  pagination: ItemsPageProps | undefined;
 };
 
 const initialState: State = {
   status: StatusLoading.init,
   taxonomy: null,
+  pagination: undefined,
 };
 
 const slice = createSlice({
   initialState,
   name: 'taxonomy',
   reducers: {
-    setTaxonomy: (state, action: PayloadAction<Taxonomy[] | null>) => {
+    setTaxonomy: (state, action: PayloadAction<ITaxonomy[] | null>) => {
       state.taxonomy = action.payload;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(saveTaxonomyMediaAsync.fulfilled, (state, action) => {
-      // todo: переписать?!
-      const changeTaxIndex = state.taxonomy.findIndex((tax) => tax.id === action.payload?.id);
-
-      if (changeTaxIndex !== -1) {
-        state.taxonomy.splice(changeTaxIndex, 1, action.payload);
-      }
+    builder.addCase(fetchTaxonomyAsync.fulfilled, (state, action) => {
+      // Не используется
+      state.taxonomy = action.payload?.items ?? undefined;
+      state.pagination = action.payload?.props ?? undefined;
     });
-    builder.addCase(deleteTaxonomyAsync.fulfilled, (state, action) => {
-      // todo: переписать?!
-      const changeTaxIndex = state.taxonomy.findIndex((tax) => tax.id === action.payload?.id);
-
-      if (changeTaxIndex !== -1) {
-        state.taxonomy.splice(changeTaxIndex, 1);
-      }
-    });
-
-    builder.addMatcher(
-      ({ type }) => [getTaxonomyAsync.fulfilled.type, saveTaxonomyAsync.fulfilled.type].includes(type),
-      (state, action: PayloadAction<Taxonomy[]>) => {
-        state.taxonomy = action.payload;
-      },
-    );
 
     builder.addMatcher(
       ({ type }) => type.startsWith(taxonomyScope) && type.endsWith('/pending'),

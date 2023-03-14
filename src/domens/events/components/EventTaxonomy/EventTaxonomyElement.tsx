@@ -70,9 +70,9 @@ export const EventTaxonomyElement = memo(function EventTaxonomyElement<T extends
       onClose={handleSaveEventTaxonomy}
     >
       {localTax
-        .filter((i) => i?.id)
+        .filter((i) => i?.uid)
         .map((i) => (
-          <MenuItem key={i.id} value={JSON.stringify(i)}>
+          <MenuItem key={i.uid} value={JSON.stringify(i)}>
             {i.name}
           </MenuItem>
         ))}

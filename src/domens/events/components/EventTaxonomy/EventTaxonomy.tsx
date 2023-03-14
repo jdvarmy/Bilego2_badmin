@@ -2,12 +2,12 @@ import { Box, Card, CardContent, CardHeader, Divider, Grid } from '@mui/material
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { TermType, TermTypeLink } from '../../../../typings/enum';
-import { Taxonomy } from '../../../../typings/types';
 import { isEqual } from '../../../../utils/helpers/isEqual';
 import { addAlertErrorAsync } from '../../../alert/store/alertThunk';
 import { ServerErrorStatus } from '../../../alert/types/types';
 import { useAppDispatch } from '../../../store';
 import { fetchTaxonomyRequest } from '../../../taxonomy/api/taxonomyRequest';
+import { ITaxonomy } from '../../../taxonomy/types/types';
 import { IEvent } from '../../types/types';
 import { EventTaxonomyElement } from './EventTaxonomyElement';
 
@@ -23,8 +23,8 @@ export const EventTaxonomy = memo(function EventTaxonomy<T extends IEvent['taxon
   console.log('render EventTaxonomy');
 
   const getTax = useCallback(
-    (type: TermType, taxes: IEvent['taxonomy'] | Taxonomy[]): IEvent['taxonomy'] =>
-      taxes ? taxes.filter((tax) => tax.type === type) : [],
+    (type: TermType, taxes: IEvent['taxonomy'] | ITaxonomy[]): IEvent['taxonomy'] =>
+      taxes ? taxes.filter((tax) => tax?.type === type) : [],
     [],
   );
   const eventCategorySelected = useMemo(() => getTax(TermType.eventCategory, stateTaxonomy), [getTax, stateTaxonomy]);
@@ -40,9 +40,9 @@ export const EventTaxonomy = memo(function EventTaxonomy<T extends IEvent['taxon
   const eventFeelingTaxonomies = useMemo(() => getTax(TermType.eventFeeling, taxonomies), [getTax, taxonomies]);
 
   useEffect(() => {
-    fetchTaxonomyRequest(TermTypeLink.event)
+    fetchTaxonomyRequest({ filter: { link: TermTypeLink.event } })
       .then(({ data }) => {
-        const localRes = data.map((tax) => ({ id: tax.id, name: tax.name, type: tax.type }));
+        const localRes = data?.items.map((tax) => ({ uid: tax.uid, name: tax.name, type: tax.type })) ?? [];
         setTaxonomies(localRes);
       })
       .catch((reject) => {

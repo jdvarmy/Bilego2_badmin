@@ -1,7 +1,8 @@
 import { City, EventHeaderType } from '../../../typings/enum';
-import { Artist, MediaSelectData, Post, Taxonomy, User } from '../../../typings/types';
+import { Artist, MediaSelectData, Post, User } from '../../../typings/types';
 import { EventDate } from '../../eventDates/types/types';
 import { IItem } from '../../items/type/types';
+import { ITaxonomy } from '../../taxonomy/types/types';
 
 export const eventsScope = 'events' as const;
 
@@ -11,7 +12,7 @@ export interface IEvent extends Post {
   artist?: Pick<Artist, 'uid' | 'title'>[];
   city?: City;
   eventManager?: User;
-  taxonomy?: Pick<Taxonomy, 'id' | 'name' | 'type'>[];
+  taxonomy?: Pick<ITaxonomy, 'uid' | 'name' | 'type'>[];
   eventDates?: EventDate[];
   image?: MediaSelectData;
   fragment?: string;
@@ -34,7 +35,7 @@ export interface EventRequest
     IEvent,
     'create' | 'update' | 'eventDates' | 'taxonomy' | 'image' | 'headerImage' | 'item' | 'artist' | 'eventManager'
   > {
-  taxonomy?: number[];
+  taxonomy?: string[];
   eventDates?: Omit<EventDate, 'eventUid' | 'map'>[];
   image?: number;
   headerImage?: number;

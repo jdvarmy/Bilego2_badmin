@@ -1,18 +1,17 @@
 import { Key } from 'react';
 
-import { TermType, TermTypeLink } from '../../../typings/enum';
-import { Taxonomy } from '../../../typings/types';
 import requests from '../../../utils/api/api';
+import { PagePostProps, PagePostPropsResponseType } from '../../post/types/types';
+import { ITaxonomy } from '../types/types';
 
-export const fetchTaxonomyRequest = (link: TermTypeLink, type?: TermType) =>
-  requests.get<Taxonomy[]>(`taxonomy/${link}${type ? `/${type}` : ''}`);
+export const fetchTaxonomyRequest = <TAXONOMY extends ITaxonomy>(props: PagePostProps<TAXONOMY>) =>
+  requests.get<PagePostPropsResponseType<TAXONOMY>>(
+    `taxonomy/${props.filter?.link}${props.filter?.type ? `/${props.filter.type}` : ''}`,
+    props,
+  );
 
-export const saveTaxonomyRequest = (data: Taxonomy) => requests.post<Taxonomy[]>(`taxonomy`, data);
+export const saveTaxonomyRequest = (data: ITaxonomy) => requests.post<ITaxonomy[]>(`taxonomy`, data);
 
-export const deleteTaxonomyRequest = (id: Key) => requests.delete<Taxonomy>(`taxonomy/${id}`);
+export const deleteTaxonomyRequest = (id: Key) => requests.delete<ITaxonomy>(`taxonomy/${id}`);
 
-export const patchTaxonomyRequest = ({
-  id,
-  ...data
-}: Omit<Taxonomy, 'image' | 'icon'> | Pick<Taxonomy, 'id' | 'image' | 'icon'>) =>
-  requests.patch<Taxonomy>(`taxonomy/${id}`, data);
+export const putTaxonomyRequest = ({ uid, ...data }: ITaxonomy) => requests.put<ITaxonomy>(`taxonomy/${uid}`, data);

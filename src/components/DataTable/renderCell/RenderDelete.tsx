@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { AsyncThunkAction } from '@reduxjs/toolkit';
+import { AsyncThunk } from '@reduxjs/toolkit';
 import { ICellRendererParams } from 'ag-grid-community';
 import React, { MouseEventHandler, useCallback } from 'react';
 
@@ -9,12 +9,7 @@ import { useAppDispatch } from '../../../domens/store';
 import { PopoverDelete } from '../../PopoverDelete/PopoverDelete';
 
 export const RenderDelete =
-  <T extends object>(
-    dispatchAsyncFn: (arg: {
-      uid: string;
-      pageProps?: PagePostProps<T>;
-    }) => AsyncThunkAction<void, { uid: string; pageProps?: PagePostProps<T> }, unknown>,
-  ) =>
+  <T extends object>(dispatchAsyncFn: AsyncThunk<T, { uid: string; pageProps?: PagePostProps<T> }, unknown>) =>
   // eslint-disable-next-line react/display-name
   (props: ICellRendererParams): JSX.Element => {
     // eslint-disable-next-line react-hooks/rules-of-hooks

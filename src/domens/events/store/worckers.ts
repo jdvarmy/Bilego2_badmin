@@ -1,11 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { City } from '../../../typings/enum';
 import { addAlertErrorAsync } from '../../alert/store/alertThunk';
 import { ServerErrorStatus } from '../../alert/types/types';
 import { fetchArtistsRequest } from '../../artists/api/artistsRequest';
 import { eventDatesActions } from '../../eventDates/store/eventDatesSlice';
 import { fetchItemsRequest } from '../../items/api/itemsRequest';
+import { IItem } from '../../items/type/types';
+import { PagePostProps } from '../../post/types/types';
 import { EventRequest, IEvent, eventsScope } from '../types/types';
 import { eventsActions } from './eventsSlice';
 
@@ -23,7 +24,7 @@ export function workerPrepareData(event: IEvent): EventRequest {
     const { uid, type, dateFrom, dateTo, closeDateTime } = eventDate;
     return { uid, type, dateFrom, dateTo, closeDateTime };
   });
-  const filteredTaxonomy = taxonomy?.map((tax) => +tax.id);
+  const filteredTaxonomy = taxonomy?.map((tax) => tax.uid);
   const filteredImage = !Number.isNaN(+image?.id) ? +image?.id : undefined;
   const filteredHeaderImage = !Number.isNaN(+headerImage?.id) ? +headerImage?.id : undefined;
 
@@ -61,9 +62,9 @@ export const workerGetArtistListForEvent = createAsyncThunk(
 
 export const workerGetItemListForEvent = createAsyncThunk(
   `${eventsScope}/workerGetItemListForEvent`,
-  async ({ search, params }: { search: string; params: { city?: City } }, { dispatch, rejectWithValue }) => {
+  async (props: PagePostProps<IItem>, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = await fetchItemsRequest({ search, ...params });
+      const { data } = await fetchItemsRequest(props);
 
       return data;
     } catch (error) {

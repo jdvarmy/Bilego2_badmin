@@ -7,13 +7,14 @@ import { cellStatus } from '../../../components/DataTable/cells/cellStatus';
 import { cellTitle } from '../../../components/DataTable/cells/cellTitle';
 import { filterModelParser } from '../../../components/DataTable/parser/filterModelParser';
 import { RenderDelete } from '../../../components/DataTable/renderCell/RenderDelete';
+import { isPagePostPropsResponseTypeGuard } from '../../../typings/types';
 import { defaultCountPost } from '../../post/types/types';
 import { useAppDispatch } from '../../store';
 import { cellEventDates } from '../components/EventsTable/cell/cellEventDates';
 import { cellEventManager } from '../components/EventsTable/cell/cellEventManager';
 import { cellIsSlider } from '../components/EventsTable/cell/cellIsSlider';
 import { deleteEventAsync, fetchEventsAsync } from '../store/eventsThunk';
-import { IEvent } from '../types/types';
+import { IEvent, eventsScope } from '../types/types';
 
 type EventColumns = Pick<
   IEvent,
@@ -46,7 +47,9 @@ export function useEventsTableData(): { columnDefs: ColDef<IEvent>[]; onGridRead
       )
         .unwrap()
         .then((data) => {
-          successCallback(data.items, data.props?.total ?? 0);
+          if (isPagePostPropsResponseTypeGuard<IEvent>(data)) {
+            successCallback(data.items, data.props?.total ?? 0);
+          }
         });
     },
   };
@@ -68,7 +71,7 @@ function columnDefsCreator(): ColDef<IEvent>[] {
     };
 
     if (['title'].includes(column)) {
-      return cellTitle(columns);
+      return cellTitle(eventsScope, columns);
     }
     if (['status'].includes(column)) {
       return cellStatus(columns);

@@ -1,27 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Key } from 'react';
 
-import { TermType, TermTypeLink } from '../../../typings/enum';
-import { Taxonomy } from '../../../typings/types';
-import { addAlertErrorAsync } from '../../alert/store/alertThunk';
-import { ServerErrorStatus } from '../../alert/types/types';
+import { workerAddError } from '../../alert/store/workers';
+import { PagePostProps } from '../../post/types/types';
 import {
   deleteTaxonomyRequest,
   fetchTaxonomyRequest,
-  patchTaxonomyRequest,
+  putTaxonomyRequest,
   saveTaxonomyRequest,
 } from '../api/taxonomyRequest';
-import { taxonomyScope } from '../types/types';
+import { ITaxonomy, taxonomyScope } from '../types/types';
 
-export const getTaxonomyAsync = createAsyncThunk(
+export const fetchTaxonomyAsync = createAsyncThunk(
   `${taxonomyScope}/getTaxonomyAsync`,
-  async ({ type }: { type: TermType }, { dispatch, rejectWithValue }) => {
+  async (pageProps: PagePostProps<ITaxonomy>, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = await fetchTaxonomyRequest(TermTypeLink.event, type);
+      const { data } = await fetchTaxonomyRequest(pageProps);
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(workerAddError(error));
       return rejectWithValue(error);
     }
   },
@@ -29,7 +26,7 @@ export const getTaxonomyAsync = createAsyncThunk(
 
 export const saveTaxonomyAsync = createAsyncThunk(
   `${taxonomyScope}/saveTaxonomyAsync`,
-  async (taxonomy: Taxonomy, { dispatch, rejectWithValue }) => {
+  async (taxonomy: ITaxonomy, { dispatch, rejectWithValue }) => {
     const clearTax = {
       ...taxonomy,
       icon: typeof taxonomy.icon === 'object' ? +taxonomy.icon.id : taxonomy.icon,
@@ -41,7 +38,7 @@ export const saveTaxonomyAsync = createAsyncThunk(
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(workerAddError(error));
       return rejectWithValue(error);
     }
   },
@@ -49,39 +46,34 @@ export const saveTaxonomyAsync = createAsyncThunk(
 
 export const editTaxonomyAsync = createAsyncThunk(
   `${taxonomyScope}/editTaxonomyAsync`,
-  async (taxonomy: Partial<Taxonomy>, { dispatch, rejectWithValue }) => {
+  async (taxonomy: Partial<ITaxonomy>, { dispatch, rejectWithValue }) => {
+    const clearTax = {
+      ...taxonomy,
+      icon: typeof taxonomy.icon === 'object' ? +taxonomy.icon.id : taxonomy.icon,
+      image: typeof taxonomy.image === 'object' ? +taxonomy.image.id : taxonomy.image,
+    } as ITaxonomy;
+
     try {
-      const { data } = await patchTaxonomyRequest(taxonomy);
+      const { data } = await putTaxonomyRequest(clearTax);
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(workerAddError(error));
       return rejectWithValue(error);
     }
   },
 );
 
-export const saveTaxonomyMediaAsync = createAsyncThunk(
-  `${taxonomyScope}/saveTaxonomyMediaAsync`,
-  async (taxonomy: Pick<Taxonomy, 'id' | 'image' | 'icon'>, { dispatch, rejectWithValue }) => {
+export const deleteTaxonomyAsync = createAsyncThunk(
+  `${taxonomyScope}/deleteTaxonomyAsync`,
+  async ({ uid }: { uid: string; pageProps?: PagePostProps<ITaxonomy> }, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = await patchTaxonomyRequest(taxonomy);
+      const { data } = await deleteTaxonomyRequest(uid);
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(workerAddError(error));
       return rejectWithValue(error);
     }
   },
 );
-
-export const deleteTaxonomyAsync = createAsyncThunk(``, async ({ id }: { id: Key }, { dispatch, rejectWithValue }) => {
-  try {
-    const { data } = await deleteTaxonomyRequest(id);
-
-    return data;
-  } catch (error) {
-    dispatch(addAlertErrorAsync(error as ServerErrorStatus));
-    return rejectWithValue(error);
-  }
-});

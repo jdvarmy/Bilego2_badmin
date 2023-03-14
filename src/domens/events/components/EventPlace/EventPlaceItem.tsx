@@ -32,9 +32,9 @@ export const EventPlaceItem = memo(function EventPlaceItem({ item, city }: Props
     handleChangeItem(event);
   };
 
-  const fetchFnItems = (search: string) => {
+  const fetchFnItems = (search?: string) => {
     // todo: добавить прерывание запроса
-    dispatch(workerGetItemListForEvent({ search, params: { city } }))
+    dispatch(workerGetItemListForEvent({ filter: { title: search, city } }))
       .unwrap()
       .then(({ items }) => {
         setItems(items);

@@ -3,40 +3,29 @@ import { ICellRendererParams } from 'ag-grid-community';
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { itemsScope } from '../../../domens/items/type/types';
-
-// eslint-disable-next-line react/prop-types
-export const RenderTitle = memo(function RenderTitle({ data }: ICellRendererParams) {
-  let returnComponent;
-
+export const RenderTitle = (scope: string) =>
   // eslint-disable-next-line react/prop-types
-  if (data?.title && data?.uid && data?.slug) {
-    returnComponent = (
-      <MULink
-        variant='h6'
-        underline='hover'
-        component={Link}
-        to={`/${itemsScope}/edit?uid=${data.uid}&slug=${data.slug}`}
-      >
-        {data.title}
-      </MULink>
-    );
-  } else if (data?.uid && data?.slug) {
-    returnComponent = (
-      <MULink
-        variant='h6'
-        underline='hover'
-        component={Link}
-        to={`/${itemsScope}/edit?uid=${data.uid}&slug=${data.slug}`}
-      >
-        Нет заголовка
-      </MULink>
-    );
-  } else if (data?.title) {
-    returnComponent = <Typography variant='h6'>{data.title}</Typography>;
-  } else {
-    returnComponent = null;
-  }
+  memo(function RenderTitle({ data }: ICellRendererParams) {
+    let returnComponent;
 
-  return returnComponent;
-});
+    // eslint-disable-next-line react/prop-types
+    if (data?.title && data?.uid && data?.slug) {
+      returnComponent = (
+        <MULink variant='h6' underline='hover' component={Link} to={`/${scope}/edit?uid=${data.uid}&slug=${data.slug}`}>
+          {data.title}
+        </MULink>
+      );
+    } else if (data?.uid && data?.slug) {
+      returnComponent = (
+        <MULink variant='h6' underline='hover' component={Link} to={`/${scope}/edit?uid=${data.uid}&slug=${data.slug}`}>
+          Нет заголовка
+        </MULink>
+      );
+    } else if (data?.title) {
+      returnComponent = <Typography variant='h6'>{data.title}</Typography>;
+    } else {
+      returnComponent = null;
+    }
+
+    return returnComponent;
+  });

@@ -1,6 +1,5 @@
-import { Key } from 'react';
-
-import { PostStatus, TermType, TermTypeLink, TicketType, UserRole } from './enum';
+import { PagePostPropsResponseType } from '../domens/post/types/types';
+import { PostStatus, TicketType, UserRole } from './enum';
 import { HTTP_URL, HTTP_VERSION } from './env';
 
 export const loginPage = '/login';
@@ -9,6 +8,9 @@ export const axiosBaseUrl = `${HTTP_URL}${HTTP_VERSION}/`;
 
 export function isObjectGuard(value: unknown): value is object {
   return typeof value === 'object' && value !== null;
+}
+export function isPagePostPropsResponseTypeGuard<T>(data: unknown): data is PagePostPropsResponseType<T> {
+  return typeof data === 'object' && 'items' in data && 'props' in data;
 }
 
 export type ColorsFormat = 'plain' | 'hex' | 'rgb' | 'number' | 'unknown' | undefined;
@@ -27,20 +29,6 @@ export type User = {
   concertManagerInfo?: string;
   concertManagerPercentage?: number;
 };
-
-export interface Taxonomy {
-  id?: Key;
-  name: string;
-  type: TermType;
-  link?: TermTypeLink;
-  slug?: string;
-  description?: string;
-  icon?: Partial<MediaSelectData> | number;
-  image?: Partial<MediaSelectData> | number;
-  overIndex?: number;
-  showInMenu?: boolean;
-  showInMainPage?: boolean;
-}
 
 export interface Post {
   uid?: string;

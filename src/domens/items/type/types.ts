@@ -1,11 +1,12 @@
 import { City } from '../../../typings/enum';
-import { MediaSelectData, Post, Taxonomy } from '../../../typings/types';
+import { MediaSelectData, Post } from '../../../typings/types';
+import { ITaxonomy } from '../../taxonomy/types/types';
 
 export const itemsScope = 'items' as const;
 
 export interface IItem extends Post {
   city?: City;
-  taxonomy?: Pick<Taxonomy, 'id' | 'name' | 'type'>[];
+  taxonomy?: Pick<ITaxonomy, 'uid' | 'name' | 'type'>[];
   image?: MediaSelectData;
   headerImage?: MediaSelectData;
   address?: string;
@@ -14,7 +15,7 @@ export interface IItem extends Post {
 }
 
 export interface ItemRequest extends Omit<IItem, 'create' | 'update' | 'taxonomy' | 'image' | 'headerImage'> {
-  taxonomy?: number[];
+  taxonomy?: string[];
   image?: number;
   headerImage?: number;
 }

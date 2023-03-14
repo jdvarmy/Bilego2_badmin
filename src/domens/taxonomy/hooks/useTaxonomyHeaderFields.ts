@@ -5,12 +5,13 @@ import React, { useMemo, useState } from 'react';
 
 import TextFieldImage, { MediaTextFieldProps } from '../../../components/TextFieldImage/TextFieldImage';
 import { TermType, TermTypeLink } from '../../../typings/enum';
-import { MediaSelectData, Taxonomy } from '../../../typings/types';
+import { MediaSelectData } from '../../../typings/types';
+import { ITaxonomy } from '../types/types';
 
 type Props = {
   type: TermType;
   link: TermTypeLink;
-  fields?: (keyof Taxonomy)[];
+  fields?: (keyof ITaxonomy)[];
 };
 
 const defaultFieldProps: StandardTextFieldProps = { type: 'text', size: 'small', fullWidth: true };
@@ -18,24 +19,24 @@ const defaultFieldProps: StandardTextFieldProps = { type: 'text', size: 'small',
 export function useTaxonomyHeaderFields({ type, link, fields }: Props) {
   const cyrillicToTranslit = CyrillicToTranslit();
 
-  const initialState: Taxonomy = useMemo(
+  const initialState: ITaxonomy = useMemo(
     () => ({ name: '', type, link, slug: '', icon: undefined, image: undefined }),
     [type, link],
   );
-  const [taxonomy, setTaxonomy] = useState<Taxonomy>(initialState);
+  const [taxonomy, setTaxonomy] = useState<ITaxonomy>(initialState);
 
-  const handleChangeText = (field: keyof Taxonomy) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTaxonomy((taxonomy: Taxonomy) => ({ ...taxonomy, [field]: event.target.value }));
+  const handleChangeText = (field: keyof ITaxonomy) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTaxonomy((taxonomy: ITaxonomy) => ({ ...taxonomy, [field]: event.target.value }));
   };
-  const handleChangeMedia = (field: keyof Taxonomy) => (image: MediaSelectData) => {
-    setTaxonomy((taxonomy: Taxonomy) => ({ ...taxonomy, [field]: image }));
+  const handleChangeMedia = (field: keyof ITaxonomy) => (image: MediaSelectData) => {
+    setTaxonomy((taxonomy: ITaxonomy) => ({ ...taxonomy, [field]: image }));
   };
-  const handleDeleteMedia = (field: keyof Taxonomy) => () => {
-    setTaxonomy((taxonomy: Taxonomy) => ({ ...taxonomy, [field]: undefined }));
+  const handleDeleteMedia = (field: keyof ITaxonomy) => () => {
+    setTaxonomy((taxonomy: ITaxonomy) => ({ ...taxonomy, [field]: undefined }));
   };
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const slug = cyrillicToTranslit.transform(event.target.value, '-').toLowerCase();
-    setTaxonomy((taxonomy: Taxonomy) => ({ ...taxonomy, slug }));
+    setTaxonomy((taxonomy: ITaxonomy) => ({ ...taxonomy, slug }));
   };
 
   const standardFields: (TextFieldProps & {
@@ -75,7 +76,7 @@ export function useTaxonomyHeaderFields({ type, link, fields }: Props) {
     [handleBlur, taxonomy.description, taxonomy.name, taxonomy.slug],
   );
   const mediaFields: (MediaTextFieldProps & {
-    name: keyof Taxonomy;
+    name: keyof ITaxonomy;
     Component: (props: MediaTextFieldProps) => JSX.Element;
   })[] = useMemo(
     () => [
@@ -105,6 +106,6 @@ export function useTaxonomyHeaderFields({ type, link, fields }: Props) {
     taxonomy,
     initialTaxonomy: initialState,
     setTaxonomy,
-    fields: [...standardFields, ...mediaFields].filter((item) => fields.includes(item?.name as keyof Taxonomy)),
+    fields: [...standardFields, ...mediaFields].filter((item) => fields.includes(item?.name as keyof ITaxonomy)),
   };
 }

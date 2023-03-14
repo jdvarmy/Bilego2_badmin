@@ -1,5 +1,8 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import { AppThunk } from '../../store';
-import { AlertState } from '../types/types';
+import { AlertState, alertScope, isServerErrorStatusGuard } from '../types/types';
+import { addAlertErrorAsync } from './alertThunk';
 
 const delay = 6000;
 
@@ -11,3 +14,9 @@ export const addAlertWorker =
   async (dispatch) => {
     // dispatch(setAlert({ ...data, date: formatter.format(new Date()), uid: uidv4(), delay: ms }));
   };
+
+export const workerAddError = createAsyncThunk(`${alertScope}/workerAddError`, (error: unknown, { dispatch }) => {
+  if (isServerErrorStatusGuard(error)) {
+    dispatch(addAlertErrorAsync(error));
+  }
+});

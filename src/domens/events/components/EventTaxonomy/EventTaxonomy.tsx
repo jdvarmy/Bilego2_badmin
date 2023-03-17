@@ -4,7 +4,6 @@ import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { TermType, TermTypeLink } from '../../../../typings/enum';
 import { isEqual } from '../../../../utils/helpers/isEqual';
 import { addAlertErrorAsync } from '../../../alert/store/alertThunk';
-import { ServerErrorStatus } from '../../../alert/types/types';
 import { useAppDispatch } from '../../../store';
 import { fetchTaxonomyRequest } from '../../../taxonomy/api/taxonomyRequest';
 import { ITaxonomy } from '../../../taxonomy/types/types';
@@ -42,11 +41,11 @@ export const EventTaxonomy = memo(function EventTaxonomy<T extends IEvent['taxon
   useEffect(() => {
     fetchTaxonomyRequest({ filter: { link: TermTypeLink.event } })
       .then(({ data }) => {
-        const localRes = data?.items.map((tax) => ({ uid: tax.uid, name: tax.name, type: tax.type })) ?? [];
+        const localRes = data?.items?.map((tax) => ({ uid: tax.uid, name: tax.name, type: tax.type })) ?? [];
         setTaxonomies(localRes);
       })
       .catch((reject) => {
-        dispatch(addAlertErrorAsync(reject as ServerErrorStatus));
+        dispatch(addAlertErrorAsync(reject));
       });
   }, [dispatch]);
 

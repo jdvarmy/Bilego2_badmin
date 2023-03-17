@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { UserRole } from '../../../typings/enum';
 import { addAlertErrorAsync } from '../../alert/store/alertThunk';
-import { ServerErrorStatus } from '../../alert/types/types';
 import { RequestUser } from '../../auth/types/types';
 import { deleteUserRequest, fetchUsersRequest, getUserRequest, saveUserRequest } from '../api/usersRequests';
 import { usersScope } from '../types/types';
@@ -15,7 +14,7 @@ export const getUsersAsync = createAsyncThunk(
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },
@@ -29,7 +28,7 @@ export const getUserAsync = createAsyncThunk(
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },
@@ -43,7 +42,7 @@ export const saveUserAsync = createAsyncThunk(
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },
@@ -59,7 +58,7 @@ export const deleteUserAsync = createAsyncThunk(
         dispatch(getUsersAsync());
       }
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },
@@ -73,7 +72,7 @@ export const getManagerListForEventAsync = createAsyncThunk(
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },

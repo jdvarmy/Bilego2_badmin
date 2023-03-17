@@ -27,5 +27,4 @@ export function isServerErrorStatusGuard(value: unknown): value is ServerErrorSt
   );
 }
 
-export type AlertType = ServerErrorStatus & { ms?: number };
 export type SuccessType = Pick<AlertState, 'title' | 'text'> & { ms?: number };

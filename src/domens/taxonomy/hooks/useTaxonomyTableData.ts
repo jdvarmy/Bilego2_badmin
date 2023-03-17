@@ -7,6 +7,7 @@ import { RenderDelete } from '../../../components/DataTable/renderCell/RenderDel
 import { TermType, TermTypeLink } from '../../../typings/enum';
 import { isPagePostPropsResponseTypeGuard } from '../../../typings/types';
 import cloneDeep from '../../../utils/helpers/cloneDeep';
+import { translitSlug } from '../../../utils/helpers/translitSlug';
 import { defaultCountPost } from '../../post/types/types';
 import { useAppDispatch } from '../../store';
 import { RenderCheckbox } from '../components/TaxonomyTable/renderCell/RenderCheckbox';
@@ -65,6 +66,12 @@ function columnDefsCreator(columns: Props['columns']): ColDef<ITaxonomy>[] {
 
     if (['name'].includes(name)) {
       columns.rowDrag = true;
+    }
+    if (['slug'].includes(name)) {
+      columns.valueSetter = (params) => {
+        params.data.slug = translitSlug(params.newValue);
+        return true;
+      };
     }
     if (name === 'description') {
       columns.flex = 1;

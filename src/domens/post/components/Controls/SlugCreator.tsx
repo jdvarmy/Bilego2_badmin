@@ -1,11 +1,11 @@
 import LinkTwoToneIcon from '@mui/icons-material/LinkTwoTone';
 import SaveTwoToneIcon from '@mui/icons-material/SaveTwoTone';
 import { Box, Button, IconButton, TextField } from '@mui/material';
-import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import React, { memo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { PostType } from '../../../../typings/enum';
+import { translitSlug } from '../../../../utils/helpers/translitSlug';
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { useLocalSearchParams } from '../../../../utils/hooks/useLocalSearchParams';
 import { eventsActions } from '../../../events/store/eventsSlice';
@@ -65,9 +65,7 @@ export const SlugCreator = memo(function SlugCreator({ uid, slug, type }: Props)
     }
 
     if (uid) {
-      // @ts-ignore
-      const cyrillicToTranslit = new CyrillicToTranslit();
-      const updatedSlug = cyrillicToTranslit.transform(localSlug, '-').toLowerCase();
+      const updatedSlug = translitSlug(slug);
 
       workerHandler({ uid, slug: updatedSlug })();
       setSearchParams({ ...params, slug: updatedSlug });

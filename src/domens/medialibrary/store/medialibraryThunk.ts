@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { addAlertErrorAsync } from 'src/domens/alert/store/alertThunk';
 
-import { ServerErrorStatus } from '../../alert/types/types';
 import {
   fetchMapItemsRequest,
   fetchMedialibraryRequest,
@@ -20,7 +19,7 @@ export const getFileListAsync = createAsyncThunk(
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },
@@ -34,7 +33,7 @@ export const getMapListAsync = createAsyncThunk(
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },
@@ -55,7 +54,7 @@ export const uploadFileAsync = createAsyncThunk(
         dispatch(getFileListAsync());
       }
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },
@@ -80,7 +79,7 @@ export const uploadFileMapAsync = createAsyncThunk(
         dispatch(getMapListAsync());
       }
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },
@@ -96,7 +95,7 @@ export const removeFileAsync = createAsyncThunk(
         dispatch(getFileListAsync());
       }
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },

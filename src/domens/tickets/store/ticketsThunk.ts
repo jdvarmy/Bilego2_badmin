@@ -3,7 +3,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TicketType } from '../../../typings/enum';
 import { Ticket, TicketOnSell } from '../../../typings/types';
 import { addAlertErrorAsync, addAlertSuccessAsync } from '../../alert/store/alertThunk';
-import { ServerErrorStatus } from '../../alert/types/types';
 import { selectSelectedCircles } from '../../circle/store/circleSelectors';
 import { selectEventDateSelectedUid } from '../../eventDates/store/eventDatesSelectors';
 import { RootState } from '../../store';
@@ -18,7 +17,7 @@ export const getTicketsAsync = createAsyncThunk(
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },
@@ -68,7 +67,7 @@ export const saveTicketsAsync = createAsyncThunk(
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },
@@ -89,7 +88,7 @@ export const deleteTicketsAsync = createAsyncThunk(
         dispatch(getTicketsAsync({ dateUid }));
       }
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },

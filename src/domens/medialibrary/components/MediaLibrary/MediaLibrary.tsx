@@ -109,14 +109,16 @@ const MediaLibrary = ({ open, closeHandler, selectHandle }: Props) => {
         </Toolbar>
       </AppBar>
       <DialogContent sx={{ overflow: 'scroll-y' }}>
-        {files?.map((file: MediaFile) => (
-          <Image
-            key={file.id}
-            file={file}
-            loading={[StatusLoading.init, StatusLoading.loading].includes(status)}
-            selectHandle={handleSelect}
-          />
-        ))}
+        {Array.isArray(files) &&
+          files.length &&
+          files.map((file: MediaFile) => (
+            <Image
+              key={file.id}
+              file={file}
+              loading={[StatusLoading.init, StatusLoading.loading].includes(status)}
+              selectHandle={handleSelect}
+            />
+          ))}
       </DialogContent>
     </Dialog>
   );

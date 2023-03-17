@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { addAlertErrorAsync } from '../../alert/store/alertThunk';
-import { ServerErrorStatus } from '../../alert/types/types';
 import { loginRequest, logoutRequest, refreshRequest, registerRequest } from '../api/authRequest';
 import { RequestAuth, authScope } from '../types/types';
 
@@ -13,7 +12,7 @@ export const register = createAsyncThunk(
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },
@@ -27,7 +26,7 @@ export const login = createAsyncThunk(
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },
@@ -39,7 +38,7 @@ export const logout = createAsyncThunk(`${authScope}/logout`, async (_, { dispat
 
     return true;
   } catch (error) {
-    dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+    dispatch(addAlertErrorAsync(error));
     return rejectWithValue(error);
   }
 });
@@ -52,7 +51,7 @@ export const checkIsUserLogin = createAsyncThunk(
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },

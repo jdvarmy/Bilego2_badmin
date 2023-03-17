@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { addAlertErrorAsync } from '../../alert/store/alertThunk';
-import { ServerErrorStatus } from '../../alert/types/types';
 import { fetchArtistsRequest } from '../../artists/api/artistsRequest';
 import { eventDatesActions } from '../../eventDates/store/eventDatesSlice';
 import { fetchItemsRequest } from '../../items/api/itemsRequest';
@@ -54,7 +53,7 @@ export const workerGetArtistListForEvent = createAsyncThunk(
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },
@@ -68,7 +67,7 @@ export const workerGetItemListForEvent = createAsyncThunk(
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error as ServerErrorStatus));
+      dispatch(addAlertErrorAsync(error));
       return rejectWithValue(error);
     }
   },

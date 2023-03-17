@@ -2,9 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uidv4 } from 'uuid';
 
 import dateTimeFormatDefault from '../../../utils/helpers/dateTimeFormatDefault';
-import { AlertType, SuccessType, alertScope } from '../types/types';
+import { ServerErrorStatus, SuccessType, alertScope, isServerErrorStatusGuard } from '../types/types';
 
-const delay = 6000;
+const delay = 9000;
 const formatter = new Intl.DateTimeFormat('ru', dateTimeFormatDefault);
 const meta = (): { uid: string; date: string } => ({
   uid: uidv4(),
@@ -13,18 +13,22 @@ const meta = (): { uid: string; date: string } => ({
 
 export const addAlertErrorAsync = createAsyncThunk(
   `${alertScope}/addAlertErrorAsync`,
-  async function ({ message, error, statusCode, ms = delay }: AlertType) {
-    let title = 'Неизвестная ошибка ' + message,
-      text = 'Возникла ошибка в программе';
+  async function (error: ServerErrorStatus | Error | any) {
+    if (isServerErrorStatusGuard(error)) {
+      let title = 'Неизвестная ошибка ' + error.message,
+        text = 'Возникла ошибка в программе';
 
-    if (error) {
-      title = error;
-    }
-    if (statusCode && message) {
-      text = `Код статуса ${statusCode}. Сообщение номер ${message}!`;
+      if (error.error) {
+        title = error.error;
+      }
+      if (error.statusCode && error.message) {
+        text = `Код статуса ${error.statusCode}. Сообщение номер ${error.message}!`;
+      }
+
+      return { ...meta(), severity: 'error', title, text, delay };
     }
 
-    return { ...meta(), severity: 'error', title, text, delay: ms };
+    return { ...meta(), severity: 'error', title: 'Run time error', text: error, delay };
   },
 );
 

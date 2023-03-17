@@ -6,8 +6,9 @@ import {
   StyledTypography,
 } from 'src/domens/post/components/PostInfo/styledComponent';
 
-import { HTTP_URL } from '../../../../typings/env';
 import { isEqual } from '../../../../utils/helpers/isEqual';
+import { getImageSrc } from '../../../medialibrary/helpers/getImageSrc';
+import { ImageSizes } from '../../../medialibrary/types/types';
 import { useStateSelector } from '../../../store';
 import { selectItemStateImageData } from '../../store/itemsSelector';
 
@@ -18,7 +19,7 @@ export const ItemInfoMediaDisplay = memo(function ItemInfoMediaDisplay() {
 
   return (
     <StyledCard>
-      {image && <StyledCardMedia image={`${HTTP_URL}${image.path}`} title={image.name} />}
+      {image && <StyledCardMedia image={getImageSrc(image.path, ImageSizes.m)} title={image.name} />}
       <StyledBox>
         <StyledTypography>{title}</StyledTypography>
       </StyledBox>

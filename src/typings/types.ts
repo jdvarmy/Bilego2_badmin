@@ -73,10 +73,10 @@ export type MediaFile = {
   mimetype: string;
   name: string;
   originalName: string;
-  path: string;
+  path: string[];
   size: number;
 };
-export type MediaSelectData = { id: number; name: string; path?: string };
+export type MediaSelectData = { id: number; name: string; path?: string[] };
 export type TextElement = { fill?: string; 'font-family'?: string; 'font-size'?: number; transform?: string };
 export type PathElement = {
   d?: string;

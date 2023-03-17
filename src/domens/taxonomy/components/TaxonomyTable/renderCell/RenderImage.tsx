@@ -4,8 +4,9 @@ import { ICellRendererParams } from 'ag-grid-community';
 import React from 'react';
 
 import TextFieldImage from '../../../../../components/TextFieldImage/TextFieldImage';
-import { HTTP_URL } from '../../../../../typings/env';
 import { MediaSelectData } from '../../../../../typings/types';
+import { getImageSrc } from '../../../../medialibrary/helpers/getImageSrc';
+import { ImageSizes } from '../../../../medialibrary/types/types';
 import { useAppDispatch } from '../../../../store';
 import { editTaxonomyAsync } from '../../../store/taxonomyThunk';
 import { ITaxonomy } from '../../../types/types';
@@ -32,7 +33,7 @@ export const RenderImage = (name: keyof Pick<ITaxonomy, 'icon' | 'image'>) => {
 
     return (
       <Box sx={style}>
-        {props.value?.path ? <Img src={`${HTTP_URL}${props.value.path}`} alt='' /> : <div />}
+        {props.value?.path ? <Img src={getImageSrc(props.value.path, ImageSizes.s)} alt='' /> : <div />}
         <TextFieldImage label='Иконка' size='small' onSelect={handleChangeMedia} onlyIcon />
       </Box>
     );

@@ -1,5 +1,3 @@
-import { Box, Card, CardMedia, Typography } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import React, { memo } from 'react';
 import {
   StyledBox,
@@ -9,9 +7,10 @@ import {
   StyledTypographyDate,
 } from 'src/domens/post/components/PostInfo/styledComponent';
 
-import { HTTP_URL } from '../../../../typings/env';
 import dateTimeFormatDefault from '../../../../utils/helpers/dateTimeFormatDefault';
 import { isEqual } from '../../../../utils/helpers/isEqual';
+import { getImageSrc } from '../../../medialibrary/helpers/getImageSrc';
+import { ImageSizes } from '../../../medialibrary/types/types';
 import { useStateSelector } from '../../../store';
 import { selectEventStateImageData } from '../../store/eventsSelectors';
 
@@ -31,7 +30,7 @@ export const EventInfoMediaDisplay = memo(function EventInfoMediaDisplay() {
 
   return (
     <StyledCard>
-      {image && <StyledCardMedia image={`${HTTP_URL}${image.path}`} title={image.name} />}
+      {image && <StyledCardMedia image={getImageSrc(image.path, ImageSizes.m)} title={image.name} />}
       <StyledBox>
         {date && <StyledTypographyDate>{formatter.format(new Date(date))}</StyledTypographyDate>}
         <StyledTypography>{title}</StyledTypography>

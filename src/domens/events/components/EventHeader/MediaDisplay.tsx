@@ -1,7 +1,8 @@
 import { Box, Card, CardMedia, Typography } from '@mui/material';
 import React from 'react';
 
-import { HTTP_URL } from '../../../../typings/env';
+import { getImageSrc } from '../../../medialibrary/helpers/getImageSrc';
+import { ImageSizes } from '../../../medialibrary/types/types';
 import { IEvent } from '../../types/types';
 
 type Props = {
@@ -16,7 +17,7 @@ export const MediaDisplay = ({ image, text, color }: Props) => {
 
   return (
     <Card sx={{ width: '100%', height: 298, display: 'inline-block', position: 'relative' }}>
-      {image && <CardMedia sx={{ height: 298 }} image={`${HTTP_URL}${image.path}`} title={image.name} />}
+      {image && <CardMedia sx={{ height: 298 }} image={getImageSrc(image.path, ImageSizes.s)} title={image.name} />}
       <Box sx={{ position: 'absolute', bottom: '1rem', left: '1rem' }}>
         <Typography variant='h3' sx={{ textTransform: 'none', color: titleColor }}>
           {title}

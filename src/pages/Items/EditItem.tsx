@@ -45,7 +45,15 @@ const EditItem = () => {
         <Box component='form' noValidate autoComplete='off' sx={{ width: '100%' }}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <ItemInfo {...{ title: itemState.title, image: itemState.image, city: itemState.city }} />
+              <ItemInfo
+                {...{
+                  uid: itemState.uid,
+                  title: itemState.title,
+                  image: itemState.image,
+                  city: itemState.city,
+                  taxonomy: itemState.taxonomy,
+                }}
+              />
             </Grid>
           </Grid>
         </Box>

@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios';
+
 import { isObjectGuard } from '../../../typings/types';
 
 export const alertScope = 'alert' as const;
@@ -24,6 +26,26 @@ export function isServerErrorStatusGuard(value: unknown): value is ServerErrorSt
     typeof value.message === 'string' &&
     'error' in value &&
     typeof value.error === 'string'
+  );
+}
+export function isAxiosErrorGuard(value: unknown): value is AxiosError {
+  if (!isObjectGuard(value)) {
+    return false;
+  }
+
+  return (
+    'code' in value &&
+    typeof value.code === 'string' &&
+    'config' in value &&
+    typeof value.config === 'object' &&
+    'message' in value &&
+    typeof value.message === 'string' &&
+    'name' in value &&
+    typeof value.name === 'string' &&
+    'request' in value &&
+    typeof value.request === 'object' &&
+    'response' in value &&
+    typeof value.response === 'object'
   );
 }
 

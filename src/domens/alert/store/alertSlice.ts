@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { AlertState, alertScope } from '../types/types';
 
-const initialState: { show: boolean; message: AlertState; archive: AlertState[] } = {
+const initialState: { show: boolean; message: AlertState; archive: string[] } = {
   show: false,
   message: null,
   archive: [],
@@ -15,7 +15,7 @@ const slice = createSlice({
     clearAlert: (state, action: PayloadAction<AlertState>) => {
       state.show = false;
       state.message = null;
-      state.archive.push(action.payload);
+      state.archive.push(JSON.stringify(action.payload));
     },
   },
   extraReducers: (builder) => {

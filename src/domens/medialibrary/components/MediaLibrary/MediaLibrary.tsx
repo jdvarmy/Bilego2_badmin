@@ -16,14 +16,14 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
 
 import UploadFiles from '../../../../components/UploadFiles/UploadFiles';
 import { StatusLoading } from '../../../../typings/enum';
 import { MediaFile, MediaSelectData } from '../../../../typings/types';
 import { useAppDispatch, useStateSelector } from '../../../store';
 import { selectMedialibraryFiles, selectMedialibraryStatus } from '../../store/medialibrarySelectors';
-import { uploadFileAsync } from '../../store/medialibraryThunk';
+import { getFileListAsync, uploadFileAsync } from '../../store/medialibraryThunk';
 import Image from './Image';
 
 type Props = {
@@ -32,7 +32,7 @@ type Props = {
   selectHandle: (data: MediaSelectData) => void;
 };
 
-const MediaLibrary = ({ open, closeHandler, selectHandle }: Props) => {
+const MediaLibrary = memo(function MediaLibrary({ open, closeHandler, selectHandle }: Props) {
   const dispatch = useAppDispatch();
   const files = useStateSelector(selectMedialibraryFiles);
   const status = useStateSelector(selectMedialibraryStatus);
@@ -56,6 +56,9 @@ const MediaLibrary = ({ open, closeHandler, selectHandle }: Props) => {
 
   useEffect(() => {
     setFileList(null);
+    if (status === StatusLoading.init) {
+      dispatch(getFileListAsync());
+    }
   }, [files]);
 
   return (
@@ -122,6 +125,6 @@ const MediaLibrary = ({ open, closeHandler, selectHandle }: Props) => {
       </DialogContent>
     </Dialog>
   );
-};
+});
 
 export default MediaLibrary;

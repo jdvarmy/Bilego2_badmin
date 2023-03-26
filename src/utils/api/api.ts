@@ -48,11 +48,8 @@ instance.interceptors.response.use(
 
         return instance.request(originalRequest);
       } catch (e) {
-        // todo: Убрать, сделать нормальный обработчик
-        console.log(e);
+        return e;
       }
-
-      return;
     }
 
     return Promise.reject(error.response.data);

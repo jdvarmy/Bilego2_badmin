@@ -7,7 +7,7 @@ export const RenderEventManager = memo(({ data }: ICellRendererParams | undefine
     <Box sx={{ height: '100%', display: 'flex', alignItems: 'center' }}>
       <Typography variant='subtitle1'>{data?.eventManager?.name}</Typography>
       <Typography sx={{ ml: 1 }} variant='subtitle1'>
-        {data?.eventManager?.surname}
+        {data?.eventManager?.surname ?? data?.eventManager?.email}
       </Typography>
     </Box>
   );

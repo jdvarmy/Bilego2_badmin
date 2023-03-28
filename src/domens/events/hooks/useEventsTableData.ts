@@ -13,6 +13,7 @@ import { useAppDispatch } from '../../store';
 import { cellEventDates } from '../components/EventsTable/cell/cellEventDates';
 import { cellEventManager } from '../components/EventsTable/cell/cellEventManager';
 import { cellIsSlider } from '../components/EventsTable/cell/cellIsSlider';
+import { cellItem } from '../components/EventsTable/cell/cellItem';
 import { deleteEventAsync, fetchEventsAsync } from '../store/eventsThunk';
 import { IEvent, eventsScope } from '../types/types';
 
@@ -80,7 +81,7 @@ function columnDefsCreator(): ColDef<IEvent>[] {
       return cellCity(columns);
     }
     if (['item'].includes(column)) {
-      columns.filter = false;
+      return cellItem(columns);
     }
     if (['eventDates'].includes(column)) {
       return cellEventDates(columns);

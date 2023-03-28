@@ -2,12 +2,17 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as qs from 'qs';
 
 import { ResponseAuth } from '../../domens/auth/types/types';
+import { HTTP_URL } from '../../typings/env';
 import { axiosBaseUrl, storageTokenName } from '../../typings/types';
 
 const baseConfig = {
   baseURL: axiosBaseUrl,
   withCredentials: true,
-  headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': HTTP_URL.slice(0, -1),
+  },
 };
 
 export const instance = axios.create(baseConfig);

@@ -1,11 +1,9 @@
 import { Box, Card, CardContent, CardHeader, Divider, Grid } from '@mui/material';
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 
 import { TermType, TermTypeLink } from '../../../../typings/enum';
 import { isEqual } from '../../../../utils/helpers/isEqual';
-import { addAlertErrorAsync } from '../../../alert/store/alertThunk';
-import { useAppDispatch } from '../../../store';
-import { fetchTaxonomyRequest } from '../../../taxonomy/api/taxonomyRequest';
+import { useTaxonomyRequest } from '../../../../utils/hooks/useTaxonomyRequest';
 import { ITaxonomy } from '../../../taxonomy/types/types';
 import { IItem } from '../../type/types';
 import { ItemTaxonomyElement } from './ItemTaxonomyElement';
@@ -13,7 +11,6 @@ import { ItemTaxonomyElement } from './ItemTaxonomyElement';
 type Props<T> = { uid: IItem['uid']; stateTaxonomy: T };
 
 export const ItemTaxonomy = memo(function EventTaxonomy<T extends IItem['taxonomy']>({ uid, stateTaxonomy }: Props<T>) {
-  const dispatch = useAppDispatch();
   const [taxonomies, setTaxonomies] = useState<IItem['taxonomy']>([]);
 
   console.log('render ItemTaxonomy');
@@ -26,16 +23,7 @@ export const ItemTaxonomy = memo(function EventTaxonomy<T extends IItem['taxonom
   const eventCategorySelected = useMemo(() => getTax(TermType.itemType, stateTaxonomy), [getTax, stateTaxonomy]);
   const eventCategoryTaxonomies = useMemo(() => getTax(TermType.itemType, taxonomies), [getTax, taxonomies]);
 
-  useEffect(() => {
-    fetchTaxonomyRequest({ filter: { link: TermTypeLink.event } })
-      .then(({ data }) => {
-        const localRes = data?.items?.map((tax) => ({ uid: tax.uid, name: tax.name, type: tax.type })) ?? [];
-        setTaxonomies(localRes);
-      })
-      .catch((reject) => {
-        dispatch(addAlertErrorAsync(reject));
-      });
-  }, [dispatch]);
+  useTaxonomyRequest<IItem['taxonomy']>({ filter: { link: TermTypeLink.item } }, setTaxonomies);
 
   const taxonomyElement = [
     { selected: eventCategorySelected, taxonomies: eventCategoryTaxonomies, type: TermType.itemType },

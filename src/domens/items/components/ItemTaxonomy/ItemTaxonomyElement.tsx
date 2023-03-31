@@ -41,7 +41,7 @@ export const ItemTaxonomyElement = memo(function EventTaxonomyElement<T extends 
   );
 
   const handleSaveEventTaxonomy = useCallback(() => {
-    if (Array.isArray(stateTaxonomy) && stateTaxonomy.length && !isEqual(stateTaxonomy, taxonomy)) {
+    if (Array.isArray(stateTaxonomy) && !isEqual(stateTaxonomy, taxonomy)) {
       dispatch(saveItemAsync({ taxonomy: stateTaxonomy }));
     }
     setLocalTax(taxonomies);

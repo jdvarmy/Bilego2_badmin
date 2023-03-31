@@ -1,11 +1,9 @@
 import { Box, Card, CardContent, CardHeader, Divider, Grid } from '@mui/material';
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 
 import { TermType, TermTypeLink } from '../../../../typings/enum';
 import { isEqual } from '../../../../utils/helpers/isEqual';
-import { addAlertErrorAsync } from '../../../alert/store/alertThunk';
-import { useAppDispatch } from '../../../store';
-import { fetchTaxonomyRequest } from '../../../taxonomy/api/taxonomyRequest';
+import { useTaxonomyRequest } from '../../../../utils/hooks/useTaxonomyRequest';
 import { ITaxonomy } from '../../../taxonomy/types/types';
 import { IEvent } from '../../types/types';
 import { EventTaxonomyElement } from './EventTaxonomyElement';
@@ -16,7 +14,6 @@ export const EventTaxonomy = memo(function EventTaxonomy<T extends IEvent['taxon
   uid,
   stateTaxonomy,
 }: Props<T>) {
-  const dispatch = useAppDispatch();
   const [taxonomies, setTaxonomies] = useState<IEvent['taxonomy']>([]);
 
   console.log('render EventTaxonomy');
@@ -38,16 +35,7 @@ export const EventTaxonomy = memo(function EventTaxonomy<T extends IEvent['taxon
   const eventFeelingSelected = useMemo(() => getTax(TermType.eventFeeling, stateTaxonomy), [getTax, stateTaxonomy]);
   const eventFeelingTaxonomies = useMemo(() => getTax(TermType.eventFeeling, taxonomies), [getTax, taxonomies]);
 
-  useEffect(() => {
-    fetchTaxonomyRequest({ filter: { link: TermTypeLink.event } })
-      .then(({ data }) => {
-        const localRes = data?.items?.map((tax) => ({ uid: tax.uid, name: tax.name, type: tax.type })) ?? [];
-        setTaxonomies(localRes);
-      })
-      .catch((reject) => {
-        dispatch(addAlertErrorAsync(reject));
-      });
-  }, [dispatch]);
+  useTaxonomyRequest<IEvent['taxonomy']>({ filter: { link: TermTypeLink.event } }, setTaxonomies);
 
   const taxonomyElement = [
     { selected: eventCategorySelected, taxonomies: eventCategoryTaxonomies, type: TermType.eventCategory },

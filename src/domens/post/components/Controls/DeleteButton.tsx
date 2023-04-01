@@ -4,6 +4,7 @@ import React, { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { PostType } from '../../../../typings/enum';
+import { getPostTitleByType } from '../../../../utils/helpers/getPostTitleByType';
 import { deleteEventAsync } from '../../../events/store/eventsThunk';
 import { deleteItemAsync } from '../../../items/store/itemsThunk';
 import { useAppDispatch } from '../../../store';
@@ -38,7 +39,7 @@ export const DeleteButton = memo(function DeleteButton({ uid, type }: Props) {
 
   return (
     <Box>
-      <Tooltip sx={tooltipStyle} placement='top' arrow title='Удалить событие'>
+      <Tooltip sx={tooltipStyle} placement='top' arrow title={`Удалить ${getPostTitleByType(type)}`}>
         <IconButton color='error' onClick={handleButtonClick}>
           <DeleteForeverTwoToneIcon />
         </IconButton>

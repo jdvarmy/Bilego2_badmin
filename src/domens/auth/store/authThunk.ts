@@ -43,16 +43,12 @@ export const logout = createAsyncThunk(`${authScope}/logout`, async (_, { dispat
   }
 });
 
-export const checkIsUserLogin = createAsyncThunk(
-  `${authScope}/checkIsUserLogin`,
-  async (_, { dispatch, rejectWithValue }) => {
-    try {
-      const { data } = await refreshRequest();
+export const checkIsUserLogin = createAsyncThunk(`${authScope}/checkIsUserLogin`, async (_, { rejectWithValue }) => {
+  try {
+    const { data } = await refreshRequest();
 
-      return data;
-    } catch (error) {
-      dispatch(addAlertErrorAsync(error));
-      return rejectWithValue(error);
-    }
-  },
-);
+    return data;
+  } catch (error) {
+    return rejectWithValue(error);
+  }
+});

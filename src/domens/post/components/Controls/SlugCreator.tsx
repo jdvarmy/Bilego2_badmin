@@ -5,6 +5,7 @@ import React, { memo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { PostType } from '../../../../typings/enum';
+import { getPostTitleByType } from '../../../../utils/helpers/getPostTitleByType';
 import { translitSlug } from '../../../../utils/helpers/translitSlug';
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { useLocalSearchParams } from '../../../../utils/hooks/useLocalSearchParams';
@@ -64,8 +65,12 @@ export const SlugCreator = memo(function SlugCreator({ uid, slug, type }: Props)
       return;
     }
 
+    if (localSlug === slug) {
+      return;
+    }
+
     if (uid) {
-      const updatedSlug = translitSlug(slug);
+      const updatedSlug = translitSlug(localSlug);
 
       workerHandler({ uid, slug: updatedSlug })();
       setSearchParams({ ...params, slug: updatedSlug });
@@ -81,7 +86,7 @@ export const SlugCreator = memo(function SlugCreator({ uid, slug, type }: Props)
   return edit ? (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <TextField
-        label='Ссылка на событие'
+        label={`Ссылка на ${getPostTitleByType(type)}`}
         size='small'
         type='text'
         focused

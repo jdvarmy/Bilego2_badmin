@@ -113,7 +113,7 @@ const MediaLibrary = memo(function MediaLibrary({ open, closeHandler, selectHand
       </AppBar>
       <DialogContent sx={{ overflow: 'scroll-y' }}>
         {Array.isArray(files) &&
-          files.length &&
+          !!files.length &&
           files.map((file: MediaFile) => (
             <Image
               key={file.id}

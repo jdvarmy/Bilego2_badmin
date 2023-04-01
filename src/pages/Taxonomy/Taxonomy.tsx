@@ -5,10 +5,11 @@ import { PageHelmet } from '../../components/PageHelmet/PageHelmet';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import { TaxonomyTable } from '../../domens/taxonomy/components/TaxonomyTable/TaxonomyTable';
 import { ITaxonomy } from '../../domens/taxonomy/types/types';
-import { TermType } from '../../typings/enum';
+import { TermType, TermTypeLink } from '../../typings/enum';
 
 type Props = {
   type: TermType;
+  termType: TermTypeLink;
   columns: (keyof ITaxonomy)[];
 };
 

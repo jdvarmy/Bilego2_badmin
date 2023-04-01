@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { taxonomyActions } from '../../domens/taxonomy/store/taxonomySlice';
 import { ITaxonomy } from '../../domens/taxonomy/types/types';
-import { TermType } from '../../typings/enum';
+import { TermType, TermTypeLink } from '../../typings/enum';
 import { useActionCreators } from '../../utils/hooks/useActionCreators';
 import { Taxonomy } from './Taxonomy';
 
@@ -18,7 +18,7 @@ const Selection = () => {
     [actions],
   );
 
-  return <Taxonomy type={TermType.eventSelection} columns={columns} />;
+  return <Taxonomy type={TermType.eventSelection} termType={TermTypeLink.event} columns={columns} />;
 };
 
 export default Selection;

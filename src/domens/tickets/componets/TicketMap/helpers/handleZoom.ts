@@ -10,7 +10,7 @@ export const handleZoom =
   (minScale: number, container: ViewBoxSizes, content: ViewBoxSizes) =>
   ({ evt, currentTarget }: KonvaEventObject<WheelEvent>) => {
     evt.preventDefault();
-    const scaleBy = 1.02;
+    const scaleBy = 1.04;
 
     const oldScale = currentTarget.scaleX();
     // @ts-ignore

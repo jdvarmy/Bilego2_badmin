@@ -27,7 +27,7 @@ const EventDataContainer = () => {
       <Helmet>
         <title>Создание шаблона события</title>
       </Helmet>
-      <SuspenseLoader />
+      <SuspenseLoader key={1} />
     </>
   );
 };

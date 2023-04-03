@@ -28,7 +28,7 @@ const CreateItem = () => {
       <Helmet>
         <title>Создание шаблона площадки</title>
       </Helmet>
-      <SuspenseLoader />
+      <SuspenseLoader key={1} />
     </>
   );
 };

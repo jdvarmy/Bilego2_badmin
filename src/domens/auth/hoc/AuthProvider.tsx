@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { pathname } = useLocation();
 
   const toLoginPage = useCallback(() => navigate(loginPage), []);
+  const toHomePage = useCallback(() => navigate('/'), []);
 
   useEffect(() => {
     dispatch(checkIsUserLogin())
@@ -26,16 +27,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (isAuthenticated && pathname === '/login') {
-      navigate('/');
+      toHomePage();
     }
-  }, [isAuthenticated, navigate, pathname]);
+  }, [isAuthenticated, pathname]);
 
   // todo: сделать нормальную страницу для ответа
   if (user && ![UserRole.admin, UserRole.manager].includes(user.role)) {
     return <>BAD REQUEST, NIGGA</>;
   }
 
-  return [StatusLoading.init, StatusLoading.loading].includes(status) ? <SuspenseLoader /> : <>{children}</>;
+  return [StatusLoading.init, StatusLoading.loading].includes(status) ? <SuspenseLoader key={1} /> : <>{children}</>;
 };
 
 export default AuthProvider;

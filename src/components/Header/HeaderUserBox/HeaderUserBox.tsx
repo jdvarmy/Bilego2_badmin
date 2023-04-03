@@ -19,12 +19,12 @@ import {
 import { styled } from '@mui/material/styles';
 import React, { useRef, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { loginPage } from 'src/typings/types';
 
 import { selectAuthUser } from '../../../domens/auth/store/authSelector';
 import { logout } from '../../../domens/auth/store/authThunk';
 import { useAppDispatch, useStateSelector } from '../../../domens/store';
 import { UserRole } from '../../../typings/enum';
-import { loginPage } from '../../../typings/types';
 
 const UserBoxButton = styled(Button)(
   ({ theme }) => `
@@ -70,14 +70,17 @@ function HeaderUserBox() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const user = useStateSelector(selectAuthUser);
-  const ref = useRef<any>(null);
+  const ref = useRef<HTMLButtonElement>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleLogout = () => {
-    dispatch(logout());
-    navigate(loginPage);
+    dispatch(logout())
+      .unwrap()
+      .then(() => {
+        navigate(loginPage);
+      });
   };
 
   return (

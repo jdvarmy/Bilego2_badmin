@@ -43,7 +43,7 @@ const EditEvent = () => {
   );
 
   if (!eventState) {
-    return <SuspenseLoader />;
+    return <SuspenseLoader key={1} />;
   }
 
   return (

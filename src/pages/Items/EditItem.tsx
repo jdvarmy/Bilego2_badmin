@@ -34,7 +34,7 @@ const EditItem = () => {
   );
 
   if (!itemState) {
-    return <SuspenseLoader />;
+    return <SuspenseLoader key={1} />;
   }
 
   return (

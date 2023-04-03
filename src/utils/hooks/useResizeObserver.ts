@@ -1,12 +1,12 @@
 import { RefObject, useEffect, useRef, useState } from 'react';
 
-export function useResizeObserver(element: RefObject<HTMLElement> | null) {
+export function useResizeObserver(element: RefObject<HTMLElement> | null | undefined) {
   const observerRef = useRef<ResizeObserver>();
   const [size, setSize] = useState<DOMRectReadOnly>();
 
   useEffect(() => {
     if (element?.current) {
-      const callback = (entries: ResizeObserverEntry[]) => {
+      const callback: ResizeObserverCallback = (entries) => {
         entries.forEach((entity) => {
           setSize(entity.contentRect);
         });

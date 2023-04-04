@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { addAlertErrorAsync } from 'src/domens/alert/store/alertThunk';
 
+import { MediaFile } from '../../../typings/types';
+import { workerAddError } from '../../alert/store/workers';
+import { PagePostProps, defaultCountPost } from '../../post/types/types';
 import {
   fetchMapItemsRequest,
   fetchMedialibraryRequest,
@@ -11,15 +13,15 @@ import {
 import { MapContent } from '../components/AddMapModal/AppMapModal';
 import { medialibraryScope } from '../types/types';
 
-export const getFileListAsync = createAsyncThunk(
-  `${medialibraryScope}/getFileListAsync`,
-  async (_, { dispatch, rejectWithValue }) => {
+export const fetchMediaFilesAsync = createAsyncThunk(
+  `${medialibraryScope}/fetchMediaFilesAsync`,
+  async (pageProps: PagePostProps<MediaFile> | undefined, { dispatch, rejectWithValue }) => {
     try {
-      const { data } = await fetchMedialibraryRequest();
+      const { data } = await fetchMedialibraryRequest(pageProps);
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error));
+      dispatch(workerAddError(error));
       return rejectWithValue(error);
     }
   },
@@ -33,7 +35,7 @@ export const getMapListAsync = createAsyncThunk(
 
       return data;
     } catch (error) {
-      dispatch(addAlertErrorAsync(error));
+      dispatch(workerAddError(error));
       return rejectWithValue(error);
     }
   },
@@ -51,10 +53,10 @@ export const uploadFileAsync = createAsyncThunk(
       const { data } = await uploadFileMedialibraryRequest(formData);
 
       if (data) {
-        dispatch(getFileListAsync());
+        dispatch(fetchMediaFilesAsync({ count: defaultCountPost }));
       }
     } catch (error) {
-      dispatch(addAlertErrorAsync(error));
+      dispatch(workerAddError(error));
       return rejectWithValue(error);
     }
   },
@@ -79,7 +81,7 @@ export const uploadFileMapAsync = createAsyncThunk(
         dispatch(getMapListAsync());
       }
     } catch (error) {
-      dispatch(addAlertErrorAsync(error));
+      dispatch(workerAddError(error));
       return rejectWithValue(error);
     }
   },
@@ -92,10 +94,10 @@ export const removeFileAsync = createAsyncThunk(
       const { data } = await removeFileMedialibraryRequest(id);
 
       if (data) {
-        dispatch(getFileListAsync());
+        dispatch(fetchMediaFilesAsync({ count: defaultCountPost }));
       }
     } catch (error) {
-      dispatch(addAlertErrorAsync(error));
+      dispatch(workerAddError(error));
       return rejectWithValue(error);
     }
   },

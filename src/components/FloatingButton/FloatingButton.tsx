@@ -21,7 +21,8 @@ export const FloatingButton: React.FC<FabProps & { show?: boolean }> = ({ show, 
       <Fab
         sx={{ position: 'absolute', top: spacing(15), right: spacing(4) }}
         variant='extended'
-        color='primary'
+        color='success'
+        size='medium'
         {...props}
       >
         {children ?? 'Сохранить'}

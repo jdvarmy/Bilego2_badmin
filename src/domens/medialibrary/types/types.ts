@@ -1,4 +1,6 @@
 export const medialibraryScope = 'medialibrary' as const;
+export const mediaScope = 'media' as const;
+export const mapScope = 'map' as const;
 
 export enum ImageSizes {
   origin = 'origin',

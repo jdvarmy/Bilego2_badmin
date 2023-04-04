@@ -1,4 +1,4 @@
-export const defaultCountPost = 30;
+export const defaultCountPost = 10;
 
 export type PagePostProps<POST> = {
   offset?: number;
@@ -8,6 +8,7 @@ export type PagePostProps<POST> = {
 
 export type ItemsPageProps = {
   total: number;
+  offset?: number;
 };
 
 export type PagePostPropsResponseType<POST> = {

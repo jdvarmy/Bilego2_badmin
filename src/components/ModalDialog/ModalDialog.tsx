@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
-import { Dialog, DialogTitle, DialogContent, Button, ButtonProps, DialogActions } from '@mui/material';
+import { Button, ButtonProps, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import React, { ReactNode } from 'react';
 
 const DialogContentStyled = styled(DialogTitle)(
   ({ theme }) => `
@@ -25,7 +25,7 @@ type Props = {
 
 const ModalDialog = ({ open, onClose, actionButton, title, children, contentActions }: Props) => {
   return (
-    <Dialog open={open} onClose={onClose} maxWidth='lg'>
+    <Dialog open={open} onClose={onClose} maxWidth='xl'>
       <DialogContentStyled>{title}</DialogContentStyled>
       <DialogContent sx={{ pb: 5 }}>{contentActions}</DialogContent>
       <DialogContent>{children}</DialogContent>

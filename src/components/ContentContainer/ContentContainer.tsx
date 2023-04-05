@@ -1,5 +1,5 @@
-import React from 'react';
 import { Container } from '@mui/material';
+import React from 'react';
 
 type Props = {
   children?: React.ReactNode;
@@ -7,7 +7,7 @@ type Props = {
 
 const ContentContainer = ({ children }: Props) => {
   return (
-    <Container maxWidth='lg' sx={{ display: 'flex', flex: '1 1 auto' }}>
+    <Container maxWidth='xl' sx={{ display: 'flex', flex: '1 1 auto' }}>
       {children}
     </Container>
   );

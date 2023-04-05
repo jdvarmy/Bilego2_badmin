@@ -6,11 +6,13 @@ import { PageHelmet } from '../../components/PageHelmet/PageHelmet';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import { EventsTable } from '../../domens/events/components/EventsTable/EventsTable';
 
+const title = 'Список событий';
+
 const Events = () => {
   return (
     <>
-      <PageHelmet title='Список событий' />
-      <PageTitle title='Список событий' />
+      <PageHelmet title={title} />
+      <PageTitle title={title} />
       <ContentContainer>
         <Grid container spacing={3} sx={{ mb: 3 }} flexDirection='column' flexWrap='nowrap'>
           <Grid item />

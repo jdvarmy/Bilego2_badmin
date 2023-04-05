@@ -12,6 +12,7 @@ import {
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
+import ContentContainer from '../../components/ContentContainer/ContentContainer';
 import CreateUserButton from '../../domens/users/components/CreateUserButton';
 import UsersTable from '../../domens/users/components/UsersTable';
 
@@ -40,27 +41,29 @@ const Users = () => {
         <title>Пользователи</title>
       </Helmet>
       <CreateUserButton />
-      <Card>
-        <CardHeader
-          action={
-            <Box width={150}>
-              <FormControl fullWidth variant='outlined'>
-                <InputLabel>Статус</InputLabel>
-                <Select value={filters.status || 'all'} onChange={handleStatusChange} label='Статус' autoWidth>
-                  {statusOptions.map((statusOption) => (
-                    <MenuItem key={statusOption.id} value={statusOption.id}>
-                      {statusOption.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Box>
-          }
-          title='Данные пользователей'
-        />
-        <Divider />
-        <UsersTable />
-      </Card>
+      <ContentContainer>
+        <Card>
+          <CardHeader
+            action={
+              <Box width={150}>
+                <FormControl fullWidth variant='outlined'>
+                  <InputLabel>Статус</InputLabel>
+                  <Select value={filters.status || 'all'} onChange={handleStatusChange} label='Статус' autoWidth>
+                    {statusOptions.map((statusOption) => (
+                      <MenuItem key={statusOption.id} value={statusOption.id}>
+                        {statusOption.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
+            }
+            title='Данные пользователей'
+          />
+          <Divider />
+          <UsersTable />
+        </Card>
+      </ContentContainer>
     </>
   );
 };

@@ -1,5 +1,5 @@
-import React from 'react';
 import { Container, Grid, Typography } from '@mui/material';
+import React from 'react';
 
 type Props = {
   title: string;
@@ -7,7 +7,7 @@ type Props = {
 
 const PageTitle = ({ title }: Props) => {
   return (
-    <Container maxWidth='lg'>
+    <Container maxWidth='xl'>
       <Grid container sx={{ mb: 3 }} justifyContent='space-between' alignItems='center'>
         <Grid item xs>
           <Typography variant='h1' sx={{ mt: 4, mb: 0 }}>

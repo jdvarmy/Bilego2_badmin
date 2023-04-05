@@ -32,7 +32,7 @@ export const EventInfoManager = ({ manager }: Props) => {
   return (
     <SelectWithSearch
       value={manager || ''}
-      label='Менеджер события'
+      label='Организатор'
       fullWidth
       onChange={handleChange}
       onDelete={handleDelete}

@@ -65,7 +65,7 @@ const UserDataContainer = () => {
       <Helmet>
         <title>{isEdit ? 'Редактирование' : 'Регистрация'} пользователя</title>
       </Helmet>
-      <Container maxWidth='lg'>
+      <Container maxWidth='xl'>
         <Grid container sx={{ my: 3 }} justifyContent='space-between' alignItems='center'>
           <Grid item />
           <Grid item>
@@ -73,7 +73,7 @@ const UserDataContainer = () => {
           </Grid>
         </Grid>
       </Container>
-      <Container maxWidth='lg'>
+      <Container maxWidth='xl'>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <UserMainData userData={values} setUserData={setValues} edit={isEdit} />

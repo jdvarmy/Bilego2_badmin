@@ -21,7 +21,7 @@ export type User = {
   role: UserRole;
   name?: string;
   surname?: string;
-  birthdate?: Date | null;
+  birthdate?: Date | string | null;
   phone?: string;
   avatar?: { id: number; name: string };
   status?: number;

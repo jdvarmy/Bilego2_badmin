@@ -6,7 +6,7 @@ export function cellEventManager<T>(props?: ColDef<T>): ColDef<T> {
   return {
     cellRenderer: RenderEventManager,
     width: 132,
-    headerName: 'Менеджер',
+    headerName: 'Организатор',
     field: 'eventManager',
     sortable: true,
     editable: false,

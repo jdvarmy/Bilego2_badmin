@@ -61,7 +61,7 @@ const UserSubData = ({ userData, setUserData }: Props) => {
     setUserData({ ...userData, [field]: event.target.value });
   };
   const handleChangeDate = (value: Date | null) => {
-    setUserData({ ...userData, birthdate: value });
+    setUserData({ ...userData, birthdate: value?.toISOString().split('T')[0] ?? null });
   };
   const handleSelectAvatar = (image: MediaSelectData) => {
     setUserData({ ...userData, avatar: image });
@@ -123,15 +123,15 @@ const UserSubData = ({ userData, setUserData }: Props) => {
               </FormControl>
             </Grid>
             <Grid item xs={4}>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  label='Дата рождения'
-                  inputFormat='dd/MM/yyyy'
-                  value={birthdate}
-                  onChange={handleChangeDate}
-                  renderInput={(params) => <TextField focused={!!birthdate} fullWidth {...params} />}
-                />
-              </LocalizationProvider>
+              {/*<LocalizationProvider dateAdapter={AdapterDateFns}>*/}
+              {/*  <DatePicker*/}
+              {/*    label='Дата рождения'*/}
+              {/*    inputFormat='dd/MM/yyyy'*/}
+              {/*    value={birthdate}*/}
+              {/*    onChange={handleChangeDate}*/}
+              {/*    renderInput={(params) => <TextField focused={!!birthdate} fullWidth {...params} />}*/}
+              {/*  />*/}
+              {/*</LocalizationProvider>*/}
             </Grid>
             <Grid item xs={4} />
           </Grid>

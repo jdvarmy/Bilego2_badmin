@@ -29,7 +29,7 @@ const columns: Record<keyof EventColumns, string> = {
   city: 'Город',
   item: 'Место',
   isShowOnSlider: 'Слайдер',
-  eventManager: 'Менеджер',
+  eventManager: 'Организатор',
   concertManagerPercentage: '%',
 };
 

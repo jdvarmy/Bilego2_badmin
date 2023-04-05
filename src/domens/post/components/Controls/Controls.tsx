@@ -16,7 +16,7 @@ type Props = {
 
 export const Controls = ({ uid, slug, type, status }: Props) => {
   return (
-    <Container maxWidth='lg'>
+    <Container maxWidth='xl'>
       <Grid container sx={{ my: 3 }} justifyContent='space-between' alignItems='center'>
         <Grid item xs={4}>
           <SlugCreator {...{ uid, slug, type }} />

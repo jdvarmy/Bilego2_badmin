@@ -21,7 +21,7 @@ export type RequestUser = RequestAuth & {
   sendMail?: boolean;
   avatar?: number;
   surname?: string;
-  birthdate?: Date | null;
+  birthdate?: Date | string | null;
   phone?: string;
   concertManagerInfo?: string;
   concertManagerPercentage?: number;

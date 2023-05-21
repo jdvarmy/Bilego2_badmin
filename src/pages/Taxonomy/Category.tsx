@@ -6,7 +6,7 @@ import { TermType, TermTypeLink } from '../../typings/enum';
 import { useActionCreators } from '../../utils/hooks/useActionCreators';
 import { Taxonomy } from './Taxonomy';
 
-const columns: (keyof ITaxonomy)[] = ['name', 'slug', 'description', 'icon'];
+const columns: (keyof ITaxonomy)[] = ['name', 'slug', 'description', 'icon', 'showInMenu'];
 
 const Category = () => {
   const actions = useActionCreators(taxonomyActions);

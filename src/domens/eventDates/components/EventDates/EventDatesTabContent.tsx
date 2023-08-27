@@ -30,23 +30,13 @@ const EventDatesTabContent = ({ selectDate, dates }: Props) => {
   const handleChangeDateTime =
     (field: keyof Pick<EventDate, 'closeDateTime' | 'dateFrom' | 'dateTo'>) => (date: Date | null) => {
       const eventDates = dates?.map((d) => {
-        if (d.uid === selectDate?.uid) {
-          return { ...d, [field]: date ? new Date(new Date(date).setSeconds(0, 0)) : null };
-        }
-
-        return d;
+        return d.uid === selectDate?.uid ? { ...d, [field]: date ? date.setSeconds(0, 0) : null } : d;
       });
 
       actions.setEventStateField({ eventDates });
     };
   const handleCopyStartDate = () => {
-    const eventDates = dates?.map((d) => {
-      if (d.uid === selectDate?.uid) {
-        return { ...d, dateTo: selectDate.dateFrom };
-      }
-
-      return d;
-    });
+    const eventDates = dates?.map((d) => (d.uid === selectDate?.uid ? { ...d, dateTo: selectDate.dateFrom } : d));
 
     actions.setEventStateField({ eventDates });
   };

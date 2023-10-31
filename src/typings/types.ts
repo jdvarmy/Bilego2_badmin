@@ -1,4 +1,4 @@
-import { PagePostPropsResponseType } from '../domens/post/types/types';
+import { PagePostPropsResponseType } from '../domens/post/types';
 import { PostStatus, TicketType, UserRole } from './enum';
 import { HTTP_URL, HTTP_VERSION } from './env';
 

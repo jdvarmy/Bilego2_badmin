@@ -3,7 +3,7 @@ import { AgGridReact } from 'ag-grid-react';
 import React, { memo, useRef } from 'react';
 
 import { TermType, TermTypeLink } from '../../../../typings/enum';
-import { ITaxonomy } from '../../types/types';
+import { ITaxonomy } from '../../types';
 import { TableBody } from './components/TableBody';
 import { TableHeader } from './components/TableHeader';
 

@@ -1,4 +1,4 @@
-import { EventDate } from '../../domens/eventDates/types/types';
+import { EventDate } from '../../domens/eventDates/types';
 import { TicketOnSell } from '../../typings/types';
 import cloneDeep from './cloneDeep';
 import { dateParse } from './dateParse';

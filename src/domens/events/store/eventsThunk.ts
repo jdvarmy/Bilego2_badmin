@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { addAlertSuccessAsync } from '../../alert/store/alertThunk';
 import { workerAddError } from '../../alert/store/workers';
-import { PagePostProps } from '../../post/types/types';
-import { RootState } from '../../store';
+import { PagePostProps } from '../../post/types';
+import { RootState } from '../../../store/store';
 import {
   deleteEventRequest,
   fetchEventsRequest,
@@ -11,7 +11,7 @@ import {
   postTemplateEventRequest,
   putEventRequest,
 } from '../api/eventsRequest';
-import { IEvent, eventsScope } from '../types/types';
+import { IEvent, eventsScope } from '../types';
 import { selectEventState } from './eventsSelectors';
 import { workerPrepareData } from './worckers';
 

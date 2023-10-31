@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { StatusLoading } from '../../../typings/enum';
-import { ItemsPageProps } from '../../post/types/types';
-import { ITaxonomy, taxonomyScope } from '../types/types';
+import { ItemsPageProps } from '../../post/types';
+import { ITaxonomy, taxonomyScope } from '../types';
 import { fetchTaxonomyAsync } from './taxonomyThunk';
 
 type State = {

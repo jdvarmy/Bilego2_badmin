@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { StatusLoading } from '../../../typings/enum';
-import { eventDatesScope } from '../types/types';
+import { eventDatesScope } from '../types';
 import { deleteEventDateAsync, saveTemplateEventDateAsync } from './eventDateThunk';
 
 type State = {

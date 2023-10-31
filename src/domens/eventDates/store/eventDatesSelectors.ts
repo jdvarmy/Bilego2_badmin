@@ -1,5 +1,5 @@
 import { selectEventState } from '../../events/store/eventsSelectors';
-import { RootState } from '../../store';
+import { RootState } from '../../../store/store';
 
 export const selectEventDatesStore = (state: RootState) => state?.eventDates;
 

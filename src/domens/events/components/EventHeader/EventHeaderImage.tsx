@@ -9,7 +9,7 @@ import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { useThrottle } from '../../../../utils/hooks/useThrottle';
 import { useChangeFnMediaPostField } from '../../../post/hooks/useChangeFnMediaPostField';
 import { useDeleteFnPostField } from '../../../post/hooks/useDeleteFnPostField';
-import { useStateSelector } from '../../../store';
+import { useStateSelector } from '../../../../store/store';
 import { selectEventStateHeaderImageData } from '../../store/eventsSelectors';
 import { eventsActions } from '../../store/eventsSlice';
 import { MediaDisplay } from './MediaDisplay';

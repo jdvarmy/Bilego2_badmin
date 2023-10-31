@@ -3,10 +3,10 @@ import { Button, Card, CardActions, CardHeader, CardMedia, IconButton } from '@m
 import React from 'react';
 
 import { MediaFile, MediaSelectData } from '../../../../typings/types';
-import { useAppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../../store/store';
 import { getImageSrc } from '../../helpers/getImageSrc';
 import { removeFileAsync } from '../../store/medialibraryThunk';
-import { ImageSizes } from '../../types/types';
+import { ImageSizes } from '../../types';
 
 type Props = {
   file: MediaFile;

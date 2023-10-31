@@ -1,5 +1,5 @@
-import { select } from '../../selectors';
-import { RootState } from '../../store';
+import { select } from '../../../store/selectors';
+import { RootState } from '../../../store/store';
 
 export const selectSidebarStore = (state: RootState) => select(state)?.sidebar;
 

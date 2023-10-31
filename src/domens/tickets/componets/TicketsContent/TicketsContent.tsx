@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 
 import { TicketType } from '../../../../typings/enum';
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
-import { useAppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../../store/store';
 import { ticketsActions } from '../../store/ticketsSlice';
 import { getTicketsAsync } from '../../store/ticketsThunk';
 import TicketMap from '../TicketMap/TicketMap';

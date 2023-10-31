@@ -7,7 +7,7 @@ import { DrawCircleType } from '../../../../../typings/types';
 import { getActualSell } from '../../../../../utils/helpers/getActualSell';
 import { useActionCreators } from '../../../../../utils/hooks/useActionCreators';
 import { circleActions } from '../../../../circle/store/circleSlice';
-import { useStateSelector } from '../../../../store';
+import { useStateSelector } from '../../../../../store/store';
 import { selectTicketsCircleSelector } from '../../../store/ticketsSelectors';
 
 import KonvaEventObject = Konva.KonvaEventObject;

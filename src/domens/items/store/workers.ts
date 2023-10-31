@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { IItem, ItemRequest, itemsScope } from '../type/types';
+import { IItem, ItemRequest, itemsScope } from '../types';
 import { itemsActions } from './itemsSlice';
 
 export const workerItemClear = createAsyncThunk(`${itemsScope}/workerItemClear`, (_, { dispatch }) => {

@@ -5,7 +5,7 @@ import { v4 as uidv4 } from 'uuid';
 import { TicketType } from '../../../../typings/enum';
 import { Ticket, TicketOnSell } from '../../../../typings/types';
 import { selectSelectedCircles } from '../../../circle/store/circleSelectors';
-import { useStateSelector } from '../../../store';
+import { useStateSelector } from '../../../../store/store';
 import { selectSelectedTicket } from '../../store/ticketsSelectors';
 import { TicketControlDeleteTicketButton } from './TicketControlDeleteTicketButton';
 import { TicketControlTicketOnSell } from './TicketControlTicketOnSell';

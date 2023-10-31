@@ -4,7 +4,7 @@ import ContentContainer from '../../components/ContentContainer/ContentContainer
 import { PageHelmet } from '../../components/PageHelmet/PageHelmet';
 import PageTitle from '../../components/PageTitle/PageTitle';
 import { TaxonomyTable } from '../../domens/taxonomy/components/TaxonomyTable/TaxonomyTable';
-import { ITaxonomy } from '../../domens/taxonomy/types/types';
+import { ITaxonomy } from '../../domens/taxonomy/types';
 import { TermType, TermTypeLink } from '../../typings/enum';
 
 type Props = {

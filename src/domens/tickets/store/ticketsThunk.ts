@@ -5,9 +5,9 @@ import { Ticket, TicketOnSell } from '../../../typings/types';
 import { addAlertErrorAsync, addAlertSuccessAsync } from '../../alert/store/alertThunk';
 import { selectSelectedCircles } from '../../circle/store/circleSelectors';
 import { selectEventDateSelectedUid } from '../../eventDates/store/eventDatesSelectors';
-import { RootState } from '../../store';
+import { RootState } from '../../../store/store';
 import { deleteTicketsRequest, fetchTicketsRequest, saveTicketsRequest } from '../api/ticketsRequest';
-import { ticketsScope } from '../types/types';
+import { ticketsScope } from '../types';
 
 export const getTicketsAsync = createAsyncThunk(
   `${ticketsScope}/getTicketsAsync`,

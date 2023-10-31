@@ -4,7 +4,7 @@ import { IconButton, Tooltip, useTheme } from '@mui/material';
 import React, { useState } from 'react';
 
 import ModalDialog from '../../../components/ModalDialog/ModalDialog';
-import { useAppDispatch } from '../../store';
+import { useAppDispatch } from '../../../store/store';
 import { deleteUserAsync } from '../store/usersThuk';
 
 type Props = {

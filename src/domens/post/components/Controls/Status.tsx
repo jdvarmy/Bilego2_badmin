@@ -21,8 +21,6 @@ type Props = {
 };
 
 export const Status = memo(function EventStatus({ status, type }: Props) {
-  console.log('render Status');
-
   const color = getPostStatusColor(status);
 
   const handleChange = useChangeFnFieldPostField({ field: 'status', type });

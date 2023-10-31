@@ -3,9 +3,9 @@ import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import React, { useEffect } from 'react';
 
-import { StatusLabel } from '../../../UI/StatusLabel';
+import { StatusLabel } from '../../../ui/StatusLabel';
 import { User } from '../../../typings/types';
-import { useAppDispatch, useStateSelector } from '../../store';
+import { useAppDispatch, useStateSelector } from '../../../store/store';
 import { selectUsers } from '../store/usersSelectors';
 import { getUsersAsync } from '../store/usersThuk';
 import DeleteUserButton from './DeleteUserButton';

@@ -1,4 +1,4 @@
-import { ViewBoxSizes } from '../../../types/types';
+import { ViewBoxSizes } from '../../../types';
 
 export function moveToCenter(scale: number, container: ViewBoxSizes, content: ViewBoxSizes): { x: number; y: number } {
   return {

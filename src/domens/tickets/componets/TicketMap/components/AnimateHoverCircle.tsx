@@ -7,7 +7,7 @@ import { DrawCircleType } from '../../../../../typings/types';
 import { useActionCreators } from '../../../../../utils/hooks/useActionCreators';
 import { selectHoveredCircle } from '../../../../circle/store/circleSelectors';
 import { circleActions } from '../../../../circle/store/circleSlice';
-import { useStateSelector } from '../../../../store';
+import { useStateSelector } from '../../../../../store/store';
 import { multiplier, transitionConf } from '../helpers/transitionConf';
 import CircleTooltip from './CircleTooltip';
 

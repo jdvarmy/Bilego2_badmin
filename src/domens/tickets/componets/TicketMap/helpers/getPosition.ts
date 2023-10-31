@@ -1,4 +1,4 @@
-import { Point, ViewBoxSizes } from '../../../types/types';
+import { Point, ViewBoxSizes } from '../../../types';
 import { plusser } from '../TicketMap';
 
 export function getPosition(

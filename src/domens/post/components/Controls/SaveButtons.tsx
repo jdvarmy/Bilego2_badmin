@@ -9,7 +9,7 @@ import { getPostTitleByType } from '../../../../utils/helpers/getPostTitleByType
 import { useIntersectionObserver } from '../../../../utils/hooks/useIntersectionObserver';
 import { saveEventAsync } from '../../../events/store/eventsThunk';
 import { saveItemAsync } from '../../../items/store/itemsThunk';
-import { useAppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../../store/store';
 
 type Props = {
   type: PostType;
@@ -37,8 +37,6 @@ export const SaveButtons = memo(function SaveEventButtons({ type }: Props) {
         return () => ({});
     }
   };
-
-  console.log('render SaveButtons');
 
   return (
     <>

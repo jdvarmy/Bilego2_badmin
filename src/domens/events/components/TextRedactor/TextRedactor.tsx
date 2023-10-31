@@ -62,8 +62,6 @@ const TextRedactor = ({ text }: Props) => {
 
   useEffect(() => () => clearTimeout(timerRef.current));
 
-  console.log('render TextRedactor');
-
   return (
     <div>
       <Editor

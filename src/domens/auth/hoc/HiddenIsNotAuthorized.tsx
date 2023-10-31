@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react';
 
-import { useStateSelector } from '../../store';
+import { useStateSelector } from '../../../store/store';
 import { selectAuthIsAuthenticated } from '../store/authSelector';
 
 type Props = { children: ReactNode; replace?: ReactElement };

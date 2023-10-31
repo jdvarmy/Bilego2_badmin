@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import SuspenseLoader from '../../components/SuspenseLoader/SuspenseLoader';
 import { saveTemplateItemAsync } from '../../domens/items/store/itemsThunk';
 import { workerItemClear } from '../../domens/items/store/workers';
-import { itemsScope } from '../../domens/items/type/types';
-import { useAppDispatch } from '../../domens/store';
+import { itemsScope } from '../../domens/items/types';
+import { useAppDispatch } from '../../store/store';
 
 const CreateItem = () => {
   const dispatch = useAppDispatch();

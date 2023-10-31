@@ -2,7 +2,7 @@ import NotificationsActiveTwoToneIcon from '@mui/icons-material/NotificationsAct
 import { Box, Divider, IconButton, List, ListItem, Popover, Tooltip, Typography } from '@mui/material';
 import { formatDistance, subDays } from 'date-fns';
 import React, { useRef, useState } from 'react';
-import { NotificationsBadge } from 'src/UI/NotificationsBadge';
+import { NotificationsBadge } from 'src/ui/NotificationsBadge';
 
 function HeaderNotifications() {
   const ref = useRef<null | HTMLButtonElement>(null);

@@ -3,7 +3,7 @@ import { Html } from 'react-konva-utils';
 
 import { DrawCircleType } from '../../../../../typings/types';
 import { selectSelectedDateMapSectors } from '../../../../eventDates/store/eventDatesSelectors';
-import { useStateSelector } from '../../../../store';
+import { useStateSelector } from '../../../../../store/store';
 import { useMapStage } from '../TicketMap';
 import CircleTooltipContent from './CircleTooltipContent';
 

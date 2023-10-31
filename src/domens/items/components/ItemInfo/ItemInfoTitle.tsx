@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 
 import { PostType } from '../../../../typings/enum';
 import { useChangeFnFieldPostField } from '../../../post/hooks/useChangeFnFieldPostField';
-import { IItem } from '../../type/types';
+import { IItem } from '../../types';
 
 type Props = {
   title: IItem['title'];

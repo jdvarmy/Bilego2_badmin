@@ -8,14 +8,14 @@ import { cellTitle } from '../../../components/DataTable/cells/cellTitle';
 import { filterModelParser } from '../../../components/DataTable/parser/filterModelParser';
 import { RenderDelete } from '../../../components/DataTable/renderCell/RenderDelete';
 import { isPagePostPropsResponseTypeGuard } from '../../../typings/types';
-import { defaultCountPost } from '../../post/types/types';
-import { useAppDispatch } from '../../store';
+import { defaultCountPost } from '../../post/types';
+import { useAppDispatch } from '../../../store/store';
 import { cellEventDates } from '../components/EventsTable/cell/cellEventDates';
 import { cellEventManager } from '../components/EventsTable/cell/cellEventManager';
 import { cellIsSlider } from '../components/EventsTable/cell/cellIsSlider';
 import { cellItem } from '../components/EventsTable/cell/cellItem';
 import { deleteEventAsync, fetchEventsAsync } from '../store/eventsThunk';
-import { IEvent, eventsScope } from '../types/types';
+import { IEvent, eventsScope } from '../types';
 
 type EventColumns = Pick<
   IEvent,

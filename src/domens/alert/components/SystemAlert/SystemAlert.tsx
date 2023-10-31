@@ -2,10 +2,10 @@ import { Alert, AlertTitle, Snackbar } from '@mui/material';
 import React from 'react';
 
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
-import { useStateSelector } from '../../../store';
+import { useStateSelector } from '../../../../store/store';
 import { selectAlertMessage, selectAlertShow } from '../../store/alertSelectors';
 import { alertActions } from '../../store/alertSlice';
-import { AlertState, isAxiosErrorGuard } from '../../types/types';
+import { AlertState, isAxiosErrorGuard } from '../../types';
 import { AlertWrapper } from './styledComponents';
 
 const SystemAlert = () => {

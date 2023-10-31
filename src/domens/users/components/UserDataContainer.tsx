@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import { BaseRecordStatus, UserRole } from '../../../typings/enum';
 import { MediaSelectData, User } from '../../../typings/types';
 import { usePostStatus } from '../../../utils/hooks/usePostStatus';
-import { useAppDispatch } from '../../store';
+import { useAppDispatch } from '../../../store/store';
 import { getUserAsync } from '../store/usersThuk';
 import SaveUserButton from './SaveUserButton';
 import UserMainData from './UserMainData';

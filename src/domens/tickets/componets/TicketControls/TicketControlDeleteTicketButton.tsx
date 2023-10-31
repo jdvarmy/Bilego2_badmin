@@ -5,7 +5,7 @@ import React, { memo, useCallback, useRef, useState } from 'react';
 import { PopoverDelete } from '../../../../components/PopoverDelete/PopoverDelete';
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { circleActions } from '../../../circle/store/circleSlice';
-import { useAppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../../store/store';
 import { ticketsActions } from '../../store/ticketsSlice';
 import { deleteTicketsAsync } from '../../store/ticketsThunk';
 

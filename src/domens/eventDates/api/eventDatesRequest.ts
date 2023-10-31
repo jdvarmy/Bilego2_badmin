@@ -1,5 +1,5 @@
 import requests from '../../../utils/api/api';
-import { EventDate } from '../types/types';
+import { EventDate } from '../types';
 
 export const saveEventDateRequest = (eventUid: string) => requests.post<EventDate>(`events/${eventUid}/dates`);
 

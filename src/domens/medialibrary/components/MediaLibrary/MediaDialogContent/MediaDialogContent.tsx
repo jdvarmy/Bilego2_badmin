@@ -4,8 +4,8 @@ import React, { useEffect, useRef } from 'react';
 import { StatusLoading } from '../../../../../typings/enum';
 import { MediaFile, MediaSelectData } from '../../../../../typings/types';
 import { useIntersectionObserver } from '../../../../../utils/hooks/useIntersectionObserver';
-import { defaultCountPost } from '../../../../post/types/types';
-import { useAppDispatch, useStateSelector } from '../../../../store';
+import { defaultCountPost } from '../../../../post/types';
+import { useAppDispatch, useStateSelector } from '../../../../../store/store';
 import {
   selectMedialibraryFiles,
   selectMedialibraryProps,

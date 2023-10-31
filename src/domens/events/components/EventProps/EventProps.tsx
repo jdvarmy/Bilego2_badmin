@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 
 import { PostType } from '../../../../typings/enum';
 import { useChangeFnFieldPostField } from '../../../post/hooks/useChangeFnFieldPostField';
-import { IEvent } from '../../types/types';
+import { IEvent } from '../../types';
 
 type Props = { fragment: IEvent['fragment']; words: IEvent['searchWords'] };
 

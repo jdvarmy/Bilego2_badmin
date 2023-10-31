@@ -1,9 +1,9 @@
 import { IGetRowsParams } from 'ag-grid-community';
 
-import { IEvent } from '../../../domens/events/types/types';
-import { IItem } from '../../../domens/items/type/types';
-import { PagePostProps } from '../../../domens/post/types/types';
-import { ITaxonomy } from '../../../domens/taxonomy/types/types';
+import { IEvent } from '../../../domens/events/types';
+import { IItem } from '../../../domens/items/types';
+import { PagePostProps } from '../../../domens/post/types';
+import { ITaxonomy } from '../../../domens/taxonomy/types';
 
 export function filterModelParser<POST extends IItem | IEvent | ITaxonomy>(filterModel: IGetRowsParams['filterModel']) {
   return Object.fromEntries(

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { StatusLoading } from '../../../typings/enum';
 import { User, storageTokenName } from '../../../typings/types';
-import { authScope } from '../types/types';
+import { authScope } from '../types';
 import { checkIsUserLogin, login, logout, register } from './authThunk';
 
 type State = {

@@ -1,4 +1,4 @@
-import { ImageSizes } from '../types/types';
+import { ImageSizes } from '../types';
 
 export const getImageSrc = (paths: string[] | undefined, size: ImageSizes) => {
   try {

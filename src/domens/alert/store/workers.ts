@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { AppThunk } from '../../store';
-import { AlertState, alertScope, isServerErrorStatusGuard } from '../types/types';
+import { AppThunk } from '../../../store/store';
+import { AlertState, alertScope, isServerErrorStatusGuard } from '../types';
 import { addAlertErrorAsync } from './alertThunk';
 
 const delay = 6000;

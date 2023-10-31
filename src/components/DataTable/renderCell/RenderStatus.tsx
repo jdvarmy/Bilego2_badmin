@@ -1,7 +1,7 @@
 import { ICellRendererParams } from 'ag-grid-community';
 import React, { memo } from 'react';
 
-import { StatusLabel } from '../../../UI/StatusLabel';
+import { StatusLabel } from '../../../ui/StatusLabel';
 import { PostStatus } from '../../../typings/enum';
 import { getPostStatusColor } from '../../../utils/helpers/getPostStatusColor';
 import { postStatusMap } from '../../../utils/helpers/mappers/postStatusMap';

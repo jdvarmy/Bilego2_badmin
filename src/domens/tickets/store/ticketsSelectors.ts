@@ -1,6 +1,6 @@
 import { selectSelectedDateMap } from '../../eventDates/store/eventDatesSelectors';
-import { select } from '../../selectors';
-import { RootState } from '../../store';
+import { select } from '../../../store/selectors';
+import { RootState } from '../../../store/store';
 
 export const selectTicketsStore = (state: RootState) => select(state)?.tickets;
 

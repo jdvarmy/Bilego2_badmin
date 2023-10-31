@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { StatusLoading } from '../../../typings/enum';
 import { Artist } from '../../../typings/types';
-import { artistsScope } from '../types/types';
+import { artistsScope } from '../types';
 
 type State = {
   status: StatusLoading;

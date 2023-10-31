@@ -4,7 +4,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import store from './domens/store';
+import store from './store/store';
 import './index.css';
 import LayoutRouter from './router/LayoutRouter';
 

@@ -3,9 +3,9 @@ import { AsyncThunk } from '@reduxjs/toolkit';
 import { ICellRendererParams } from 'ag-grid-community';
 import React, { MouseEventHandler, useCallback } from 'react';
 
-import { DeleteTableCellItemIcon } from '../../../UI/DeleteTableCellItemIcon';
-import { PagePostProps } from '../../../domens/post/types/types';
-import { useAppDispatch } from '../../../domens/store';
+import { DeleteTableCellItemIcon } from '../../../ui/DeleteTableCellItemIcon';
+import { PagePostProps } from '../../../domens/post/types';
+import { useAppDispatch } from '../../../store/store';
 import { PopoverDelete } from '../../PopoverDelete/PopoverDelete';
 
 export const RenderDelete =

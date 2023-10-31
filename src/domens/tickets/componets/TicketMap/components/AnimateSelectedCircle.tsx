@@ -7,7 +7,7 @@ import { DrawCircleType } from '../../../../../typings/types';
 import { useActionCreators } from '../../../../../utils/hooks/useActionCreators';
 import { selectSelectedCircles } from '../../../../circle/store/circleSelectors';
 import { circleActions } from '../../../../circle/store/circleSlice';
-import { useStateSelector } from '../../../../store';
+import { useStateSelector } from '../../../../../store/store';
 
 import KonvaEventObject = Konva.KonvaEventObject;
 

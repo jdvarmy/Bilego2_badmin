@@ -2,7 +2,7 @@ import { Box, Card, CardContent, CardHeader, Divider, Grid } from '@mui/material
 import React, { memo } from 'react';
 
 import { City } from '../../../../typings/enum';
-import { IEvent } from '../../types/types';
+import { IEvent } from '../../types';
 import { EventPlaceArtist } from './EventPlaceArtist';
 import { EventPlaceCity } from './EventPlaceCity';
 import { EventPlaceItem } from './EventPlaceItem';
@@ -14,8 +14,6 @@ type Props = {
 };
 
 export const EventPlace = memo(function EventPlace({ city, item, artist }: Props) {
-  console.log('render EventPlace');
-
   return (
     <Card>
       <CardHeader title='Место проведения события' />

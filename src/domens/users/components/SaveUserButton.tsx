@@ -4,8 +4,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { addAlertWorker } from '../../alert/store/workers';
-import { RequestUser } from '../../auth/types/types';
-import { useAppDispatch } from '../../store';
+import { RequestUser } from '../../auth/types';
+import { useAppDispatch } from '../../../store/store';
 import { saveUserAsync } from '../store/usersThuk';
 import { UserState } from './UserDataContainer';
 

@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 
 import { PostType } from '../../../../typings/enum';
 import { CardHeaderAvatar } from '../../../post/components/PostInfo/CardHeaderAvatar';
-import { IItem } from '../../type/types';
+import { IItem } from '../../types';
 import { ItemTaxonomy } from '../ItemTaxonomy/ItemTaxonomy';
 import { ItemInfoCity } from './ItemInfoCity';
 import { ItemInfoMediaDisplay } from './ItemInfoMediaDisplay';

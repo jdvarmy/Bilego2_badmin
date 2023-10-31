@@ -13,7 +13,7 @@ import { eventsActions } from '../../../events/store/eventsSlice';
 import { saveEventAsync } from '../../../events/store/eventsThunk';
 import { itemsActions } from '../../../items/store/itemsSlice';
 import { saveItemAsync } from '../../../items/store/itemsThunk';
-import { useAppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../../store/store';
 
 type Props = {
   uid?: string;
@@ -27,8 +27,6 @@ export const SlugCreator = memo(function SlugCreator({ uid, slug, type }: Props)
   const itemActions = useActionCreators(itemsActions);
   const params = useLocalSearchParams();
   const [, setSearchParams] = useSearchParams();
-
-  console.log('render SlugCreator');
 
   const [edit, setEdit] = useState<boolean>(false);
   const [localSlug, setLocalSlug] = useState<string | undefined>(slug);

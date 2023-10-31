@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { StatusLoading } from '../../../typings/enum';
 import { Ticket } from '../../../typings/types';
-import { ticketsScope } from '../types/types';
+import { ticketsScope } from '../types';
 import { getTicketsAsync, saveTicketsAsync } from './ticketsThunk';
 
 type State = {

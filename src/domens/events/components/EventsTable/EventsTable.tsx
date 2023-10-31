@@ -2,7 +2,7 @@ import { AgGridReact } from 'ag-grid-react';
 import React, { memo, useRef } from 'react';
 
 import DataTable from '../../../../components/DataTable/DataTable';
-import { defaultCountPost } from '../../../post/types/types';
+import { defaultCountPost } from '../../../post/types';
 import { useEventsTableData } from '../../hooks/useEventsTableData';
 
 export const EventsTable = memo(function EventsTable() {

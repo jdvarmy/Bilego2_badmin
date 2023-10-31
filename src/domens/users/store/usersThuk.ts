@@ -2,9 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { UserRole } from '../../../typings/enum';
 import { addAlertErrorAsync } from '../../alert/store/alertThunk';
-import { RequestUser } from '../../auth/types/types';
+import { RequestUser } from '../../auth/types';
 import { deleteUserRequest, fetchUsersRequest, getUserRequest, saveUserRequest } from '../api/usersRequests';
-import { usersScope } from '../types/types';
+import { usersScope } from '../types';
 
 export const getUsersAsync = createAsyncThunk(
   `${usersScope}/getUsersAsync`,

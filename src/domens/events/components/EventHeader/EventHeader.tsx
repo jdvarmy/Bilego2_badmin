@@ -22,8 +22,6 @@ type Props = {
 const EventHeader = ({ type }: Props) => {
   const actions = useActionCreators(eventsActions);
 
-  console.log('render EventHeader');
-
   const handleChangeTab = (_: SyntheticEvent, newValue: EventHeaderType) => {
     actions.setEventStateField({ headerType: newValue });
   };

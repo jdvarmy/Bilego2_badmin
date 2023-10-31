@@ -4,7 +4,7 @@ import TextFieldImage from '../../../../components/TextFieldImage/TextFieldImage
 import { PostType } from '../../../../typings/enum';
 import { useChangeFnMediaPostField } from '../../../post/hooks/useChangeFnMediaPostField';
 import { useDeleteFnPostField } from '../../../post/hooks/useDeleteFnPostField';
-import { IItem } from '../../type/types';
+import { IItem } from '../../types';
 
 type Props = {
   image: IItem['image'];

@@ -6,10 +6,10 @@ import React from 'react';
 import TextFieldImage from '../../../../../components/TextFieldImage/TextFieldImage';
 import { MediaSelectData } from '../../../../../typings/types';
 import { getImageSrc } from '../../../../medialibrary/helpers/getImageSrc';
-import { ImageSizes } from '../../../../medialibrary/types/types';
-import { useAppDispatch } from '../../../../store';
+import { ImageSizes } from '../../../../medialibrary/types';
+import { useAppDispatch } from '../../../../../store/store';
 import { editTaxonomyAsync } from '../../../store/taxonomyThunk';
-import { ITaxonomy } from '../../../types/types';
+import { ITaxonomy } from '../../../types';
 
 const Img = styled('img')(
   () => `

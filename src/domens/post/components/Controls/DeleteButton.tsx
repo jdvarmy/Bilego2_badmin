@@ -7,7 +7,7 @@ import { PostType } from '../../../../typings/enum';
 import { getPostTitleByType } from '../../../../utils/helpers/getPostTitleByType';
 import { deleteEventAsync } from '../../../events/store/eventsThunk';
 import { deleteItemAsync } from '../../../items/store/itemsThunk';
-import { useAppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../../store/store';
 
 type Props = { uid: string; type: PostType };
 

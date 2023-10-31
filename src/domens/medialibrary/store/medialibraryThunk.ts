@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { MediaFile } from '../../../typings/types';
 import { workerAddError } from '../../alert/store/workers';
-import { PagePostProps, defaultCountPost } from '../../post/types/types';
+import { PagePostProps, defaultCountPost } from '../../post/types';
 import {
   fetchMapItemsRequest,
   fetchMedialibraryRequest,
@@ -11,7 +11,7 @@ import {
   uploadFileMedialibraryRequest,
 } from '../api/medialibraryRequest';
 import { MapContent } from '../components/AddMapModal/AppMapModal';
-import { medialibraryScope } from '../types/types';
+import { medialibraryScope } from '../types';
 
 export const fetchMediaFilesAsync = createAsyncThunk(
   `${medialibraryScope}/fetchMediaFilesAsync`,

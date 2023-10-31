@@ -6,7 +6,7 @@ import { PostType } from '../../../../typings/enum';
 import dateTimeFormatDefault from '../../../../utils/helpers/dateTimeFormatDefault';
 import { selectEventState } from '../../../events/store/eventsSelectors';
 import { selectItemState } from '../../../items/store/itemsSelector';
-import { useStateSelector } from '../../../store';
+import { useStateSelector } from '../../../../store/store';
 
 const formatter = new Intl.DateTimeFormat('ru', dateTimeFormatDefault);
 

@@ -5,7 +5,7 @@ import { ButtonType } from '../../../../typings/enum';
 import { Ticket, TicketOnSell } from '../../../../typings/types';
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { circleActions } from '../../../circle/store/circleSlice';
-import { useAppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../../store/store';
 import { ticketsActions } from '../../store/ticketsSlice';
 import { saveTicketsAsync } from '../../store/ticketsThunk';
 

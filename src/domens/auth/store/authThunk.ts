@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { addAlertErrorAsync } from '../../alert/store/alertThunk';
 import { loginRequest, logoutRequest, refreshRequest, registerRequest } from '../api/authRequest';
-import { RequestAuth, authScope } from '../types/types';
+import { RequestAuth, authScope } from '../types';
 
 export const register = createAsyncThunk(
   `${authScope}/register`,

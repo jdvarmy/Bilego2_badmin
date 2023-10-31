@@ -2,9 +2,9 @@ import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 import { Box, Tooltip } from '@mui/material';
 import { ICellRendererParams } from 'ag-grid-community';
 import React, { memo } from 'react';
-import { NotificationsBadge } from 'src/UI/NotificationsBadge';
+import { NotificationsBadge } from 'src/ui/NotificationsBadge';
 
-import { StatusLabel } from '../../../../../../UI/StatusLabel';
+import { StatusLabel } from '../../../../../../ui/StatusLabel';
 import { getActualSell } from '../../../../../../utils/helpers/getActualSell';
 
 export const RenderTicketPrice = memo(({ data: { sell } }: ICellRendererParams) => {

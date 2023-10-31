@@ -1,8 +1,8 @@
-import { City, EventHeaderType } from '../../../typings/enum';
-import { Artist, MediaSelectData, Post, User } from '../../../typings/types';
-import { EventDate } from '../../eventDates/types/types';
-import { IItem } from '../../items/type/types';
-import { ITaxonomy } from '../../taxonomy/types/types';
+import { City, EventHeaderType } from '../../typings/enum';
+import { Artist, MediaSelectData, Post, User } from '../../typings/types';
+import { EventDate } from '../eventDates/types';
+import { IItem } from '../items/types';
+import { ITaxonomy } from '../taxonomy/types';
 
 export const eventsScope = 'events' as const;
 

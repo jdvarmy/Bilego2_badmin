@@ -5,11 +5,11 @@ import React, { forwardRef, useCallback } from 'react';
 
 import DataTable from '../../../../../components/DataTable/DataTable';
 import { TermType, TermTypeLink } from '../../../../../typings/enum';
-import { defaultCountPost } from '../../../../post/types/types';
-import { useAppDispatch } from '../../../../store';
+import { defaultCountPost } from '../../../../post/types';
+import { useAppDispatch } from '../../../../../store/store';
 import { useTaxonomyTableData } from '../../../hooks/useTaxonomyTableData';
 import { editTaxonomyAsync } from '../../../store/taxonomyThunk';
-import { ITaxonomy } from '../../../types/types';
+import { ITaxonomy } from '../../../types';
 
 type Props = {
   type: TermType;

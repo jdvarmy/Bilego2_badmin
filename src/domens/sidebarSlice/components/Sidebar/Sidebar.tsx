@@ -4,7 +4,7 @@ import { Scrollbars } from 'react-custom-scrollbars-2';
 
 import Logo from '../../../../components/Logo/Logo';
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
-import { useStateSelector } from '../../../store';
+import { useStateSelector } from '../../../../store/store';
 import { selectSidebarShow } from '../../store/sidebarSelectors';
 import { sidebarActions } from '../../store/sidebarSlice';
 import SidebarMenu from '../SidebarMenu/SidebarMenu';

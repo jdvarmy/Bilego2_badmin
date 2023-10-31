@@ -19,7 +19,7 @@ import { selectEventState } from '../../domens/events/store/eventsSelectors';
 import { getEventAsync } from '../../domens/events/store/eventsThunk';
 import { workerEventClear } from '../../domens/events/store/worckers';
 import { Controls } from '../../domens/post/components/Controls/Controls';
-import { useAppDispatch, useStateSelector } from '../../domens/store';
+import { useAppDispatch, useStateSelector } from '../../store/store';
 import { PostType } from '../../typings/enum';
 
 const EditEvent = () => {

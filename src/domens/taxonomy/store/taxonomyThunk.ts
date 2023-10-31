@@ -1,14 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { workerAddError } from '../../alert/store/workers';
-import { PagePostProps } from '../../post/types/types';
+import { PagePostProps } from '../../post/types';
 import {
   deleteTaxonomyRequest,
   fetchTaxonomyRequest,
   putTaxonomyRequest,
   saveTaxonomyRequest,
 } from '../api/taxonomyRequest';
-import { ITaxonomy, taxonomyScope } from '../types/types';
+import { ITaxonomy, taxonomyScope } from '../types';
 
 export const fetchTaxonomyAsync = createAsyncThunk(
   `${taxonomyScope}/getTaxonomyAsync`,

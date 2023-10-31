@@ -4,8 +4,8 @@ import React, { memo, useCallback, useMemo, useState } from 'react';
 import { TermType, TermTypeLink } from '../../../../typings/enum';
 import { isEqual } from '../../../../utils/helpers/isEqual';
 import { useTaxonomyRequest } from '../../../../utils/hooks/useTaxonomyRequest';
-import { ITaxonomy } from '../../../taxonomy/types/types';
-import { IEvent } from '../../types/types';
+import { ITaxonomy } from '../../../taxonomy/types';
+import { IEvent } from '../../types';
 import { EventTaxonomyElement } from './EventTaxonomyElement';
 
 type Props<T> = { uid: IEvent['uid']; stateTaxonomy: T };
@@ -15,8 +15,6 @@ export const EventTaxonomy = memo(function EventTaxonomy<T extends IEvent['taxon
   stateTaxonomy,
 }: Props<T>) {
   const [taxonomies, setTaxonomies] = useState<IEvent['taxonomy']>([]);
-
-  console.log('render EventTaxonomy');
 
   const getTax = useCallback(
     (type: TermType, taxes: IEvent['taxonomy'] | ITaxonomy[]): IEvent['taxonomy'] =>

@@ -10,7 +10,7 @@ import { selectItemState } from '../../domens/items/store/itemsSelector';
 import { getItemAsync } from '../../domens/items/store/itemsThunk';
 import { workerItemClear } from '../../domens/items/store/workers';
 import { Controls } from '../../domens/post/components/Controls/Controls';
-import { useAppDispatch, useStateSelector } from '../../domens/store';
+import { useAppDispatch, useStateSelector } from '../../store/store';
 import { PostType } from '../../typings/enum';
 
 const EditItem = () => {

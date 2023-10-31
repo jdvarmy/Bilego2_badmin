@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { StatusLoading } from '../../../typings/enum';
-import { ItemsPageProps } from '../../post/types/types';
-import { IItem, itemsScope } from '../type/types';
+import { ItemsPageProps } from '../../post/types';
+import { IItem, itemsScope } from '../types';
 import { fetchItemsAsync, getItemAsync, saveItemAsync, saveTemplateItemAsync } from './itemsThunk';
 
 type State = {

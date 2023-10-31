@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
 
 import { addAlertErrorAsync } from '../../domens/alert/store/alertThunk';
-import { PagePostProps } from '../../domens/post/types/types';
-import { useAppDispatch } from '../../domens/store';
+import { PagePostProps } from '../../domens/post/types';
+import { useAppDispatch } from '../../store/store';
 import { fetchTaxonomyRequest } from '../../domens/taxonomy/api/taxonomyRequest';
-import { ITaxonomy } from '../../domens/taxonomy/types/types';
+import { ITaxonomy } from '../../domens/taxonomy/types';
 
 export function useTaxonomyRequest<T>(
   filter: PagePostProps<ITaxonomy>,

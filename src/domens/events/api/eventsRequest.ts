@@ -1,6 +1,6 @@
 import requests from '../../../utils/api/api';
-import { PagePostProps, PagePostPropsResponseType } from '../../post/types/types';
-import { EventRequest, IEvent, eventsScope } from '../types/types';
+import { PagePostProps, PagePostPropsResponseType } from '../../post/types';
+import { EventRequest, IEvent, eventsScope } from '../types';
 
 export const fetchEventsRequest = <EVENT extends IEvent>(props?: PagePostProps<EVENT>) =>
   requests.get<PagePostPropsResponseType<EVENT>>(eventsScope, props);

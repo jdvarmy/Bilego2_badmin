@@ -5,9 +5,9 @@ import React, { useCallback, useState } from 'react';
 
 import { TicketType } from '../../../../typings/enum';
 import { editEventDateAsync } from '../../../eventDates/store/eventDateThunk';
-import { EventDate } from '../../../eventDates/types/types';
+import { EventDate } from '../../../eventDates/types';
 import AppMapModal from '../../../medialibrary/components/AddMapModal/AppMapModal';
-import { useAppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../../store/store';
 
 type Props = {
   selectedDate?: EventDate;

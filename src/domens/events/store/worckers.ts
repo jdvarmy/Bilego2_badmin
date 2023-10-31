@@ -4,9 +4,9 @@ import { addAlertErrorAsync } from '../../alert/store/alertThunk';
 import { fetchArtistsRequest } from '../../artists/api/artistsRequest';
 import { eventDatesActions } from '../../eventDates/store/eventDatesSlice';
 import { fetchItemsRequest } from '../../items/api/itemsRequest';
-import { IItem } from '../../items/type/types';
-import { PagePostProps } from '../../post/types/types';
-import { EventRequest, IEvent, eventsScope } from '../types/types';
+import { IItem } from '../../items/types';
+import { PagePostProps } from '../../post/types';
+import { EventRequest, IEvent, eventsScope } from '../types';
 import { eventsActions } from './eventsSlice';
 
 export const workerEventClear = createAsyncThunk(`${eventsScope}/workerEventClear`, (_, { dispatch }) => {

@@ -2,7 +2,7 @@ import { ColDef } from 'ag-grid-community';
 
 import { Ticket } from '../../../typings/types';
 import cloneDeep from '../../../utils/helpers/cloneDeep';
-import { useStateSelector } from '../../store';
+import { useStateSelector } from '../../../store/store';
 import { cellManagement } from '../componets/TicketSimple/components/cell/cellManagement';
 import { cellTicketColor } from '../componets/TicketSimple/components/cell/cellTicketColor';
 import { cellTicketDates } from '../componets/TicketSimple/components/cell/cellTicketDates';

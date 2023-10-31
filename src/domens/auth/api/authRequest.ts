@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { axiosBaseUrl } from '../../../typings/types';
 import requests from '../../../utils/api/api';
-import { RequestAuth, ResponseAuth } from '../types/types';
+import { RequestAuth, ResponseAuth } from '../types';
 
 export const refreshRequest = () =>
   axios.get<ResponseAuth>(`${axiosBaseUrl}auth/refresh`, {

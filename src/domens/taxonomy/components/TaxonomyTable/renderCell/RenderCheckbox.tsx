@@ -2,9 +2,9 @@ import { Box, Checkbox } from '@mui/material';
 import { ICellRendererParams } from 'ag-grid-community';
 import React, { useState } from 'react';
 
-import { useAppDispatch } from '../../../../store';
+import { useAppDispatch } from '../../../../../store/store';
 import { editTaxonomyAsync } from '../../../store/taxonomyThunk';
-import { ITaxonomy } from '../../../types/types';
+import { ITaxonomy } from '../../../types';
 
 export const RenderCheckbox = (name: keyof Pick<ITaxonomy, 'showInMainPage' | 'showInMenu'>) => {
   return function RenderCheckbox(props: ICellRendererParams) {

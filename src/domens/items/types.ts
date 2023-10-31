@@ -1,6 +1,6 @@
-import { City } from '../../../typings/enum';
-import { MediaSelectData, Post } from '../../../typings/types';
-import { ITaxonomy } from '../../taxonomy/types/types';
+import { City } from '../../typings/enum';
+import { MediaSelectData, Post } from '../../typings/types';
+import { ITaxonomy } from '../taxonomy/types';
 
 export const itemsScope = 'items' as const;
 

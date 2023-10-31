@@ -5,8 +5,8 @@ import React from 'react';
 
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { eventsActions } from '../../../events/store/eventsSlice';
-import { IEvent } from '../../../events/types/types';
-import { EventDate } from '../../types/types';
+import { IEvent } from '../../../events/types';
+import { EventDate } from '../../types';
 
 type Props = {
   selectDate?: EventDate;

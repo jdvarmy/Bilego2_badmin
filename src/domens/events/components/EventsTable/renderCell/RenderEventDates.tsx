@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import { ICellRendererParams } from 'ag-grid-community';
 import React, { memo } from 'react';
 
-import { StatusLabel } from '../../../../../UI/StatusLabel';
+import { StatusLabel } from '../../../../../ui/StatusLabel';
 import { localFormatterFunc } from '../../../../../utils/helpers/dateFormatterFunc';
 import { getActualDate } from '../../../../../utils/helpers/getActualDate';
 

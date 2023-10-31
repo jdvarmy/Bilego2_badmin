@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { addAlertErrorAsync } from '../../alert/store/alertThunk';
 import { deleteEventDateRequest, editEventDateRequest, saveEventDateRequest } from '../api/eventDatesRequest';
-import { EventDate, eventDatesScope } from '../types/types';
+import { EventDate, eventDatesScope } from '../types';
 
 export const saveTemplateEventDateAsync = createAsyncThunk(
   `${eventDatesScope}/saveTemplateEventDateAsync`,

@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import { ICellRendererParams } from 'ag-grid-community';
 import React, { memo } from 'react';
 
-import { StatusLabel } from '../../../../../../UI/StatusLabel';
+import { StatusLabel } from '../../../../../../ui/StatusLabel';
 import { TicketOnSell } from '../../../../../../typings/types';
 import { localFormatterFunc } from '../../../../../../utils/helpers/dateFormatterFunc';
 import { getActualDate } from '../../../../../../utils/helpers/getActualDate';

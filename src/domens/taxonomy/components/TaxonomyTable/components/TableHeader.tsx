@@ -5,10 +5,10 @@ import CyrillicToTranslit from 'cyrillic-to-translit-js';
 import React, { forwardRef, useCallback, useEffect } from 'react';
 
 import { TermType, TermTypeLink } from '../../../../../typings/enum';
-import { useAppDispatch } from '../../../../store';
+import { useAppDispatch } from '../../../../../store/store';
 import { useTaxonomyHeaderFields } from '../../../hooks/useTaxonomyHeaderFields';
 import { saveTaxonomyAsync } from '../../../store/taxonomyThunk';
-import { ITaxonomy } from '../../../types/types';
+import { ITaxonomy } from '../../../types';
 
 type Props = {
   type: TermType;

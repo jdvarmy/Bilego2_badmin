@@ -1,7 +1,7 @@
 import { MediaFile } from '../../../typings/types';
 import requests from '../../../utils/api/api';
-import { PagePostProps, PagePostPropsResponseType } from '../../post/types/types';
-import { mapScope, mediaScope } from '../types/types';
+import { PagePostProps, PagePostPropsResponseType } from '../../post/types';
+import { mapScope, mediaScope } from '../types';
 
 export const fetchMedialibraryRequest = <MEDIA extends MediaFile>(props?: PagePostProps<MEDIA>) =>
   requests.get<PagePostPropsResponseType<MEDIA>>(mediaScope, props);

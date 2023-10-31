@@ -23,7 +23,7 @@ import { loginPage } from 'src/typings/types';
 
 import { selectAuthUser } from '../../../domens/auth/store/authSelector';
 import { logout } from '../../../domens/auth/store/authThunk';
-import { useAppDispatch, useStateSelector } from '../../../domens/store';
+import { useAppDispatch, useStateSelector } from '../../../store/store';
 import { UserRole } from '../../../typings/enum';
 
 const UserBoxButton = styled(Button)(

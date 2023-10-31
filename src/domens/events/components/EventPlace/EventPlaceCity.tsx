@@ -6,7 +6,7 @@ import { City, PostType } from '../../../../typings/enum';
 import { cityMap } from '../../../../utils/helpers/mappers/cityMap';
 import { ChangePostFieldType, useChangeFnFieldPostField } from '../../../post/hooks/useChangeFnFieldPostField';
 import { useDeleteFnPostField } from '../../../post/hooks/useDeleteFnPostField';
-import { IEvent } from '../../types/types';
+import { IEvent } from '../../types';
 
 type Props = {
   city?: City;

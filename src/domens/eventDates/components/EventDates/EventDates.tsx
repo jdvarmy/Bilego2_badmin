@@ -11,8 +11,8 @@ import { TicketType } from '../../../../typings/enum';
 import { isEqual } from '../../../../utils/helpers/isEqual';
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { eventsActions } from '../../../events/store/eventsSlice';
-import { IEvent } from '../../../events/types/types';
-import { useAppDispatch, useStateSelector } from '../../../store';
+import { IEvent } from '../../../events/types';
+import { useAppDispatch, useStateSelector } from '../../../../store/store';
 import { deleteEventDateAsync, saveTemplateEventDateAsync } from '../../store/eventDateThunk';
 import { selectEventDateSelectedUid } from '../../store/eventDatesSelectors';
 import { eventDatesActions } from '../../store/eventDatesSlice';
@@ -28,8 +28,6 @@ const EventDates = ({ uid, dates }: Props) => {
   const actionsCreatorEvents = useActionCreators(eventsActions);
   const actionsCreatorEventDates = useActionCreators(eventDatesActions);
   const selectedDateUid = useStateSelector(selectEventDateSelectedUid);
-
-  console.log('render EventDates');
 
   const handleChangeTab = (_: SyntheticEvent, newValue: string) => {
     actionsCreatorEventDates.setSelectedDateUid(newValue);

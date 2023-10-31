@@ -6,7 +6,7 @@ import React, { useMemo, useState } from 'react';
 import TextFieldImage, { MediaTextFieldProps } from '../../../components/TextFieldImage/TextFieldImage';
 import { TermType, TermTypeLink } from '../../../typings/enum';
 import { MediaSelectData } from '../../../typings/types';
-import { ITaxonomy } from '../types/types';
+import { ITaxonomy } from '../types';
 
 type Props = {
   type: TermType;

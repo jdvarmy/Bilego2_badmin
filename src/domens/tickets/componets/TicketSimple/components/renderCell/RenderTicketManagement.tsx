@@ -5,7 +5,7 @@ import { ICellRendererParams } from 'ag-grid-community';
 import React, { useCallback, useMemo } from 'react';
 
 import { useActionCreators } from '../../../../../../utils/hooks/useActionCreators';
-import { useStateSelector } from '../../../../../store';
+import { useStateSelector } from '../../../../../../store/store';
 import { selectTicketsStore } from '../../../../store/ticketsSelectors';
 import { ticketsActions } from '../../../../store/ticketsSlice';
 import { TicketControlDeleteTicketButton } from '../../../TicketControls/TicketControlDeleteTicketButton';

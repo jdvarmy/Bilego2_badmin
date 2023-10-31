@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import SuspenseLoader from '../../../components/SuspenseLoader/SuspenseLoader';
 import { StatusLoading, UserRole } from '../../../typings/enum';
 import { loginPage } from '../../../typings/types';
-import { useAppDispatch, useStateSelector } from '../../store';
+import { useAppDispatch, useStateSelector } from '../../../store/store';
 import { selectAuthStore } from '../store/authSelector';
 import { checkIsUserLogin } from '../store/authThunk';
 

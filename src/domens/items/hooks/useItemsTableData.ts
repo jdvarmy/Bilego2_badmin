@@ -8,10 +8,10 @@ import { cellTitle } from '../../../components/DataTable/cells/cellTitle';
 import { filterModelParser } from '../../../components/DataTable/parser/filterModelParser';
 import { RenderDelete } from '../../../components/DataTable/renderCell/RenderDelete';
 import { isPagePostPropsResponseTypeGuard } from '../../../typings/types';
-import { defaultCountPost } from '../../post/types/types';
-import { useAppDispatch } from '../../store';
+import { defaultCountPost } from '../../post/types';
+import { useAppDispatch } from '../../../store/store';
 import { deleteItemAsync, fetchItemsAsync } from '../store/itemsThunk';
-import { IItem, itemsScope } from '../type/types';
+import { IItem, itemsScope } from '../types';
 
 type ItemColumns = Pick<IItem, 'title' | 'status' | 'city'>;
 

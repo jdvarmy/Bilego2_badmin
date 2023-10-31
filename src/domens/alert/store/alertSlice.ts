@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { AlertState, alertScope } from '../types/types';
+import { AlertState, alertScope } from '../types';
 
 const initialState: { show: boolean; message: AlertState; archive: string[] } = {
   show: false,

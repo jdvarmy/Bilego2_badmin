@@ -2,8 +2,8 @@ import { Box, Card, CardMedia, Typography } from '@mui/material';
 import React from 'react';
 
 import { getImageSrc } from '../../../medialibrary/helpers/getImageSrc';
-import { ImageSizes } from '../../../medialibrary/types/types';
-import { IEvent } from '../../types/types';
+import { ImageSizes } from '../../../medialibrary/types';
+import { IEvent } from '../../types';
 
 type Props = {
   image?: IEvent['headerImage'];

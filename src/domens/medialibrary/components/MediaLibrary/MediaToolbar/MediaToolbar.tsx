@@ -16,7 +16,7 @@ import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
 import UploadFiles from '../../../../../components/UploadFiles/UploadFiles';
 import { StatusLoading } from '../../../../../typings/enum';
-import { useAppDispatch, useStateSelector } from '../../../../store';
+import { useAppDispatch, useStateSelector } from '../../../../../store/store';
 import { selectMedialibraryFiles, selectMedialibraryStatus } from '../../../store/medialibrarySelectors';
 import { uploadFileAsync } from '../../../store/medialibraryThunk';
 

@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { addAlertSuccessAsync } from '../../alert/store/alertThunk';
 import { workerAddError } from '../../alert/store/workers';
-import { PagePostProps } from '../../post/types/types';
-import { RootState } from '../../store';
+import { PagePostProps } from '../../post/types';
+import { RootState } from '../../../store/store';
 import {
   deleteItemRequest,
   fetchItemsRequest,
@@ -11,7 +11,7 @@ import {
   postTemplateItemRequest,
   putItemRequest,
 } from '../api/itemsRequest';
-import { IItem, itemsScope } from '../type/types';
+import { IItem, itemsScope } from '../types';
 import { selectItemState } from './itemsSelector';
 import { workerPrepareData } from './workers';
 

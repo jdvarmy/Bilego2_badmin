@@ -10,8 +10,8 @@ import {
 import dateTimeFormatDefault from '../../../../utils/helpers/dateTimeFormatDefault';
 import { isEqual } from '../../../../utils/helpers/isEqual';
 import { getImageSrc } from '../../../medialibrary/helpers/getImageSrc';
-import { ImageSizes } from '../../../medialibrary/types/types';
-import { useStateSelector } from '../../../store';
+import { ImageSizes } from '../../../medialibrary/types';
+import { useStateSelector } from '../../../../store/store';
 import { selectEventStateImageData } from '../../store/eventsSelectors';
 
 const formatter = new Intl.DateTimeFormat('ru', {
@@ -25,8 +25,6 @@ const formatter = new Intl.DateTimeFormat('ru', {
 
 export const EventInfoMediaDisplay = memo(function EventInfoMediaDisplay() {
   const { image, title, date } = useStateSelector(selectEventStateImageData, isEqual);
-
-  console.log('render EventInfoMediaDisplay');
 
   return (
     <StyledCard>

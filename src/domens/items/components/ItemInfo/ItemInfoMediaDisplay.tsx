@@ -8,14 +8,12 @@ import {
 
 import { isEqual } from '../../../../utils/helpers/isEqual';
 import { getImageSrc } from '../../../medialibrary/helpers/getImageSrc';
-import { ImageSizes } from '../../../medialibrary/types/types';
-import { useStateSelector } from '../../../store';
+import { ImageSizes } from '../../../medialibrary/types';
+import { useStateSelector } from '../../../../store/store';
 import { selectItemStateImageData } from '../../store/itemsSelector';
 
 export const ItemInfoMediaDisplay = memo(function ItemInfoMediaDisplay() {
   const { image, title } = useStateSelector(selectItemStateImageData, isEqual);
-
-  console.log('render ItemInfoMediaDisplay');
 
   return (
     <StyledCard>

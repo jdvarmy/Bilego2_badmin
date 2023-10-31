@@ -5,9 +5,9 @@ import SelectWithSearch from '../../../../components/SelectWithSearch/SelectWith
 import { PostType } from '../../../../typings/enum';
 import { useChangeFnFieldPostField } from '../../../post/hooks/useChangeFnFieldPostField';
 import { useDeleteFnPostField } from '../../../post/hooks/useDeleteFnPostField';
-import { useAppDispatch } from '../../../store';
+import { useAppDispatch } from '../../../../store/store';
 import { workerGetArtistListForEvent } from '../../store/worckers';
-import { IEvent } from '../../types/types';
+import { IEvent } from '../../types';
 
 type Props = {
   artist?: IEvent['artist'];

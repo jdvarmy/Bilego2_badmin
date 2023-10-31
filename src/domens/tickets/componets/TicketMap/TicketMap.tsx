@@ -7,7 +7,7 @@ import { Provider, ReactReduxContext } from 'react-redux';
 import { isEqual } from '../../../../utils/helpers/isEqual';
 import { useResizeObserver } from '../../../../utils/hooks/useResizeObserver';
 import { selectSelectedDateMap } from '../../../eventDates/store/eventDatesSelectors';
-import { useStateSelector } from '../../../store';
+import { useStateSelector } from '../../../../store/store';
 import ActiveCanvas from './ActiveCanvas';
 import Paths from './Paths';
 import StaticCanvas from './StaticCanvas';

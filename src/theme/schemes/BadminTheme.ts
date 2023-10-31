@@ -1050,7 +1050,7 @@ export const BadminTheme = createTheme({
   typography: {
     fontFamily: [
       '"Inter"',
-      '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
+      '-apple-system,BlinkMacSystemFont,"Segoe ui",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe ui Emoji","Segoe ui Symbol"',
     ].join(','),
     fontSize: 14,
     htmlFontSize: 15,

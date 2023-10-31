@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { login } from '../../domens/auth/store/authThunk';
-import { useAppDispatch } from '../../domens/store';
+import { useAppDispatch } from '../../store/store';
 
 const Wrapper = styled(Container)(
   () => `

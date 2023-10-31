@@ -7,7 +7,7 @@ import LoginButton from '../../domens/auth/components/LoginButton/LoginButton';
 import HiddenIsNotAuthorized from '../../domens/auth/hoc/HiddenIsNotAuthorized';
 import { selectSidebarShow } from '../../domens/sidebarSlice/store/sidebarSelectors';
 import { sidebarActions } from '../../domens/sidebarSlice/store/sidebarSlice';
-import { useStateSelector } from '../../domens/store';
+import { useStateSelector } from '../../store/store';
 import { useActionCreators } from '../../utils/hooks/useActionCreators';
 import HeaderButtons from './HeaderButtons/HeaderButtons';
 import HeaderUserBox from './HeaderUserBox/HeaderUserBox';

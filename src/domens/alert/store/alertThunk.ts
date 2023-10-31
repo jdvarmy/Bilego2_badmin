@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { v4 as uidv4 } from 'uuid';
 
 import dateTimeFormatDefault from '../../../utils/helpers/dateTimeFormatDefault';
-import { ServerErrorStatus, SuccessType, alertScope, isServerErrorStatusGuard } from '../types/types';
+import { ServerErrorStatus, SuccessType, alertScope, isServerErrorStatusGuard } from '../types';
 
 const delay = 9000;
 const formatter = new Intl.DateTimeFormat('ru', dateTimeFormatDefault);

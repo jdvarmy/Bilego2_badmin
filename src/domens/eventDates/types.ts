@@ -1,5 +1,5 @@
-import { TicketType } from '../../../typings/enum';
-import { MapFile } from '../../../typings/types';
+import { TicketType } from '../../typings/enum';
+import { MapFile } from '../../typings/types';
 
 export const eventDatesScope = 'eventDates' as const;
 

@@ -1,5 +1,5 @@
-import { UserRole } from '../../../typings/enum';
-import { User } from '../../../typings/types';
+import { UserRole } from '../../typings/enum';
+import { User } from '../../typings/types';
 
 export const authScope = 'auth' as const;
 

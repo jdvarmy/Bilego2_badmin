@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import * as qs from 'qs';
 
-import { ResponseAuth } from '../../domens/auth/types/types';
+import { ResponseAuth } from '../../domens/auth/types';
 import { axiosBaseUrl, storageTokenName } from '../../typings/types';
 
 const baseConfig = {

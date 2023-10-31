@@ -1,7 +1,7 @@
 import { ActionCreatorsMapObject, bindActionCreators } from '@reduxjs/toolkit';
 import { useMemo } from 'react';
 
-import { useAppDispatch } from '../../domens/store';
+import { useAppDispatch } from '../../store/store';
 
 export const useActionCreators = (actionsObject: ActionCreatorsMapObject): ActionCreatorsMapObject => {
   const dispatch = useAppDispatch();

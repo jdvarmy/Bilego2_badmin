@@ -8,13 +8,13 @@ import { TermType, TermTypeLink } from '../../../typings/enum';
 import { isPagePostPropsResponseTypeGuard } from '../../../typings/types';
 import cloneDeep from '../../../utils/helpers/cloneDeep';
 import { translitSlug } from '../../../utils/helpers/translitSlug';
-import { defaultCountPost } from '../../post/types/types';
-import { useAppDispatch } from '../../store';
+import { defaultCountPost } from '../../post/types';
+import { useAppDispatch } from '../../../store/store';
 import { RenderCheckbox } from '../components/TaxonomyTable/renderCell/RenderCheckbox';
 import { RenderImage } from '../components/TaxonomyTable/renderCell/RenderImage';
 import { nameMap } from '../helpers/nameMap';
 import { deleteTaxonomyAsync, fetchTaxonomyAsync } from '../store/taxonomyThunk';
-import { ITaxonomy } from '../types/types';
+import { ITaxonomy } from '../types';
 
 type Props = {
   type: TermType;

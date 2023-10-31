@@ -1,18 +1,18 @@
 import { Action, ThunkAction, combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-import { alertReducer } from './alert/store/alertSlice';
-import { artistsReducer } from './artists/store/artistsSlice';
-import { authReducer } from './auth/store/authSlice';
-import { circleReducer } from './circle/store/circleSlice';
-import { eventDatesReducer } from './eventDates/store/eventDatesSlice';
-import { eventsReducer } from './events/store/eventsSlice';
-import { itemsReducer } from './items/store/itemsSlice';
-import { medialibraryReducer } from './medialibrary/store/medialibrarySlice';
-import { sidebarReducer } from './sidebarSlice/store/sidebarSlice';
-import { taxonomyReducer } from './taxonomy/store/taxonomySlice';
-import { ticketsReducer } from './tickets/store/ticketsSlice';
-import { usersReducer } from './users/store/usersSlice';
+import { alertReducer } from '../domens/alert/store/alertSlice';
+import { artistsReducer } from '../domens/artists/store/artistsSlice';
+import { authReducer } from '../domens/auth/store/authSlice';
+import { circleReducer } from '../domens/circle/store/circleSlice';
+import { eventDatesReducer } from '../domens/eventDates/store/eventDatesSlice';
+import { eventsReducer } from '../domens/events/store/eventsSlice';
+import { itemsReducer } from '../domens/items/store/itemsSlice';
+import { medialibraryReducer } from '../domens/medialibrary/store/medialibrarySlice';
+import { sidebarReducer } from '../domens/sidebarSlice/store/sidebarSlice';
+import { taxonomyReducer } from '../domens/taxonomy/store/taxonomySlice';
+import { ticketsReducer } from '../domens/tickets/store/ticketsSlice';
+import { usersReducer } from '../domens/users/store/usersSlice';
 
 const reducer = combineReducers({
   sidebar: sidebarReducer,

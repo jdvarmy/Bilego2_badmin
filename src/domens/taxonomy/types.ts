@@ -1,5 +1,5 @@
-import { TermType, TermTypeLink } from '../../../typings/enum';
-import { MediaSelectData } from '../../../typings/types';
+import { TermType, TermTypeLink } from '../../typings/enum';
+import { MediaSelectData } from '../../typings/types';
 
 export const taxonomyScope = 'taxonomy' as const;
 

@@ -7,11 +7,11 @@ import { TermType } from '../../../../typings/enum';
 import { isEqual } from '../../../../utils/helpers/isEqual';
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { ChangePostFieldType } from '../../../post/hooks/useChangeFnFieldPostField';
-import { useAppDispatch, useStateSelector } from '../../../store';
+import { useAppDispatch, useStateSelector } from '../../../../store/store';
 import { selectEvent } from '../../store/eventsSelectors';
 import { eventsActions } from '../../store/eventsSlice';
 import { saveEventAsync } from '../../store/eventsThunk';
-import { IEvent } from '../../types/types';
+import { IEvent } from '../../types';
 
 type Props<T> = { type: TermType; eventUid: IEvent['uid']; selected: T; taxonomies: T; stateTaxonomy: T };
 

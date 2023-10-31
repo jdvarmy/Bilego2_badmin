@@ -2,8 +2,8 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 import { StatusLoading } from '../../../typings/enum';
 import { MapFile, MediaFile } from '../../../typings/types';
-import { ItemsPageProps, defaultCountPost } from '../../post/types/types';
-import { medialibraryScope } from '../types/types';
+import { ItemsPageProps, defaultCountPost } from '../../post/types';
+import { medialibraryScope } from '../types';
 import { fetchMediaFilesAsync, getMapListAsync } from './medialibraryThunk';
 
 type State = {

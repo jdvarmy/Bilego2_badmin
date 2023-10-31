@@ -7,11 +7,11 @@ import { TermType } from '../../../../typings/enum';
 import { isEqual } from '../../../../utils/helpers/isEqual';
 import { useActionCreators } from '../../../../utils/hooks/useActionCreators';
 import { ChangePostFieldType } from '../../../post/hooks/useChangeFnFieldPostField';
-import { useAppDispatch, useStateSelector } from '../../../store';
+import { useAppDispatch, useStateSelector } from '../../../../store/store';
 import { selectItem } from '../../store/itemsSelector';
 import { itemsActions } from '../../store/itemsSlice';
 import { saveItemAsync } from '../../store/itemsThunk';
-import { IItem } from '../../type/types';
+import { IItem } from '../../types';
 
 type Props<T> = { type: TermType; eventUid: IItem['uid']; selected: T; taxonomies: T; stateTaxonomy: T };
 
@@ -26,8 +26,6 @@ export const ItemTaxonomyElement = memo(function EventTaxonomyElement<T extends 
   const actions = useActionCreators(itemsActions);
   const taxonomy = useStateSelector((state) => selectItem(state).taxonomy);
   const [localTax, setLocalTax] = useState<IItem['taxonomy']>(() => taxonomies);
-
-  console.info('render ItemTaxonomyElement');
 
   const handleChangeTaxonomy = useCallback(
     (event: ChangePostFieldType) => {

@@ -20,7 +20,7 @@ import { useChangeFnCheckboxPostField } from '../../../post/hooks/useChangeFnChe
 import { useChangeFnFieldPostField } from '../../../post/hooks/useChangeFnFieldPostField';
 import { useChangeFnMediaPostField } from '../../../post/hooks/useChangeFnMediaPostField';
 import { useDeleteFnPostField } from '../../../post/hooks/useDeleteFnPostField';
-import { IEvent } from '../../types/types';
+import { IEvent } from '../../types';
 import { EventInfoManager } from './EventInfoManager';
 import { EventInfoMediaDisplay } from './EventInfoMediaDisplay';
 
@@ -51,7 +51,6 @@ export const EventInfo = memo(function EventInfo({
   concertManagerInfo,
   concertManagerPercentage,
 }: Props) {
-  console.log('render EventInfo');
   const type = PostType.event;
 
   const handleChangeTitle = useChangeFnFieldPostField({ field: 'title', type });

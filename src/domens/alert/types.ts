@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 
-import { isObjectGuard } from '../../../typings/types';
+import { isObjectGuard } from '../../typings/types';
 
 export const alertScope = 'alert' as const;
 
